@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>bids.variables.variables.SimpleVariable &mdash; bids 0.6.5+88.gb418631 documentation</title>
+  <title>bids.variables.variables.SimpleVariable &mdash; bids 0.8.0+2.gd85469c documentation</title>
   
 
   
@@ -37,7 +37,7 @@
         <link rel="index" title="Index"
               href="../genindex.html"/>
         <link rel="search" title="Search" href="../search.html"/>
-    <link rel="top" title="bids 0.6.5+88.gb418631 documentation" href="../index.html"/>
+    <link rel="top" title="bids 0.8.0+2.gd85469c documentation" href="../index.html"/>
         <link rel="up" title="bids.variables.variables" href="bids.variables.variables.html"/> 
 
   
@@ -194,7 +194,7 @@ information.</p>
 <li><strong>data</strong> (<em>DataFrame</em>) – A pandas DataFrame minimally containing a column
 named ‘amplitude’ as well as any identifying entities.</li>
 <li><strong>source</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a>) – The type of BIDS variable file the data were extracted
-from. Must be one of: ‘events’, ‘physio’, ‘stim’, ‘confounds’,
+from. Must be one of: ‘events’, ‘physio’, ‘stim’, ‘regressors’,
 ‘scans’, ‘sessions’, ‘participants’, or ‘beh’.</li>
 <li><strong>kwargs</strong> – Optional keyword arguments passed onto superclass.</li>
 </ul>
@@ -227,10 +227,13 @@ from. Must be one of: ‘events’, ‘physio’, ‘stim’, ‘confounds’,
 <tr class="row-even"><td><a class="reference internal" href="#bids.variables.variables.SimpleVariable.merge" title="bids.variables.variables.SimpleVariable.merge"><code class="xref py py-obj docutils literal"><span class="pre">merge</span></code></a>(variables[,&nbsp;name])</td>
 <td>Merge/concatenate a list of variables along the row axis.</td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="#bids.variables.variables.SimpleVariable.split" title="bids.variables.variables.SimpleVariable.split"><code class="xref py py-obj docutils literal"><span class="pre">split</span></code></a>(grouper)</td>
+<tr class="row-odd"><td><a class="reference internal" href="#bids.variables.variables.SimpleVariable.select_rows" title="bids.variables.variables.SimpleVariable.select_rows"><code class="xref py py-obj docutils literal"><span class="pre">select_rows</span></code></a>(rows)</td>
+<td>Truncate internal arrays to keep only the specified rows.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#bids.variables.variables.SimpleVariable.split" title="bids.variables.variables.SimpleVariable.split"><code class="xref py py-obj docutils literal"><span class="pre">split</span></code></a>(grouper)</td>
 <td>Split the current SparseRunVariable into multiple columns.</td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="#bids.variables.variables.SimpleVariable.to_df" title="bids.variables.variables.SimpleVariable.to_df"><code class="xref py py-obj docutils literal"><span class="pre">to_df</span></code></a>([condition,&nbsp;entities])</td>
+<tr class="row-odd"><td><a class="reference internal" href="#bids.variables.variables.SimpleVariable.to_df" title="bids.variables.variables.SimpleVariable.to_df"><code class="xref py py-obj docutils literal"><span class="pre">to_df</span></code></a>([condition,&nbsp;entities])</td>
 <td>Convert to a DataFrame, with columns for name and entities.</td>
 </tr>
 </tbody>
@@ -268,10 +271,13 @@ from. Must be one of: ‘events’, ‘physio’, ‘stim’, ‘confounds’,
 <tr class="row-odd"><td><a class="reference internal" href="#bids.variables.variables.SimpleVariable.merge" title="bids.variables.variables.SimpleVariable.merge"><code class="xref py py-obj docutils literal"><span class="pre">merge</span></code></a>(variables[,&nbsp;name])</td>
 <td>Merge/concatenate a list of variables along the row axis.</td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="#bids.variables.variables.SimpleVariable.split" title="bids.variables.variables.SimpleVariable.split"><code class="xref py py-obj docutils literal"><span class="pre">split</span></code></a>(grouper)</td>
+<tr class="row-even"><td><a class="reference internal" href="#bids.variables.variables.SimpleVariable.select_rows" title="bids.variables.variables.SimpleVariable.select_rows"><code class="xref py py-obj docutils literal"><span class="pre">select_rows</span></code></a>(rows)</td>
+<td>Truncate internal arrays to keep only the specified rows.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#bids.variables.variables.SimpleVariable.split" title="bids.variables.variables.SimpleVariable.split"><code class="xref py py-obj docutils literal"><span class="pre">split</span></code></a>(grouper)</td>
 <td>Split the current SparseRunVariable into multiple columns.</td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="#bids.variables.variables.SimpleVariable.to_df" title="bids.variables.variables.SimpleVariable.to_df"><code class="xref py py-obj docutils literal"><span class="pre">to_df</span></code></a>([condition,&nbsp;entities])</td>
+<tr class="row-even"><td><a class="reference internal" href="#bids.variables.variables.SimpleVariable.to_df" title="bids.variables.variables.SimpleVariable.to_df"><code class="xref py py-obj docutils literal"><span class="pre">to_df</span></code></a>([condition,&nbsp;entities])</td>
 <td>Convert to a DataFrame, with columns for name and entities.</td>
 </tr>
 </tbody>
@@ -395,6 +401,21 @@ merge() call. See merge_variables docstring for details.</li>
 </dd></dl>
 
 <dl class="method">
+<dt id="bids.variables.variables.SimpleVariable.select_rows">
+<code class="descname">select_rows</code><span class="sig-paren">(</span><em>rows</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bids/variables/variables.html#SimpleVariable.select_rows"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bids.variables.variables.SimpleVariable.select_rows" title="Permalink to this definition">¶</a></dt>
+<dd><p>Truncate internal arrays to keep only the specified rows.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>rows</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/array.html#module-array" title="(in Python v3.5)"><em>array</em></a>) – An integer or boolean array identifying the indices
+of rows to keep.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
 <dt id="bids.variables.variables.SimpleVariable.split">
 <code class="descname">split</code><span class="sig-paren">(</span><em>grouper</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bids/variables/variables.html#SimpleVariable.split"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bids.variables.variables.SimpleVariable.split" title="Permalink to this definition">¶</a></dt>
 <dd><p>Split the current SparseRunVariable into multiple columns.</p>
@@ -470,7 +491,7 @@ the current column name.</div></blockquote>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'0.6.5+88.gb418631',
+            VERSION:'0.8.0+2.gd85469c',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,

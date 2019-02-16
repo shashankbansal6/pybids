@@ -21,6 +21,7 @@ bids\.variables\.variables\.SparseRunVariable
       ~SparseRunVariable.get_grouper
       ~SparseRunVariable.matches_entities
       ~SparseRunVariable.merge
+      ~SparseRunVariable.select_rows
       ~SparseRunVariable.split
       ~SparseRunVariable.to_dense
       ~SparseRunVariable.to_df

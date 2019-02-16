@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>bids.analysis.Analysis &mdash; bids 0.6.5+88.gb418631 documentation</title>
+  <title>bids.analysis.Analysis &mdash; bids 0.8.0+2.gd85469c documentation</title>
   
 
   
@@ -37,7 +37,7 @@
         <link rel="index" title="Index"
               href="../genindex.html"/>
         <link rel="search" title="Search" href="../search.html"/>
-    <link rel="top" title="bids 0.6.5+88.gb418631 documentation" href="../index.html"/>
+    <link rel="top" title="bids 0.8.0+2.gd85469c documentation" href="../index.html"/>
         <link rel="up" title="API Reference" href="../api.html"/> 
 
   
@@ -197,33 +197,28 @@ dict containing the model info.</li>
 <col width="90%" />
 </colgroup>
 <tbody valign="top">
-<tr class="row-odd"><td><a class="reference internal" href="#bids.analysis.Analysis.setup" title="bids.analysis.Analysis.setup"><code class="xref py py-obj docutils literal"><span class="pre">setup</span></code></a>([blocks,&nbsp;agg_func])</td>
-<td>Set up the sequence of blocks for analysis.</td>
+<tr class="row-odd"><td><a class="reference internal" href="#bids.analysis.Analysis.setup" title="bids.analysis.Analysis.setup"><code class="xref py py-obj docutils literal"><span class="pre">setup</span></code></a>([steps,&nbsp;drop_na])</td>
+<td>Set up the sequence of steps for analysis.</td>
 </tr>
 </tbody>
 </table>
 <dl class="method">
 <dt id="bids.analysis.Analysis.setup">
-<code class="descname">setup</code><span class="sig-paren">(</span><em>blocks=None</em>, <em>agg_func='mean'</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bids/analysis/analysis.html#Analysis.setup"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bids.analysis.Analysis.setup" title="Permalink to this definition">¶</a></dt>
-<dd><p>Set up the sequence of blocks for analysis.</p>
+<code class="descname">setup</code><span class="sig-paren">(</span><em>steps=None</em>, <em>drop_na=False</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bids/analysis/analysis.html#Analysis.setup"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bids.analysis.Analysis.setup" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set up the sequence of steps for analysis.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>blocks</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#list" title="(in Python v3.5)"><em>list</em></a>) – Optional list of blocks to set up. Each element
-must be either an int giving the index of the block in the
+<li><strong>steps</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#list" title="(in Python v3.5)"><em>list</em></a>) – Optional list of steps to set up. Each element
+must be either an int giving the index of the step in the
 JSON config block list, or a str giving the (unique) name of
-the block, as specified in the JSON config. Blocks that do not
+the step, as specified in the JSON config. Steps that do not
 match either index or name will be skipped.</li>
-<li><strong>agg_func</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a><em> or </em><em>Callable</em>) – The aggregation function to use when
-combining rows from the previous level of analysis. E.g.,
-when analyzing a ‘subject’-level block, inputs coming from the
-‘session’ level are typically averaged to produce individual
-subject-level estimates. Must be either a string giving the
-name of a function recognized by apply() in pandas, or a
-Callable that takes a DataFrame as input and returns a Series
-or a DataFrame. NOTE: CURRENTLY UNIMPLEMENTED.</li>
+<li><strong>drop_na</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#bool" title="(in Python v3.5)"><em>bool</em></a>) – Boolean indicating whether or not to automatically
+drop events that have a n/a amplitude when reading in data
+from event files.</li>
 </ul>
 </td>
 </tr>
@@ -270,7 +265,7 @@ or a DataFrame. NOTE: CURRENTLY UNIMPLEMENTED.</li>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'0.6.5+88.gb418631',
+            VERSION:'0.8.0+2.gd85469c',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,

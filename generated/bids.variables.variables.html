@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>bids.variables.variables &mdash; bids 0.6.5+88.gb418631 documentation</title>
+  <title>bids.variables.variables &mdash; bids 0.8.0+2.gd85469c documentation</title>
   
 
   
@@ -37,7 +37,7 @@
         <link rel="index" title="Index"
               href="../genindex.html"/>
         <link rel="search" title="Search" href="../search.html"/>
-    <link rel="top" title="bids 0.6.5+88.gb418631 documentation" href="../index.html"/>
+    <link rel="top" title="bids 0.8.0+2.gd85469c documentation" href="../index.html"/>
         <link rel="up" title="API Reference" href="../api.html"/>
         <link rel="next" title="bids.variables.variables.merge_variables" href="bids.variables.variables.merge_variables.html"/> 
 
@@ -395,10 +395,10 @@ the current column name.</div></blockquote>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
 <li><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#str" title="(in Python v3.5)"><code class="xref py py-obj docutils literal"><span class="pre">str</span></code></a>) – The name of the column.</li>
-<li><strong>values</strong> (<a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.15)"><code class="xref py py-obj docutils literal"><span class="pre">numpy.ndarray</span></code></a>) – The values/amplitudes to store.</li>
+<li><strong>values</strong> (<a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.16)"><code class="xref py py-obj docutils literal"><span class="pre">numpy.ndarray</span></code></a>) – The values/amplitudes to store.</li>
 <li><strong>run_info</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#list" title="(in Python v3.5)"><code class="xref py py-obj docutils literal"><span class="pre">list</span></code></a>) – A list of RunInfo objects carrying information about all runs
 represented in the Variable.</li>
-<li><strong>source</strong> (<em>{'events'</em><em>, </em><em>'physio'</em><em>, </em><em>'stim'</em><em>, </em><em>'confounds'</em><em>, </em><em>'scans'</em><em>, </em><em>'sessions'</em><em>, </em><em>'participants'</em><em>, </em><em>'beh'}</em>) – The type of BIDS variable file the data were extracted from.</li>
+<li><strong>source</strong> (<em>{'events'</em><em>, </em><em>'physio'</em><em>, </em><em>'stim'</em><em>, </em><em>'regressors'</em><em>, </em><em>'scans'</em><em>, </em><em>'sessions'</em><em>, </em><em>'participants'</em><em>, </em><em>'beh'}</em>) – The type of BIDS variable file the data were extracted from.</li>
 <li><strong>sampling_rate</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#float" title="(in Python v3.5)"><code class="xref py py-obj docutils literal"><span class="pre">float</span></code></a>) – Optional sampling rate (in Hz) to use. Must match the sampling rate used
 to generate the values. If None, the collection’s sampling rate will be used.</li>
 </ul>
@@ -437,7 +437,7 @@ to generate the values. If None, the collection’s sampling rate will be used.<
 <tr class="row-even"><td><a class="reference internal" href="bids.variables.variables.DenseRunVariable.html#bids.variables.variables.DenseRunVariable.split" title="bids.variables.variables.DenseRunVariable.split"><code class="xref py py-obj docutils literal"><span class="pre">split</span></code></a>(grouper)</td>
 <td>Split the current DenseRunVariable into multiple columns.</td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="bids.variables.variables.DenseRunVariable.html#bids.variables.variables.DenseRunVariable.to_df" title="bids.variables.variables.DenseRunVariable.to_df"><code class="xref py py-obj docutils literal"><span class="pre">to_df</span></code></a>([condition,&nbsp;entities,&nbsp;timing])</td>
+<tr class="row-odd"><td><a class="reference internal" href="bids.variables.variables.DenseRunVariable.html#bids.variables.variables.DenseRunVariable.to_df" title="bids.variables.variables.DenseRunVariable.to_df"><code class="xref py py-obj docutils literal"><span class="pre">to_df</span></code></a>([condition,&nbsp;entities,&nbsp;timing,&nbsp;…])</td>
 <td>Convert to a DataFrame, with columns for name and entities.</td>
 </tr>
 </tbody>
@@ -572,7 +572,7 @@ merge() call. See merge_variables docstring for details.</li>
 <li><strong>sampling_rate</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#int" title="(in Python v3.5)"><code class="xref py py-obj docutils literal"><span class="pre">int</span></code></a>, <a class="reference external" href="https://docs.python.org/3.5/library/functions.html#float" title="(in Python v3.5)"><code class="xref py py-obj docutils literal"><span class="pre">float</span></code></a>) – Target sampling rate (in Hz).</li>
 <li><strong>inplace</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#bool" title="(in Python v3.5)"><code class="xref py py-obj docutils literal"><span class="pre">bool</span></code></a>, optional) – If True, performs resampling in-place. If False, returns a resampled
 copy of the current Variable. Default is False.</li>
-<li><strong>kind</strong> (<em>{'linear'</em><em>, </em><em>'nearest'</em><em>, </em><em>'zero'</em><em>, </em><em>'slinear'</em><em>, </em><em>'quadratic'</em><em>, </em><em>'cubic'}</em>) – Argument to pass to <a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.interpolate.interp1d.html#scipy.interpolate.interp1d" title="(in SciPy v1.1.0)"><code class="xref py py-obj docutils literal"><span class="pre">scipy.interpolate.interp1d</span></code></a>; indicates
+<li><strong>kind</strong> (<em>{'linear'</em><em>, </em><em>'nearest'</em><em>, </em><em>'zero'</em><em>, </em><em>'slinear'</em><em>, </em><em>'quadratic'</em><em>, </em><em>'cubic'}</em>) – Argument to pass to <a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.interpolate.interp1d.html#scipy.interpolate.interp1d" title="(in SciPy v1.2.1)"><code class="xref py py-obj docutils literal"><span class="pre">scipy.interpolate.interp1d</span></code></a>; indicates
 the kind of interpolation approach to use. See interp1d docs for
 valid values. Default is ‘linear’.</li>
 </ul>
@@ -590,7 +590,7 @@ valid values. Default is ‘linear’.</li>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>grouper</strong> (<a class="reference external" href="http://pandas.pydata.org/pandas-docs/stable/generated/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v0.23.4)"><code class="xref py py-obj docutils literal"><span class="pre">pandas.DataFrame</span></code></a>) – Binary DF specifying the design matrix to use for splitting. Number
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>grouper</strong> (<a class="reference external" href="http://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v0.24.1)"><code class="xref py py-obj docutils literal"><span class="pre">pandas.DataFrame</span></code></a>) – Binary DF specifying the design matrix to use for splitting. Number
 of rows must match current <code class="docutils literal"><span class="pre">DenseRunVariable</span></code>; a new <code class="docutils literal"><span class="pre">DenseRunVariable</span></code>
 will be generated for each column in the grouper.</td>
 </tr>
@@ -604,7 +604,7 @@ will be generated for each column in the grouper.</td>
 
 <dl class="method">
 <dt id="bids.variables.variables.DenseRunVariable.to_df">
-<code class="descname">to_df</code><span class="sig-paren">(</span><em>condition=True</em>, <em>entities=True</em>, <em>timing=True</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bids/variables/variables.html#DenseRunVariable.to_df"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bids.variables.variables.DenseRunVariable.to_df" title="Permalink to this definition">¶</a></dt>
+<code class="descname">to_df</code><span class="sig-paren">(</span><em>condition=True</em>, <em>entities=True</em>, <em>timing=True</em>, <em>sampling_rate=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bids/variables/variables.html#DenseRunVariable.to_df"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bids.variables.variables.DenseRunVariable.to_df" title="Permalink to this definition">¶</a></dt>
 <dd><p>Convert to a DataFrame, with columns for name and entities.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -640,7 +640,7 @@ information.</p>
 <li><strong>data</strong> (<em>DataFrame</em>) – A pandas DataFrame minimally containing a column
 named ‘amplitude’ as well as any identifying entities.</li>
 <li><strong>source</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a>) – The type of BIDS variable file the data were extracted
-from. Must be one of: ‘events’, ‘physio’, ‘stim’, ‘confounds’,
+from. Must be one of: ‘events’, ‘physio’, ‘stim’, ‘regressors’,
 ‘scans’, ‘sessions’, ‘participants’, or ‘beh’.</li>
 <li><strong>kwargs</strong> – Optional keyword arguments passed onto superclass.</li>
 </ul>
@@ -673,10 +673,13 @@ from. Must be one of: ‘events’, ‘physio’, ‘stim’, ‘confounds’,
 <tr class="row-even"><td><a class="reference internal" href="bids.variables.variables.SimpleVariable.html#bids.variables.variables.SimpleVariable.merge" title="bids.variables.variables.SimpleVariable.merge"><code class="xref py py-obj docutils literal"><span class="pre">merge</span></code></a>(variables[,&nbsp;name])</td>
 <td>Merge/concatenate a list of variables along the row axis.</td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="bids.variables.variables.SimpleVariable.html#bids.variables.variables.SimpleVariable.split" title="bids.variables.variables.SimpleVariable.split"><code class="xref py py-obj docutils literal"><span class="pre">split</span></code></a>(grouper)</td>
+<tr class="row-odd"><td><a class="reference internal" href="bids.variables.variables.SimpleVariable.html#bids.variables.variables.SimpleVariable.select_rows" title="bids.variables.variables.SimpleVariable.select_rows"><code class="xref py py-obj docutils literal"><span class="pre">select_rows</span></code></a>(rows)</td>
+<td>Truncate internal arrays to keep only the specified rows.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="bids.variables.variables.SimpleVariable.html#bids.variables.variables.SimpleVariable.split" title="bids.variables.variables.SimpleVariable.split"><code class="xref py py-obj docutils literal"><span class="pre">split</span></code></a>(grouper)</td>
 <td>Split the current SparseRunVariable into multiple columns.</td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="bids.variables.variables.SimpleVariable.html#bids.variables.variables.SimpleVariable.to_df" title="bids.variables.variables.SimpleVariable.to_df"><code class="xref py py-obj docutils literal"><span class="pre">to_df</span></code></a>([condition,&nbsp;entities])</td>
+<tr class="row-odd"><td><a class="reference internal" href="bids.variables.variables.SimpleVariable.html#bids.variables.variables.SimpleVariable.to_df" title="bids.variables.variables.SimpleVariable.to_df"><code class="xref py py-obj docutils literal"><span class="pre">to_df</span></code></a>([condition,&nbsp;entities])</td>
 <td>Convert to a DataFrame, with columns for name and entities.</td>
 </tr>
 </tbody>
@@ -800,6 +803,21 @@ merge() call. See merge_variables docstring for details.</li>
 </dd></dl>
 
 <dl class="method">
+<dt id="bids.variables.variables.SimpleVariable.select_rows">
+<code class="descname">select_rows</code><span class="sig-paren">(</span><em>rows</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bids/variables/variables.html#SimpleVariable.select_rows"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bids.variables.variables.SimpleVariable.select_rows" title="Permalink to this definition">¶</a></dt>
+<dd><p>Truncate internal arrays to keep only the specified rows.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>rows</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/array.html#module-array" title="(in Python v3.5)"><em>array</em></a>) – An integer or boolean array identifying the indices
+of rows to keep.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
 <dt id="bids.variables.variables.SimpleVariable.split">
 <code class="descname">split</code><span class="sig-paren">(</span><em>grouper</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bids/variables/variables.html#SimpleVariable.split"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bids.variables.variables.SimpleVariable.split" title="Permalink to this definition">¶</a></dt>
 <dd><p>Split the current SparseRunVariable into multiple columns.</p>
@@ -853,7 +871,7 @@ the current column name.</div></blockquote>
 <li><strong>run_info</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#list" title="(in Python v3.5)"><em>list</em></a>) – A list of RunInfo objects carrying information about
 all runs represented in the Variable.</li>
 <li><strong>source</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a>) – The type of BIDS variable file the data were extracted
-from. Must be one of: ‘events’, ‘physio’, ‘stim’, ‘confounds’,
+from. Must be one of: ‘events’, ‘physio’, ‘stim’, ‘regressors’,
 ‘scans’, ‘sessions’, ‘participants’, or ‘beh’.</li>
 <li><strong>kwargs</strong> – Optional keyword arguments passed onto superclass.</li>
 </ul>
@@ -889,13 +907,16 @@ from. Must be one of: ‘events’, ‘physio’, ‘stim’, ‘confounds’,
 <tr class="row-odd"><td><a class="reference internal" href="bids.variables.variables.SparseRunVariable.html#bids.variables.variables.SparseRunVariable.merge" title="bids.variables.variables.SparseRunVariable.merge"><code class="xref py py-obj docutils literal"><span class="pre">merge</span></code></a>(variables[,&nbsp;name])</td>
 <td>Merge/concatenate a list of variables along the row axis.</td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="bids.variables.variables.SparseRunVariable.html#bids.variables.variables.SparseRunVariable.split" title="bids.variables.variables.SparseRunVariable.split"><code class="xref py py-obj docutils literal"><span class="pre">split</span></code></a>(grouper)</td>
+<tr class="row-even"><td><a class="reference internal" href="bids.variables.variables.SparseRunVariable.html#bids.variables.variables.SparseRunVariable.select_rows" title="bids.variables.variables.SparseRunVariable.select_rows"><code class="xref py py-obj docutils literal"><span class="pre">select_rows</span></code></a>(rows)</td>
+<td>Truncate internal arrays to keep only the specified rows.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="bids.variables.variables.SparseRunVariable.html#bids.variables.variables.SparseRunVariable.split" title="bids.variables.variables.SparseRunVariable.split"><code class="xref py py-obj docutils literal"><span class="pre">split</span></code></a>(grouper)</td>
 <td>Split the current SparseRunVariable into multiple columns.</td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="bids.variables.variables.SparseRunVariable.html#bids.variables.variables.SparseRunVariable.to_dense" title="bids.variables.variables.SparseRunVariable.to_dense"><code class="xref py py-obj docutils literal"><span class="pre">to_dense</span></code></a>(sampling_rate)</td>
+<tr class="row-even"><td><a class="reference internal" href="bids.variables.variables.SparseRunVariable.html#bids.variables.variables.SparseRunVariable.to_dense" title="bids.variables.variables.SparseRunVariable.to_dense"><code class="xref py py-obj docutils literal"><span class="pre">to_dense</span></code></a>(sampling_rate)</td>
 <td>Convert the current sparse column to a dense representation.</td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="bids.variables.variables.SparseRunVariable.html#bids.variables.variables.SparseRunVariable.to_df" title="bids.variables.variables.SparseRunVariable.to_df"><code class="xref py py-obj docutils literal"><span class="pre">to_df</span></code></a>([condition,&nbsp;entities])</td>
+<tr class="row-odd"><td><a class="reference internal" href="bids.variables.variables.SparseRunVariable.html#bids.variables.variables.SparseRunVariable.to_df" title="bids.variables.variables.SparseRunVariable.to_df"><code class="xref py py-obj docutils literal"><span class="pre">to_df</span></code></a>([condition,&nbsp;entities])</td>
 <td>Convert to a DataFrame, with columns for name and entities.</td>
 </tr>
 </tbody>
@@ -1022,6 +1043,21 @@ merge() call. See merge_variables docstring for details.</li>
 </tbody>
 </table>
 <p>Notes: see merge_variables docstring for additional details.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="bids.variables.variables.SparseRunVariable.select_rows">
+<code class="descname">select_rows</code><span class="sig-paren">(</span><em>rows</em><span class="sig-paren">)</span><a class="headerlink" href="#bids.variables.variables.SparseRunVariable.select_rows" title="Permalink to this definition">¶</a></dt>
+<dd><p>Truncate internal arrays to keep only the specified rows.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>rows</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/array.html#module-array" title="(in Python v3.5)"><em>array</em></a>) – An integer or boolean array identifying the indices
+of rows to keep.</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">
@@ -1168,7 +1204,7 @@ possible to merge two different variables into a single variable.)</li>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'0.6.5+88.gb418631',
+            VERSION:'0.8.0+2.gd85469c',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,

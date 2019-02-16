@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>bids.variables.io.load_variables &mdash; bids 0.6.5+88.gb418631 documentation</title>
+  <title>bids.variables.io.load_variables &mdash; bids 0.8.0+2.gd85469c documentation</title>
   
 
   
@@ -37,7 +37,7 @@
         <link rel="index" title="Index"
               href="../genindex.html"/>
         <link rel="search" title="Search" href="../search.html"/>
-    <link rel="top" title="bids 0.6.5+88.gb418631 documentation" href="../index.html"/>
+    <link rel="top" title="bids 0.8.0+2.gd85469c documentation" href="../index.html"/>
         <link rel="up" title="bids.variables.io" href="bids.variables.io.html"/>
         <link rel="next" title="bids.variables.entities" href="bids.variables.entities.html"/>
         <link rel="prev" title="bids.variables.io" href="bids.variables.io.html"/> 
@@ -180,7 +180,7 @@
 <h1>bids.variables.io.load_variables<a class="headerlink" href="#bids-variables-io-load-variables" title="Permalink to this headline">¶</a></h1>
 <dl class="function">
 <dt id="bids.variables.io.load_variables">
-<code class="descname">load_variables</code><span class="sig-paren">(</span><em>layout</em>, <em>types=None</em>, <em>levels=None</em>, <em>skip_empty=True</em>, <em>dataset=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bids/variables/io.html#load_variables"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bids.variables.io.load_variables" title="Permalink to this definition">¶</a></dt>
+<code class="descname">load_variables</code><span class="sig-paren">(</span><em>layout</em>, <em>types=None</em>, <em>levels=None</em>, <em>skip_empty=True</em>, <em>dataset=None</em>, <em>scope='all'</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bids/variables/io.html#load_variables"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bids.variables.io.load_variables" title="Permalink to this definition">¶</a></dt>
 <dd><p>A convenience wrapper for one or more load_*_variables() calls.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -191,11 +191,11 @@
 <li><strong>types</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#list" title="(in Python v3.5)"><em>list</em></a>) – Types of variables to retrieve. All valid values
 reflect the filename stipulated in the BIDS spec for each kind of
 variable. Valid values include: ‘events’, ‘physio’, ‘stim’,
-‘scans’, ‘participants’, ‘sessions’, and ‘confounds’.</li>
+‘scans’, ‘participants’, ‘sessions’, and ‘regressors’.</li>
 <li><strong>levels</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#list" title="(in Python v3.5)"><em>list</em></a>) – Optional level(s) of variables to load. Valid
 values are ‘run’, ‘session’, ‘subject’, or ‘dataset’. This is
 simply a shorthand way to specify types–e.g., ‘run’ will be
-converted to types=[‘events’, ‘physio’, ‘stim’, ‘confounds’].</li>
+converted to types=[‘events’, ‘physio’, ‘stim’, ‘regressors’].</li>
 <li><strong>skip_empty</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#bool" title="(in Python v3.5)"><em>bool</em></a>) – Whether or not to skip empty Variables (i.e.,
 where there are no rows/records in a file after applying any
 filtering operations like dropping NaNs).</li>
@@ -203,6 +203,8 @@ filtering operations like dropping NaNs).</li>
 loaded data in. Can be used to iteratively construct a dataset
 that contains otherwise heterogeneous sets of variables. If None,
 a new NodeIndex is used.</li>
+<li><strong>scope</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#list" title="(in Python v3.5)"><em>list</em></a>) – The scope of the space to search for variables. See
+docstring for BIDSLayout for details and valid predefined values.</li>
 <li><strong>kwargs</strong> – Optional keyword arguments to pass onto the individual
 load_*_variables() calls.</li>
 </ul>
@@ -267,7 +269,7 @@ load_*_variables() calls.</li>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'0.6.5+88.gb418631',
+            VERSION:'0.8.0+2.gd85469c',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,

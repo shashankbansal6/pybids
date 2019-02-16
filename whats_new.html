@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Changelog &mdash; bids 0.6.5+88.gb418631 documentation</title>
+  <title>Changelog &mdash; bids 0.8.0+2.gd85469c documentation</title>
   
 
   
@@ -37,7 +37,7 @@
         <link rel="index" title="Index"
               href="genindex.html"/>
         <link rel="search" title="Search" href="search.html"/>
-    <link rel="top" title="bids 0.6.5+88.gb418631 documentation" href="index.html"/>
+    <link rel="top" title="bids 0.8.0+2.gd85469c documentation" href="index.html"/>
         <link rel="prev" title="bids.utils.matches_entities" href="generated/bids.utils.matches_entities.html"/> 
 
   
@@ -91,7 +91,9 @@
 <li class="toctree-l1"><a class="reference internal" href="user_guide.html">User guide: table of contents</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api.html">API Reference</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Changelog</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#version-0-7-0-september-2018">Version 0.7.0 (September, 2018)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#version-0-8-0-february-15-2019">Version 0.8.0 (February 15, 2019)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#version-0-7-1-february-01-2019">Version 0.7.1 (February 01, 2019)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#version-0-7-0-january-10-2019">Version 0.7.0 (January 10, 2019)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#version-0-6-5-august-21-2018">Version 0.6.5 (August 21, 2018)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#version-0-5-1-march-9-2018">Version 0.5.1 (March 9, 2018)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#version-0-5-0-march-6-2018">Version 0.5.0 (March 6, 2018)</a></li>
@@ -167,8 +169,77 @@
             
   <div class="section" id="changelog">
 <h1>Changelog<a class="headerlink" href="#changelog" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="version-0-7-0-september-2018">
-<h2>Version 0.7.0 (September, 2018)<a class="headerlink" href="#version-0-7-0-september-2018" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="version-0-8-0-february-15-2019">
+<h2>Version 0.8.0 (February 15, 2019)<a class="headerlink" href="#version-0-8-0-february-15-2019" title="Permalink to this headline">¶</a></h2>
+<p>Version 0.8 refactors much of the layout module. It drops the grabbit
+dependency, overhauls the file indexing process, and features a number of other
+improvements. However, changes to the public API are very minimal, and in the
+vast majority of cases, 0.8 should be a drop-in replacement for 0.7.*.</p>
+<p>API-BREAKING CHANGES:</p>
+<ul class="simple">
+<li>Changes to (rarely-used) BIDSLayout initialization arguments:<ul>
+<li><code class="docutils literal"><span class="pre">include</span></code> and <code class="docutils literal"><span class="pre">exclude</span></code> have been replaced with <code class="docutils literal"><span class="pre">ignore</span></code> and
+<code class="docutils literal"><span class="pre">force_index</span></code>. Paths passed to <code class="docutils literal"><span class="pre">ignore</span></code> will be ignored from indexing;
+paths passed to <code class="docutils literal"><span class="pre">force_index</span></code> will be forcibly indexed even if they are
+otherwise BIDS-non-compliant. <code class="docutils literal"><span class="pre">force_index</span></code> takes precedence over <code class="docutils literal"><span class="pre">ignore</span></code>.</li>
+</ul>
+</li>
+<li>Most querying/selection methods add a new <code class="docutils literal"><span class="pre">scope</span></code> argument that controls
+scope of querying (e.g., <code class="docutils literal"><span class="pre">'raw'</span></code>, <code class="docutils literal"><span class="pre">'derivatives'</span></code>, <code class="docutils literal"><span class="pre">'all'</span></code>, etc.). In some
+cases this replaces the more limited <code class="docutils literal"><span class="pre">derivatives</span></code> argument.</li>
+<li>No more <code class="docutils literal"><span class="pre">domains</span></code>: with the grabbit removal (see below), the notion of a
+<code class="docutils literal"><span class="pre">'domain'</span></code> has been removed. This should impact few users, but those who need
+to restrict indexing or querying to specific parts of a BIDS project should be
+able to use the <code class="docutils literal"><span class="pre">scope</span></code> argument more effectively.</li>
+</ul>
+<p>OTHER CHANGES:</p>
+<ul class="simple">
+<li>FIX: Path indexing issues in <code class="docutils literal"><span class="pre">get_file()</span></code> (#379)</li>
+<li>FIX: Duplicate file returns under certain conditions (#350)</li>
+<li>FIX: Pass new variable args as kwargs in split() (#386) &#64;effigies</li>
+<li>TEST: Update naming conventions for synthetic dataset (#385) &#64;effigies</li>
+<li>REF: The grabbit package is no longer a dependency; as a result, much of the
+functionality from grabbit has been ported over to pybids.</li>
+<li>REF: Required functionality from six and inflect is now bundled with pybids
+in <code class="docutils literal"><span class="pre">bids.external</span></code>, minimizing external dependencies.</li>
+<li>REF: Core modules have been reorganized. Key data structures and containers
+(e.g., <code class="docutils literal"><span class="pre">BIDSFile</span></code>, <code class="docutils literal"><span class="pre">Entity</span></code>, etc.) are now in a new <code class="docutils literal"><span class="pre">bids.layout.core</span></code> module.</li>
+<li>REF: A new <code class="docutils literal"><span class="pre">Config</span></code> class has been introduced to house the information
+found in <code class="docutils literal"><span class="pre">bids.json</span></code> and other layout configuration files.</li>
+<li>REF: The file-indexing process has been completely refactored. A new
+hierarchy of <code class="docutils literal"><span class="pre">BIDSNode</span></code> objects has been introduced. While this has no real
+impact on the public API, and isn’t really intended for public consumption yet,
+it will in future make it easier for users to work with BIDS projects in a
+tree-like way, while also laying the basis for a more sensible approach to
+reading and accessing associated BIDS data (e.g., .tsv files).</li>
+<li>MNT: All invocations of <code class="docutils literal"><span class="pre">pd.read_table</span></code> have been replaced with <code class="docutils literal"><span class="pre">read_csv</span></code>.</li>
+</ul>
+</div>
+<div class="section" id="version-0-7-1-february-01-2019">
+<h2>Version 0.7.1 (February 01, 2019)<a class="headerlink" href="#version-0-7-1-february-01-2019" title="Permalink to this headline">¶</a></h2>
+<p>This is a bug fix release in the 0.7 series. The primary API change is improved
+handling of <code class="docutils literal"><span class="pre">Path</span></code> objects.</p>
+<ul class="simple">
+<li>FIX: Path validation (#342)</li>
+<li>FIX: Ensure consistent entities at all levels (#326)</li>
+<li>FIX: Edge case where a resampled column was too-long-by-one (#365)</li>
+<li>FIX: Use BIDS metadata for TR over nii header (#357)</li>
+<li>FIX: Add check for <code class="docutils literal"><span class="pre">run_info</span></code> to be a list, pass <code class="docutils literal"><span class="pre">run_info</span></code> in correct position. (#353)</li>
+<li>FIX: If <code class="docutils literal"><span class="pre">sampling_rate</span></code> is <code class="docutils literal"><span class="pre">'auto'</span></code>, set to first rate of <code class="docutils literal"><span class="pre">DenseRunVariables</span></code> (#351)</li>
+<li>FIX: Get the absolute path of the test data directory (#347)</li>
+<li>FIX: Update reports to be 0.7-compatible (#341)</li>
+<li>ENH: Rename <code class="docutils literal"><span class="pre">sr</span></code> variable to more intuitive <code class="docutils literal"><span class="pre">interval</span></code> (#366)</li>
+<li>ENH: Support <code class="docutils literal"><span class="pre">pathlib.Path</span></code> and other <code class="docutils literal"><span class="pre">str</span></code>-castable types (#307)</li>
+<li>MNT: Updates link to derivative config file in notebook (#344)</li>
+<li>MNT: Add bids-validator dependency (#363)</li>
+<li>MNT: Require pandas &gt;= 0.23.0 (#348)</li>
+<li>MNT: Bump grabbit version (#338)</li>
+<li>CI: Ignore OSX Python 3.5 failures (#372)</li>
+<li>CI: Build with Python 3.7 on Travis, deploy on 3.6 (#337)</li>
+</ul>
+</div>
+<div class="section" id="version-0-7-0-january-10-2019">
+<h2>Version 0.7.0 (January 10, 2019)<a class="headerlink" href="#version-0-7-0-january-10-2019" title="Permalink to this headline">¶</a></h2>
 <p>This is a major, API-breaking release. It introduces a large number of new features, bug fixes, and improvements.</p>
 <p>API-BREAKING CHANGES:</p>
 <ul class="simple">
@@ -184,22 +255,38 @@
 <li>The BIDS validator is now enabled by default at layout initialization (i.e., <code class="docutils literal"><span class="pre">validate=True</span></code>)</li>
 <li>The <code class="docutils literal"><span class="pre">exclude</span></code> initialization argument has been removed.</li>
 <li><code class="docutils literal"><span class="pre">BIDSLayout.parse_entities</span></code> utility has been removed (use the more flexible <code class="docutils literal"><span class="pre">parse_file_entities</span></code>).</li>
+<li>Calls to <code class="docutils literal"><span class="pre">.get()</span></code> now return <code class="docutils literal"><span class="pre">BIDSFile</span></code> objects, rather than namedtuples, by default (#281). The <code class="docutils literal"><span class="pre">BIDSFile</span></code> API has been tweaked to ensure backwards incompatibility in nearly all cases.</li>
+<li>Naming conventions throughout the codebase have been updated to ensure consistency with the BIDS specs. This is most salient in the <code class="docutils literal"><span class="pre">analysis</span></code> module, where snake_case has been replaced with CamelCase throughout.</li>
 </ul>
 <p>NEW FEATURES:</p>
 <ul class="simple">
-<li>File metadata is now searchable (use <code class="docutils literal"><span class="pre">BIDSLayout.search_metadata()</span></code>)</li>
+<li>File metadata (i.e., in JSON sidecars) is now searchable by default, and behaves just like native BIDS entities (e.g., metadata keys can be passed as arguments to <code class="docutils literal"><span class="pre">.get()</span></code> calls)</li>
 <li>A new BIDSFile wrapper provides easy access to <code class="docutils literal"><span class="pre">.metadata</span></code> and <code class="docutils literal"><span class="pre">.image</span></code></li>
 <li>HRF convolution is now supported via bundling of nistats’ hemodynamic_models module; convolution is handled via the <code class="docutils literal"><span class="pre">convolve_HRF</span></code> transformation.</li>
+<li>Named config paths that customize how projects are processed can be added at run-time (#313)</li>
+<li>Preliminary support for BIDS-Derivatives RC1 (mainly core keywords)</li>
 </ul>
 <p>MINOR IMPROVEMENTS AND BUG FIXES:</p>
 <ul class="simple">
-<li>Specifying ‘derivatives’ in a paths specification now automatically includes ‘bids’ (#246)</li>
+<li>Specifying ‘derivatives’ in a path specification now automatically includes ‘bids’ (#246)</li>
+<li>Zenodo DOIs are now minted with new releases (#308)</li>
 <li>Variable loading via load_variables can now be done incrementally</li>
 <li>Expanded and improved path-building via <code class="docutils literal"><span class="pre">layout.build_path()</span></code></li>
 <li><code class="docutils literal"><span class="pre">get_collections</span></code> no longer breaks when <code class="docutils literal"><span class="pre">merge=True</span></code> and the list is empty (#202)</li>
 <li>Layout initialization no longer fails when <code class="docutils literal"><span class="pre">validate=True</span></code> (#222)</li>
 <li>The auto_contrasts field in the modeling tools now complies with the BIDS-Model spec (#234)</li>
-<li>Fix sum transformation</li>
+<li>Printing a <code class="docutils literal"><span class="pre">BIDSFile</span></code> now provides more useful information, including path (#298)</li>
+<li>Resample design matrix to 1/TR by default (#309)</li>
+<li>Fix the Sum transformation</li>
+<li>Ensure that resampling works properly when a sampling rate is passed to <code class="docutils literal"><span class="pre">get_design_matrix</span></code> (#297)</li>
+<li>Propagate derivative entities into top-level dynamic getters (#306)</li>
+<li>Deprecated <code class="docutils literal"><span class="pre">get_header</span></code> call in nibabel removed (#300)</li>
+<li>Fix bug in entity indexing for <code class="docutils literal"><span class="pre">BIDSVariableCollection</span></code> (#319)</li>
+<li>Exclude modules with heavy dependencies from root namespace for performance reasons (#321)</li>
+<li>Fix bug that caused in-place updating of input selectors in <code class="docutils literal"><span class="pre">Analysis</span></code> objects (#323)</li>
+<li>Add a DropNA transformation (#325)</li>
+<li>Add a <code class="docutils literal"><span class="pre">get_tr()</span></code> method to <code class="docutils literal"><span class="pre">BIDSLayout</span></code> (#327)</li>
+<li>Add entity hints when calling <code class="docutils literal"><span class="pre">get()</span></code> with a <code class="docutils literal"><span class="pre">target</span></code> argument (#328)</li>
 <li>Improved test coverage</li>
 </ul>
 </div>
@@ -310,7 +397,7 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'0.6.5+88.gb418631',
+            VERSION:'0.8.0+2.gd85469c',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,

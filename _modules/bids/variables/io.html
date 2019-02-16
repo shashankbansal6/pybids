@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>bids.variables.io &mdash; bids 0.6.5+88.gb418631 documentation</title>
+  <title>bids.variables.io &mdash; bids 0.8.0+2.gd85469c documentation</title>
   
 
   
@@ -37,7 +37,7 @@
         <link rel="index" title="Index"
               href="../../../genindex.html"/>
         <link rel="search" title="Search" href="../../../search.html"/>
-    <link rel="top" title="bids 0.6.5+88.gb418631 documentation" href="../../../index.html"/>
+    <link rel="top" title="bids 0.8.0+2.gd85469c documentation" href="../../../index.html"/>
         <link rel="up" title="Module code" href="../../index.html"/> 
 
   
@@ -157,13 +157,11 @@
   <h1>Source code for bids.variables.io</h1><div class="highlight"><pre>
 <span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">import</span> <span class="nn">nibabel</span> <span class="k">as</span> <span class="nn">nb</span>
 <span class="kn">from</span> <span class="nn">os.path</span> <span class="k">import</span> <span class="n">join</span>
 <span class="kn">from</span> <span class="nn">bids.utils</span> <span class="k">import</span> <span class="n">listify</span>
 <span class="kn">from</span> <span class="nn">.entities</span> <span class="k">import</span> <span class="n">NodeIndex</span>
 <span class="kn">from</span> <span class="nn">.variables</span> <span class="k">import</span> <span class="n">SparseRunVariable</span><span class="p">,</span> <span class="n">DenseRunVariable</span><span class="p">,</span> <span class="n">SimpleVariable</span>
 <span class="kn">import</span> <span class="nn">warnings</span>
-<span class="kn">from</span> <span class="nn">bids.config</span> <span class="k">import</span> <span class="n">get_option</span>
 
 
 <span class="n">BASE_ENTITIES</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;subject&#39;</span><span class="p">,</span> <span class="s1">&#39;session&#39;</span><span class="p">,</span> <span class="s1">&#39;task&#39;</span><span class="p">,</span> <span class="s1">&#39;run&#39;</span><span class="p">]</span>
@@ -171,7 +169,7 @@
 
 
 <div class="viewcode-block" id="load_variables"><a class="viewcode-back" href="../../../generated/bids.variables.io.load_variables.html#bids.variables.io.load_variables">[docs]</a><span class="k">def</span> <span class="nf">load_variables</span><span class="p">(</span><span class="n">layout</span><span class="p">,</span> <span class="n">types</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">levels</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">skip_empty</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                   <span class="n">dataset</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+                   <span class="n">dataset</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">scope</span><span class="o">=</span><span class="s1">&#39;all&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
     <span class="sd">&#39;&#39;&#39; A convenience wrapper for one or more load_*_variables() calls.</span>
 
 <span class="sd">    Args:</span>
@@ -179,11 +177,11 @@
 <span class="sd">        types (str, list): Types of variables to retrieve. All valid values</span>
 <span class="sd">            reflect the filename stipulated in the BIDS spec for each kind of</span>
 <span class="sd">            variable. Valid values include: &#39;events&#39;, &#39;physio&#39;, &#39;stim&#39;,</span>
-<span class="sd">            &#39;scans&#39;, &#39;participants&#39;, &#39;sessions&#39;, and &#39;confounds&#39;.</span>
+<span class="sd">            &#39;scans&#39;, &#39;participants&#39;, &#39;sessions&#39;, and &#39;regressors&#39;.</span>
 <span class="sd">        levels (str, list): Optional level(s) of variables to load. Valid</span>
 <span class="sd">            values are &#39;run&#39;, &#39;session&#39;, &#39;subject&#39;, or &#39;dataset&#39;. This is</span>
 <span class="sd">            simply a shorthand way to specify types--e.g., &#39;run&#39; will be</span>
-<span class="sd">            converted to types=[&#39;events&#39;, &#39;physio&#39;, &#39;stim&#39;, &#39;confounds&#39;].</span>
+<span class="sd">            converted to types=[&#39;events&#39;, &#39;physio&#39;, &#39;stim&#39;, &#39;regressors&#39;].</span>
 <span class="sd">        skip_empty (bool): Whether or not to skip empty Variables (i.e.,</span>
 <span class="sd">            where there are no rows/records in a file after applying any</span>
 <span class="sd">            filtering operations like dropping NaNs).</span>
@@ -191,6 +189,8 @@
 <span class="sd">            loaded data in. Can be used to iteratively construct a dataset</span>
 <span class="sd">            that contains otherwise heterogeneous sets of variables. If None,</span>
 <span class="sd">            a new NodeIndex is used.</span>
+<span class="sd">        scope (str, list): The scope of the space to search for variables. See</span>
+<span class="sd">            docstring for BIDSLayout for details and valid predefined values.</span>
 <span class="sd">        kwargs: Optional keyword arguments to pass onto the individual</span>
 <span class="sd">            load_*_variables() calls.</span>
 
@@ -204,7 +204,7 @@
 <span class="sd">    &#39;&#39;&#39;</span>
 
     <span class="n">TYPES</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;events&#39;</span><span class="p">,</span> <span class="s1">&#39;physio&#39;</span><span class="p">,</span> <span class="s1">&#39;stim&#39;</span><span class="p">,</span> <span class="s1">&#39;scans&#39;</span><span class="p">,</span> <span class="s1">&#39;participants&#39;</span><span class="p">,</span> <span class="s1">&#39;sessions&#39;</span><span class="p">,</span>
-             <span class="s1">&#39;confounds&#39;</span><span class="p">]</span>
+             <span class="s1">&#39;regressors&#39;</span><span class="p">]</span>
 
     <span class="n">types</span> <span class="o">=</span> <span class="n">listify</span><span class="p">(</span><span class="n">types</span><span class="p">)</span>
 
@@ -212,12 +212,12 @@
         <span class="k">if</span> <span class="n">levels</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">types</span> <span class="o">=</span> <span class="p">[]</span>
             <span class="n">lev_map</span> <span class="o">=</span> <span class="p">{</span>
-                <span class="s1">&#39;run&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;events&#39;</span><span class="p">,</span> <span class="s1">&#39;physio&#39;</span><span class="p">,</span> <span class="s1">&#39;stim&#39;</span><span class="p">,</span> <span class="s1">&#39;confounds&#39;</span><span class="p">],</span>
+                <span class="s1">&#39;run&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;events&#39;</span><span class="p">,</span> <span class="s1">&#39;physio&#39;</span><span class="p">,</span> <span class="s1">&#39;stim&#39;</span><span class="p">,</span> <span class="s1">&#39;regressors&#39;</span><span class="p">],</span>
                 <span class="s1">&#39;session&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;scans&#39;</span><span class="p">],</span>
                 <span class="s1">&#39;subject&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;sessions&#39;</span><span class="p">],</span>
                 <span class="s1">&#39;dataset&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;participants&#39;</span><span class="p">]</span>
             <span class="p">}</span>
-            <span class="p">[</span><span class="n">types</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">lev_map</span><span class="p">[</span><span class="n">l</span><span class="p">])</span> <span class="k">for</span> <span class="n">l</span> <span class="ow">in</span> <span class="n">listify</span><span class="p">(</span><span class="n">levels</span><span class="p">)]</span>
+            <span class="p">[</span><span class="n">types</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">lev_map</span><span class="p">[</span><span class="n">l</span><span class="o">.</span><span class="n">lower</span><span class="p">()])</span> <span class="k">for</span> <span class="n">l</span> <span class="ow">in</span> <span class="n">listify</span><span class="p">(</span><span class="n">levels</span><span class="p">)]</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">types</span> <span class="o">=</span> <span class="n">TYPES</span>
 
@@ -227,23 +227,25 @@
 
     <span class="n">dataset</span> <span class="o">=</span> <span class="n">dataset</span> <span class="ow">or</span> <span class="n">NodeIndex</span><span class="p">()</span>
 
-    <span class="n">run_types</span> <span class="o">=</span> <span class="nb">list</span><span class="p">({</span><span class="s1">&#39;events&#39;</span><span class="p">,</span> <span class="s1">&#39;physio&#39;</span><span class="p">,</span> <span class="s1">&#39;stim&#39;</span><span class="p">,</span> <span class="s1">&#39;confounds&#39;</span><span class="p">}</span> <span class="o">-</span> <span class="nb">set</span><span class="p">(</span><span class="n">types</span><span class="p">))</span>
+    <span class="n">run_types</span> <span class="o">=</span> <span class="nb">list</span><span class="p">({</span><span class="s1">&#39;events&#39;</span><span class="p">,</span> <span class="s1">&#39;physio&#39;</span><span class="p">,</span> <span class="s1">&#39;stim&#39;</span><span class="p">,</span> <span class="s1">&#39;regressors&#39;</span><span class="p">}</span> <span class="o">-</span> <span class="nb">set</span><span class="p">(</span><span class="n">types</span><span class="p">))</span>
     <span class="n">type_flags</span> <span class="o">=</span> <span class="p">{</span><span class="n">t</span><span class="p">:</span> <span class="kc">False</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">run_types</span><span class="p">}</span>
     <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">type_flags</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">4</span><span class="p">:</span>
         <span class="n">_kwargs</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
         <span class="n">_kwargs</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">type_flags</span><span class="p">)</span>
-        <span class="n">dataset</span> <span class="o">=</span> <span class="n">_load_time_variables</span><span class="p">(</span><span class="n">layout</span><span class="p">,</span> <span class="n">dataset</span><span class="p">,</span> <span class="o">**</span><span class="n">_kwargs</span><span class="p">)</span>
+        <span class="n">dataset</span> <span class="o">=</span> <span class="n">_load_time_variables</span><span class="p">(</span><span class="n">layout</span><span class="p">,</span> <span class="n">dataset</span><span class="p">,</span> <span class="n">scope</span><span class="o">=</span><span class="n">scope</span><span class="p">,</span> <span class="o">**</span><span class="n">_kwargs</span><span class="p">)</span>
 
     <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="p">({</span><span class="s1">&#39;scans&#39;</span><span class="p">,</span> <span class="s1">&#39;sessions&#39;</span><span class="p">,</span> <span class="s1">&#39;participants&#39;</span><span class="p">}</span> <span class="o">&amp;</span> <span class="nb">set</span><span class="p">(</span><span class="n">types</span><span class="p">)):</span>
         <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;suffix&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span> <span class="c1"># suffix is always one of values aboves</span>
-        <span class="n">dataset</span> <span class="o">=</span> <span class="n">_load_tsv_variables</span><span class="p">(</span><span class="n">layout</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">dataset</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="n">dataset</span> <span class="o">=</span> <span class="n">_load_tsv_variables</span><span class="p">(</span><span class="n">layout</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">dataset</span><span class="p">,</span> <span class="n">scope</span><span class="o">=</span><span class="n">scope</span><span class="p">,</span>
+                                      <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="n">dataset</span></div>
 
 
 <span class="k">def</span> <span class="nf">_load_time_variables</span><span class="p">(</span><span class="n">layout</span><span class="p">,</span> <span class="n">dataset</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">scan_length</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                          <span class="n">drop_na</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">events</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">physio</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">stim</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                         <span class="n">confounds</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">skip_empty</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="o">**</span><span class="n">selectors</span><span class="p">):</span>
+                         <span class="n">regressors</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">skip_empty</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">scope</span><span class="o">=</span><span class="s1">&#39;all&#39;</span><span class="p">,</span>
+                         <span class="o">**</span><span class="n">selectors</span><span class="p">):</span>
     <span class="sd">&#39;&#39;&#39; Loads all variables found in *_events.tsv files and returns them as a</span>
 <span class="sd">    BIDSVariableCollection.</span>
 
@@ -268,6 +270,8 @@
 <span class="sd">        skip_empty (bool): Whether or not to skip empty Variables (i.e.,</span>
 <span class="sd">            where there are no rows/records in a file, or all onsets,</span>
 <span class="sd">            durations, and amplitudes are 0).</span>
+<span class="sd">        scope (str, list): The scope of the space to search for variables. See</span>
+<span class="sd">            docstring for BIDSLayout for details and valid predefined values.</span>
 <span class="sd">        selectors (dict): Optional keyword arguments passed onto the</span>
 <span class="sd">            BIDSLayout instance&#39;s get() method; can be used to constrain</span>
 <span class="sd">            which data are loaded.</span>
@@ -277,33 +281,38 @@
 
     <span class="c1"># Extract any non-keyword arguments</span>
     <span class="n">kwargs</span> <span class="o">=</span> <span class="n">selectors</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
-    <span class="n">domains</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;domains&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="n">dataset</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">dataset</span> <span class="o">=</span> <span class="n">NodeIndex</span><span class="p">()</span>
 
     <span class="n">selectors</span><span class="p">[</span><span class="s1">&#39;datatype&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;func&#39;</span>
     <span class="n">selectors</span><span class="p">[</span><span class="s1">&#39;suffix&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;bold&#39;</span>
-    <span class="n">images</span> <span class="o">=</span> <span class="n">layout</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">return_type</span><span class="o">=</span><span class="s1">&#39;file&#39;</span><span class="p">,</span> <span class="n">extensions</span><span class="o">=</span><span class="s1">&#39;.nii.gz&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">selectors</span><span class="p">)</span>
+    <span class="n">images</span> <span class="o">=</span> <span class="n">layout</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">return_type</span><span class="o">=</span><span class="s1">&#39;object&#39;</span><span class="p">,</span> <span class="n">extensions</span><span class="o">=</span><span class="s1">&#39;.nii.gz&#39;</span><span class="p">,</span>
+                        <span class="n">scope</span><span class="o">=</span><span class="n">scope</span><span class="p">,</span> <span class="o">**</span><span class="n">selectors</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="ow">not</span> <span class="n">images</span><span class="p">:</span>
         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;No functional images that match criteria found.&quot;</span><span class="p">)</span>
 
     <span class="c1"># Main loop over images</span>
-    <span class="k">for</span> <span class="n">img_f</span> <span class="ow">in</span> <span class="n">images</span><span class="p">:</span>
+    <span class="k">for</span> <span class="n">img_obj</span> <span class="ow">in</span> <span class="n">images</span><span class="p">:</span>
 
-        <span class="n">entities</span> <span class="o">=</span> <span class="n">layout</span><span class="o">.</span><span class="n">files</span><span class="p">[</span><span class="n">img_f</span><span class="p">]</span><span class="o">.</span><span class="n">entities</span>
+        <span class="n">entities</span> <span class="o">=</span> <span class="n">img_obj</span><span class="o">.</span><span class="n">entities</span>
+        <span class="n">img_f</span> <span class="o">=</span> <span class="n">img_obj</span><span class="o">.</span><span class="n">path</span>
 
         <span class="c1"># Run is not mandatory, but we need a default for proper indexing</span>
         <span class="k">if</span> <span class="s1">&#39;run&#39;</span> <span class="ow">in</span> <span class="n">entities</span><span class="p">:</span>
             <span class="n">entities</span><span class="p">[</span><span class="s1">&#39;run&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">entities</span><span class="p">[</span><span class="s1">&#39;run&#39;</span><span class="p">])</span>
 
+        <span class="n">tr</span> <span class="o">=</span> <span class="n">layout</span><span class="o">.</span><span class="n">get_metadata</span><span class="p">(</span><span class="n">img_f</span><span class="p">,</span> <span class="n">suffix</span><span class="o">=</span><span class="s1">&#39;bold&#39;</span><span class="p">,</span> <span class="n">scope</span><span class="o">=</span><span class="n">scope</span><span class="p">,</span>
+                                 <span class="n">full_search</span><span class="o">=</span><span class="kc">True</span><span class="p">)[</span><span class="s1">&#39;RepetitionTime&#39;</span><span class="p">]</span>
+
         <span class="c1"># Get duration of run: first try to get it directly from the image</span>
         <span class="c1"># header; if that fails, try to get NumberOfVolumes from the</span>
         <span class="c1"># run metadata; if that fails, look for a scan_length argument.</span>
         <span class="k">try</span><span class="p">:</span>
+            <span class="kn">import</span> <span class="nn">nibabel</span> <span class="k">as</span> <span class="nn">nb</span>
             <span class="n">img</span> <span class="o">=</span> <span class="n">nb</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">img_f</span><span class="p">)</span>
-            <span class="n">duration</span> <span class="o">=</span> <span class="n">img</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">*</span> <span class="n">img</span><span class="o">.</span><span class="n">header</span><span class="o">.</span><span class="n">get_zooms</span><span class="p">()[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+            <span class="n">duration</span> <span class="o">=</span> <span class="n">img</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">*</span> <span class="n">tr</span>
         <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">scan_length</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
                 <span class="n">duration</span> <span class="o">=</span> <span class="n">scan_length</span>
@@ -314,20 +323,18 @@
                        <span class="s2">&quot;available, or manually specify the scan duration.&quot;</span><span class="p">)</span>
                 <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
 
-        <span class="n">tr</span> <span class="o">=</span> <span class="n">layout</span><span class="o">.</span><span class="n">get_metadata</span><span class="p">(</span><span class="n">img_f</span><span class="p">,</span> <span class="n">suffix</span><span class="o">=</span><span class="s1">&#39;bold&#39;</span><span class="p">,</span> <span class="n">domains</span><span class="o">=</span><span class="n">domains</span><span class="p">,</span>
-                                 <span class="n">full_search</span><span class="o">=</span><span class="kc">True</span><span class="p">)[</span><span class="s1">&#39;RepetitionTime&#39;</span><span class="p">]</span>
-
         <span class="n">run</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">get_or_create_node</span><span class="p">(</span><span class="s1">&#39;run&#39;</span><span class="p">,</span> <span class="n">entities</span><span class="p">,</span> <span class="n">image_file</span><span class="o">=</span><span class="n">img_f</span><span class="p">,</span>
                                          <span class="n">duration</span><span class="o">=</span><span class="n">duration</span><span class="p">,</span> <span class="n">repetition_time</span><span class="o">=</span><span class="n">tr</span><span class="p">)</span>
         <span class="n">run_info</span> <span class="o">=</span> <span class="n">run</span><span class="o">.</span><span class="n">get_info</span><span class="p">()</span>
 
         <span class="c1"># Process event files</span>
         <span class="k">if</span> <span class="n">events</span><span class="p">:</span>
-            <span class="n">dfs</span> <span class="o">=</span> <span class="n">layout</span><span class="o">.</span><span class="n">_get_nearest_helper</span><span class="p">(</span><span class="n">img_f</span><span class="p">,</span> <span class="s1">&#39;.tsv&#39;</span><span class="p">,</span> <span class="n">suffix</span><span class="o">=</span><span class="s1">&#39;events&#39;</span><span class="p">,</span>
-                                             <span class="n">full_search</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">domains</span><span class="o">=</span><span class="n">domains</span><span class="p">)</span>
+            <span class="n">dfs</span> <span class="o">=</span> <span class="n">layout</span><span class="o">.</span><span class="n">get_nearest</span><span class="p">(</span><span class="n">img_f</span><span class="p">,</span> <span class="n">extensions</span><span class="o">=</span><span class="s1">&#39;.tsv&#39;</span><span class="p">,</span> <span class="n">suffix</span><span class="o">=</span><span class="s1">&#39;events&#39;</span><span class="p">,</span>
+                                      <span class="n">all_</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">full_search</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                                      <span class="n">ignore_strict_entities</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;suffix&#39;</span><span class="p">])</span>
             <span class="k">if</span> <span class="n">dfs</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
                 <span class="k">for</span> <span class="n">_data</span> <span class="ow">in</span> <span class="n">dfs</span><span class="p">:</span>
-                    <span class="n">_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_table</span><span class="p">(</span><span class="n">_data</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;</span><span class="se">\t</span><span class="s1">&#39;</span><span class="p">)</span>
+                    <span class="n">_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">_data</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;</span><span class="se">\t</span><span class="s1">&#39;</span><span class="p">)</span>
                     <span class="k">if</span> <span class="s1">&#39;amplitude&#39;</span> <span class="ow">in</span> <span class="n">_data</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
                         <span class="k">if</span> <span class="p">(</span><span class="n">_data</span><span class="p">[</span><span class="s1">&#39;amplitude&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">all</span><span class="p">()</span> <span class="ow">and</span> \
                                 <span class="s1">&#39;trial_type&#39;</span> <span class="ow">in</span> <span class="n">_data</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
@@ -337,8 +344,7 @@
                             <span class="n">_data</span> <span class="o">=</span> <span class="n">_data</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s1">&#39;amplitude&#39;</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
                         <span class="k">else</span><span class="p">:</span>
                             <span class="n">msg</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;Column name &#39;amplitude&#39; is reserved; &quot;</span>
-                                   <span class="s2">&quot;renaming &quot;</span>
-                                   <span class="s2">&quot;it to &#39;amplitude_&#39;.&quot;</span><span class="p">)</span>
+                                   <span class="s2">&quot;renaming it to &#39;amplitude_&#39;.&quot;</span><span class="p">)</span>
                             <span class="n">_data</span> <span class="o">=</span> <span class="n">_data</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span>
                                 <span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;amplitude&#39;</span><span class="p">:</span> <span class="s1">&#39;amplitude_&#39;</span><span class="p">})</span>
                         <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
@@ -357,7 +363,7 @@
                         <span class="c1"># Add in all of the run&#39;s entities as new columns for</span>
                         <span class="c1"># index</span>
                         <span class="k">for</span> <span class="n">entity</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">entities</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-                            <span class="k">if</span> <span class="n">entity</span> <span class="ow">in</span> <span class="n">BASE_ENTITIES</span><span class="p">:</span>
+                            <span class="k">if</span> <span class="n">entity</span> <span class="ow">in</span> <span class="n">ALL_ENTITIES</span><span class="p">:</span>
                                 <span class="n">df</span><span class="p">[</span><span class="n">entity</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
 
                         <span class="k">if</span> <span class="n">drop_na</span><span class="p">:</span>
@@ -366,34 +372,40 @@
                         <span class="k">if</span> <span class="n">df</span><span class="o">.</span><span class="n">empty</span><span class="p">:</span>
                             <span class="k">continue</span>
 
-                        <span class="n">var</span> <span class="o">=</span> <span class="n">SparseRunVariable</span><span class="p">(</span><span class="n">col</span><span class="p">,</span> <span class="n">df</span><span class="p">,</span> <span class="n">run_info</span><span class="p">,</span> <span class="s1">&#39;events&#39;</span><span class="p">)</span>
+                        <span class="n">var</span> <span class="o">=</span> <span class="n">SparseRunVariable</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">col</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">,</span> <span class="n">run_info</span><span class="o">=</span><span class="n">run_info</span><span class="p">,</span>
+                                                <span class="n">source</span><span class="o">=</span><span class="s1">&#39;events&#39;</span><span class="p">)</span>
                         <span class="n">run</span><span class="o">.</span><span class="n">add_variable</span><span class="p">(</span><span class="n">var</span><span class="p">)</span>
 
         <span class="c1"># Process confound files</span>
-        <span class="k">if</span> <span class="n">confounds</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">regressors</span><span class="p">:</span>
             <span class="n">sub_ents</span> <span class="o">=</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="n">v</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">entities</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
                         <span class="k">if</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">BASE_ENTITIES</span><span class="p">}</span>
-            <span class="n">confound_files</span> <span class="o">=</span> <span class="n">layout</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">suffix</span><span class="o">=</span><span class="s1">&#39;confounds&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">sub_ents</span><span class="p">)</span>
+            <span class="n">confound_files</span> <span class="o">=</span> <span class="n">layout</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">suffix</span><span class="o">=</span><span class="s1">&#39;regressors&#39;</span><span class="p">,</span> <span class="n">scope</span><span class="o">=</span><span class="n">scope</span><span class="p">,</span>
+                                        <span class="o">**</span><span class="n">sub_ents</span><span class="p">)</span>
             <span class="k">for</span> <span class="n">cf</span> <span class="ow">in</span> <span class="n">confound_files</span><span class="p">:</span>
-                <span class="n">_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">cf</span><span class="o">.</span><span class="n">filename</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;</span><span class="se">\t</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">na_values</span><span class="o">=</span><span class="s1">&#39;n/a&#39;</span><span class="p">)</span>
+                <span class="n">_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">cf</span><span class="o">.</span><span class="n">path</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;</span><span class="se">\t</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">na_values</span><span class="o">=</span><span class="s1">&#39;n/a&#39;</span><span class="p">)</span>
                 <span class="k">if</span> <span class="n">columns</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
                     <span class="n">conf_cols</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">_data</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span> <span class="o">&amp;</span> <span class="nb">set</span><span class="p">(</span><span class="n">columns</span><span class="p">))</span>
                     <span class="n">_data</span> <span class="o">=</span> <span class="n">_data</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="n">conf_cols</span><span class="p">]</span>
                 <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">_data</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
                     <span class="n">sr</span> <span class="o">=</span> <span class="mf">1.</span> <span class="o">/</span> <span class="n">run</span><span class="o">.</span><span class="n">repetition_time</span>
-                    <span class="n">var</span> <span class="o">=</span> <span class="n">DenseRunVariable</span><span class="p">(</span><span class="n">col</span><span class="p">,</span> <span class="n">_data</span><span class="p">[[</span><span class="n">col</span><span class="p">]],</span> <span class="n">run_info</span><span class="p">,</span>
-                                           <span class="s1">&#39;confounds&#39;</span><span class="p">,</span> <span class="n">sr</span><span class="p">)</span>
+                    <span class="n">var</span> <span class="o">=</span> <span class="n">DenseRunVariable</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">col</span><span class="p">,</span> <span class="n">values</span><span class="o">=</span><span class="n">_data</span><span class="p">[[</span><span class="n">col</span><span class="p">]],</span>
+                                           <span class="n">run_info</span><span class="o">=</span><span class="n">run_info</span><span class="p">,</span> <span class="n">source</span><span class="o">=</span><span class="s1">&#39;regressors&#39;</span><span class="p">,</span>
+                                           <span class="n">sampling_rate</span><span class="o">=</span><span class="n">sr</span><span class="p">)</span>
                     <span class="n">run</span><span class="o">.</span><span class="n">add_variable</span><span class="p">(</span><span class="n">var</span><span class="p">)</span>
 
         <span class="c1"># Process recordinging files</span>
-        <span class="k">if</span> <span class="n">physio</span> <span class="ow">or</span> <span class="n">stim</span><span class="p">:</span>
-            <span class="n">rec_types</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;physio&#39;</span><span class="p">]</span> <span class="k">if</span> <span class="n">physio</span> <span class="k">else</span> <span class="p">[]</span>
-            <span class="k">if</span> <span class="n">stim</span><span class="p">:</span>
-                <span class="n">rec_types</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;stim&#39;</span><span class="p">)</span>
+        <span class="n">rec_types</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">if</span> <span class="n">physio</span><span class="p">:</span>
+            <span class="n">rec_types</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;physio&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">stim</span><span class="p">:</span>
+            <span class="n">rec_types</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;stim&#39;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">rec_types</span><span class="p">:</span>
             <span class="n">rec_files</span> <span class="o">=</span> <span class="n">layout</span><span class="o">.</span><span class="n">get_nearest</span><span class="p">(</span><span class="n">img_f</span><span class="p">,</span> <span class="n">extensions</span><span class="o">=</span><span class="s1">&#39;.tsv.gz&#39;</span><span class="p">,</span>
                                            <span class="n">all_</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">suffix</span><span class="o">=</span><span class="n">rec_types</span><span class="p">,</span>
                                            <span class="n">ignore_strict_entities</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;suffix&#39;</span><span class="p">],</span>
-                                           <span class="n">full_search</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">domains</span><span class="o">=</span><span class="n">domains</span><span class="p">)</span>
+                                           <span class="n">full_search</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
             <span class="k">for</span> <span class="n">rf</span> <span class="ow">in</span> <span class="n">rec_files</span><span class="p">:</span>
                 <span class="n">metadata</span> <span class="o">=</span> <span class="n">layout</span><span class="o">.</span><span class="n">get_metadata</span><span class="p">(</span><span class="n">rf</span><span class="p">)</span>
                 <span class="k">if</span> <span class="ow">not</span> <span class="n">metadata</span><span class="p">:</span>
@@ -435,14 +447,14 @@
                 <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">values</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="n">rf_cols</span><span class="p">)</span>
                 <span class="n">source</span> <span class="o">=</span> <span class="s1">&#39;physio&#39;</span> <span class="k">if</span> <span class="s1">&#39;_physio.tsv&#39;</span> <span class="ow">in</span> <span class="n">rf</span> <span class="k">else</span> <span class="s1">&#39;stim&#39;</span>
                 <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
-                    <span class="n">var</span> <span class="o">=</span> <span class="n">DenseRunVariable</span><span class="p">(</span><span class="n">col</span><span class="p">,</span> <span class="n">df</span><span class="p">[[</span><span class="n">col</span><span class="p">]],</span> <span class="n">run_info</span><span class="p">,</span> <span class="n">source</span><span class="p">,</span>
-                                           <span class="n">freq</span><span class="p">)</span>
+                    <span class="n">var</span> <span class="o">=</span> <span class="n">DenseRunVariable</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">col</span><span class="p">,</span> <span class="n">values</span><span class="o">=</span><span class="n">df</span><span class="p">[[</span><span class="n">col</span><span class="p">]],</span> <span class="n">run_info</span><span class="o">=</span><span class="n">run_info</span><span class="p">,</span>
+                                           <span class="n">source</span><span class="o">=</span><span class="n">source</span><span class="p">,</span> <span class="n">sampling_rate</span><span class="o">=</span><span class="n">freq</span><span class="p">)</span>
                     <span class="n">run</span><span class="o">.</span><span class="n">add_variable</span><span class="p">(</span><span class="n">var</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">dataset</span>
 
 
 <span class="k">def</span> <span class="nf">_load_tsv_variables</span><span class="p">(</span><span class="n">layout</span><span class="p">,</span> <span class="n">suffix</span><span class="p">,</span> <span class="n">dataset</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-                        <span class="n">prepend_type</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">selectors</span><span class="p">):</span>
+                        <span class="n">prepend_type</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">scope</span><span class="o">=</span><span class="s1">&#39;all&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">selectors</span><span class="p">):</span>
     <span class="sd">&#39;&#39;&#39; Reads variables from scans.tsv, sessions.tsv, and participants.tsv.</span>
 
 <span class="sd">    Args:</span>
@@ -455,6 +467,8 @@
 <span class="sd">            files to return. If None, all columns are returned.</span>
 <span class="sd">        prepend_type (bool): If True, variable names are prepended with the</span>
 <span class="sd">            type name (e.g., &#39;age&#39; becomes &#39;participants.age&#39;).</span>
+<span class="sd">        scope (str, list): The scope of the space to search for variables. See</span>
+<span class="sd">            docstring for BIDSLayout for details and valid predefined values.</span>
 <span class="sd">        selectors (dict): Optional keyword arguments passed onto the</span>
 <span class="sd">            BIDSLayout instance&#39;s get() method; can be used to constrain</span>
 <span class="sd">            which data are loaded.</span>
@@ -472,25 +486,31 @@
         <span class="n">dataset</span> <span class="o">=</span> <span class="n">NodeIndex</span><span class="p">()</span>
 
     <span class="n">files</span> <span class="o">=</span> <span class="n">layout</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">extensions</span><span class="o">=</span><span class="s1">&#39;.tsv&#39;</span><span class="p">,</span> <span class="n">return_type</span><span class="o">=</span><span class="s1">&#39;file&#39;</span><span class="p">,</span> <span class="n">suffix</span><span class="o">=</span><span class="n">suffix</span><span class="p">,</span>
-                       <span class="o">**</span><span class="n">layout_kwargs</span><span class="p">)</span>
+                       <span class="n">scope</span><span class="o">=</span><span class="n">scope</span><span class="p">,</span> <span class="o">**</span><span class="n">layout_kwargs</span><span class="p">)</span>
 
     <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">files</span><span class="p">:</span>
 
         <span class="n">f</span> <span class="o">=</span> <span class="n">layout</span><span class="o">.</span><span class="n">files</span><span class="p">[</span><span class="n">f</span><span class="p">]</span>
-        <span class="n">_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_table</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">path</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;</span><span class="se">\t</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">path</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;</span><span class="se">\t</span><span class="s1">&#39;</span><span class="p">)</span>
 
         <span class="c1"># Entities can be defined either within the first column of the .tsv</span>
         <span class="c1"># file (for entities that vary by row), or from the full file path</span>
         <span class="c1"># (for entities constant over all rows in the file). We extract both</span>
         <span class="c1"># and store them in the main DataFrame alongside other variables (as</span>
-        <span class="c1"># they&#39;ll be extracted when the Column is initialized anyway).</span>
+        <span class="c1"># they&#39;ll be extracted when the BIDSVariable is initialized anyway).</span>
         <span class="k">for</span> <span class="n">ent_name</span><span class="p">,</span> <span class="n">ent_val</span> <span class="ow">in</span> <span class="n">f</span><span class="o">.</span><span class="n">entities</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-            <span class="k">if</span> <span class="n">ent_name</span> <span class="ow">in</span> <span class="n">BASE_ENTITIES</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">ent_name</span> <span class="ow">in</span> <span class="n">ALL_ENTITIES</span><span class="p">:</span>
                 <span class="n">_data</span><span class="p">[</span><span class="n">ent_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">ent_val</span>
 
         <span class="c1"># Handling is a bit more convoluted for scans.tsv, because the first</span>
         <span class="c1"># column contains the run filename, which we also need to parse.</span>
         <span class="k">if</span> <span class="n">suffix</span> <span class="o">==</span> <span class="s1">&#39;scans&#39;</span><span class="p">:</span>
+
+            <span class="c1"># Suffix is guaranteed to be present in each filename, so drop the</span>
+            <span class="c1"># constant column with value &#39;scans&#39; to make way for it and prevent</span>
+            <span class="c1"># two &#39;suffix&#39; columns.</span>
+            <span class="n">_data</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="s1">&#39;suffix&#39;</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
             <span class="n">image</span> <span class="o">=</span> <span class="n">_data</span><span class="p">[</span><span class="s1">&#39;filename&#39;</span><span class="p">]</span>
             <span class="n">_data</span> <span class="o">=</span> <span class="n">_data</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s1">&#39;filename&#39;</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
             <span class="n">dn</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">dirname</span>
@@ -498,7 +518,7 @@
             <span class="n">ent_recs</span> <span class="o">=</span> <span class="p">[</span><span class="n">layout</span><span class="o">.</span><span class="n">files</span><span class="p">[</span><span class="n">p</span><span class="p">]</span><span class="o">.</span><span class="n">entities</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">paths</span>
                         <span class="k">if</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">layout</span><span class="o">.</span><span class="n">files</span><span class="p">]</span>
             <span class="n">ent_cols</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="o">.</span><span class="n">from_records</span><span class="p">(</span><span class="n">ent_recs</span><span class="p">)</span>
-            <span class="n">_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">_data</span><span class="p">,</span> <span class="n">ent_cols</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+            <span class="n">_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">_data</span><span class="p">,</span> <span class="n">ent_cols</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">sort</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
             <span class="c1"># It&#39;s possible to end up with duplicate entity columns this way</span>
             <span class="n">_data</span> <span class="o">=</span> <span class="n">_data</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">drop_duplicates</span><span class="p">()</span><span class="o">.</span><span class="n">T</span>
 
@@ -525,12 +545,11 @@
         <span class="c1"># Filter rows on all selectors</span>
         <span class="n">comm_cols</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">_data</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span> <span class="o">&amp;</span> <span class="nb">set</span><span class="p">(</span><span class="n">selectors</span><span class="o">.</span><span class="n">keys</span><span class="p">()))</span>
         <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">comm_cols</span><span class="p">:</span>
-            <span class="k">for</span> <span class="n">val</span> <span class="ow">in</span> <span class="n">listify</span><span class="p">(</span><span class="n">selectors</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">col</span><span class="p">)):</span>
-                <span class="n">ent_patts</span> <span class="o">=</span> <span class="p">[</span><span class="n">make_patt</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">regex_search</span><span class="o">=</span><span class="n">layout</span><span class="o">.</span><span class="n">regex_search</span><span class="p">)</span>
-                             <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">listify</span><span class="p">(</span><span class="n">selectors</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">col</span><span class="p">))]</span>
-                <span class="n">patt</span> <span class="o">=</span> <span class="s1">&#39;|&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">ent_patts</span><span class="p">)</span>
+            <span class="n">ent_patts</span> <span class="o">=</span> <span class="p">[</span><span class="n">make_patt</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">regex_search</span><span class="o">=</span><span class="n">layout</span><span class="o">.</span><span class="n">regex_search</span><span class="p">)</span>
+                            <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">listify</span><span class="p">(</span><span class="n">selectors</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">col</span><span class="p">))]</span>
+            <span class="n">patt</span> <span class="o">=</span> <span class="s1">&#39;|&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">ent_patts</span><span class="p">)</span>
 
-                <span class="n">_data</span> <span class="o">=</span> <span class="n">_data</span><span class="p">[</span><span class="n">_data</span><span class="p">[</span><span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">contains</span><span class="p">(</span><span class="n">patt</span><span class="p">)]</span>
+            <span class="n">_data</span> <span class="o">=</span> <span class="n">_data</span><span class="p">[</span><span class="n">_data</span><span class="p">[</span><span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">contains</span><span class="p">(</span><span class="n">patt</span><span class="p">)]</span>
 
         <span class="n">level</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;scans&#39;</span><span class="p">:</span> <span class="s1">&#39;session&#39;</span><span class="p">,</span> <span class="s1">&#39;sessions&#39;</span><span class="p">:</span> <span class="s1">&#39;subject&#39;</span><span class="p">,</span>
                  <span class="s1">&#39;participants&#39;</span><span class="p">:</span> <span class="s1">&#39;dataset&#39;</span><span class="p">}[</span><span class="n">suffix</span><span class="p">]</span>
@@ -551,7 +570,7 @@
             <span class="k">if</span> <span class="n">prepend_type</span><span class="p">:</span>
                 <span class="n">col_name</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">%s</span><span class="s1">.</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">suffix</span><span class="p">,</span> <span class="n">col_name</span><span class="p">)</span>
 
-            <span class="n">node</span><span class="o">.</span><span class="n">add_variable</span><span class="p">(</span><span class="n">SimpleVariable</span><span class="p">(</span><span class="n">col_name</span><span class="p">,</span> <span class="n">df</span><span class="p">,</span> <span class="n">suffix</span><span class="p">))</span>
+            <span class="n">node</span><span class="o">.</span><span class="n">add_variable</span><span class="p">(</span><span class="n">SimpleVariable</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">col_name</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">,</span> <span class="n">source</span><span class="o">=</span><span class="n">suffix</span><span class="p">))</span>
 
     <span class="k">return</span> <span class="n">dataset</span>
 </pre></div>
@@ -590,7 +609,7 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../../../',
-            VERSION:'0.6.5+88.gb418631',
+            VERSION:'0.8.0+2.gd85469c',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,

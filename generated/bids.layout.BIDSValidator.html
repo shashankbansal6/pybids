@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>bids.layout.BIDSValidator &mdash; bids 0.6.5+88.gb418631 documentation</title>
+  <title>bids.layout.BIDSValidator &mdash; bids 0.8.0+2.gd85469c documentation</title>
   
 
   
@@ -37,7 +37,7 @@
         <link rel="index" title="Index"
               href="../genindex.html"/>
         <link rel="search" title="Search" href="../search.html"/>
-    <link rel="top" title="bids 0.6.5+88.gb418631 documentation" href="../index.html"/>
+    <link rel="top" title="bids 0.8.0+2.gd85469c documentation" href="../index.html"/>
         <link rel="up" title="API Reference" href="../api.html"/> 
 
   
@@ -173,7 +173,7 @@
 <h1><code class="xref py py-mod docutils literal"><span class="pre">bids.layout</span></code>.BIDSValidator<a class="headerlink" href="#bids-layout-bidsvalidator" title="Permalink to this headline">¶</a></h1>
 <dl class="class">
 <dt id="bids.layout.BIDSValidator">
-<em class="property">class </em><code class="descname">BIDSValidator</code><span class="sig-paren">(</span><em>index_associated=True</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bids/layout/validation.html#BIDSValidator"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bids.layout.BIDSValidator" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descname">BIDSValidator</code><span class="sig-paren">(</span><em>index_associated=True</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bids_validator/bids_validator.html#BIDSValidator"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bids.layout.BIDSValidator" title="Permalink to this definition">¶</a></dt>
 <dd><p>An object for BIDS (Brain Imaging Data Structure) verification in a data.</p>
 <p>The main method of this class is <cite>is_bids()</cite>. You should use it for
 checking whether a file path compatible with BIDS.</p>
@@ -213,14 +213,14 @@ and <cite>stimuli/</cite> will pass the validation, else they won’t.</td>
 <tr class="row-even"><td><a class="reference internal" href="#bids.layout.BIDSValidator.get_path_values" title="bids.layout.BIDSValidator.get_path_values"><code class="xref py py-obj docutils literal"><span class="pre">get_path_values</span></code></a>(path)</td>
 <td>Takes a file path and returns values found for the following path</td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="#bids.layout.BIDSValidator.get_regular_expressions" title="bids.layout.BIDSValidator.get_regular_expressions"><code class="xref py py-obj docutils literal"><span class="pre">get_regular_expressions</span></code></a>(filename)</td>
-<td>Get regular expressions from file.</td>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">get_regular_expressions</span></code>(fileName)</td>
+<td></td>
 </tr>
 <tr class="row-even"><td><a class="reference internal" href="#bids.layout.BIDSValidator.is_associated_data" title="bids.layout.BIDSValidator.is_associated_data"><code class="xref py py-obj docutils literal"><span class="pre">is_associated_data</span></code></a>(path)</td>
 <td>Check if file is appropriate associated data.</td>
 </tr>
 <tr class="row-odd"><td><a class="reference internal" href="#bids.layout.BIDSValidator.is_bids" title="bids.layout.BIDSValidator.is_bids"><code class="xref py py-obj docutils literal"><span class="pre">is_bids</span></code></a>(path)</td>
-<td>Check if a file path appropriate for BIDS.</td>
+<td>Checks if a file path appropriate for BIDS.</td>
 </tr>
 <tr class="row-even"><td><a class="reference internal" href="#bids.layout.BIDSValidator.is_file" title="bids.layout.BIDSValidator.is_file"><code class="xref py py-obj docutils literal"><span class="pre">is_file</span></code></a>(path)</td>
 <td>Check if file is phenotypic data.</td>
@@ -241,7 +241,7 @@ and <cite>stimuli/</cite> will pass the validation, else they won’t.</td>
 </table>
 <dl class="method">
 <dt id="bids.layout.BIDSValidator.get_path_values">
-<code class="descname">get_path_values</code><span class="sig-paren">(</span><em>path</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bids/layout/validation.html#BIDSValidator.get_path_values"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bids.layout.BIDSValidator.get_path_values" title="Permalink to this definition">¶</a></dt>
+<code class="descname">get_path_values</code><span class="sig-paren">(</span><em>path</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bids_validator/bids_validator.html#BIDSValidator.get_path_values"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bids.layout.BIDSValidator.get_path_values" title="Permalink to this definition">¶</a></dt>
 <dd><p>Takes a file path and returns values found for the following path
 keys:</p>
 <blockquote>
@@ -250,21 +250,15 @@ ses-</div></blockquote>
 </dd></dl>
 
 <dl class="method">
-<dt id="bids.layout.BIDSValidator.get_regular_expressions">
-<code class="descname">get_regular_expressions</code><span class="sig-paren">(</span><em>filename</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bids/layout/validation.html#BIDSValidator.get_regular_expressions"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bids.layout.BIDSValidator.get_regular_expressions" title="Permalink to this definition">¶</a></dt>
-<dd><p>Get regular expressions from file.</p>
-</dd></dl>
-
-<dl class="method">
 <dt id="bids.layout.BIDSValidator.is_associated_data">
-<code class="descname">is_associated_data</code><span class="sig-paren">(</span><em>path</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bids/layout/validation.html#BIDSValidator.is_associated_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bids.layout.BIDSValidator.is_associated_data" title="Permalink to this definition">¶</a></dt>
+<code class="descname">is_associated_data</code><span class="sig-paren">(</span><em>path</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bids_validator/bids_validator.html#BIDSValidator.is_associated_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bids.layout.BIDSValidator.is_associated_data" title="Permalink to this definition">¶</a></dt>
 <dd><p>Check if file is appropriate associated data.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="bids.layout.BIDSValidator.is_bids">
-<code class="descname">is_bids</code><span class="sig-paren">(</span><em>path</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bids/layout/validation.html#BIDSValidator.is_bids"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bids.layout.BIDSValidator.is_bids" title="Permalink to this definition">¶</a></dt>
-<dd><p>Check if a file path appropriate for BIDS.</p>
+<code class="descname">is_bids</code><span class="sig-paren">(</span><em>path</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bids_validator/bids_validator.html#BIDSValidator.is_bids"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bids.layout.BIDSValidator.is_bids" title="Permalink to this definition">¶</a></dt>
+<dd><p>Checks if a file path appropriate for BIDS.</p>
 <p>Main method of the validator. uses other class methods for checking
 different aspects of the file path.</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -288,31 +282,31 @@ different aspects of the file path.</p>
 
 <dl class="method">
 <dt id="bids.layout.BIDSValidator.is_file">
-<code class="descname">is_file</code><span class="sig-paren">(</span><em>path</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bids/layout/validation.html#BIDSValidator.is_file"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bids.layout.BIDSValidator.is_file" title="Permalink to this definition">¶</a></dt>
+<code class="descname">is_file</code><span class="sig-paren">(</span><em>path</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bids_validator/bids_validator.html#BIDSValidator.is_file"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bids.layout.BIDSValidator.is_file" title="Permalink to this definition">¶</a></dt>
 <dd><p>Check if file is phenotypic data.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="bids.layout.BIDSValidator.is_phenotypic">
-<code class="descname">is_phenotypic</code><span class="sig-paren">(</span><em>path</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bids/layout/validation.html#BIDSValidator.is_phenotypic"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bids.layout.BIDSValidator.is_phenotypic" title="Permalink to this definition">¶</a></dt>
+<code class="descname">is_phenotypic</code><span class="sig-paren">(</span><em>path</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bids_validator/bids_validator.html#BIDSValidator.is_phenotypic"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bids.layout.BIDSValidator.is_phenotypic" title="Permalink to this definition">¶</a></dt>
 <dd><p>Check if file is phenotypic data.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="bids.layout.BIDSValidator.is_session_level">
-<code class="descname">is_session_level</code><span class="sig-paren">(</span><em>path</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bids/layout/validation.html#BIDSValidator.is_session_level"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bids.layout.BIDSValidator.is_session_level" title="Permalink to this definition">¶</a></dt>
+<code class="descname">is_session_level</code><span class="sig-paren">(</span><em>path</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bids_validator/bids_validator.html#BIDSValidator.is_session_level"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bids.layout.BIDSValidator.is_session_level" title="Permalink to this definition">¶</a></dt>
 <dd><p>Check if the file has appropriate name for a session level.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="bids.layout.BIDSValidator.is_subject_level">
-<code class="descname">is_subject_level</code><span class="sig-paren">(</span><em>path</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bids/layout/validation.html#BIDSValidator.is_subject_level"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bids.layout.BIDSValidator.is_subject_level" title="Permalink to this definition">¶</a></dt>
+<code class="descname">is_subject_level</code><span class="sig-paren">(</span><em>path</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bids_validator/bids_validator.html#BIDSValidator.is_subject_level"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bids.layout.BIDSValidator.is_subject_level" title="Permalink to this definition">¶</a></dt>
 <dd><p>Check if the file has appropriate name for a subject level.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="bids.layout.BIDSValidator.is_top_level">
-<code class="descname">is_top_level</code><span class="sig-paren">(</span><em>path</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bids/layout/validation.html#BIDSValidator.is_top_level"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bids.layout.BIDSValidator.is_top_level" title="Permalink to this definition">¶</a></dt>
+<code class="descname">is_top_level</code><span class="sig-paren">(</span><em>path</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bids_validator/bids_validator.html#BIDSValidator.is_top_level"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bids.layout.BIDSValidator.is_top_level" title="Permalink to this definition">¶</a></dt>
 <dd><p>Check if the file has appropriate name for a top-level file.</p>
 </dd></dl>
 
@@ -355,7 +349,7 @@ different aspects of the file path.</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'0.6.5+88.gb418631',
+            VERSION:'0.8.0+2.gd85469c',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,
