@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Changelog &mdash; bids 0.8.0+2.gd85469c documentation</title>
+  <title>Changelog &mdash; bids 0.8.0+206.g76cfcf5 documentation</title>
   
 
   
@@ -37,7 +37,7 @@
         <link rel="index" title="Index"
               href="genindex.html"/>
         <link rel="search" title="Search" href="search.html"/>
-    <link rel="top" title="bids 0.8.0+2.gd85469c documentation" href="index.html"/>
+    <link rel="top" title="bids 0.8.0+206.g76cfcf5 documentation" href="index.html"/>
         <link rel="prev" title="bids.utils.matches_entities" href="generated/bids.utils.matches_entities.html"/> 
 
   
@@ -91,6 +91,7 @@
 <li class="toctree-l1"><a class="reference internal" href="user_guide.html">User guide: table of contents</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api.html">API Reference</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Changelog</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#version-0-9-0-may-10-2019">Version 0.9.0 (May 10, 2019)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#version-0-8-0-february-15-2019">Version 0.8.0 (February 15, 2019)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#version-0-7-1-february-01-2019">Version 0.7.1 (February 01, 2019)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#version-0-7-0-january-10-2019">Version 0.7.0 (January 10, 2019)</a></li>
@@ -169,6 +170,72 @@
             
   <div class="section" id="changelog">
 <h1>Changelog<a class="headerlink" href="#changelog" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="version-0-9-0-may-10-2019">
+<h2>Version 0.9.0 (May 10, 2019)<a class="headerlink" href="#version-0-9-0-may-10-2019" title="Permalink to this headline">¶</a></h2>
+<p>Version 0.9 replaces the native Python backend with a SQLite database managed
+via SQLAlchemy. The layout module has been refactored (again), but API changes
+are minimal. This release also adds many new features and closes a number of
+open issues.</p>
+<p>API CHANGES/DEPRECATIONS:</p>
+<ul class="simple">
+<li>The <code class="docutils literal"><span class="pre">extensions</span></code> argument has now been banished forever; instead, use
+<code class="docutils literal"><span class="pre">extension</span></code>, which is now defined as a first-class entity. The former will
+continue to work until at least the 0.11 release (closes #404).</li>
+<li>Relatedly, values for <code class="docutils literal"><span class="pre">extension</span></code> should no longer include a leading <code class="docutils literal"><span class="pre">.</span></code>,
+though this should also continue to work for the time being.</li>
+<li>The <code class="docutils literal"><span class="pre">BIDSLayout</span></code> init argument <code class="docutils literal"><span class="pre">index_associated</span></code> has been removed as the
+various other filtering/indexing options mean there is longer a good reason for
+users to manipulate this.</li>
+<li><code class="docutils literal"><span class="pre">bids.layout.MetadataIndex</span></code> no longer exists. It’s unlikely that anyone will
+notice this.</li>
+<li><code class="docutils literal"><span class="pre">BIDSLayout.get_metadata()</span></code> no longer takes additional entities as optional
+keyword arguments (they weren’t necessary for anything).</li>
+<li>Direct access to most <code class="docutils literal"><span class="pre">BIDSFile</span></code> properties is discouraged, and in one case
+is broken in 0.9 (for <code class="docutils literal"><span class="pre">.metadata</span></code>, which was unavoidable, because it’s reserved
+by SQLAlchemy). Instead, users should use getters (<code class="docutils literal"><span class="pre">get_metadata</span></code>, <code class="docutils literal"><span class="pre">get_image</span></code>,
+<code class="docutils literal"><span class="pre">get_df</span></code>, etc.) whenever possible.</li>
+</ul>
+<p>NEW FUNCTIONALITY:</p>
+<ul class="simple">
+<li>All file and metadata indexing and querying is now supported by a
+relational (SQLite) database (see #422). While this has few API implications,
+the efficiency of many operations is improved, and complex user-generated
+queries can now be performed via the SQLAlchemy <code class="docutils literal"><span class="pre">.session</span></code> stored in each
+<code class="docutils literal"><span class="pre">BIDSLayout</span></code>.</li>
+<li>Adds <code class="docutils literal"><span class="pre">.save()</span></code> method to the <code class="docutils literal"><span class="pre">BIDSLayout</span></code> that saves the current SQLite DB
+to the specified location. Conversely, passing a filename as <code class="docutils literal"><span class="pre">database_file</span></code> at
+init will use the specified store instead of re-indexing all files. This
+eliminates the need for a pickling strategy (#435).</li>
+<li>Related to the above, the <code class="docutils literal"><span class="pre">BIDSLayout</span></code> init adds a <code class="docutils literal"><span class="pre">reset_database</span></code> argument
+that forces reindexing even if a <code class="docutils literal"><span class="pre">database_file</span></code> is specified.</li>
+<li>The <code class="docutils literal"><span class="pre">BIDSLayout</span></code> has a new <code class="docutils literal"><span class="pre">index_metadata</span></code> flag that controls whether or
+not the contents of JSON metadata files are indexed.</li>
+<li>Added <code class="docutils literal"><span class="pre">metadata</span></code> flag to <code class="docutils literal"><span class="pre">BIDSLayout.to_df()</span></code> that controls whether or not
+metadata columns are included in the returned pandas <code class="docutils literal"><span class="pre">DataFrame</span></code> (#232).</li>
+<li>Added <code class="docutils literal"><span class="pre">get_entities()</span></code> method to <code class="docutils literal"><span class="pre">BIDSLayout</span></code> that allows retrieval of all
+<code class="docutils literal"><span class="pre">Entity</span></code> instances available within a specified scope (#346).</li>
+<li>Adds <code class="docutils literal"><span class="pre">drop_invalid_filters</span></code> argument to <code class="docutils literal"><span class="pre">BIDSLayout.get()</span></code>, enabling users to
+(optionally) ensure that invalid filters don’t clobber all search results
+(#402).</li>
+<li><code class="docutils literal"><span class="pre">BIDSFile</span></code> instances now have a <code class="docutils literal"><span class="pre">get_associations()</span></code> method that returns
+associated files (see #431).</li>
+<li>The <code class="docutils literal"><span class="pre">BIDSFile</span></code> class has been split into a hierarchy, with <code class="docutils literal"><span class="pre">BIDSImageFile</span></code>
+and <code class="docutils literal"><span class="pre">BIDSDataFile</span></code> subclasses. The former adds a <code class="docutils literal"><span class="pre">get_image()</span></code> method (returns
+a NiBabel image); the latter adds a <code class="docutils literal"><span class="pre">get_df()</span></code> method (returns a pandas DF).
+All <code class="docutils literal"><span class="pre">BIDSFile</span></code> instances now also have a <code class="docutils literal"><span class="pre">get_entities()</span></code> method.</li>
+</ul>
+<p>BUG FIXES AND OTHER MINOR CHANGES:</p>
+<ul class="simple">
+<li>Metadata key/value pairs and file entities are now treated identically,
+eliminating a source of ambiguity in search (see #398).</li>
+<li>Metadata no longer bleeds between raw and derivatives directories unless
+explicitly specified (see #383).</li>
+<li><code class="docutils literal"><span class="pre">BIDSLayout.get_collections()</span></code> no longer drops user-added columns (#273).</li>
+<li>Various minor fixes/improvements/changes to tests.</li>
+<li>The tutorial Jupyter notebook has been fixed and updated to reflect the
+latest changes.</li>
+</ul>
+</div>
 <div class="section" id="version-0-8-0-february-15-2019">
 <h2>Version 0.8.0 (February 15, 2019)<a class="headerlink" href="#version-0-8-0-february-15-2019" title="Permalink to this headline">¶</a></h2>
 <p>Version 0.8 refactors much of the layout module. It drops the grabbit
@@ -397,7 +464,7 @@ handling of <code class="docutils literal"><span class="pre">Path</span></code> 
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'0.8.0+2.gd85469c',
+            VERSION:'0.8.0+206.g76cfcf5',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,

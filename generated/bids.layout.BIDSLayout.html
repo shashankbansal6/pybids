@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>bids.layout.BIDSLayout &mdash; bids 0.8.0+2.gd85469c documentation</title>
+  <title>bids.layout.BIDSLayout &mdash; bids 0.8.0+206.g76cfcf5 documentation</title>
   
 
   
@@ -37,7 +37,7 @@
         <link rel="index" title="Index"
               href="../genindex.html"/>
         <link rel="search" title="Search" href="../search.html"/>
-    <link rel="top" title="bids 0.8.0+2.gd85469c documentation" href="../index.html"/>
+    <link rel="top" title="bids 0.8.0+206.g76cfcf5 documentation" href="../index.html"/>
         <link rel="up" title="API Reference" href="../api.html"/> 
 
   
@@ -173,7 +173,7 @@
 <h1><code class="xref py py-mod docutils literal"><span class="pre">bids.layout</span></code>.BIDSLayout<a class="headerlink" href="#bids-layout-bidslayout" title="Permalink to this headline">¶</a></h1>
 <dl class="class">
 <dt id="bids.layout.BIDSLayout">
-<em class="property">class </em><code class="descname">BIDSLayout</code><span class="sig-paren">(</span><em>root</em>, <em>validate=True</em>, <em>index_associated=True</em>, <em>absolute_paths=True</em>, <em>derivatives=False</em>, <em>config=None</em>, <em>sources=None</em>, <em>ignore=None</em>, <em>force_index=None</em>, <em>config_filename='layout_config.json'</em>, <em>regex_search=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bids/layout/layout.html#BIDSLayout"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bids.layout.BIDSLayout" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descname">BIDSLayout</code><span class="sig-paren">(</span><em>root</em>, <em>validate=True</em>, <em>absolute_paths=True</em>, <em>derivatives=False</em>, <em>config=None</em>, <em>sources=None</em>, <em>ignore=None</em>, <em>force_index=None</em>, <em>config_filename='layout_config.json'</em>, <em>regex_search=False</em>, <em>database_file=None</em>, <em>reset_database=False</em>, <em>index_metadata=True</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bids/layout/layout.html#BIDSLayout"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bids.layout.BIDSLayout" title="Permalink to this definition">¶</a></dt>
 <dd><p>Layout class representing an entire BIDS dataset.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -187,18 +187,16 @@ provides a convenient way to restrict file indexing to only those
 files defined in the “core” BIDS spec, as setting validate=True
 will lead files in supplementary folders like derivatives/, code/,
 etc. to be ignored.</li>
-<li><strong>index_associated</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#bool" title="(in Python v3.5)"><em>bool</em></a>) – Argument passed onto the BIDSValidator;
-ignored if validate = False.</li>
 <li><strong>absolute_paths</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#bool" title="(in Python v3.5)"><em>bool</em></a>) – If True, queries always return absolute paths.
-If False, queries return relative paths, unless the root argument
-was left empty (in which case the root defaults to the file system
-root).</li>
+If False, queries return relative paths (for files and directories).</li>
 <li><strong>derivatives</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#bool" title="(in Python v3.5)"><em>bool</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#list" title="(in Python v3.5)"><em>list</em></a>) – Specifies whether and/or which
 derivatives to to index. If True, all pipelines found in the
 derivatives/ subdirectory will be indexed. If a str or list, gives
 the paths to one or more derivatives directories to index. If False
 or None, the derivatives/ directory is ignored during indexing, and
-derivatives will have to be added manually via add_derivatives().</li>
+derivatives will have to be added manually via add_derivatives().
+Note: derivatives datasets MUST contain a dataset_description.json
+file in order to be indexed.</li>
 <li><strong>config</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#list" title="(in Python v3.5)"><em>list</em></a>) – Optional name(s) of configuration file(s) to use.
 By default (None), uses ‘bids’.</li>
 <li><strong>sources</strong> (<em>BIDLayout</em><em>, </em><a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#list" title="(in Python v3.5)"><em>list</em></a>) – Optional BIDSLayout(s) from which the
@@ -215,15 +213,44 @@ BIDSLayout, even if they would otherwise fail validation. See the
 documentation for the ignore argument for input format details.
 Note that paths in force_index takes precedence over those in
 ignore (i.e., if a file matches both ignore and force_index, it
-<em>will</em> be indexed).</li>
+<em>will</em> be indexed). Note: NEVER include ‘derivatives’ here; use
+the derivatives argument (or add_derivatives()) for that.</li>
 <li><strong>config_filename</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a>) – Optional name of filename within directories
 that contains configuration information.</li>
 <li><strong>regex_search</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#bool" title="(in Python v3.5)"><em>bool</em></a>) – Whether to require exact matching (True) or regex
 search (False, default) when comparing the query string to each
 entity in .get() calls. This sets a default for the instance, but
 can be overridden in individual .get() requests.</li>
+<li><strong>database_file</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a>) – Optional path to SQLite database containing the
+index for this BIDS dataset. If a value is passed and the file
+already exists, indexing is skipped. By default (i.e., if None),
+an in-memory SQLite database is used, and the index will not
+persist unless .save() is explicitly called.</li>
+<li><strong>reset_database</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#bool" title="(in Python v3.5)"><em>bool</em></a>) – If True, any existing file specified in the
+database_file argument is deleted, and the BIDS dataset provided
+in the root argument is reindexed. If False, indexing will be
+skipped and the existing database file will be used. Ignored if
+database_file is not provided.</li>
+<li><strong>index_metadata</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#bool" title="(in Python v3.5)"><em>bool</em></a>) – If True, all metadata files are indexed at
+initialization. If False, metadata will not be available (but
+indexing will be faster).</li>
 </ul>
 </td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Attributes</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">entities</span></code></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">files</span></code></td>
+<td></td>
 </tr>
 </tbody>
 </table>
@@ -246,7 +273,7 @@ can be overridden in individual .get() requests.</li>
 <tr class="row-even"><td><a class="reference internal" href="#bids.layout.BIDSLayout.copy_files" title="bids.layout.BIDSLayout.copy_files"><code class="xref py py-obj docutils literal"><span class="pre">copy_files</span></code></a>([files,&nbsp;path_patterns,&nbsp;…])</td>
 <td>Copies one or more BIDSFiles to new locations defined by each BIDSFile’s entities and the specified path_patterns.</td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="#bids.layout.BIDSLayout.get" title="bids.layout.BIDSLayout.get"><code class="xref py py-obj docutils literal"><span class="pre">get</span></code></a>([return_type,&nbsp;target,&nbsp;extensions,&nbsp;…])</td>
+<tr class="row-odd"><td><a class="reference internal" href="#bids.layout.BIDSLayout.get" title="bids.layout.BIDSLayout.get"><code class="xref py py-obj docutils literal"><span class="pre">get</span></code></a>([return_type,&nbsp;target,&nbsp;scope,&nbsp;…])</td>
 <td>Retrieve files and/or metadata from the current Layout.</td>
 </tr>
 <tr class="row-even"><td><a class="reference internal" href="#bids.layout.BIDSLayout.get_bval" title="bids.layout.BIDSLayout.get_bval"><code class="xref py py-obj docutils literal"><span class="pre">get_bval</span></code></a>(path,&nbsp;**kwargs)</td>
@@ -258,13 +285,19 @@ can be overridden in individual .get() requests.</li>
 <tr class="row-even"><td><a class="reference internal" href="#bids.layout.BIDSLayout.get_collections" title="bids.layout.BIDSLayout.get_collections"><code class="xref py py-obj docutils literal"><span class="pre">get_collections</span></code></a>(level[,&nbsp;types,&nbsp;variables,&nbsp;…])</td>
 <td>Return one or more variable Collections in the BIDS project.</td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="#bids.layout.BIDSLayout.get_fieldmap" title="bids.layout.BIDSLayout.get_fieldmap"><code class="xref py py-obj docutils literal"><span class="pre">get_fieldmap</span></code></a>(path[,&nbsp;return_list])</td>
+<tr class="row-odd"><td><a class="reference internal" href="#bids.layout.BIDSLayout.get_entities" title="bids.layout.BIDSLayout.get_entities"><code class="xref py py-obj docutils literal"><span class="pre">get_entities</span></code></a>([scope,&nbsp;metadata])</td>
+<td>Get entities for all layouts in the specified scope.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#bids.layout.BIDSLayout.get_fieldmap" title="bids.layout.BIDSLayout.get_fieldmap"><code class="xref py py-obj docutils literal"><span class="pre">get_fieldmap</span></code></a>(path[,&nbsp;return_list])</td>
 <td>Get fieldmap(s) for specified path.</td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="#bids.layout.BIDSLayout.get_file" title="bids.layout.BIDSLayout.get_file"><code class="xref py py-obj docutils literal"><span class="pre">get_file</span></code></a>(filename[,&nbsp;scope])</td>
+<tr class="row-odd"><td><a class="reference internal" href="#bids.layout.BIDSLayout.get_file" title="bids.layout.BIDSLayout.get_file"><code class="xref py py-obj docutils literal"><span class="pre">get_file</span></code></a>(filename[,&nbsp;scope])</td>
 <td>Returns the BIDSFile object with the specified path.</td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="#bids.layout.BIDSLayout.get_metadata" title="bids.layout.BIDSLayout.get_metadata"><code class="xref py py-obj docutils literal"><span class="pre">get_metadata</span></code></a>(path[,&nbsp;include_entities])</td>
+<tr class="row-even"><td><a class="reference internal" href="#bids.layout.BIDSLayout.get_files" title="bids.layout.BIDSLayout.get_files"><code class="xref py py-obj docutils literal"><span class="pre">get_files</span></code></a>([scope])</td>
+<td>Get BIDSFiles for all layouts in the specified scope.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#bids.layout.BIDSLayout.get_metadata" title="bids.layout.BIDSLayout.get_metadata"><code class="xref py py-obj docutils literal"><span class="pre">get_metadata</span></code></a>(path[,&nbsp;include_entities,&nbsp;scope])</td>
 <td>Return metadata found in JSON sidecars for the specified file.</td>
 </tr>
 <tr class="row-even"><td><a class="reference internal" href="#bids.layout.BIDSLayout.get_nearest" title="bids.layout.BIDSLayout.get_nearest"><code class="xref py py-obj docutils literal"><span class="pre">get_nearest</span></code></a>(path[,&nbsp;return_type,&nbsp;strict,&nbsp;…])</td>
@@ -276,10 +309,13 @@ can be overridden in individual .get() requests.</li>
 <tr class="row-even"><td><a class="reference internal" href="#bids.layout.BIDSLayout.parse_file_entities" title="bids.layout.BIDSLayout.parse_file_entities"><code class="xref py py-obj docutils literal"><span class="pre">parse_file_entities</span></code></a>(filename[,&nbsp;scope,&nbsp;…])</td>
 <td>Parse the passed filename for entity/value pairs.</td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="#bids.layout.BIDSLayout.to_df" title="bids.layout.BIDSLayout.to_df"><code class="xref py py-obj docutils literal"><span class="pre">to_df</span></code></a>(**kwargs)</td>
+<tr class="row-odd"><td><a class="reference internal" href="#bids.layout.BIDSLayout.save" title="bids.layout.BIDSLayout.save"><code class="xref py py-obj docutils literal"><span class="pre">save</span></code></a>([filename,&nbsp;replace_connection])</td>
+<td>Saves the current index as a SQLite3 DB at the specified location.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#bids.layout.BIDSLayout.to_df" title="bids.layout.BIDSLayout.to_df"><code class="xref py py-obj docutils literal"><span class="pre">to_df</span></code></a>([metadata])</td>
 <td>Return information for all BIDSFiles tracked in the Layout as a pandas DataFrame.</td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="#bids.layout.BIDSLayout.write_contents_to_file" title="bids.layout.BIDSLayout.write_contents_to_file"><code class="xref py py-obj docutils literal"><span class="pre">write_contents_to_file</span></code></a>(entities[,&nbsp;…])</td>
+<tr class="row-odd"><td><a class="reference internal" href="#bids.layout.BIDSLayout.write_contents_to_file" title="bids.layout.BIDSLayout.write_contents_to_file"><code class="xref py py-obj docutils literal"><span class="pre">write_contents_to_file</span></code></a>(entities[,&nbsp;…])</td>
 <td>Write arbitrary data to a file defined by the passed entities and path patterns.</td>
 </tr>
 </tbody>
@@ -304,6 +340,11 @@ BIDSLayout() when initializing each of the derivative datasets.</li>
 </tr>
 </tbody>
 </table>
+<dl class="docutils">
+<dt>Note: Every derivatives directory intended for indexing MUST contain a</dt>
+<dd>valid dataset_description.json file. See the BIDS-Derivatives
+specification for details.</dd>
+</dl>
 </dd></dl>
 
 <dl class="method">
@@ -326,9 +367,21 @@ the new file path. Must be one of:
 values</li>
 </ul>
 </li>
-<li><strong>path_patterns</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#list" title="(in Python v3.5)"><em>list</em></a>) – Optional path patterns to use to construct
+<li><strong>path_patterns</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#list" title="(in Python v3.5)"><em>list</em></a>) – <p>Optional path patterns to use to construct
 the new file path. If None, the Layout-defined patterns will
-be used.</li>
+be used. Entities should be represented by the name
+surrounded by curly braces. Optional portions of the patterns
+should be denoted by square brackets. Entities that require a
+specific value for the pattern to match can pass them inside
+carets. Default values can be assigned by specifying a string
+after the pipe operator. E.g., (e.g., {type&lt;image&gt;|bold} would
+only match the pattern if the entity ‘type’ was passed and its
+value is “image”, otherwise the default value “bold” will be
+used).</p>
+<blockquote>
+<div>Example: ‘sub-{subject}/[var-{name}/]{id}.csv’
+Result: ‘sub-01/var-SES/1045.csv’</div></blockquote>
+</li>
 <li><strong>strict</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#bool" title="(in Python v3.5)"><em>bool</em></a>) – If True, all entities must be matched inside a
 pattern in order to be a valid match. If False, extra entities
 will be ignored so long as all mandatory entities are found.</li>
@@ -389,7 +442,7 @@ query.</li>
 
 <dl class="method">
 <dt id="bids.layout.BIDSLayout.get">
-<code class="descname">get</code><span class="sig-paren">(</span><em>return_type='object'</em>, <em>target=None</em>, <em>extensions=None</em>, <em>scope='all'</em>, <em>regex_search=False</em>, <em>defined_fields=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bids/layout/layout.html#BIDSLayout.get"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bids.layout.BIDSLayout.get" title="Permalink to this definition">¶</a></dt>
+<code class="descname">get</code><span class="sig-paren">(</span><em>return_type='object'</em>, <em>target=None</em>, <em>scope='all'</em>, <em>regex_search=False</em>, <em>absolute_paths=None</em>, <em>drop_invalid_filters=True</em>, <em>**filters</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bids/layout/layout.html#BIDSLayout.get"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bids.layout.BIDSLayout.get" title="Permalink to this definition">¶</a></dt>
 <dd><p>Retrieve files and/or metadata from the current Layout.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -398,7 +451,7 @@ query.</li>
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
 <li><strong>return_type</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a>) – <p>Type of result to return. Valid values:
 ‘object’ (default): return a list of matching BIDSFile objects.
-‘file’: return a list of matching filenames.
+‘file’ or ‘filename’: return a list of matching filenames.
 ‘dir’: return a list of directories.
 ‘id’: return a list of unique IDs. Must be used together with</p>
 <blockquote>
@@ -406,8 +459,6 @@ query.</li>
 </li>
 <li><strong>target</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a>) – Optional name of the target entity to get results for
 (only used if return_type is ‘dir’ or ‘id’).</li>
-<li><strong>extensions</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#list" title="(in Python v3.5)"><em>list</em></a>) – One or more file extensions to filter on.
-BIDSFiles with any other extensions will be excluded.</li>
 <li><strong>scope</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#list" title="(in Python v3.5)"><em>list</em></a>) – <p>Scope of the search space. If passed, only
 nodes/directories that match the specified scope will be
 searched. Possible values include:</p>
@@ -420,14 +471,10 @@ searched. Possible values include:</p>
 <li><strong>regex_search</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#bool" title="(in Python v3.5)"><em>bool</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3.5/library/constants.html#None" title="(in Python v3.5)"><em>None</em></a>) – Whether to require exact matching
 (False) or regex search (True) when comparing the query string
 to each entity.</li>
-<li><strong>defined_fields</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#list" title="(in Python v3.5)"><em>list</em></a>) – Optional list of names of metadata fields
-that must be defined in JSON sidecars in order to consider the
-file a match, but which don’t need to match any particular
-value.</li>
-<li><strong>kwargs</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#dict" title="(in Python v3.5)"><em>dict</em></a>) – Any optional key/values to filter the entities on.
-Keys are entity names, values are regexes to filter on. For
-example, passing filter={ ‘subject’: ‘sub-[12]’} would return
-only files that match the first two subjects.</li>
+<li><strong>absolute_paths</strong> – Optionally override the instance-wide option
+to report either absolute or relative (to the top of the
+dataset) paths. If None, will fall back on the value specified
+at BIDSLayout initialization.</li>
 </ul>
 </td>
 </tr>
@@ -436,6 +483,16 @@ only files that match the first two subjects.</li>
 </tr>
 </tbody>
 </table>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li>In pybids 0.7.0, some keywords were changed. Namely: ‘type’</li>
+</ul>
+<p>becomes ‘suffix’, ‘modality’ becomes ‘datatype’, ‘acq’ becomes
+‘acquisition’ and ‘mod’ becomes ‘modality’. Using the wrong version
+could result in get() silently returning wrong or no results. See
+the changelog for more details.
+* In pybids 0.9.0, the ‘extensions’ argument has been removed in
+favor of the ‘extension’ entity.</p>
 </dd></dl>
 
 <dl class="method">
@@ -458,7 +515,7 @@ only files that match the first two subjects.</li>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
 <li><strong>level</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a>) – The level of analysis to return variables for. Must be
 one of ‘run’, ‘session’, ‘subject’, or ‘dataset’.</li>
 <li><strong>types</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#list" title="(in Python v3.5)"><em>list</em></a>) – Types of variables to retrieve. All valid values</li>
@@ -481,8 +538,40 @@ filtering operations like dropping NaNs).</li>
 </ul>
 </td>
 </tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">A list of BIDSVariableCollections if merge=False; a single
+BIDSVariableCollection if merge=True.</p>
+</td>
+</tr>
 </tbody>
 </table>
+</dd></dl>
+
+<dl class="method">
+<dt id="bids.layout.BIDSLayout.get_entities">
+<code class="descname">get_entities</code><span class="sig-paren">(</span><em>scope='all'</em>, <em>metadata=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bids/layout/layout.html#BIDSLayout.get_entities"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bids.layout.BIDSLayout.get_entities" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get entities for all layouts in the specified scope.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>scope</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a>) – The scope of the search space. Indicates which
+BIDSLayouts’ entities to extract. See BIDSLayout docstring
+for valid values.</li>
+<li><strong>metadata</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#bool" title="(in Python v3.5)"><em>bool</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3.5/library/constants.html#None" title="(in Python v3.5)"><em>None</em></a>) – By default (None), all available entities
+are returned. If True, only entities found in metadata files
+(and not defined for filenames) are returned. If False, only
+entities defined for filenames (and not those found in JSON
+sidecars) are returned.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="docutils">
+<dt>Returns: A dict, where keys are entity names and values are Entity</dt>
+<dd>instances.</dd>
+</dl>
 </dd></dl>
 
 <dl class="method">
@@ -514,8 +603,28 @@ searched. See BIDSLayout docstring for valid values.</li>
 </dd></dl>
 
 <dl class="method">
+<dt id="bids.layout.BIDSLayout.get_files">
+<code class="descname">get_files</code><span class="sig-paren">(</span><em>scope='all'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bids/layout/layout.html#BIDSLayout.get_files"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bids.layout.BIDSLayout.get_files" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get BIDSFiles for all layouts in the specified scope.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>scope</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a>) – The scope of the search space. Indicates which
+BIDSLayouts’ entities to extract. See BIDSLayout docstring
+for valid values.</td>
+</tr>
+</tbody>
+</table>
+<dl class="docutils">
+<dt>Returns: A dict, where keys are file paths and values are BIDSFile</dt>
+<dd>instances.</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
 <dt id="bids.layout.BIDSLayout.get_metadata">
-<code class="descname">get_metadata</code><span class="sig-paren">(</span><em>path</em>, <em>include_entities=False</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bids/layout/layout.html#BIDSLayout.get_metadata"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bids.layout.BIDSLayout.get_metadata" title="Permalink to this definition">¶</a></dt>
+<code class="descname">get_metadata</code><span class="sig-paren">(</span><em>path</em>, <em>include_entities=False</em>, <em>scope='all'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bids/layout/layout.html#BIDSLayout.get_metadata"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bids.layout.BIDSLayout.get_metadata" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return metadata found in JSON sidecars for the specified file.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -526,8 +635,9 @@ searched. See BIDSLayout docstring for valid values.</li>
 <li><strong>include_entities</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#bool" title="(in Python v3.5)"><em>bool</em></a>) – If True, all available entities extracted
 from the filename (rather than JSON sidecars) are included in
 the returned metadata dictionary.</li>
-<li><strong>kwargs</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#dict" title="(in Python v3.5)"><em>dict</em></a>) – Optional keyword arguments to pass onto
-get_nearest().</li>
+<li><strong>scope</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#list" title="(in Python v3.5)"><em>list</em></a>) – The scope of the search space. Each element must
+be one of ‘all’, ‘raw’, ‘derivatives’, or a BIDS-Derivatives
+pipeline name. Defaults to searching all available datasets.</li>
 </ul>
 </td>
 </tr>
@@ -546,7 +656,7 @@ precedence, per the inheritance rules in the BIDS specification.</p>
 
 <dl class="method">
 <dt id="bids.layout.BIDSLayout.get_nearest">
-<code class="descname">get_nearest</code><span class="sig-paren">(</span><em>path</em>, <em>return_type='file'</em>, <em>strict=True</em>, <em>all_=False</em>, <em>ignore_strict_entities=None</em>, <em>full_search=False</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bids/layout/layout.html#BIDSLayout.get_nearest"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bids.layout.BIDSLayout.get_nearest" title="Permalink to this definition">¶</a></dt>
+<code class="descname">get_nearest</code><span class="sig-paren">(</span><em>path</em>, <em>return_type='filename'</em>, <em>strict=True</em>, <em>all_=False</em>, <em>ignore_strict_entities='extension'</em>, <em>full_search=False</em>, <em>**filters</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bids/layout/layout.html#BIDSLayout.get_nearest"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bids.layout.BIDSLayout.get_nearest" title="Permalink to this definition">¶</a></dt>
 <dd><p>Walk up the file tree from the specified path and return the
 nearest matching file(s).</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -555,23 +665,23 @@ nearest matching file(s).</p>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
 <li><strong>path</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a>) – The file to search from.</li>
-<li><strong>return_type</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a>) – What to return; must be one of ‘file’ (default)
-or ‘tuple’.</li>
+<li><strong>return_type</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a>) – What to return; must be one of ‘filename’
+(default) or ‘tuple’.</li>
 <li><strong>strict</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#bool" title="(in Python v3.5)"><em>bool</em></a>) – When True, all entities present in both the input
 path and the target file(s) must match perfectly. When False,
 files will be ordered by the number of matching entities, and
 partial matches will be allowed.</li>
 <li><strong>all</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#bool" title="(in Python v3.5)"><em>bool</em></a>) – When True, returns all matching files. When False
 (default), only returns the first match.</li>
-<li><strong>ignore_strict_entities</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#list" title="(in Python v3.5)"><em>list</em></a>) – Optional list of entities to
+<li><strong>ignore_strict_entities</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#list" title="(in Python v3.5)"><em>list</em></a>) – Optional entity/entities to
 exclude from strict matching when strict is True. This allows
 one to search, e.g., for files of a different type while
 matching all other entities perfectly by passing
-ignore_strict_entities=[‘type’].</li>
+ignore_strict_entities=[‘type’]. Ignores extension by default.</li>
 <li><strong>full_search</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#bool" title="(in Python v3.5)"><em>bool</em></a>) – If True, searches all indexed files, even if
 they don’t share a common root with the provided path. If
 False, only files that share a common root will be scanned.</li>
-<li><strong>kwargs</strong> – Optional keywords to pass on to .get().</li>
+<li><strong>filters</strong> – Optional keywords to pass on to .get().</li>
 </ul>
 </td>
 </tr>
@@ -581,7 +691,7 @@ False, only files that share a common root will be scanned.</li>
 
 <dl class="method">
 <dt id="bids.layout.BIDSLayout.get_tr">
-<code class="descname">get_tr</code><span class="sig-paren">(</span><em>derivatives=False</em>, <em>**selectors</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bids/layout/layout.html#BIDSLayout.get_tr"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bids.layout.BIDSLayout.get_tr" title="Permalink to this definition">¶</a></dt>
+<code class="descname">get_tr</code><span class="sig-paren">(</span><em>derivatives=False</em>, <em>**filters</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bids/layout/layout.html#BIDSLayout.get_tr"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bids.layout.BIDSLayout.get_tr" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the scanning repetition time (TR) for one or more runs.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -589,7 +699,7 @@ False, only files that share a common root will be scanned.</li>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
 <li><strong>derivatives</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#bool" title="(in Python v3.5)"><em>bool</em></a>) – If True, also checks derivatives images.</li>
-<li><strong>selectors</strong> – Optional keywords used to constrain the selected runs.
+<li><strong>filters</strong> – Optional keywords used to constrain the selected runs.
 Can be any arguments valid for a .get call (e.g., BIDS entities
 or JSON sidecar keys).</li>
 </ul>
@@ -613,7 +723,7 @@ or JSON sidecar keys).</li>
 <li><strong>filename</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a>) – The filename to parse for entity values</li>
 <li><strong>scope</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#list" title="(in Python v3.5)"><em>list</em></a>) – The scope of the search space. Indicates which
 BIDSLayouts’ entities to extract. See BIDSLayout docstring
-for valid values. By default, extracts all entities</li>
+for valid values. By default, extracts all entities.</li>
 <li><strong>entities</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#list" title="(in Python v3.5)"><em>list</em></a>) – An optional list of Entity instances to use in
 extraction. If passed, the scope and config arguments are
 ignored, and only the Entities in this list are used.</li>
@@ -635,22 +745,55 @@ in the returned dict, with values set to None. If False
 </dd></dl>
 
 <dl class="method">
+<dt id="bids.layout.BIDSLayout.save">
+<code class="descname">save</code><span class="sig-paren">(</span><em>filename='.index.db'</em>, <em>replace_connection=True</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bids/layout/layout.html#BIDSLayout.save"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bids.layout.BIDSLayout.save" title="Permalink to this definition">¶</a></dt>
+<dd><p>Saves the current index as a SQLite3 DB at the specified location.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>filename</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a>) – The path to the desired database file. By default,
+uses .index.db. If a relative path is passed, it is assumed to
+be relative to the BIDSLayout root directory.</li>
+<li><strong>replace_connection</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#bool" title="(in Python v3.5)"><em>bool</em></a>) – If True, the newly created database will
+be used for all subsequent connections. This means that any
+changes to the index made after the .save() call will be
+reflected in the database file. If False, the previous database
+will continue to be used, and any subsequent changes will not
+be reflected in the new file unless save() is explicitly called
+again.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
 <dt id="bids.layout.BIDSLayout.to_df">
-<code class="descname">to_df</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bids/layout/layout.html#BIDSLayout.to_df"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bids.layout.BIDSLayout.to_df" title="Permalink to this definition">¶</a></dt>
+<code class="descname">to_df</code><span class="sig-paren">(</span><em>metadata=False</em>, <em>**filters</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bids/layout/layout.html#BIDSLayout.to_df"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bids.layout.BIDSLayout.to_df" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return information for all BIDSFiles tracked in the Layout as a pandas
 DataFrame.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>kwargs</strong> – Optional keyword arguments passed on to get(). This allows
-one to easily select only a subset of files for export.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>metadata</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#bool" title="(in Python v3.5)"><em>bool</em></a>) – If True, includes columns for all metadata fields.
+If False, only filename-based entities are included as columns.</li>
+<li><strong>filters</strong> – Optional keyword arguments passed on to get(). This allows
+one to easily select only a subset of files for export.</li>
+</ul>
+</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><dl class="docutils">
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><dl class="docutils">
 <dt>A pandas DataFrame, where each row is a file, and each column is</dt>
-<dd>a tracked entity. NaNs are injected whenever a file has no
-value for a given attribute.</dd>
+<dd><p class="first last">a tracked entity. NaNs are injected whenever a file has no
+value for a given attribute.</p>
+</dd>
 </dl>
+</p>
 </td>
 </tr>
 </tbody>
@@ -734,7 +877,7 @@ pattern in order to be a valid match. If False, extra entities</li>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'0.8.0+2.gd85469c',
+            VERSION:'0.8.0+206.g76cfcf5',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,

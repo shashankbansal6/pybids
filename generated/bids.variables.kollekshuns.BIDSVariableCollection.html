@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>bids.variables.kollekshuns.BIDSVariableCollection &mdash; bids 0.8.0+2.gd85469c documentation</title>
+  <title>bids.variables.kollekshuns.BIDSVariableCollection &mdash; bids 0.8.0+206.g76cfcf5 documentation</title>
   
 
   
@@ -37,7 +37,7 @@
         <link rel="index" title="Index"
               href="../genindex.html"/>
         <link rel="search" title="Search" href="../search.html"/>
-    <link rel="top" title="bids 0.8.0+2.gd85469c documentation" href="../index.html"/>
+    <link rel="top" title="bids 0.8.0+206.g76cfcf5 documentation" href="../index.html"/>
         <link rel="up" title="bids.variables.kollekshuns" href="bids.variables.kollekshuns.html"/> 
 
   
@@ -348,10 +348,10 @@ concatenated together).</td>
 all variables are returned.</li>
 <li><strong>format</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a>) – Whether to return a DataFrame in ‘wide’ or ‘long’
 format. In ‘wide’ format, each row is defined by a unique
-onset/duration, and each variable is in a separate column. In
-‘long’ format, each row is a unique combination of onset,
-duration, and variable name, and a single ‘amplitude’ column
-provides the value.</li>
+entity combination, and each variable is in a separate column.
+In ‘long’ format, each row is a unique combination of entities
+and variable names, and a single ‘amplitude’ column provides
+the value.</li>
 <li><strong>fillna</strong> – Replace missing values with the specified value.</li>
 <li><strong>kwargs</strong> – Optional keyword arguments to pass onto each Variable’s
 to_df() call (e.g., condition, entities, and timing).</li>
@@ -402,7 +402,7 @@ to_df() call (e.g., condition, entities, and timing).</li>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'0.8.0+2.gd85469c',
+            VERSION:'0.8.0+206.g76cfcf5',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,

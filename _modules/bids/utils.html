@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>bids.utils &mdash; bids 0.8.0+2.gd85469c documentation</title>
+  <title>bids.utils &mdash; bids 0.8.0+206.g76cfcf5 documentation</title>
   
 
   
@@ -37,7 +37,7 @@
         <link rel="index" title="Index"
               href="../../genindex.html"/>
         <link rel="search" title="Search" href="../../search.html"/>
-    <link rel="top" title="bids 0.8.0+2.gd85469c documentation" href="../../index.html"/>
+    <link rel="top" title="bids 0.8.0+206.g76cfcf5 documentation" href="../../index.html"/>
         <link rel="up" title="Module code" href="../index.html"/> 
 
   
@@ -245,16 +245,24 @@
     <span class="k">return</span> <span class="n">li</span>
 
 
-<span class="k">def</span> <span class="nf">check_path_matches_patterns</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">patterns</span><span class="p">):</span>
-    <span class="sd">&#39;&#39;&#39; Check if the path matches at least one of the provided patterns. &#39;&#39;&#39;</span>
-    <span class="n">path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
-    <span class="k">for</span> <span class="n">patt</span> <span class="ow">in</span> <span class="n">patterns</span><span class="p">:</span>
-        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">patt</span><span class="p">,</span> <span class="n">six</span><span class="o">.</span><span class="n">string_types</span><span class="p">):</span>
-            <span class="k">if</span> <span class="n">path</span> <span class="o">==</span> <span class="n">patt</span><span class="p">:</span>
-                <span class="k">return</span> <span class="kc">True</span>
-        <span class="k">elif</span> <span class="n">patt</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
-            <span class="k">return</span> <span class="kc">True</span>
-    <span class="k">return</span> <span class="kc">False</span>
+<span class="k">def</span> <span class="nf">make_bidsfile</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Create a BIDSFile instance of the appropriate class. &quot;&quot;&quot;</span>
+    <span class="kn">from</span> <span class="nn">.layout</span> <span class="k">import</span> <span class="n">models</span>
+
+    <span class="n">patt</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s2">&quot;[._]*[a-zA-Z0-9]*?</span><span class="se">\\</span><span class="s2">.([^/</span><span class="se">\\\\</span><span class="s2">]+)$&quot;</span><span class="p">)</span>
+    <span class="n">m</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">patt</span><span class="p">,</span> <span class="n">filename</span><span class="p">)</span>
+
+    <span class="n">ext</span> <span class="o">=</span> <span class="kc">None</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">m</span> <span class="k">else</span> <span class="n">m</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">ext</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;nii&#39;</span><span class="p">,</span> <span class="s1">&#39;nii.gz&#39;</span><span class="p">]:</span>
+        <span class="bp">cls</span> <span class="o">=</span> <span class="s1">&#39;BIDSImageFile&#39;</span>
+    <span class="k">elif</span> <span class="n">ext</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;tsv&#39;</span><span class="p">,</span> <span class="s1">&#39;tsv.gz&#39;</span><span class="p">]:</span>
+        <span class="bp">cls</span> <span class="o">=</span> <span class="s1">&#39;BIDSDataFile&#39;</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="bp">cls</span> <span class="o">=</span> <span class="s1">&#39;BIDSFile&#39;</span>
+
+    <span class="n">Cls</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">models</span><span class="p">,</span> <span class="bp">cls</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">Cls</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
 </pre></div>
 
            </div>
@@ -291,7 +299,7 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../../',
-            VERSION:'0.8.0+2.gd85469c',
+            VERSION:'0.8.0+206.g76cfcf5',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,
