@@ -15,6 +15,7 @@ bids\.variables\.entities\.NodeIndex
    
       ~NodeIndex.__init__
       ~NodeIndex.add_variable
+      ~NodeIndex.create_node
       ~NodeIndex.get_collections
       ~NodeIndex.get_nodes
       ~NodeIndex.get_or_create_node

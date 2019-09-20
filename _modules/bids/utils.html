@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>bids.utils &mdash; bids 0.8.0+206.g76cfcf5 documentation</title>
+  <title>bids.utils &mdash; bids 0.9.3+75.ge9ae632 documentation</title>
   
 
   
@@ -37,7 +37,7 @@
         <link rel="index" title="Index"
               href="../../genindex.html"/>
         <link rel="search" title="Search" href="../../search.html"/>
-    <link rel="top" title="bids 0.8.0+206.g76cfcf5 documentation" href="../../index.html"/>
+    <link rel="top" title="bids 0.9.3+75.ge9ae632 documentation" href="../../index.html"/>
         <link rel="up" title="Module code" href="../index.html"/> 
 
   
@@ -157,7 +157,6 @@
   <h1>Source code for bids.utils</h1><div class="highlight"><pre>
 <span></span><span class="kn">import</span> <span class="nn">re</span>
 <span class="kn">import</span> <span class="nn">os</span>
-<span class="kn">from</span> <span class="nn">.external</span> <span class="k">import</span> <span class="n">six</span>
 
 
 <div class="viewcode-block" id="listify"><a class="viewcode-back" href="../../generated/bids.utils.listify.html#bids.utils.listify">[docs]</a><span class="k">def</span> <span class="nf">listify</span><span class="p">(</span><span class="n">obj</span><span class="p">):</span>
@@ -258,6 +257,8 @@
         <span class="bp">cls</span> <span class="o">=</span> <span class="s1">&#39;BIDSImageFile&#39;</span>
     <span class="k">elif</span> <span class="n">ext</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;tsv&#39;</span><span class="p">,</span> <span class="s1">&#39;tsv.gz&#39;</span><span class="p">]:</span>
         <span class="bp">cls</span> <span class="o">=</span> <span class="s1">&#39;BIDSDataFile&#39;</span>
+    <span class="k">elif</span> <span class="n">ext</span> <span class="o">==</span> <span class="s1">&#39;json&#39;</span><span class="p">:</span>
+        <span class="bp">cls</span> <span class="o">=</span> <span class="s1">&#39;BIDSJSONFile&#39;</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="bp">cls</span> <span class="o">=</span> <span class="s1">&#39;BIDSFile&#39;</span>
 
@@ -299,7 +300,7 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../../',
-            VERSION:'0.8.0+206.g76cfcf5',
+            VERSION:'0.9.3+75.ge9ae632',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,

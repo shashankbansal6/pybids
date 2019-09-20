@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>bids.variables.entities &mdash; bids 0.8.0+206.g76cfcf5 documentation</title>
+  <title>bids.variables.entities &mdash; bids 0.9.3+75.ge9ae632 documentation</title>
   
 
   
@@ -37,7 +37,7 @@
         <link rel="index" title="Index"
               href="../../../genindex.html"/>
         <link rel="search" title="Search" href="../../../search.html"/>
-    <link rel="top" title="bids 0.8.0+206.g76cfcf5 documentation" href="../../../index.html"/>
+    <link rel="top" title="bids 0.9.3+75.ge9ae632 documentation" href="../../../index.html"/>
         <link rel="up" title="Module code" href="../../index.html"/> 
 
   
@@ -279,7 +279,20 @@
 
         <span class="k">return</span> <span class="n">results</span></div>
 
-    <span class="k">def</span> <span class="nf">get_nodes</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">entities</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">strict</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<div class="viewcode-block" id="NodeIndex.get_nodes"><a class="viewcode-back" href="../../../generated/bids.variables.entities.NodeIndex.html#bids.variables.entities.NodeIndex.get_nodes">[docs]</a>    <span class="k">def</span> <span class="nf">get_nodes</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">entities</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">strict</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39; Retrieves all nodes that match the specified criteria.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            level (str): The level of analysis of nodes to return.</span>
+<span class="sd">            entities (dict): Entities to filter on. All nodes must have</span>
+<span class="sd">                matching values on all defined keys to be included.</span>
+<span class="sd">            strict (bool): If True, an exception will be raised if the entities</span>
+<span class="sd">                dict contains any keys that aren&#39;t contained in the current</span>
+<span class="sd">                index.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            A list of Node instances.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
 
         <span class="n">entities</span> <span class="o">=</span> <span class="p">{}</span> <span class="k">if</span> <span class="n">entities</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">entities</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
 
@@ -312,20 +325,19 @@
             <span class="k">return</span> <span class="p">[]</span>
 
         <span class="c1"># Sort and return</span>
-        <span class="n">sort_cols</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;subject&#39;</span><span class="p">,</span> <span class="s1">&#39;session&#39;</span><span class="p">,</span> <span class="s1">&#39;task&#39;</span><span class="p">,</span> <span class="s1">&#39;run&#39;</span><span class="p">]</span>
+        <span class="n">sort_cols</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;subject&#39;</span><span class="p">,</span> <span class="s1">&#39;session&#39;</span><span class="p">,</span> <span class="s1">&#39;task&#39;</span><span class="p">,</span> <span class="s1">&#39;run&#39;</span><span class="p">,</span> <span class="s1">&#39;node_index&#39;</span><span class="p">,</span>
+                     <span class="s1">&#39;suffix&#39;</span><span class="p">,</span> <span class="s1">&#39;level&#39;</span><span class="p">,</span> <span class="s1">&#39;datatype&#39;</span><span class="p">]</span>
         <span class="n">sort_cols</span> <span class="o">=</span> <span class="p">[</span><span class="n">sc</span> <span class="k">for</span> <span class="n">sc</span> <span class="ow">in</span> <span class="n">sort_cols</span> <span class="k">if</span> <span class="n">sc</span> <span class="ow">in</span> <span class="nb">set</span><span class="p">(</span><span class="n">rows</span><span class="o">.</span><span class="n">columns</span><span class="p">)]</span>
-        <span class="n">sort_cols</span> <span class="o">+=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">rows</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span> <span class="o">-</span> <span class="nb">set</span><span class="p">(</span><span class="n">sort_cols</span><span class="p">))</span>
         <span class="n">rows</span> <span class="o">=</span> <span class="n">rows</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">sort_cols</span><span class="p">)</span>
         <span class="n">inds</span> <span class="o">=</span> <span class="n">rows</span><span class="p">[</span><span class="s1">&#39;node_index&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
-        <span class="k">return</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">nodes</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">inds</span><span class="p">]</span>
+        <span class="k">return</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">nodes</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">inds</span><span class="p">]</span></div>
 
-<div class="viewcode-block" id="NodeIndex.get_or_create_node"><a class="viewcode-back" href="../../../generated/bids.variables.entities.NodeIndex.html#bids.variables.entities.NodeIndex.get_or_create_node">[docs]</a>    <span class="k">def</span> <span class="nf">get_or_create_node</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">level</span><span class="p">,</span> <span class="n">entities</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-        <span class="sd">&#39;&#39;&#39; Retrieves a child Node based on the specified criteria, creating a</span>
-<span class="sd">        new Node if necessary.</span>
+<div class="viewcode-block" id="NodeIndex.create_node"><a class="viewcode-back" href="../../../generated/bids.variables.entities.NodeIndex.html#bids.variables.entities.NodeIndex.create_node">[docs]</a>    <span class="k">def</span> <span class="nf">create_node</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">level</span><span class="p">,</span> <span class="n">entities</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39; Creates a new child Node.</span>
 
 <span class="sd">        Args:</span>
-<span class="sd">            entities (dict): Dictionary of entities specifying which Node to</span>
-<span class="sd">                return.</span>
+<span class="sd">            level (str): The level of analysis of the new Node.</span>
+<span class="sd">            entities (dict): Dictionary of entities belonging to Node</span>
 <span class="sd">            args, kwargs: Optional positional or named arguments to pass onto</span>
 <span class="sd">                class-specific initializers. These arguments are only used if</span>
 <span class="sd">                a Node that matches the passed entities doesn&#39;t already exist,</span>
@@ -333,7 +345,34 @@
 
 <span class="sd">        Returns:</span>
 <span class="sd">            A Node instance.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
 
+        <span class="k">if</span> <span class="n">level</span> <span class="o">==</span> <span class="s1">&#39;run&#39;</span><span class="p">:</span>
+            <span class="n">node</span> <span class="o">=</span> <span class="n">RunNode</span><span class="p">(</span><span class="n">entities</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">node</span> <span class="o">=</span> <span class="n">Node</span><span class="p">(</span><span class="n">level</span><span class="p">,</span> <span class="n">entities</span><span class="p">)</span>
+
+        <span class="n">entities</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">entities</span><span class="p">,</span> <span class="n">node_index</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">nodes</span><span class="p">),</span> <span class="n">level</span><span class="o">=</span><span class="n">level</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">nodes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+        <span class="n">node_row</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">entities</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">node_row</span><span class="p">,</span> <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">node</span></div>
+
+<div class="viewcode-block" id="NodeIndex.get_or_create_node"><a class="viewcode-back" href="../../../generated/bids.variables.entities.NodeIndex.html#bids.variables.entities.NodeIndex.get_or_create_node">[docs]</a>    <span class="k">def</span> <span class="nf">get_or_create_node</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">level</span><span class="p">,</span> <span class="n">entities</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39; Retrieves a child Node based on the specified criteria, creating a</span>
+<span class="sd">        new Node if necessary.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            level (str): The level of analysis of the Node.</span>
+<span class="sd">            entities (dict): Dictionary of entities to include in newly-created</span>
+<span class="sd">                Nodes or filter existing ones.</span>
+<span class="sd">            args, kwargs: Optional positional or named arguments to pass onto</span>
+<span class="sd">                class-specific initializers. These arguments are only used if</span>
+<span class="sd">                a Node that matches the passed entities doesn&#39;t already exist,</span>
+<span class="sd">                and a new one must be created.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            A Node instance.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
 
         <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_nodes</span><span class="p">(</span><span class="n">level</span><span class="p">,</span> <span class="n">entities</span><span class="p">)</span>
@@ -346,18 +385,7 @@
                                  <span class="p">)</span>
             <span class="k">return</span> <span class="n">result</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 
-        <span class="c1"># Create Node</span>
-        <span class="k">if</span> <span class="n">level</span> <span class="o">==</span> <span class="s1">&#39;run&#39;</span><span class="p">:</span>
-            <span class="n">node</span> <span class="o">=</span> <span class="n">RunNode</span><span class="p">(</span><span class="n">entities</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">node</span> <span class="o">=</span> <span class="n">Node</span><span class="p">(</span><span class="n">level</span><span class="p">,</span> <span class="n">entities</span><span class="p">)</span>
-
-        <span class="n">entities</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">entities</span><span class="p">,</span> <span class="n">node_index</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">nodes</span><span class="p">),</span> <span class="n">level</span><span class="o">=</span><span class="n">level</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">nodes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
-        <span class="n">node_row</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">entities</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">node_row</span><span class="p">,</span> <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-
-        <span class="k">return</span> <span class="n">node</span></div></div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">create_node</span><span class="p">(</span><span class="n">level</span><span class="p">,</span> <span class="n">entities</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div></div>
 </pre></div>
 
            </div>
@@ -394,7 +422,7 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../../../',
-            VERSION:'0.8.0+206.g76cfcf5',
+            VERSION:'0.9.3+75.ge9ae632',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,

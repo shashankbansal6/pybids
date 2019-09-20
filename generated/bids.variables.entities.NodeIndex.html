@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>bids.variables.entities.NodeIndex &mdash; bids 0.8.0+206.g76cfcf5 documentation</title>
+  <title>bids.variables.entities.NodeIndex &mdash; bids 0.9.3+75.ge9ae632 documentation</title>
   
 
   
@@ -37,7 +37,7 @@
         <link rel="index" title="Index"
               href="../genindex.html"/>
         <link rel="search" title="Search" href="../search.html"/>
-    <link rel="top" title="bids 0.8.0+206.g76cfcf5 documentation" href="../index.html"/>
+    <link rel="top" title="bids 0.9.3+75.ge9ae632 documentation" href="../index.html"/>
         <link rel="up" title="bids.variables.entities" href="bids.variables.entities.html"/> 
 
   
@@ -193,13 +193,16 @@
 <tr class="row-odd"><td><a class="reference internal" href="#bids.variables.entities.NodeIndex.add_variable" title="bids.variables.entities.NodeIndex.add_variable"><code class="xref py py-obj docutils literal"><span class="pre">add_variable</span></code></a>(variable)</td>
 <td>Adds a BIDSVariable to the current Node’s list.</td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="#bids.variables.entities.NodeIndex.get_collections" title="bids.variables.entities.NodeIndex.get_collections"><code class="xref py py-obj docutils literal"><span class="pre">get_collections</span></code></a>(unit[,&nbsp;names,&nbsp;merge,&nbsp;…])</td>
+<tr class="row-even"><td><a class="reference internal" href="#bids.variables.entities.NodeIndex.create_node" title="bids.variables.entities.NodeIndex.create_node"><code class="xref py py-obj docutils literal"><span class="pre">create_node</span></code></a>(level,&nbsp;entities,&nbsp;*args,&nbsp;**kwargs)</td>
+<td>Creates a new child Node.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#bids.variables.entities.NodeIndex.get_collections" title="bids.variables.entities.NodeIndex.get_collections"><code class="xref py py-obj docutils literal"><span class="pre">get_collections</span></code></a>(unit[,&nbsp;names,&nbsp;merge,&nbsp;…])</td>
 <td>Retrieve variable data for a specified level in the Dataset.</td>
 </tr>
-<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">get_nodes</span></code>([level,&nbsp;entities,&nbsp;strict])</td>
-<td></td>
+<tr class="row-even"><td><a class="reference internal" href="#bids.variables.entities.NodeIndex.get_nodes" title="bids.variables.entities.NodeIndex.get_nodes"><code class="xref py py-obj docutils literal"><span class="pre">get_nodes</span></code></a>([level,&nbsp;entities,&nbsp;strict])</td>
+<td>Retrieves all nodes that match the specified criteria.</td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="#bids.variables.entities.NodeIndex.get_or_create_node" title="bids.variables.entities.NodeIndex.get_or_create_node"><code class="xref py py-obj docutils literal"><span class="pre">get_or_create_node</span></code></a>(level,&nbsp;entities,&nbsp;*args,&nbsp;…)</td>
+<tr class="row-odd"><td><a class="reference internal" href="#bids.variables.entities.NodeIndex.get_or_create_node" title="bids.variables.entities.NodeIndex.get_or_create_node"><code class="xref py py-obj docutils literal"><span class="pre">get_or_create_node</span></code></a>(level,&nbsp;entities,&nbsp;*args,&nbsp;…)</td>
 <td>Retrieves a child Node based on the specified criteria, creating a new Node if necessary.</td>
 </tr>
 </tbody>
@@ -222,13 +225,16 @@
 <tr class="row-even"><td><a class="reference internal" href="#bids.variables.entities.NodeIndex.add_variable" title="bids.variables.entities.NodeIndex.add_variable"><code class="xref py py-obj docutils literal"><span class="pre">add_variable</span></code></a>(variable)</td>
 <td>Adds a BIDSVariable to the current Node’s list.</td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="#bids.variables.entities.NodeIndex.get_collections" title="bids.variables.entities.NodeIndex.get_collections"><code class="xref py py-obj docutils literal"><span class="pre">get_collections</span></code></a>(unit[,&nbsp;names,&nbsp;merge,&nbsp;…])</td>
+<tr class="row-odd"><td><a class="reference internal" href="#bids.variables.entities.NodeIndex.create_node" title="bids.variables.entities.NodeIndex.create_node"><code class="xref py py-obj docutils literal"><span class="pre">create_node</span></code></a>(level,&nbsp;entities,&nbsp;*args,&nbsp;**kwargs)</td>
+<td>Creates a new child Node.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#bids.variables.entities.NodeIndex.get_collections" title="bids.variables.entities.NodeIndex.get_collections"><code class="xref py py-obj docutils literal"><span class="pre">get_collections</span></code></a>(unit[,&nbsp;names,&nbsp;merge,&nbsp;…])</td>
 <td>Retrieve variable data for a specified level in the Dataset.</td>
 </tr>
-<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">get_nodes</span></code>([level,&nbsp;entities,&nbsp;strict])</td>
-<td></td>
+<tr class="row-odd"><td><a class="reference internal" href="#bids.variables.entities.NodeIndex.get_nodes" title="bids.variables.entities.NodeIndex.get_nodes"><code class="xref py py-obj docutils literal"><span class="pre">get_nodes</span></code></a>([level,&nbsp;entities,&nbsp;strict])</td>
+<td>Retrieves all nodes that match the specified criteria.</td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="#bids.variables.entities.NodeIndex.get_or_create_node" title="bids.variables.entities.NodeIndex.get_or_create_node"><code class="xref py py-obj docutils literal"><span class="pre">get_or_create_node</span></code></a>(level,&nbsp;entities,&nbsp;*args,&nbsp;…)</td>
+<tr class="row-even"><td><a class="reference internal" href="#bids.variables.entities.NodeIndex.get_or_create_node" title="bids.variables.entities.NodeIndex.get_or_create_node"><code class="xref py py-obj docutils literal"><span class="pre">get_or_create_node</span></code></a>(level,&nbsp;entities,&nbsp;*args,&nbsp;…)</td>
 <td>Retrieves a child Node based on the specified criteria, creating a new Node if necessary.</td>
 </tr>
 </tbody>
@@ -242,6 +248,31 @@
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>variable</strong> (<a class="reference internal" href="bids.variables.variables.BIDSVariable.html#bids.variables.variables.BIDSVariable" title="bids.variables.variables.BIDSVariable"><em>BIDSVariable</em></a>) – The Variable to add to the list.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="bids.variables.entities.NodeIndex.create_node">
+<code class="descname">create_node</code><span class="sig-paren">(</span><em>level</em>, <em>entities</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bids/variables/entities.html#NodeIndex.create_node"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bids.variables.entities.NodeIndex.create_node" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates a new child Node.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>level</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a>) – The level of analysis of the new Node.</li>
+<li><strong>entities</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#dict" title="(in Python v3.5)"><em>dict</em></a>) – Dictionary of entities belonging to Node</li>
+<li><strong>kwargs</strong> (<em>args</em><em>,</em>) – Optional positional or named arguments to pass onto
+class-specific initializers. These arguments are only used if
+a Node that matches the passed entities doesn’t already exist,
+and a new one must be created.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">A Node instance.</p>
+</td>
 </tr>
 </tbody>
 </table>
@@ -280,6 +311,31 @@ BIDSVariableCollection if merge=True.</p>
 </dd></dl>
 
 <dl class="method">
+<dt id="bids.variables.entities.NodeIndex.get_nodes">
+<code class="descname">get_nodes</code><span class="sig-paren">(</span><em>level=None</em>, <em>entities=None</em>, <em>strict=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bids/variables/entities.html#NodeIndex.get_nodes"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bids.variables.entities.NodeIndex.get_nodes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieves all nodes that match the specified criteria.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>level</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a>) – The level of analysis of nodes to return.</li>
+<li><strong>entities</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#dict" title="(in Python v3.5)"><em>dict</em></a>) – Entities to filter on. All nodes must have
+matching values on all defined keys to be included.</li>
+<li><strong>strict</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#bool" title="(in Python v3.5)"><em>bool</em></a>) – If True, an exception will be raised if the entities
+dict contains any keys that aren’t contained in the current
+index.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">A list of Node instances.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
 <dt id="bids.variables.entities.NodeIndex.get_or_create_node">
 <code class="descname">get_or_create_node</code><span class="sig-paren">(</span><em>level</em>, <em>entities</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bids/variables/entities.html#NodeIndex.get_or_create_node"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bids.variables.entities.NodeIndex.get_or_create_node" title="Permalink to this definition">¶</a></dt>
 <dd><p>Retrieves a child Node based on the specified criteria, creating a
@@ -289,8 +345,9 @@ new Node if necessary.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>entities</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#dict" title="(in Python v3.5)"><em>dict</em></a>) – Dictionary of entities specifying which Node to
-return.</li>
+<li><strong>level</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a>) – The level of analysis of the Node.</li>
+<li><strong>entities</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#dict" title="(in Python v3.5)"><em>dict</em></a>) – Dictionary of entities to include in newly-created
+Nodes or filter existing ones.</li>
 <li><strong>kwargs</strong> (<em>args</em><em>,</em>) – Optional positional or named arguments to pass onto
 class-specific initializers. These arguments are only used if
 a Node that matches the passed entities doesn’t already exist,
@@ -344,7 +401,7 @@ and a new one must be created.</li>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'0.8.0+206.g76cfcf5',
+            VERSION:'0.9.3+75.ge9ae632',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,

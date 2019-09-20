@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>bids.variables.io &mdash; bids 0.8.0+206.g76cfcf5 documentation</title>
+  <title>bids.variables.io &mdash; bids 0.9.3+75.ge9ae632 documentation</title>
   
 
   
@@ -37,7 +37,7 @@
         <link rel="index" title="Index"
               href="../../../genindex.html"/>
         <link rel="search" title="Search" href="../../../search.html"/>
-    <link rel="top" title="bids 0.8.0+206.g76cfcf5 documentation" href="../../../index.html"/>
+    <link rel="top" title="bids 0.9.3+75.ge9ae632 documentation" href="../../../index.html"/>
         <link rel="up" title="Module code" href="../../index.html"/> 
 
   
@@ -155,13 +155,16 @@
            <div itemprop="articleBody">
             
   <h1>Source code for bids.variables.io</h1><div class="highlight"><pre>
-<span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span></span><span class="kn">from</span> <span class="nn">os.path</span> <span class="k">import</span> <span class="n">join</span>
+<span class="kn">import</span> <span class="nn">warnings</span>
+<span class="kn">import</span> <span class="nn">json</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">from</span> <span class="nn">os.path</span> <span class="k">import</span> <span class="n">join</span>
+
 <span class="kn">from</span> <span class="nn">bids.utils</span> <span class="k">import</span> <span class="n">listify</span>
 <span class="kn">from</span> <span class="nn">.entities</span> <span class="k">import</span> <span class="n">NodeIndex</span>
 <span class="kn">from</span> <span class="nn">.variables</span> <span class="k">import</span> <span class="n">SparseRunVariable</span><span class="p">,</span> <span class="n">DenseRunVariable</span><span class="p">,</span> <span class="n">SimpleVariable</span>
-<span class="kn">import</span> <span class="nn">warnings</span>
 
 
 <span class="n">BASE_ENTITIES</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;subject&#39;</span><span class="p">,</span> <span class="s1">&#39;session&#39;</span><span class="p">,</span> <span class="s1">&#39;task&#39;</span><span class="p">,</span> <span class="s1">&#39;run&#39;</span><span class="p">]</span>
@@ -322,8 +325,41 @@
                        <span class="s2">&quot;available, or manually specify the scan duration.&quot;</span><span class="p">)</span>
                 <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
 
-        <span class="n">run</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">get_or_create_node</span><span class="p">(</span><span class="s1">&#39;run&#39;</span><span class="p">,</span> <span class="n">entities</span><span class="p">,</span> <span class="n">image_file</span><span class="o">=</span><span class="n">img_f</span><span class="p">,</span>
-                                         <span class="n">duration</span><span class="o">=</span><span class="n">duration</span><span class="p">,</span> <span class="n">repetition_time</span><span class="o">=</span><span class="n">tr</span><span class="p">)</span>
+        <span class="c1"># We don&#39;t want to pass all the image file&#39;s entities onto get_node(),</span>
+        <span class="c1"># as there can be unhashable nested slice timing values, and this also</span>
+        <span class="c1"># slows down querying unnecessarily. Instead, pick out files only based</span>
+        <span class="c1"># on the core BIDS entities and any entities explicitly passed as</span>
+        <span class="c1"># selectors.</span>
+        <span class="c1"># TODO: one downside of this approach is the stripped entities also</span>
+        <span class="c1"># won&#39;t be returned in the resulting node due to the way things are</span>
+        <span class="c1"># implemented. Consider adding a flag to control this.</span>
+        <span class="n">select_on</span> <span class="o">=</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="n">v</span> <span class="k">for</span> <span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span> <span class="ow">in</span> <span class="n">entities</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
+                     <span class="k">if</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">BASE_ENTITIES</span> <span class="ow">or</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">selectors</span><span class="p">}</span>
+
+        <span class="c1"># If a matching node already exists, return it</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">get_nodes</span><span class="p">(</span><span class="s1">&#39;run&#39;</span><span class="p">,</span> <span class="n">select_on</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">result</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">result</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;More than one existing Node matches the &quot;</span>
+                                 <span class="s2">&quot;specified entities! You may need to pass &quot;</span>
+                                 <span class="s2">&quot;additional selectors to narrow the search.&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">result</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+        <span class="c1"># Otherwise create a new node and use that.</span>
+        <span class="c1"># We first convert any entity values that are currently collections to</span>
+        <span class="c1"># JSON strings to prevent nasty hashing problems downstream. Note that</span>
+        <span class="c1"># isinstance() isn&#39;t as foolproof as actually trying to hash the</span>
+        <span class="c1"># value, but the latter is likely to be slower, and since values are</span>
+        <span class="c1"># coming from JSON or filenames, there&#39;s no real chance of encountering</span>
+        <span class="c1"># anything but a list or dict.</span>
+        <span class="n">entities</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="n">k</span><span class="p">:</span> <span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="p">(</span><span class="nb">list</span><span class="p">,</span> <span class="nb">dict</span><span class="p">))</span> <span class="k">else</span> <span class="n">v</span><span class="p">)</span>
+            <span class="k">for</span> <span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span> <span class="ow">in</span> <span class="n">entities</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
+        <span class="p">}</span>
+
+        <span class="n">run</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">create_node</span><span class="p">(</span><span class="s1">&#39;run&#39;</span><span class="p">,</span> <span class="n">entities</span><span class="p">,</span> <span class="n">image_file</span><span class="o">=</span><span class="n">img_f</span><span class="p">,</span>
+                                  <span class="n">duration</span><span class="o">=</span><span class="n">duration</span><span class="p">,</span> <span class="n">repetition_time</span><span class="o">=</span><span class="n">tr</span><span class="p">)</span>
         <span class="n">run_info</span> <span class="o">=</span> <span class="n">run</span><span class="o">.</span><span class="n">get_info</span><span class="p">()</span>
 
         <span class="c1"># Process event files</span>
@@ -486,7 +522,7 @@
 
     <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">files</span><span class="p">:</span>
 
-        <span class="n">_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">path</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;</span><span class="se">\t</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">_data</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">get_df</span><span class="p">(</span><span class="n">include_timing</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 
         <span class="c1"># Entities can be defined either within the first column of the .tsv</span>
         <span class="c1"># file (for entities that vary by row), or from the full file path</span>
@@ -552,6 +588,7 @@
 
         <span class="n">level</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;scans&#39;</span><span class="p">:</span> <span class="s1">&#39;session&#39;</span><span class="p">,</span> <span class="s1">&#39;sessions&#39;</span><span class="p">:</span> <span class="s1">&#39;subject&#39;</span><span class="p">,</span>
                  <span class="s1">&#39;participants&#39;</span><span class="p">:</span> <span class="s1">&#39;dataset&#39;</span><span class="p">}[</span><span class="n">suffix</span><span class="p">]</span>
+
         <span class="n">node</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">get_or_create_node</span><span class="p">(</span><span class="n">level</span><span class="p">,</span> <span class="n">f</span><span class="o">.</span><span class="n">entities</span><span class="p">)</span>
 
         <span class="n">ent_cols</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">ALL_ENTITIES</span><span class="p">)</span> <span class="o">&amp;</span> <span class="nb">set</span><span class="p">(</span><span class="n">_data</span><span class="o">.</span><span class="n">columns</span><span class="p">))</span>
@@ -608,7 +645,7 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../../../',
-            VERSION:'0.8.0+206.g76cfcf5',
+            VERSION:'0.9.3+75.ge9ae632',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,
