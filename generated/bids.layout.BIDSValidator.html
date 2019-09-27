@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>bids.layout.BIDSValidator &mdash; bids 0.9.3+75.ge9ae632 documentation</title>
+  <title>bids.layout.BIDSValidator &mdash; PyBIDS 0.9.4+16.g0a14a17 documentation</title>
   
 
   
@@ -17,47 +17,40 @@
   
 
   
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
 
-  
-  
     
 
   
-
-  
-  
-    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-  
-
-  
-    <link rel="stylesheet" href="../_static/theme_overrides.css" type="text/css" />
-  
-
-  
-        <link rel="index" title="Index"
-              href="../genindex.html"/>
-        <link rel="search" title="Search" href="../search.html"/>
-    <link rel="top" title="bids 0.9.3+75.ge9ae632 documentation" href="../index.html"/>
-        <link rel="up" title="API Reference" href="../api.html"/> 
-
-  
-  <script src="../_static/js/modernizr.min.js"></script>
-
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="bids.layout.BIDSFile" href="bids.layout.BIDSFile.html" />
+    <link rel="prev" title="bids.layout.BIDSLayout" href="bids.layout.BIDSLayout.html" /> 
 </head>
 
-<body class="wy-body-for-nav" role="document">
+<body class="wy-body-for-nav">
 
    
   <div class="wy-grid-for-nav">
-
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search">
+        <div class="wy-side-nav-search" >
           
 
           
-            <a href="../index.html" class="icon icon-home"> bids
+            <a href="../index.html" class="icon icon-home"> PyBIDS
           
 
           
@@ -88,19 +81,27 @@
             
             
               <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="../user_guide.html">User guide: table of contents</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide.html">User guide</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../api.html">API Reference</a><ul class="current">
-<li class="toctree-l2 current"><a class="reference internal" href="../api.html#bids-layout-querying-bids-datasets"><code class="docutils literal"><span class="pre">bids.layout</span></code>: Querying BIDS datasets</a><ul class="current">
-<li class="toctree-l3"><a class="reference internal" href="bids.layout.BIDSLayout.html"><code class="docutils literal"><span class="pre">bids.layout</span></code>.BIDSLayout</a></li>
-<li class="toctree-l3 current"><a class="current reference internal" href="#"><code class="docutils literal"><span class="pre">bids.layout</span></code>.BIDSValidator</a><ul class="simple">
+<li class="toctree-l2 current"><a class="reference internal" href="../api.html#bids-layout-querying-bids-datasets"><code class="xref py py-mod docutils literal notranslate"><span class="pre">bids.layout</span></code>: Querying BIDS datasets</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="bids.layout.BIDSLayout.html">bids.layout.BIDSLayout</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">bids.layout.BIDSValidator</a></li>
+<li class="toctree-l3"><a class="reference internal" href="bids.layout.BIDSFile.html">bids.layout.BIDSFile</a></li>
+<li class="toctree-l3"><a class="reference internal" href="bids.layout.BIDSDataFile.html">bids.layout.BIDSDataFile</a></li>
+<li class="toctree-l3"><a class="reference internal" href="bids.layout.BIDSJSONFile.html">bids.layout.BIDSJSONFile</a></li>
+<li class="toctree-l3"><a class="reference internal" href="bids.layout.Config.html">bids.layout.Config</a></li>
+<li class="toctree-l3"><a class="reference internal" href="bids.layout.Entity.html">bids.layout.Entity</a></li>
+<li class="toctree-l3"><a class="reference internal" href="bids.layout.Tag.html">bids.layout.Tag</a></li>
+<li class="toctree-l3"><a class="reference internal" href="bids.layout.parse_file_entities.html">bids.layout.parse_file_entities</a></li>
+<li class="toctree-l3"><a class="reference internal" href="bids.layout.add_config_paths.html">bids.layout.add_config_paths</a></li>
+<li class="toctree-l3"><a class="reference internal" href="bids.layout.index.BIDSLayoutIndexer.html">bids.layout.index.BIDSLayoutIndexer</a></li>
 </ul>
 </li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="../api.html#bids-analysis-model-specification-for-bids-datasets"><code class="docutils literal"><span class="pre">bids.analysis</span></code>: Model specification for BIDS datasets</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../api.html#bids-reports-data-acquisition-report-generation"><code class="docutils literal"><span class="pre">bids.reports</span></code>: Data acquisition report generation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../api.html#bids-variables-variables"><code class="docutils literal"><span class="pre">bids.variables</span></code>: Variables</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../api.html#bids-utils-utility-functions"><code class="docutils literal"><span class="pre">bids.utils</span></code>: Utility functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api.html#bids-analysis-model-specification-for-bids-datasets"><code class="xref py py-mod docutils literal notranslate"><span class="pre">bids.analysis</span></code>: Model specification for BIDS datasets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api.html#bids-reports-data-acquisition-report-generation"><code class="xref py py-mod docutils literal notranslate"><span class="pre">bids.reports</span></code>: Data acquisition report generation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api.html#bids-variables-variables"><code class="xref py py-mod docutils literal notranslate"><span class="pre">bids.variables</span></code>: Variables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api.html#bids-config-pybids-configuration-utilities"><code class="xref py py-mod docutils literal notranslate"><span class="pre">bids.config</span></code>: PyBIDS Configuration utilities</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api.html#bids-utils-utility-functions"><code class="xref py py-mod docutils literal notranslate"><span class="pre">bids.utils</span></code>: Utility functions</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../whats_new.html">Changelog</a></li>
@@ -115,17 +116,18 @@
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
 
       
-      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+      <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../index.html">bids</a>
+          <a href="../index.html">PyBIDS</a>
         
       </nav>
 
 
-      
       <div class="wy-nav-content">
+        
         <div class="rst-content">
+        
           
 
 
@@ -150,7 +152,7 @@
         
           <li><a href="../api.html">API Reference</a> &raquo;</li>
         
-      <li><code class="docutils literal"><span class="pre">bids.layout</span></code>.BIDSValidator</li>
+      <li>bids.layout.BIDSValidator</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -170,25 +172,22 @@
            <div itemprop="articleBody">
             
   <div class="section" id="bids-layout-bidsvalidator">
-<h1><code class="xref py py-mod docutils literal"><span class="pre">bids.layout</span></code>.BIDSValidator<a class="headerlink" href="#bids-layout-bidsvalidator" title="Permalink to this headline">¶</a></h1>
+<h1>bids.layout.BIDSValidator<a class="headerlink" href="#bids-layout-bidsvalidator" title="Permalink to this headline">¶</a></h1>
 <dl class="class">
 <dt id="bids.layout.BIDSValidator">
-<em class="property">class </em><code class="descname">BIDSValidator</code><span class="sig-paren">(</span><em>index_associated=True</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bids_validator/bids_validator.html#BIDSValidator"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bids.layout.BIDSValidator" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-name descname">BIDSValidator</code><span class="sig-paren">(</span><em class="sig-param">index_associated=True</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bids_validator/bids_validator.html#BIDSValidator"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bids.layout.BIDSValidator" title="Permalink to this definition">¶</a></dt>
 <dd><p>An object for BIDS (Brain Imaging Data Structure) verification in a data.</p>
 <p>The main method of this class is <cite>is_bids()</cite>. You should use it for
 checking whether a file path compatible with BIDS.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>index_associated</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#bool" title="(in Python v3.5)"><em>bool</em></a><em>, </em><em>default: True</em>) – Specifies if an associated data should be checked. If it is true then
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>index_associated</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#bool" title="(in Python v3.5)"><em>bool</em></a><em>, </em><em>default: True</em>) – Specifies if an associated data should be checked. If it is true then
 any file paths in directories <cite>code/</cite>, <cite>derivatives/</cite>, <cite>sourcedata/</cite>
-and <cite>stimuli/</cite> will pass the validation, else they won’t.</td>
-</tr>
-</tbody>
-</table>
+and <cite>stimuli/</cite> will pass the validation, else they won’t.</p>
+</dd>
+</dl>
 <p class="rubric">Examples</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">bids.grabbids</span> <span class="k">import</span> <span class="n">BIDSValidator</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">bids.grabbids</span> <span class="k">import</span> <span class="n">BIDSValidator</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">validator</span> <span class="o">=</span> <span class="n">BIDSValidator</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">filepaths</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;/sub-01/anat/sub-01_rec-CSD_T1w.nii.gz&quot;</span><span class="p">,</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="s2">&quot;/sub-01/anat/sub-01_acq-23_rec-CSD_T1w.exe&quot;</span><span class="p">,</span> <span class="c1">#wrong extension</span>
@@ -201,76 +200,130 @@ and <cite>stimuli/</cite> will pass the validation, else they won’t.</td>
 </pre></div>
 </div>
 <p class="rubric">Methods</p>
-<table border="1" class="longtable docutils">
+<table class="longtable docutils align-default">
 <colgroup>
-<col width="10%" />
-<col width="90%" />
+<col style="width: 10%" />
+<col style="width: 90%" />
 </colgroup>
-<tbody valign="top">
-<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">conditional_match</span></code>(expression,&nbsp;path)</td>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#bids.layout.BIDSValidator.get_path_values" title="bids.layout.BIDSValidator.get_path_values"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_path_values</span></code></a>(self, path)</p></td>
+<td><p>Takes a file path and returns values found for the following path keys:     sub-     ses-</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#bids.layout.BIDSValidator.is_associated_data" title="bids.layout.BIDSValidator.is_associated_data"><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_associated_data</span></code></a>(self, path)</p></td>
+<td><p>Check if file is appropriate associated data.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#bids.layout.BIDSValidator.is_bids" title="bids.layout.BIDSValidator.is_bids"><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_bids</span></code></a>(self, path)</p></td>
+<td><p>Checks if a file path appropriate for BIDS.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#bids.layout.BIDSValidator.is_file" title="bids.layout.BIDSValidator.is_file"><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_file</span></code></a>(self, path)</p></td>
+<td><p>Check if file is phenotypic data.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#bids.layout.BIDSValidator.is_phenotypic" title="bids.layout.BIDSValidator.is_phenotypic"><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_phenotypic</span></code></a>(self, path)</p></td>
+<td><p>Check if file is phenotypic data.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#bids.layout.BIDSValidator.is_session_level" title="bids.layout.BIDSValidator.is_session_level"><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_session_level</span></code></a>(self, path)</p></td>
+<td><p>Check if the file has appropriate name for a session level.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#bids.layout.BIDSValidator.is_subject_level" title="bids.layout.BIDSValidator.is_subject_level"><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_subject_level</span></code></a>(self, path)</p></td>
+<td><p>Check if the file has appropriate name for a subject level.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#bids.layout.BIDSValidator.is_top_level" title="bids.layout.BIDSValidator.is_top_level"><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_top_level</span></code></a>(self, path)</p></td>
+<td><p>Check if the file has appropriate name for a top-level file.</p></td>
+</tr>
+</tbody>
+</table>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 73%" />
+<col style="width: 27%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><strong>conditional_match</strong></p></td>
 <td></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="#bids.layout.BIDSValidator.get_path_values" title="bids.layout.BIDSValidator.get_path_values"><code class="xref py py-obj docutils literal"><span class="pre">get_path_values</span></code></a>(path)</td>
-<td>Takes a file path and returns values found for the following path</td>
-</tr>
-<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">get_regular_expressions</span></code>(fileName)</td>
+<tr class="row-even"><td><p><strong>get_regular_expressions</strong></p></td>
 <td></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="#bids.layout.BIDSValidator.is_associated_data" title="bids.layout.BIDSValidator.is_associated_data"><code class="xref py py-obj docutils literal"><span class="pre">is_associated_data</span></code></a>(path)</td>
-<td>Check if file is appropriate associated data.</td>
+</tbody>
+</table>
+<dl class="method">
+<dt id="bids.layout.BIDSValidator.__init__">
+<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">index_associated=True</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bids_validator/bids_validator.html#BIDSValidator.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bids.layout.BIDSValidator.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
+</dd></dl>
+
+<p class="rubric">Methods</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#bids.layout.BIDSValidator.__init__" title="bids.layout.BIDSValidator.__init__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__init__</span></code></a>(self[, index_associated])</p></td>
+<td><p>Initialize self.</p></td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="#bids.layout.BIDSValidator.is_bids" title="bids.layout.BIDSValidator.is_bids"><code class="xref py py-obj docutils literal"><span class="pre">is_bids</span></code></a>(path)</td>
-<td>Checks if a file path appropriate for BIDS.</td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">conditional_match</span></code>(self, expression, path)</p></td>
+<td><p></p></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="#bids.layout.BIDSValidator.is_file" title="bids.layout.BIDSValidator.is_file"><code class="xref py py-obj docutils literal"><span class="pre">is_file</span></code></a>(path)</td>
-<td>Check if file is phenotypic data.</td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#bids.layout.BIDSValidator.get_path_values" title="bids.layout.BIDSValidator.get_path_values"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_path_values</span></code></a>(self, path)</p></td>
+<td><p>Takes a file path and returns values found for the following path keys:     sub-     ses-</p></td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="#bids.layout.BIDSValidator.is_phenotypic" title="bids.layout.BIDSValidator.is_phenotypic"><code class="xref py py-obj docutils literal"><span class="pre">is_phenotypic</span></code></a>(path)</td>
-<td>Check if file is phenotypic data.</td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_regular_expressions</span></code>(self, fileName)</p></td>
+<td><p></p></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="#bids.layout.BIDSValidator.is_session_level" title="bids.layout.BIDSValidator.is_session_level"><code class="xref py py-obj docutils literal"><span class="pre">is_session_level</span></code></a>(path)</td>
-<td>Check if the file has appropriate name for a session level.</td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#bids.layout.BIDSValidator.is_associated_data" title="bids.layout.BIDSValidator.is_associated_data"><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_associated_data</span></code></a>(self, path)</p></td>
+<td><p>Check if file is appropriate associated data.</p></td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="#bids.layout.BIDSValidator.is_subject_level" title="bids.layout.BIDSValidator.is_subject_level"><code class="xref py py-obj docutils literal"><span class="pre">is_subject_level</span></code></a>(path)</td>
-<td>Check if the file has appropriate name for a subject level.</td>
+<tr class="row-even"><td><p><a class="reference internal" href="#bids.layout.BIDSValidator.is_bids" title="bids.layout.BIDSValidator.is_bids"><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_bids</span></code></a>(self, path)</p></td>
+<td><p>Checks if a file path appropriate for BIDS.</p></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="#bids.layout.BIDSValidator.is_top_level" title="bids.layout.BIDSValidator.is_top_level"><code class="xref py py-obj docutils literal"><span class="pre">is_top_level</span></code></a>(path)</td>
-<td>Check if the file has appropriate name for a top-level file.</td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#bids.layout.BIDSValidator.is_file" title="bids.layout.BIDSValidator.is_file"><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_file</span></code></a>(self, path)</p></td>
+<td><p>Check if file is phenotypic data.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#bids.layout.BIDSValidator.is_phenotypic" title="bids.layout.BIDSValidator.is_phenotypic"><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_phenotypic</span></code></a>(self, path)</p></td>
+<td><p>Check if file is phenotypic data.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#bids.layout.BIDSValidator.is_session_level" title="bids.layout.BIDSValidator.is_session_level"><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_session_level</span></code></a>(self, path)</p></td>
+<td><p>Check if the file has appropriate name for a session level.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#bids.layout.BIDSValidator.is_subject_level" title="bids.layout.BIDSValidator.is_subject_level"><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_subject_level</span></code></a>(self, path)</p></td>
+<td><p>Check if the file has appropriate name for a subject level.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#bids.layout.BIDSValidator.is_top_level" title="bids.layout.BIDSValidator.is_top_level"><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_top_level</span></code></a>(self, path)</p></td>
+<td><p>Check if the file has appropriate name for a top-level file.</p></td>
 </tr>
 </tbody>
 </table>
 <dl class="method">
 <dt id="bids.layout.BIDSValidator.get_path_values">
-<code class="descname">get_path_values</code><span class="sig-paren">(</span><em>path</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bids_validator/bids_validator.html#BIDSValidator.get_path_values"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bids.layout.BIDSValidator.get_path_values" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">get_path_values</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">path</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bids_validator/bids_validator.html#BIDSValidator.get_path_values"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bids.layout.BIDSValidator.get_path_values" title="Permalink to this definition">¶</a></dt>
 <dd><p>Takes a file path and returns values found for the following path
 keys:</p>
 <blockquote>
-<div>sub-
-ses-</div></blockquote>
+<div><p>sub-
+ses-</p>
+</div></blockquote>
 </dd></dl>
 
 <dl class="method">
 <dt id="bids.layout.BIDSValidator.is_associated_data">
-<code class="descname">is_associated_data</code><span class="sig-paren">(</span><em>path</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bids_validator/bids_validator.html#BIDSValidator.is_associated_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bids.layout.BIDSValidator.is_associated_data" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">is_associated_data</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">path</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bids_validator/bids_validator.html#BIDSValidator.is_associated_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bids.layout.BIDSValidator.is_associated_data" title="Permalink to this definition">¶</a></dt>
 <dd><p>Check if file is appropriate associated data.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="bids.layout.BIDSValidator.is_bids">
-<code class="descname">is_bids</code><span class="sig-paren">(</span><em>path</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bids_validator/bids_validator.html#BIDSValidator.is_bids"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bids.layout.BIDSValidator.is_bids" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">is_bids</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">path</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bids_validator/bids_validator.html#BIDSValidator.is_bids"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bids.layout.BIDSValidator.is_bids" title="Permalink to this definition">¶</a></dt>
 <dd><p>Checks if a file path appropriate for BIDS.</p>
 <p>Main method of the validator. uses other class methods for checking
 different aspects of the file path.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>path</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/string.html#module-string" title="(in Python v3.5)"><em>string</em></a>) – A path of a file you want to check.</td>
-</tr>
-</tbody>
-</table>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>path</strong> (<em>string</em>) – A path of a file you want to check.</p>
+</dd>
+</dl>
 <p class="rubric">Examples</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">bids.grabbids</span> <span class="k">import</span> <span class="n">BIDSValidator</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">bids.grabbids</span> <span class="k">import</span> <span class="n">BIDSValidator</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">validator</span> <span class="o">=</span> <span class="n">BIDSValidator</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">validator</span><span class="o">.</span><span class="n">is_bids</span><span class="p">(</span><span class="s2">&quot;/sub-01/ses-test/anat/sub-01_ses-test_rec-CSD_run-23_T1w.nii.gz&quot;</span><span class="p">)</span>
 <span class="go">True</span>
@@ -282,56 +335,63 @@ different aspects of the file path.</p>
 
 <dl class="method">
 <dt id="bids.layout.BIDSValidator.is_file">
-<code class="descname">is_file</code><span class="sig-paren">(</span><em>path</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bids_validator/bids_validator.html#BIDSValidator.is_file"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bids.layout.BIDSValidator.is_file" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">is_file</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">path</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bids_validator/bids_validator.html#BIDSValidator.is_file"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bids.layout.BIDSValidator.is_file" title="Permalink to this definition">¶</a></dt>
 <dd><p>Check if file is phenotypic data.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="bids.layout.BIDSValidator.is_phenotypic">
-<code class="descname">is_phenotypic</code><span class="sig-paren">(</span><em>path</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bids_validator/bids_validator.html#BIDSValidator.is_phenotypic"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bids.layout.BIDSValidator.is_phenotypic" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">is_phenotypic</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">path</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bids_validator/bids_validator.html#BIDSValidator.is_phenotypic"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bids.layout.BIDSValidator.is_phenotypic" title="Permalink to this definition">¶</a></dt>
 <dd><p>Check if file is phenotypic data.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="bids.layout.BIDSValidator.is_session_level">
-<code class="descname">is_session_level</code><span class="sig-paren">(</span><em>path</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bids_validator/bids_validator.html#BIDSValidator.is_session_level"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bids.layout.BIDSValidator.is_session_level" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">is_session_level</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">path</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bids_validator/bids_validator.html#BIDSValidator.is_session_level"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bids.layout.BIDSValidator.is_session_level" title="Permalink to this definition">¶</a></dt>
 <dd><p>Check if the file has appropriate name for a session level.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="bids.layout.BIDSValidator.is_subject_level">
-<code class="descname">is_subject_level</code><span class="sig-paren">(</span><em>path</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bids_validator/bids_validator.html#BIDSValidator.is_subject_level"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bids.layout.BIDSValidator.is_subject_level" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">is_subject_level</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">path</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bids_validator/bids_validator.html#BIDSValidator.is_subject_level"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bids.layout.BIDSValidator.is_subject_level" title="Permalink to this definition">¶</a></dt>
 <dd><p>Check if the file has appropriate name for a subject level.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="bids.layout.BIDSValidator.is_top_level">
-<code class="descname">is_top_level</code><span class="sig-paren">(</span><em>path</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bids_validator/bids_validator.html#BIDSValidator.is_top_level"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bids.layout.BIDSValidator.is_top_level" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">is_top_level</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">path</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bids_validator/bids_validator.html#BIDSValidator.is_top_level"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bids.layout.BIDSValidator.is_top_level" title="Permalink to this definition">¶</a></dt>
 <dd><p>Check if the file has appropriate name for a top-level file.</p>
 </dd></dl>
 
 </dd></dl>
 
-<div class="clearer"></div></div>
+</div>
 
 
            </div>
-           <div class="articleComments">
-            
-           </div>
+           
           </div>
           <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="bids.layout.BIDSFile.html" class="btn btn-neutral float-right" title="bids.layout.BIDSFile" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="bids.layout.BIDSLayout.html" class="btn btn-neutral float-left" title="bids.layout.BIDSLayout" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
   
 
   <hr/>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2015 - 2018, Developers of pybids.
+        &copy; Copyright 2019, Developers of PyBIDS
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
 
@@ -344,37 +404,15 @@ different aspects of the file path.</p>
   
 
 
-  
-
-    <script type="text/javascript">
-        var DOCUMENTATION_OPTIONS = {
-            URL_ROOT:'../',
-            VERSION:'0.9.3+75.ge9ae632',
-            COLLAPSE_INDEX:false,
-            FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true,
-            SOURCELINK_SUFFIX: '.txt'
-        };
-    </script>
-      <script type="text/javascript" src="../_static/jquery.js"></script>
-      <script type="text/javascript" src="../_static/underscore.js"></script>
-      <script type="text/javascript" src="../_static/doctools.js"></script>
-      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-
-  
-
-  
-  
-    <script type="text/javascript" src="../_static/js/theme.js"></script>
-  
-
-  
-  
   <script type="text/javascript">
       jQuery(function () {
-          SphinxRtdTheme.StickyNav.enable();
+          SphinxRtdTheme.Navigation.enable(true);
       });
   </script>
+
+  
+  
+    
    
 
 </body>

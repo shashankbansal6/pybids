@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>bids.variables.io &mdash; bids 0.9.3+75.ge9ae632 documentation</title>
+  <title>bids.variables.io &mdash; PyBIDS 0.9.4+16.g0a14a17 documentation</title>
   
 
   
@@ -17,48 +17,40 @@
   
 
   
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
 
-  
-  
     
 
   
-
-  
-  
-    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-  
-
-  
-    <link rel="stylesheet" href="../_static/theme_overrides.css" type="text/css" />
-  
-
-  
-        <link rel="index" title="Index"
-              href="../genindex.html"/>
-        <link rel="search" title="Search" href="../search.html"/>
-    <link rel="top" title="bids 0.9.3+75.ge9ae632 documentation" href="../index.html"/>
-        <link rel="up" title="API Reference" href="../api.html"/>
-        <link rel="next" title="bids.variables.io.load_variables" href="bids.variables.io.load_variables.html"/> 
-
-  
-  <script src="../_static/js/modernizr.min.js"></script>
-
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="bids.variables.entities" href="bids.variables.entities.html" />
+    <link rel="prev" title="bids.variables.merge_variables" href="bids.variables.merge_variables.html" /> 
 </head>
 
-<body class="wy-body-for-nav" role="document">
+<body class="wy-body-for-nav">
 
    
   <div class="wy-grid-for-nav">
-
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search">
+        <div class="wy-side-nav-search" >
           
 
           
-            <a href="../index.html" class="icon icon-home"> bids
+            <a href="../index.html" class="icon icon-home"> PyBIDS
           
 
           
@@ -89,22 +81,28 @@
             
             
               <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="../user_guide.html">User guide: table of contents</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide.html">User guide</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../api.html">API Reference</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="../api.html#bids-layout-querying-bids-datasets"><code class="docutils literal"><span class="pre">bids.layout</span></code>: Querying BIDS datasets</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../api.html#bids-analysis-model-specification-for-bids-datasets"><code class="docutils literal"><span class="pre">bids.analysis</span></code>: Model specification for BIDS datasets</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../api.html#bids-reports-data-acquisition-report-generation"><code class="docutils literal"><span class="pre">bids.reports</span></code>: Data acquisition report generation</a></li>
-<li class="toctree-l2 current"><a class="reference internal" href="../api.html#bids-variables-variables"><code class="docutils literal"><span class="pre">bids.variables</span></code>: Variables</a><ul class="current">
-<li class="toctree-l3 current"><a class="current reference internal" href="#">bids.variables.io</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="bids.variables.io.load_variables.html">bids.variables.io.load_variables</a></li>
-</ul>
-</li>
+<li class="toctree-l2"><a class="reference internal" href="../api.html#bids-layout-querying-bids-datasets"><code class="xref py py-mod docutils literal notranslate"><span class="pre">bids.layout</span></code>: Querying BIDS datasets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api.html#bids-analysis-model-specification-for-bids-datasets"><code class="xref py py-mod docutils literal notranslate"><span class="pre">bids.analysis</span></code>: Model specification for BIDS datasets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api.html#bids-reports-data-acquisition-report-generation"><code class="xref py py-mod docutils literal notranslate"><span class="pre">bids.reports</span></code>: Data acquisition report generation</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../api.html#bids-variables-variables"><code class="xref py py-mod docutils literal notranslate"><span class="pre">bids.variables</span></code>: Variables</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="bids.variables.SimpleVariable.html">bids.variables.SimpleVariable</a></li>
+<li class="toctree-l3"><a class="reference internal" href="bids.variables.SparseRunVariable.html">bids.variables.SparseRunVariable</a></li>
+<li class="toctree-l3"><a class="reference internal" href="bids.variables.DenseRunVariable.html">bids.variables.DenseRunVariable</a></li>
+<li class="toctree-l3"><a class="reference internal" href="bids.variables.BIDSVariableCollection.html">bids.variables.BIDSVariableCollection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="bids.variables.BIDSRunVariableCollection.html">bids.variables.BIDSRunVariableCollection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="bids.variables.merge_collections.html">bids.variables.merge_collections</a></li>
+<li class="toctree-l3"><a class="reference internal" href="bids.variables.load_variables.html">bids.variables.load_variables</a></li>
+<li class="toctree-l3"><a class="reference internal" href="bids.variables.merge_variables.html">bids.variables.merge_variables</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">bids.variables.io</a></li>
 <li class="toctree-l3"><a class="reference internal" href="bids.variables.entities.html">bids.variables.entities</a></li>
 <li class="toctree-l3"><a class="reference internal" href="bids.variables.kollekshuns.html">bids.variables.kollekshuns</a></li>
 <li class="toctree-l3"><a class="reference internal" href="bids.variables.variables.html">bids.variables.variables</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../api.html#bids-utils-utility-functions"><code class="docutils literal"><span class="pre">bids.utils</span></code>: Utility functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api.html#bids-config-pybids-configuration-utilities"><code class="xref py py-mod docutils literal notranslate"><span class="pre">bids.config</span></code>: PyBIDS Configuration utilities</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api.html#bids-utils-utility-functions"><code class="xref py py-mod docutils literal notranslate"><span class="pre">bids.utils</span></code>: Utility functions</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../whats_new.html">Changelog</a></li>
@@ -119,17 +117,18 @@
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
 
       
-      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+      <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../index.html">bids</a>
+          <a href="../index.html">PyBIDS</a>
         
       </nav>
 
 
-      
       <div class="wy-nav-content">
+        
         <div class="rst-content">
+        
           
 
 
@@ -175,57 +174,54 @@
             
   <div class="section" id="module-bids.variables.io">
 <span id="bids-variables-io"></span><h1>bids.variables.io<a class="headerlink" href="#module-bids.variables.io" title="Permalink to this headline">¶</a></h1>
+<p>Tools for reading/writing BIDS data files.</p>
 <p class="rubric">Functions</p>
-<table border="1" class="longtable docutils">
+<table class="longtable docutils align-default">
 <colgroup>
-<col width="10%" />
-<col width="90%" />
+<col style="width: 10%" />
+<col style="width: 90%" />
 </colgroup>
-<tbody valign="top">
-<tr class="row-odd"><td><a class="reference internal" href="bids.variables.io.load_variables.html#bids.variables.io.load_variables" title="bids.variables.io.load_variables"><code class="xref py py-obj docutils literal"><span class="pre">load_variables</span></code></a>(layout[,&nbsp;types,&nbsp;levels,&nbsp;…])</td>
-<td>A convenience wrapper for one or more load_*_variables() calls.</td>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#bids.variables.io.load_variables" title="bids.variables.io.load_variables"><code class="xref py py-obj docutils literal notranslate"><span class="pre">load_variables</span></code></a>(layout[, types, levels, …])</p></td>
+<td><p>A convenience wrapper for one or more load_*_variables() calls.</p></td>
 </tr>
 </tbody>
 </table>
 <dl class="function">
 <dt id="bids.variables.io.load_variables">
-<code class="descname">load_variables</code><span class="sig-paren">(</span><em>layout</em>, <em>types=None</em>, <em>levels=None</em>, <em>skip_empty=True</em>, <em>dataset=None</em>, <em>scope='all'</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bids/variables/io.html#load_variables"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bids.variables.io.load_variables" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">load_variables</code><span class="sig-paren">(</span><em class="sig-param">layout</em>, <em class="sig-param">types=None</em>, <em class="sig-param">levels=None</em>, <em class="sig-param">skip_empty=True</em>, <em class="sig-param">dataset=None</em>, <em class="sig-param">scope='all'</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bids/variables/io.html#load_variables"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bids.variables.io.load_variables" title="Permalink to this definition">¶</a></dt>
 <dd><p>A convenience wrapper for one or more load_*_variables() calls.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>layout</strong> (<a class="reference internal" href="bids.layout.BIDSLayout.html#bids.layout.BIDSLayout" title="bids.layout.BIDSLayout"><em>BIDSLayout</em></a>) – BIDSLayout containing variable files.</li>
-<li><strong>types</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#list" title="(in Python v3.5)"><em>list</em></a>) – Types of variables to retrieve. All valid values
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>layout</strong> (<a class="reference internal" href="bids.layout.BIDSLayout.html#bids.layout.BIDSLayout" title="bids.layout.BIDSLayout"><em>BIDSLayout</em></a>) – BIDSLayout containing variable files.</p></li>
+<li><p><strong>types</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#list" title="(in Python v3.5)"><em>list</em></a>) – Types of variables to retrieve. All valid values
 reflect the filename stipulated in the BIDS spec for each kind of
 variable. Valid values include: ‘events’, ‘physio’, ‘stim’,
-‘scans’, ‘participants’, ‘sessions’, and ‘regressors’.</li>
-<li><strong>levels</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#list" title="(in Python v3.5)"><em>list</em></a>) – Optional level(s) of variables to load. Valid
+‘scans’, ‘participants’, ‘sessions’, and ‘regressors’.</p></li>
+<li><p><strong>levels</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#list" title="(in Python v3.5)"><em>list</em></a>) – Optional level(s) of variables to load. Valid
 values are ‘run’, ‘session’, ‘subject’, or ‘dataset’. This is
 simply a shorthand way to specify types–e.g., ‘run’ will be
-converted to types=[‘events’, ‘physio’, ‘stim’, ‘regressors’].</li>
-<li><strong>skip_empty</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#bool" title="(in Python v3.5)"><em>bool</em></a>) – Whether or not to skip empty Variables (i.e.,
+converted to types=[‘events’, ‘physio’, ‘stim’, ‘regressors’].</p></li>
+<li><p><strong>skip_empty</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#bool" title="(in Python v3.5)"><em>bool</em></a>) – Whether or not to skip empty Variables (i.e.,
 where there are no rows/records in a file after applying any
-filtering operations like dropping NaNs).</li>
-<li><strong>dataset</strong> (<a class="reference internal" href="bids.variables.entities.NodeIndex.html#bids.variables.entities.NodeIndex" title="bids.variables.entities.NodeIndex"><em>NodeIndex</em></a>) – An existing NodeIndex container to store the
+filtering operations like dropping NaNs).</p></li>
+<li><p><strong>dataset</strong> (<a class="reference internal" href="bids.variables.entities.html#bids.variables.entities.NodeIndex" title="bids.variables.entities.NodeIndex"><em>NodeIndex</em></a>) – An existing NodeIndex container to store the
 loaded data in. Can be used to iteratively construct a dataset
 that contains otherwise heterogeneous sets of variables. If None,
-a new NodeIndex is used.</li>
-<li><strong>scope</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#list" title="(in Python v3.5)"><em>list</em></a>) – The scope of the space to search for variables. See
-docstring for BIDSLayout for details and valid predefined values.</li>
-<li><strong>kwargs</strong> – Optional keyword arguments to pass onto the individual
-load_*_variables() calls.</li>
+a new NodeIndex is used.</p></li>
+<li><p><strong>scope</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#list" title="(in Python v3.5)"><em>list</em></a>) – The scope of the space to search for variables. See
+docstring for BIDSLayout for details and valid predefined values.</p></li>
+<li><p><strong>kwargs</strong> – Optional keyword arguments to pass onto the individual
+load_*_variables() calls.</p></li>
 </ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">A NodeIndex instance.</p>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A NodeIndex instance.</p>
+</dd>
+</dl>
 <p class="rubric">Example</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">load_variables</span><span class="p">(</span><span class="n">layout</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;events&#39;</span><span class="p">,</span> <span class="s1">&#39;physio&#39;</span><span class="p">],</span> <span class="n">subject</span><span class="o">=</span><span class="s1">&#39;01&#39;</span><span class="p">)</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">load_variables</span><span class="p">(</span><span class="n">layout</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;events&#39;</span><span class="p">,</span> <span class="s1">&#39;physio&#39;</span><span class="p">],</span> <span class="n">subject</span><span class="o">=</span><span class="s1">&#39;01&#39;</span><span class="p">)</span>
 <span class="go"># returns all variables stored in _events.tsv and _physio.tsv.gz files</span>
 <span class="go"># for runs that belong to subject with id &#39;01&#39;.</span>
 </pre></div>
@@ -236,16 +232,16 @@ load_*_variables() calls.</li>
 
 
            </div>
-           <div class="articleComments">
-            
-           </div>
+           
           </div>
           <footer>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="bids.variables.io.load_variables.html" class="btn btn-neutral float-right" title="bids.variables.io.load_variables" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="bids.variables.entities.html" class="btn btn-neutral float-right" title="bids.variables.entities" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
+      
+        <a href="bids.variables.merge_variables.html" class="btn btn-neutral float-left" title="bids.variables.merge_variables" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -254,11 +250,11 @@ load_*_variables() calls.</li>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2015 - 2018, Developers of pybids.
+        &copy; Copyright 2019, Developers of PyBIDS
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
 
@@ -271,37 +267,15 @@ load_*_variables() calls.</li>
   
 
 
-  
-
-    <script type="text/javascript">
-        var DOCUMENTATION_OPTIONS = {
-            URL_ROOT:'../',
-            VERSION:'0.9.3+75.ge9ae632',
-            COLLAPSE_INDEX:false,
-            FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true,
-            SOURCELINK_SUFFIX: '.txt'
-        };
-    </script>
-      <script type="text/javascript" src="../_static/jquery.js"></script>
-      <script type="text/javascript" src="../_static/underscore.js"></script>
-      <script type="text/javascript" src="../_static/doctools.js"></script>
-      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-
-  
-
-  
-  
-    <script type="text/javascript" src="../_static/js/theme.js"></script>
-  
-
-  
-  
   <script type="text/javascript">
       jQuery(function () {
-          SphinxRtdTheme.StickyNav.enable();
+          SphinxRtdTheme.Navigation.enable(true);
       });
   </script>
+
+  
+  
+    
    
 
 </body>

@@ -1,15 +1,23 @@
-:mod:`bids.reports`.BIDSReport
-=====================================
+bids.reports.BIDSReport
+=======================
 
 .. currentmodule:: bids.reports
 
 .. autoclass:: BIDSReport
 
    
+   .. automethod:: __init__
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+   
+      ~BIDSReport.__init__
+      ~BIDSReport.generate
+   
    
 
-.. include:: bids.reports.BIDSReport.examples
-
-.. raw:: html
-
-    <div class="clearer"></div>
+   
+   
+   

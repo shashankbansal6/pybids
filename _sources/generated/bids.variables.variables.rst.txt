@@ -8,7 +8,6 @@ bids.variables.variables
    .. rubric:: Functions
 
    .. autosummary::
-      :toctree:
    
       merge_variables
    
@@ -19,7 +18,6 @@ bids.variables.variables
    .. rubric:: Classes
 
    .. autosummary::
-      :toctree:
    
       BIDSVariable
       DenseRunVariable

@@ -1,0 +1,393 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>bids.analysis.analysis.AnalysisNode &mdash; PyBIDS 0.9.4+16.g0a14a17 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="bids.analysis.analysis.apply_transformations" href="bids.analysis.analysis.apply_transformations.html" />
+    <link rel="prev" title="bids.analysis.analysis.Step" href="bids.analysis.analysis.Step.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> PyBIDS
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../user_guide.html">User guide</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../api.html">API Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../api.html#bids-layout-querying-bids-datasets"><code class="xref py py-mod docutils literal notranslate"><span class="pre">bids.layout</span></code>: Querying BIDS datasets</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../api.html#bids-analysis-model-specification-for-bids-datasets"><code class="xref py py-mod docutils literal notranslate"><span class="pre">bids.analysis</span></code>: Model specification for BIDS datasets</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="bids.analysis.Analysis.html">bids.analysis.Analysis</a></li>
+<li class="toctree-l3"><a class="reference internal" href="bids.analysis.auto_model.html">bids.analysis.auto_model</a></li>
+<li class="toctree-l3"><a class="reference internal" href="bids.analysis.analysis.Step.html">bids.analysis.analysis.Step</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">bids.analysis.analysis.AnalysisNode</a></li>
+<li class="toctree-l3"><a class="reference internal" href="bids.analysis.analysis.apply_transformations.html">bids.analysis.analysis.apply_transformations</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../api.html#bids-reports-data-acquisition-report-generation"><code class="xref py py-mod docutils literal notranslate"><span class="pre">bids.reports</span></code>: Data acquisition report generation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api.html#bids-variables-variables"><code class="xref py py-mod docutils literal notranslate"><span class="pre">bids.variables</span></code>: Variables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api.html#bids-config-pybids-configuration-utilities"><code class="xref py py-mod docutils literal notranslate"><span class="pre">bids.config</span></code>: PyBIDS Configuration utilities</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api.html#bids-utils-utility-functions"><code class="xref py py-mod docutils literal notranslate"><span class="pre">bids.utils</span></code>: Utility functions</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../whats_new.html">Changelog</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">PyBIDS</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../api.html">API Reference</a> &raquo;</li>
+        
+      <li>bids.analysis.analysis.AnalysisNode</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/generated/bids.analysis.analysis.AnalysisNode.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="bids-analysis-analysis-analysisnode">
+<h1>bids.analysis.analysis.AnalysisNode<a class="headerlink" href="#bids-analysis-analysis-analysisnode" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="bids.analysis.analysis.AnalysisNode">
+<em class="property">class </em><code class="sig-name descname">AnalysisNode</code><span class="sig-paren">(</span><em class="sig-param">level</em>, <em class="sig-param">collection</em>, <em class="sig-param">contrasts</em>, <em class="sig-param">input_nodes=None</em>, <em class="sig-param">auto_contrasts=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bids/analysis/analysis.html#AnalysisNode"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bids.analysis.analysis.AnalysisNode" title="Permalink to this definition">¶</a></dt>
+<dd><p>A single analysis node generated within a Step.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>level</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a>) – The level of the Node. Most be one of ‘run’, ‘session’,
+‘subject’, or ‘dataset’.</p></li>
+<li><p><strong>collection</strong> (<a class="reference internal" href="bids.variables.BIDSVariableCollection.html#bids.variables.BIDSVariableCollection" title="bids.variables.BIDSVariableCollection"><em>BIDSVariableCollection</em></a>) – The BIDSVariableCollection
+containing variables at this Node.</p></li>
+<li><p><strong>contrasts</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#list" title="(in Python v3.5)"><em>list</em></a>) – A list of contrasts defined in the originating Step.</p></li>
+<li><p><strong>auto_contrasts</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#list" title="(in Python v3.5)"><em>list</em></a>) – Optional list of variable names to create
+an indicator contrast for. Alternatively, if the boolean value True
+is passed, a contrast is automatically generated for _all_
+available variables.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Attributes</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>contrasts</strong></dt><dd></dd>
+<dt><strong>entities</strong></dt><dd></dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Methods</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#bids.analysis.analysis.AnalysisNode.get_contrasts" title="bids.analysis.analysis.AnalysisNode.get_contrasts"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_contrasts</span></code></a>(self[, names, variables])</p></td>
+<td><p>Return contrast information for the current block.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#bids.analysis.analysis.AnalysisNode.get_design_matrix" title="bids.analysis.analysis.AnalysisNode.get_design_matrix"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_design_matrix</span></code></a>(self[, names, format, …])</p></td>
+<td><p>Get design matrix and associated information.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#bids.analysis.analysis.AnalysisNode.matches_entities" title="bids.analysis.analysis.AnalysisNode.matches_entities"><code class="xref py py-obj docutils literal notranslate"><span class="pre">matches_entities</span></code></a>(self, entities[, strict])</p></td>
+<td><p>Determine whether current AnalysisNode matches passed entities.</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="bids.analysis.analysis.AnalysisNode.__init__">
+<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">level</em>, <em class="sig-param">collection</em>, <em class="sig-param">contrasts</em>, <em class="sig-param">input_nodes=None</em>, <em class="sig-param">auto_contrasts=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bids/analysis/analysis.html#AnalysisNode.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bids.analysis.analysis.AnalysisNode.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
+</dd></dl>
+
+<p class="rubric">Methods</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#bids.analysis.analysis.AnalysisNode.__init__" title="bids.analysis.analysis.AnalysisNode.__init__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__init__</span></code></a>(self, level, collection, contrasts)</p></td>
+<td><p>Initialize self.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#bids.analysis.analysis.AnalysisNode.get_contrasts" title="bids.analysis.analysis.AnalysisNode.get_contrasts"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_contrasts</span></code></a>(self[, names, variables])</p></td>
+<td><p>Return contrast information for the current block.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#bids.analysis.analysis.AnalysisNode.get_design_matrix" title="bids.analysis.analysis.AnalysisNode.get_design_matrix"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_design_matrix</span></code></a>(self[, names, format, …])</p></td>
+<td><p>Get design matrix and associated information.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#bids.analysis.analysis.AnalysisNode.matches_entities" title="bids.analysis.analysis.AnalysisNode.matches_entities"><code class="xref py py-obj docutils literal notranslate"><span class="pre">matches_entities</span></code></a>(self, entities[, strict])</p></td>
+<td><p>Determine whether current AnalysisNode matches passed entities.</p></td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Attributes</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">contrasts</span></code></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">entities</span></code></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="bids.analysis.analysis.AnalysisNode.get_contrasts">
+<code class="sig-name descname">get_contrasts</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">names=None</em>, <em class="sig-param">variables=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bids/analysis/analysis.html#AnalysisNode.get_contrasts"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bids.analysis.analysis.AnalysisNode.get_contrasts" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return contrast information for the current block.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>names</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#list" title="(in Python v3.5)"><em>list</em></a>) – Optional list of names of contrasts to return. If
+None (default), all contrasts are returned.</p></li>
+<li><p><strong>variables</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#bool" title="(in Python v3.5)"><em>bool</em></a>) – Optional list of strings giving the names of
+design matrix columns to use when generating the matrix of
+weights.</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>The ‘variables’ argument take precedence over the natural process
+of column selection. I.e.,</p>
+<blockquote>
+<div><p>if a variable shows up in a contrast, but isn’t named in
+variables, it will <em>not</em> be included in the returned</p>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A list of ContrastInfo namedtuples, one per contrast.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="bids.analysis.analysis.AnalysisNode.get_design_matrix">
+<code class="sig-name descname">get_design_matrix</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">names=None</em>, <em class="sig-param">format='long'</em>, <em class="sig-param">mode='both'</em>, <em class="sig-param">force=False</em>, <em class="sig-param">sampling_rate='TR'</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bids/analysis/analysis.html#AnalysisNode.get_design_matrix"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bids.analysis.analysis.AnalysisNode.get_design_matrix" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get design matrix and associated information.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>names</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#list" title="(in Python v3.5)"><em>list</em></a>) – Optional list of names of variables to include in the
+returned design matrix. If None, all variables are included.</p></li>
+<li><p><strong>format</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a>) – Whether to return the design matrix in ‘long’ or
+‘wide’ format. Note that dense design matrices are always
+returned in ‘wide’ format.</p></li>
+<li><p><strong>mode</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a>) – Specifies whether to return variables in a sparse
+representation (‘sparse’), dense representation (‘dense’), or
+both (‘both’).</p></li>
+<li><p><strong>force</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#bool" title="(in Python v3.5)"><em>bool</em></a>) – Indicates how to handle columns not of the type
+indicated by the mode argument. When False, variables of the
+non-selected type will be silently ignored. When True,
+variables will be forced to the desired representation. For
+example, if mode=’dense’ and force=True, sparse variables will
+be converted to dense variables and included in the returned
+design matrix in the .dense attribute. The force argument is
+ignored entirely if mode=’both’.</p></li>
+<li><p><strong>sampling_rate</strong> (<em>'TR'</em><em>, </em><em>'highest'</em><em> or </em><a class="reference external" href="https://docs.python.org/3.5/library/functions.html#float" title="(in Python v3.5)"><em>float</em></a>) – Sampling rate at which to
+generate the dense design matrix. When ‘TR’, the repetition
+time is used, if available, to select the sampling rate (1/TR).
+When ‘highest’, all variables are resampled to the highest
+sampling rate of any variable. The sampling rate may also be
+specified explicitly in Hz. Has no effect on sparse design
+matrices.</p></li>
+<li><p><strong>kwargs</strong> – Optional keyword arguments to pass onto each Variable’s
+to_df() call (e.g., sampling_rate, entities, timing, etc.).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A DesignMatrixInfo namedtuple.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="bids.analysis.analysis.AnalysisNode.matches_entities">
+<code class="sig-name descname">matches_entities</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">entities</em>, <em class="sig-param">strict=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bids/analysis/analysis.html#AnalysisNode.matches_entities"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bids.analysis.analysis.AnalysisNode.matches_entities" title="Permalink to this definition">¶</a></dt>
+<dd><p>Determine whether current AnalysisNode matches passed entities.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>entities</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#dict" title="(in Python v3.5)"><em>dict</em></a>) – Dictionary of entities to match. Keys are entity
+names; values are single values or lists.</p></li>
+<li><p><strong>strict</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#bool" title="(in Python v3.5)"><em>bool</em></a>) – If True, _all_ entities in the current Node must
+match in order to return True.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="bids.analysis.analysis.apply_transformations.html" class="btn btn-neutral float-right" title="bids.analysis.analysis.apply_transformations" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="bids.analysis.analysis.Step.html" class="btn btn-neutral float-left" title="bids.analysis.analysis.Step" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Developers of PyBIDS
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

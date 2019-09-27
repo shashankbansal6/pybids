@@ -1,0 +1,38 @@
+bids.layout.Entity
+==================
+
+.. currentmodule:: bids.layout
+
+.. autoclass:: Entity
+
+   
+   .. automethod:: __init__
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+   
+      ~Entity.__init__
+      ~Entity.count
+      ~Entity.match_file
+      ~Entity.unique
+   
+   
+
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+   
+      ~Entity.directory
+      ~Entity.files
+      ~Entity.is_metadata
+      ~Entity.mandatory
+      ~Entity.metadata
+      ~Entity.name
+      ~Entity.pattern
+      ~Entity.tags
+   
+   

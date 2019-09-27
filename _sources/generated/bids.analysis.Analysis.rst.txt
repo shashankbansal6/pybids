@@ -1,15 +1,23 @@
-:mod:`bids.analysis`.Analysis
-====================================
+bids.analysis.Analysis
+======================
 
 .. currentmodule:: bids.analysis
 
 .. autoclass:: Analysis
 
    
+   .. automethod:: __init__
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+   
+      ~Analysis.__init__
+      ~Analysis.setup
+   
    
 
-.. include:: bids.analysis.Analysis.examples
-
-.. raw:: html
-
-    <div class="clearer"></div>
+   
+   
+   

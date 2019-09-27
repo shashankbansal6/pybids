@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>bids.variables.variables &mdash; bids 0.9.3+75.ge9ae632 documentation</title>
+  <title>bids.variables.variables &mdash; PyBIDS 0.9.4+16.g0a14a17 documentation</title>
   
 
   
@@ -17,47 +17,38 @@
   
 
   
+  <script type="text/javascript" src="../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
 
-  
-  
     
 
   
-
-  
-  
-    <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
-  
-
-  
-    <link rel="stylesheet" href="../../../_static/theme_overrides.css" type="text/css" />
-  
-
-  
-        <link rel="index" title="Index"
-              href="../../../genindex.html"/>
-        <link rel="search" title="Search" href="../../../search.html"/>
-    <link rel="top" title="bids 0.9.3+75.ge9ae632 documentation" href="../../../index.html"/>
-        <link rel="up" title="Module code" href="../../index.html"/> 
-
-  
-  <script src="../../../_static/js/modernizr.min.js"></script>
-
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
 </head>
 
-<body class="wy-body-for-nav" role="document">
+<body class="wy-body-for-nav">
 
    
   <div class="wy-grid-for-nav">
-
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search">
+        <div class="wy-side-nav-search" >
           
 
           
-            <a href="../../../index.html" class="icon icon-home"> bids
+            <a href="../../../index.html" class="icon icon-home"> PyBIDS
           
 
           
@@ -88,7 +79,7 @@
             
             
               <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../user_guide.html">User guide: table of contents</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../user_guide.html">User guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../api.html">API Reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../whats_new.html">Changelog</a></li>
 </ul>
@@ -102,17 +93,18 @@
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
 
       
-      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+      <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../../../index.html">bids</a>
+          <a href="../../../index.html">PyBIDS</a>
         
       </nav>
 
 
-      
       <div class="wy-nav-content">
+        
         <div class="rst-content">
+        
           
 
 
@@ -142,8 +134,6 @@
     
       <li class="wy-breadcrumbs-aside">
         
-            
-        
       </li>
     
   </ul>
@@ -155,7 +145,9 @@
            <div itemprop="articleBody">
             
   <h1>Source code for bids.variables.variables</h1><div class="highlight"><pre>
-<span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span></span><span class="sd">&quot;&quot;&quot; Classes for representing BIDS variables. &quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">import</span> <span class="nn">math</span>
 <span class="kn">import</span> <span class="nn">warnings</span>
@@ -167,7 +159,7 @@
 <span class="kn">from</span> <span class="nn">bids.utils</span> <span class="k">import</span> <span class="n">matches_entities</span>
 
 
-<div class="viewcode-block" id="BIDSVariable"><a class="viewcode-back" href="../../../generated/bids.variables.variables.BIDSVariable.html#bids.variables.variables.BIDSVariable">[docs]</a><span class="nd">@add_metaclass</span><span class="p">(</span><span class="n">ABCMeta</span><span class="p">)</span>
+<div class="viewcode-block" id="BIDSVariable"><a class="viewcode-back" href="../../../generated/bids.variables.variables.html#bids.variables.BIDSVariable">[docs]</a><span class="nd">@add_metaclass</span><span class="p">(</span><span class="n">ABCMeta</span><span class="p">)</span>
 <span class="k">class</span> <span class="nc">BIDSVariable</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="sd">&#39;&#39;&#39; Base representation of a column in a BIDS project. &#39;&#39;&#39;</span>
 
@@ -176,13 +168,13 @@
     <span class="c1"># as properties on the BIDSVariable instance.</span>
     <span class="n">_property_columns</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
 
-<div class="viewcode-block" id="BIDSVariable.__init__"><a class="viewcode-back" href="../../../generated/bids.variables.variables.BIDSVariable.html#bids.variables.variables.BIDSVariable.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">values</span><span class="p">,</span> <span class="n">source</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">values</span><span class="p">,</span> <span class="n">source</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">values</span> <span class="o">=</span> <span class="n">values</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">source</span> <span class="o">=</span> <span class="n">source</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_index_entities</span><span class="p">()</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_index_entities</span><span class="p">()</span>
 
-<div class="viewcode-block" id="BIDSVariable.clone"><a class="viewcode-back" href="../../../generated/bids.variables.variables.BIDSVariable.html#bids.variables.variables.BIDSVariable.clone">[docs]</a>    <span class="k">def</span> <span class="nf">clone</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<div class="viewcode-block" id="BIDSVariable.clone"><a class="viewcode-back" href="../../../generated/bids.variables.variables.html#bids.variables.BIDSVariable.clone">[docs]</a>    <span class="k">def</span> <span class="nf">clone</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="sd">&#39;&#39;&#39; Clone (deep copy) the current column, optionally replacing its</span>
 <span class="sd">        data and/or any other attributes.</span>
 
@@ -211,7 +203,7 @@
         <span class="c1"># result.values.name = kwargs.get(&#39;name&#39;, self.name)</span>
         <span class="k">return</span> <span class="n">result</span></div>
 
-<div class="viewcode-block" id="BIDSVariable.filter"><a class="viewcode-back" href="../../../generated/bids.variables.variables.BIDSVariable.html#bids.variables.variables.BIDSVariable.filter">[docs]</a>    <span class="k">def</span> <span class="nf">filter</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filters</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">query</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">strict</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<div class="viewcode-block" id="BIDSVariable.filter"><a class="viewcode-back" href="../../../generated/bids.variables.variables.html#bids.variables.BIDSVariable.filter">[docs]</a>    <span class="k">def</span> <span class="nf">filter</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filters</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">query</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">strict</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
         <span class="sd">&#39;&#39;&#39; Returns a copy of the current Variable with only rows that match</span>
 <span class="sd">        the filters retained.</span>
 
@@ -262,7 +254,7 @@
         <span class="k">if</span> <span class="ow">not</span> <span class="n">inplace</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">var</span></div>
 
-<div class="viewcode-block" id="BIDSVariable.merge"><a class="viewcode-back" href="../../../generated/bids.variables.variables.BIDSVariable.html#bids.variables.variables.BIDSVariable.merge">[docs]</a>    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="BIDSVariable.merge"><a class="viewcode-back" href="../../../generated/bids.variables.variables.html#bids.variables.BIDSVariable.merge">[docs]</a>    <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">merge</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">variables</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="sd">&#39;&#39;&#39; Merge/concatenate a list of variables along the row axis.</span>
 
@@ -298,7 +290,7 @@
     <span class="k">def</span> <span class="nf">_merge</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">variables</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="k">pass</span>
 
-<div class="viewcode-block" id="BIDSVariable.get_grouper"><a class="viewcode-back" href="../../../generated/bids.variables.variables.BIDSVariable.html#bids.variables.variables.BIDSVariable.get_grouper">[docs]</a>    <span class="k">def</span> <span class="nf">get_grouper</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">groupby</span><span class="o">=</span><span class="s1">&#39;run&#39;</span><span class="p">):</span>
+<div class="viewcode-block" id="BIDSVariable.get_grouper"><a class="viewcode-back" href="../../../generated/bids.variables.variables.html#bids.variables.BIDSVariable.get_grouper">[docs]</a>    <span class="k">def</span> <span class="nf">get_grouper</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">groupby</span><span class="o">=</span><span class="s1">&#39;run&#39;</span><span class="p">):</span>
         <span class="sd">&#39;&#39;&#39; Return a list suitable for use in groupby calls.</span>
 <span class="sd">        Args:</span>
 <span class="sd">            groupby (str, list): Name(s) of column(s) defining the grouper</span>
@@ -311,7 +303,7 @@
         <span class="k">return</span> <span class="n">grouper</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="s1">&#39;@@@&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span><span class="o">.</span><span class="n">values</span><span class="p">),</span>
                              <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="BIDSVariable.apply"><a class="viewcode-back" href="../../../generated/bids.variables.variables.BIDSVariable.html#bids.variables.variables.BIDSVariable.apply">[docs]</a>    <span class="k">def</span> <span class="nf">apply</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">func</span><span class="p">,</span> <span class="n">groupby</span><span class="o">=</span><span class="s1">&#39;run&#39;</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<div class="viewcode-block" id="BIDSVariable.apply"><a class="viewcode-back" href="../../../generated/bids.variables.variables.html#bids.variables.BIDSVariable.apply">[docs]</a>    <span class="k">def</span> <span class="nf">apply</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">func</span><span class="p">,</span> <span class="n">groupby</span><span class="o">=</span><span class="s1">&#39;run&#39;</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="sd">&#39;&#39;&#39; Applies the passed function to the groups defined by the groupby</span>
 <span class="sd">        argument. Works identically to the standard pandas df.groupby() call.</span>
 <span class="sd">        Args:</span>
@@ -323,7 +315,7 @@
         <span class="n">grouper</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_grouper</span><span class="p">(</span><span class="n">groupby</span><span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">grouper</span><span class="p">)</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="BIDSVariable.to_df"><a class="viewcode-back" href="../../../generated/bids.variables.variables.BIDSVariable.html#bids.variables.variables.BIDSVariable.to_df">[docs]</a>    <span class="k">def</span> <span class="nf">to_df</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">condition</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">entities</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<div class="viewcode-block" id="BIDSVariable.to_df"><a class="viewcode-back" href="../../../generated/bids.variables.variables.html#bids.variables.BIDSVariable.to_df">[docs]</a>    <span class="k">def</span> <span class="nf">to_df</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">condition</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">entities</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="sd">&#39;&#39;&#39; Convert to a DataFrame, with columns for name and entities.</span>
 <span class="sd">        Args:</span>
 <span class="sd">            condition (bool): If True, adds a column for condition name, and</span>
@@ -347,7 +339,7 @@
 
         <span class="k">return</span> <span class="n">data</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="BIDSVariable.matches_entities"><a class="viewcode-back" href="../../../generated/bids.variables.variables.BIDSVariable.html#bids.variables.variables.BIDSVariable.matches_entities">[docs]</a>    <span class="k">def</span> <span class="nf">matches_entities</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">entities</span><span class="p">,</span> <span class="n">strict</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<div class="viewcode-block" id="BIDSVariable.matches_entities"><a class="viewcode-back" href="../../../generated/bids.variables.variables.html#bids.variables.BIDSVariable.matches_entities">[docs]</a>    <span class="k">def</span> <span class="nf">matches_entities</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">entities</span><span class="p">,</span> <span class="n">strict</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
         <span class="sd">&#39;&#39;&#39; Checks whether current Variable&#39;s entities match the input. &#39;&#39;&#39;</span>
         <span class="k">return</span> <span class="n">matches_entities</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">entities</span><span class="p">,</span> <span class="n">strict</span><span class="p">)</span></div>
 
@@ -368,7 +360,7 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">entities</span> <span class="o">=</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="n">k</span><span class="p">]</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">keep</span><span class="p">}</span></div>
 
 
-<div class="viewcode-block" id="SimpleVariable"><a class="viewcode-back" href="../../../generated/bids.variables.variables.SimpleVariable.html#bids.variables.variables.SimpleVariable">[docs]</a><span class="k">class</span> <span class="nc">SimpleVariable</span><span class="p">(</span><span class="n">BIDSVariable</span><span class="p">):</span>
+<div class="viewcode-block" id="SimpleVariable"><a class="viewcode-back" href="../../../generated/bids.variables.variables.html#bids.variables.SimpleVariable">[docs]</a><span class="k">class</span> <span class="nc">SimpleVariable</span><span class="p">(</span><span class="n">BIDSVariable</span><span class="p">):</span>
     <span class="sd">&#39;&#39;&#39; Represents a simple design matrix column that has no timing</span>
 <span class="sd">    information.</span>
 
@@ -384,7 +376,7 @@
 
     <span class="n">_entity_columns</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;condition&#39;</span><span class="p">,</span> <span class="s1">&#39;amplitude&#39;</span><span class="p">}</span>
 
-<div class="viewcode-block" id="SimpleVariable.__init__"><a class="viewcode-back" href="../../../generated/bids.variables.variables.SimpleVariable.html#bids.variables.variables.SimpleVariable.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">source</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<div class="viewcode-block" id="SimpleVariable.__init__"><a class="viewcode-back" href="../../../generated/bids.variables.SimpleVariable.html#bids.variables.SimpleVariable.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">source</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 
         <span class="n">ent_cols</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">_entity_columns</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="n">ent_cols</span><span class="p">]</span>
@@ -394,7 +386,7 @@
 
         <span class="nb">super</span><span class="p">(</span><span class="n">SimpleVariable</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">values</span><span class="p">,</span> <span class="n">source</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="SimpleVariable.split"><a class="viewcode-back" href="../../../generated/bids.variables.variables.SimpleVariable.html#bids.variables.variables.SimpleVariable.split">[docs]</a>    <span class="k">def</span> <span class="nf">split</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">grouper</span><span class="p">):</span>
+<div class="viewcode-block" id="SimpleVariable.split"><a class="viewcode-back" href="../../../generated/bids.variables.variables.html#bids.variables.SimpleVariable.split">[docs]</a>    <span class="k">def</span> <span class="nf">split</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">grouper</span><span class="p">):</span>
         <span class="sd">&#39;&#39;&#39; Split the current SparseRunVariable into multiple columns.</span>
 
 <span class="sd">        Args:</span>
@@ -423,7 +415,7 @@
         <span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="n">name</span><span class="p">:</span> <span class="s1">&#39;amplitude&#39;</span><span class="p">})</span>
         <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">source</span><span class="o">=</span><span class="n">variables</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">source</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 
-<div class="viewcode-block" id="SimpleVariable.select_rows"><a class="viewcode-back" href="../../../generated/bids.variables.variables.SimpleVariable.html#bids.variables.variables.SimpleVariable.select_rows">[docs]</a>    <span class="k">def</span> <span class="nf">select_rows</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rows</span><span class="p">):</span>
+<div class="viewcode-block" id="SimpleVariable.select_rows"><a class="viewcode-back" href="../../../generated/bids.variables.variables.html#bids.variables.SimpleVariable.select_rows">[docs]</a>    <span class="k">def</span> <span class="nf">select_rows</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rows</span><span class="p">):</span>
         <span class="sd">&#39;&#39;&#39; Truncate internal arrays to keep only the specified rows.</span>
 
 <span class="sd">        Args:</span>
@@ -437,7 +429,7 @@
             <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">prop</span><span class="p">,</span> <span class="n">vals</span><span class="p">)</span></div></div>
 
 
-<div class="viewcode-block" id="SparseRunVariable"><a class="viewcode-back" href="../../../generated/bids.variables.variables.SparseRunVariable.html#bids.variables.variables.SparseRunVariable">[docs]</a><span class="k">class</span> <span class="nc">SparseRunVariable</span><span class="p">(</span><span class="n">SimpleVariable</span><span class="p">):</span>
+<div class="viewcode-block" id="SparseRunVariable"><a class="viewcode-back" href="../../../generated/bids.variables.variables.html#bids.variables.SparseRunVariable">[docs]</a><span class="k">class</span> <span class="nc">SparseRunVariable</span><span class="p">(</span><span class="n">SimpleVariable</span><span class="p">):</span>
     <span class="sd">&#39;&#39;&#39; A sparse representation of a single column of events.</span>
 
 <span class="sd">    Args:</span>
@@ -454,7 +446,7 @@
 
     <span class="n">_property_columns</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;onset&#39;</span><span class="p">,</span> <span class="s1">&#39;duration&#39;</span><span class="p">}</span>
 
-<div class="viewcode-block" id="SparseRunVariable.__init__"><a class="viewcode-back" href="../../../generated/bids.variables.variables.SparseRunVariable.html#bids.variables.variables.SparseRunVariable.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">run_info</span><span class="p">,</span> <span class="n">source</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<div class="viewcode-block" id="SparseRunVariable.__init__"><a class="viewcode-back" href="../../../generated/bids.variables.SparseRunVariable.html#bids.variables.SparseRunVariable.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">run_info</span><span class="p">,</span> <span class="n">source</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">run_info</span><span class="p">,</span> <span class="s1">&#39;duration&#39;</span><span class="p">):</span>
             <span class="n">run_info</span> <span class="o">=</span> <span class="p">[</span><span class="n">run_info</span><span class="p">]</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">run_info</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
@@ -465,11 +457,11 @@
             <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sc</span><span class="p">,</span> <span class="n">data</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">sc</span><span class="p">)</span><span class="o">.</span><span class="n">values</span><span class="p">)</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">SparseRunVariable</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">source</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="SparseRunVariable.get_duration"><a class="viewcode-back" href="../../../generated/bids.variables.variables.SparseRunVariable.html#bids.variables.variables.SparseRunVariable.get_duration">[docs]</a>    <span class="k">def</span> <span class="nf">get_duration</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="SparseRunVariable.get_duration"><a class="viewcode-back" href="../../../generated/bids.variables.variables.html#bids.variables.SparseRunVariable.get_duration">[docs]</a>    <span class="k">def</span> <span class="nf">get_duration</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&#39;&#39;&#39; Return the total duration of the Variable&#39;s run(s). &#39;&#39;&#39;</span>
         <span class="k">return</span> <span class="nb">sum</span><span class="p">([</span><span class="n">r</span><span class="o">.</span><span class="n">duration</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">run_info</span><span class="p">])</span></div>
 
-<div class="viewcode-block" id="SparseRunVariable.to_dense"><a class="viewcode-back" href="../../../generated/bids.variables.variables.SparseRunVariable.html#bids.variables.variables.SparseRunVariable.to_dense">[docs]</a>    <span class="k">def</span> <span class="nf">to_dense</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sampling_rate</span><span class="p">):</span>
+<div class="viewcode-block" id="SparseRunVariable.to_dense"><a class="viewcode-back" href="../../../generated/bids.variables.variables.html#bids.variables.SparseRunVariable.to_dense">[docs]</a>    <span class="k">def</span> <span class="nf">to_dense</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sampling_rate</span><span class="p">):</span>
         <span class="sd">&#39;&#39;&#39; Convert the current sparse column to a dense representation.</span>
 <span class="sd">        Returns: A DenseRunVariable.</span>
 
@@ -516,7 +508,7 @@
                                                     <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="DenseRunVariable"><a class="viewcode-back" href="../../../generated/bids.variables.variables.DenseRunVariable.html#bids.variables.variables.DenseRunVariable">[docs]</a><span class="k">class</span> <span class="nc">DenseRunVariable</span><span class="p">(</span><span class="n">BIDSVariable</span><span class="p">):</span>
+<div class="viewcode-block" id="DenseRunVariable"><a class="viewcode-back" href="../../../generated/bids.variables.variables.html#bids.variables.DenseRunVariable">[docs]</a><span class="k">class</span> <span class="nc">DenseRunVariable</span><span class="p">(</span><span class="n">BIDSVariable</span><span class="p">):</span>
     <span class="sd">&#39;&#39;&#39; A dense representation of a single column.</span>
 
 <span class="sd">    Parameters</span>
@@ -535,7 +527,7 @@
 <span class="sd">        to generate the values. If None, the collection&#39;s sampling rate will be used.</span>
 <span class="sd">    &#39;&#39;&#39;</span>
 
-<div class="viewcode-block" id="DenseRunVariable.__init__"><a class="viewcode-back" href="../../../generated/bids.variables.variables.DenseRunVariable.html#bids.variables.variables.DenseRunVariable.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">values</span><span class="p">,</span> <span class="n">run_info</span><span class="p">,</span> <span class="n">source</span><span class="p">,</span> <span class="n">sampling_rate</span><span class="p">):</span>
+<div class="viewcode-block" id="DenseRunVariable.__init__"><a class="viewcode-back" href="../../../generated/bids.variables.DenseRunVariable.html#bids.variables.DenseRunVariable.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">values</span><span class="p">,</span> <span class="n">run_info</span><span class="p">,</span> <span class="n">source</span><span class="p">,</span> <span class="n">sampling_rate</span><span class="p">):</span>
 
         <span class="n">values</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">values</span><span class="p">)</span>
 
@@ -547,7 +539,7 @@
 
         <span class="nb">super</span><span class="p">(</span><span class="n">DenseRunVariable</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">values</span><span class="p">,</span> <span class="n">source</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="DenseRunVariable.split"><a class="viewcode-back" href="../../../generated/bids.variables.variables.DenseRunVariable.html#bids.variables.variables.DenseRunVariable.split">[docs]</a>    <span class="k">def</span> <span class="nf">split</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">grouper</span><span class="p">):</span>
+<div class="viewcode-block" id="DenseRunVariable.split"><a class="viewcode-back" href="../../../generated/bids.variables.variables.html#bids.variables.DenseRunVariable.split">[docs]</a>    <span class="k">def</span> <span class="nf">split</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">grouper</span><span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;Split the current DenseRunVariable into multiple columns.</span>
 
 <span class="sd">        Parameters</span>
@@ -586,7 +578,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">timestamps</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span><span class="n">_timestamps</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">sort</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">sort</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
-<div class="viewcode-block" id="DenseRunVariable.resample"><a class="viewcode-back" href="../../../generated/bids.variables.variables.DenseRunVariable.html#bids.variables.variables.DenseRunVariable.resample">[docs]</a>    <span class="k">def</span> <span class="nf">resample</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sampling_rate</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="s1">&#39;linear&#39;</span><span class="p">):</span>
+<div class="viewcode-block" id="DenseRunVariable.resample"><a class="viewcode-back" href="../../../generated/bids.variables.variables.html#bids.variables.DenseRunVariable.resample">[docs]</a>    <span class="k">def</span> <span class="nf">resample</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sampling_rate</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="s1">&#39;linear&#39;</span><span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;Resample the Variable to the specified sampling rate.</span>
 
 <span class="sd">        Parameters</span>
@@ -625,7 +617,7 @@
 
         <span class="bp">self</span><span class="o">.</span><span class="n">sampling_rate</span> <span class="o">=</span> <span class="n">sampling_rate</span></div>
 
-<div class="viewcode-block" id="DenseRunVariable.to_df"><a class="viewcode-back" href="../../../generated/bids.variables.variables.DenseRunVariable.html#bids.variables.variables.DenseRunVariable.to_df">[docs]</a>    <span class="k">def</span> <span class="nf">to_df</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">condition</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">entities</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">timing</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">sampling_rate</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="DenseRunVariable.to_df"><a class="viewcode-back" href="../../../generated/bids.variables.variables.html#bids.variables.DenseRunVariable.to_df">[docs]</a>    <span class="k">def</span> <span class="nf">to_df</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">condition</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">entities</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">timing</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">sampling_rate</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;Convert to a DataFrame, with columns for name and entities.</span>
 
 <span class="sd">        Parameters</span>
@@ -681,7 +673,7 @@
             <span class="n">sampling_rate</span><span class="o">=</span><span class="n">sampling_rate</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="merge_variables"><a class="viewcode-back" href="../../../generated/bids.variables.variables.merge_variables.html#bids.variables.variables.merge_variables">[docs]</a><span class="k">def</span> <span class="nf">merge_variables</span><span class="p">(</span><span class="n">variables</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<div class="viewcode-block" id="merge_variables"><a class="viewcode-back" href="../../../generated/bids.variables.variables.html#bids.variables.merge_variables">[docs]</a><span class="k">def</span> <span class="nf">merge_variables</span><span class="p">(</span><span class="n">variables</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
     <span class="sd">&#39;&#39;&#39;Merge/concatenate a list of variables along the row axis.</span>
 
 <span class="sd">    Parameters</span>
@@ -725,9 +717,7 @@
 </pre></div>
 
            </div>
-           <div class="articleComments">
-            
-           </div>
+           
           </div>
           <footer>
   
@@ -736,11 +726,11 @@
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2015 - 2018, Developers of pybids.
+        &copy; Copyright 2019, Developers of PyBIDS
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
 
@@ -753,37 +743,15 @@
   
 
 
-  
-
-    <script type="text/javascript">
-        var DOCUMENTATION_OPTIONS = {
-            URL_ROOT:'../../../',
-            VERSION:'0.9.3+75.ge9ae632',
-            COLLAPSE_INDEX:false,
-            FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true,
-            SOURCELINK_SUFFIX: '.txt'
-        };
-    </script>
-      <script type="text/javascript" src="../../../_static/jquery.js"></script>
-      <script type="text/javascript" src="../../../_static/underscore.js"></script>
-      <script type="text/javascript" src="../../../_static/doctools.js"></script>
-      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-
-  
-
-  
-  
-    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
-  
-
-  
-  
   <script type="text/javascript">
       jQuery(function () {
-          SphinxRtdTheme.StickyNav.enable();
+          SphinxRtdTheme.Navigation.enable(true);
       });
   </script>
+
+  
+  
+    
    
 
 </body>

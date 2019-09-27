@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>bids.analysis.auto_model &mdash; bids 0.9.3+75.ge9ae632 documentation</title>
+  <title>bids.analysis.auto_model &mdash; PyBIDS 0.9.4+16.g0a14a17 documentation</title>
   
 
   
@@ -17,47 +17,40 @@
   
 
   
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
 
-  
-  
     
 
   
-
-  
-  
-    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-  
-
-  
-    <link rel="stylesheet" href="../_static/theme_overrides.css" type="text/css" />
-  
-
-  
-        <link rel="index" title="Index"
-              href="../genindex.html"/>
-        <link rel="search" title="Search" href="../search.html"/>
-    <link rel="top" title="bids 0.9.3+75.ge9ae632 documentation" href="../index.html"/>
-        <link rel="up" title="API Reference" href="../api.html"/> 
-
-  
-  <script src="../_static/js/modernizr.min.js"></script>
-
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="bids.analysis.analysis.Step" href="bids.analysis.analysis.Step.html" />
+    <link rel="prev" title="bids.analysis.Analysis" href="bids.analysis.Analysis.html" /> 
 </head>
 
-<body class="wy-body-for-nav" role="document">
+<body class="wy-body-for-nav">
 
    
   <div class="wy-grid-for-nav">
-
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search">
+        <div class="wy-side-nav-search" >
           
 
           
-            <a href="../index.html" class="icon icon-home"> bids
+            <a href="../index.html" class="icon icon-home"> PyBIDS
           
 
           
@@ -88,17 +81,21 @@
             
             
               <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="../user_guide.html">User guide: table of contents</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide.html">User guide</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../api.html">API Reference</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="../api.html#bids-layout-querying-bids-datasets"><code class="docutils literal"><span class="pre">bids.layout</span></code>: Querying BIDS datasets</a></li>
-<li class="toctree-l2 current"><a class="reference internal" href="../api.html#bids-analysis-model-specification-for-bids-datasets"><code class="docutils literal"><span class="pre">bids.analysis</span></code>: Model specification for BIDS datasets</a><ul class="current">
-<li class="toctree-l3"><a class="reference internal" href="bids.analysis.Analysis.html"><code class="docutils literal"><span class="pre">bids.analysis</span></code>.Analysis</a></li>
-<li class="toctree-l3 current"><a class="current reference internal" href="#"><code class="docutils literal"><span class="pre">bids.analysis</span></code>.auto_model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api.html#bids-layout-querying-bids-datasets"><code class="xref py py-mod docutils literal notranslate"><span class="pre">bids.layout</span></code>: Querying BIDS datasets</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../api.html#bids-analysis-model-specification-for-bids-datasets"><code class="xref py py-mod docutils literal notranslate"><span class="pre">bids.analysis</span></code>: Model specification for BIDS datasets</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="bids.analysis.Analysis.html">bids.analysis.Analysis</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">bids.analysis.auto_model</a></li>
+<li class="toctree-l3"><a class="reference internal" href="bids.analysis.analysis.Step.html">bids.analysis.analysis.Step</a></li>
+<li class="toctree-l3"><a class="reference internal" href="bids.analysis.analysis.AnalysisNode.html">bids.analysis.analysis.AnalysisNode</a></li>
+<li class="toctree-l3"><a class="reference internal" href="bids.analysis.analysis.apply_transformations.html">bids.analysis.analysis.apply_transformations</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../api.html#bids-reports-data-acquisition-report-generation"><code class="docutils literal"><span class="pre">bids.reports</span></code>: Data acquisition report generation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../api.html#bids-variables-variables"><code class="docutils literal"><span class="pre">bids.variables</span></code>: Variables</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../api.html#bids-utils-utility-functions"><code class="docutils literal"><span class="pre">bids.utils</span></code>: Utility functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api.html#bids-reports-data-acquisition-report-generation"><code class="xref py py-mod docutils literal notranslate"><span class="pre">bids.reports</span></code>: Data acquisition report generation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api.html#bids-variables-variables"><code class="xref py py-mod docutils literal notranslate"><span class="pre">bids.variables</span></code>: Variables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api.html#bids-config-pybids-configuration-utilities"><code class="xref py py-mod docutils literal notranslate"><span class="pre">bids.config</span></code>: PyBIDS Configuration utilities</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api.html#bids-utils-utility-functions"><code class="xref py py-mod docutils literal notranslate"><span class="pre">bids.utils</span></code>: Utility functions</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../whats_new.html">Changelog</a></li>
@@ -113,17 +110,18 @@
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
 
       
-      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+      <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../index.html">bids</a>
+          <a href="../index.html">PyBIDS</a>
         
       </nav>
 
 
-      
       <div class="wy-nav-content">
+        
         <div class="rst-content">
+        
           
 
 
@@ -148,7 +146,7 @@
         
           <li><a href="../api.html">API Reference</a> &raquo;</li>
         
-      <li><code class="docutils literal"><span class="pre">bids.analysis</span></code>.auto_model</li>
+      <li>bids.analysis.auto_model</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -168,53 +166,56 @@
            <div itemprop="articleBody">
             
   <div class="section" id="bids-analysis-auto-model">
-<h1><code class="xref py py-mod docutils literal"><span class="pre">bids.analysis</span></code>.auto_model<a class="headerlink" href="#bids-analysis-auto-model" title="Permalink to this headline">¶</a></h1>
+<h1>bids.analysis.auto_model<a class="headerlink" href="#bids-analysis-auto-model" title="Permalink to this headline">¶</a></h1>
 <dl class="function">
 <dt id="bids.analysis.auto_model">
-<code class="descname">auto_model</code><span class="sig-paren">(</span><em>layout</em>, <em>scan_length=None</em>, <em>one_vs_rest=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bids/analysis/auto_model.html#auto_model"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bids.analysis.auto_model" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">auto_model</code><span class="sig-paren">(</span><em class="sig-param">layout</em>, <em class="sig-param">scan_length=None</em>, <em class="sig-param">one_vs_rest=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bids/analysis/auto_model.html#auto_model"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bids.analysis.auto_model" title="Permalink to this definition">¶</a></dt>
 <dd><p>Create a simple default model for each of the tasks in a BIDSLayout.
 Contrasts each trial type against all other trial types and trial types
 at the run level and then uses t-tests at each other level present to
 aggregate these results up.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>layout</strong> (<a class="reference internal" href="bids.layout.BIDSLayout.html#bids.layout.BIDSLayout" title="bids.layout.BIDSLayout"><em>BIDSLayout</em></a>) – </li>
-<li><strong>scan_length</strong> (<em>Int</em>) – where the scan length can not be read from the nifti.
-Primarily for testing.</li>
-<li><strong>one_vs_rest</strong> (<em>Bool</em>) – contrasts of each trial type against everyother trialtype.</li>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>layout</strong> (<a class="reference internal" href="bids.layout.BIDSLayout.html#bids.layout.BIDSLayout" title="bids.layout.BIDSLayout"><em>BIDSLayout</em></a>) – </p></li>
+<li><p><strong>scan_length</strong> (<em>Int</em>) – where the scan length can not be read from the nifti.
+Primarily for testing.</p></li>
+<li><p><strong>one_vs_rest</strong> (<em>Bool</em>) – contrasts of each trial type against everyother trialtype.</p></li>
 </ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">models (list) list of model dictionaries for each task</p>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>models (list) list of model dictionaries for each task</p>
+</dd>
+</dl>
 </dd></dl>
 
-<div class="clearer"></div></div>
+</div>
 
 
            </div>
-           <div class="articleComments">
-            
-           </div>
+           
           </div>
           <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="bids.analysis.analysis.Step.html" class="btn btn-neutral float-right" title="bids.analysis.analysis.Step" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="bids.analysis.Analysis.html" class="btn btn-neutral float-left" title="bids.analysis.Analysis" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
   
 
   <hr/>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2015 - 2018, Developers of pybids.
+        &copy; Copyright 2019, Developers of PyBIDS
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
 
@@ -227,37 +228,15 @@ Primarily for testing.</li>
   
 
 
-  
-
-    <script type="text/javascript">
-        var DOCUMENTATION_OPTIONS = {
-            URL_ROOT:'../',
-            VERSION:'0.9.3+75.ge9ae632',
-            COLLAPSE_INDEX:false,
-            FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true,
-            SOURCELINK_SUFFIX: '.txt'
-        };
-    </script>
-      <script type="text/javascript" src="../_static/jquery.js"></script>
-      <script type="text/javascript" src="../_static/underscore.js"></script>
-      <script type="text/javascript" src="../_static/doctools.js"></script>
-      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-
-  
-
-  
-  
-    <script type="text/javascript" src="../_static/js/theme.js"></script>
-  
-
-  
-  
   <script type="text/javascript">
       jQuery(function () {
-          SphinxRtdTheme.StickyNav.enable();
+          SphinxRtdTheme.Navigation.enable(true);
       });
   </script>
+
+  
+  
+    
    
 
 </body>

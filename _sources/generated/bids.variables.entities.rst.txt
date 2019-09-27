@@ -12,11 +12,11 @@ bids.variables.entities
    .. rubric:: Classes
 
    .. autosummary::
-      :toctree:
    
       Node
       NodeIndex
       RunInfo
+      RunInfo_
       RunNode
    
    

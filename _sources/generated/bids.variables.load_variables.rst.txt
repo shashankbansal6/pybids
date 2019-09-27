@@ -1,0 +1,6 @@
+bids.variables.load\_variables
+==============================
+
+.. currentmodule:: bids.variables
+
+.. autofunction:: load_variables

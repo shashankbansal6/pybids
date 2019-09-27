@@ -1,0 +1,32 @@
+bids.analysis.analysis.AnalysisNode
+===================================
+
+.. currentmodule:: bids.analysis.analysis
+
+.. autoclass:: AnalysisNode
+
+   
+   .. automethod:: __init__
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+   
+      ~AnalysisNode.__init__
+      ~AnalysisNode.get_contrasts
+      ~AnalysisNode.get_design_matrix
+      ~AnalysisNode.matches_entities
+   
+   
+
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+   
+      ~AnalysisNode.contrasts
+      ~AnalysisNode.entities
+   
+   

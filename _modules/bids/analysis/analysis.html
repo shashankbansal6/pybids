@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>bids.analysis.analysis &mdash; bids 0.9.3+75.ge9ae632 documentation</title>
+  <title>bids.analysis.analysis &mdash; PyBIDS 0.9.4+16.g0a14a17 documentation</title>
   
 
   
@@ -17,47 +17,38 @@
   
 
   
+  <script type="text/javascript" src="../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
 
-  
-  
     
 
   
-
-  
-  
-    <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
-  
-
-  
-    <link rel="stylesheet" href="../../../_static/theme_overrides.css" type="text/css" />
-  
-
-  
-        <link rel="index" title="Index"
-              href="../../../genindex.html"/>
-        <link rel="search" title="Search" href="../../../search.html"/>
-    <link rel="top" title="bids 0.9.3+75.ge9ae632 documentation" href="../../../index.html"/>
-        <link rel="up" title="Module code" href="../../index.html"/> 
-
-  
-  <script src="../../../_static/js/modernizr.min.js"></script>
-
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
 </head>
 
-<body class="wy-body-for-nav" role="document">
+<body class="wy-body-for-nav">
 
    
   <div class="wy-grid-for-nav">
-
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search">
+        <div class="wy-side-nav-search" >
           
 
           
-            <a href="../../../index.html" class="icon icon-home"> bids
+            <a href="../../../index.html" class="icon icon-home"> PyBIDS
           
 
           
@@ -88,7 +79,7 @@
             
             
               <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../user_guide.html">User guide: table of contents</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../user_guide.html">User guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../api.html">API Reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../whats_new.html">Changelog</a></li>
 </ul>
@@ -102,17 +93,18 @@
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
 
       
-      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+      <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../../../index.html">bids</a>
+          <a href="../../../index.html">PyBIDS</a>
         
       </nav>
 
 
-      
       <div class="wy-nav-content">
+        
         <div class="rst-content">
+        
           
 
 
@@ -141,8 +133,6 @@
     
     
       <li class="wy-breadcrumbs-aside">
-        
-            
         
       </li>
     
@@ -179,13 +169,13 @@
 <span class="sd">            dict containing the model info.</span>
 <span class="sd">    &#39;&#39;&#39;</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">layout</span><span class="p">,</span> <span class="n">model</span><span class="p">):</span>
+<div class="viewcode-block" id="Analysis.__init__"><a class="viewcode-back" href="../../../generated/bids.analysis.Analysis.html#bids.analysis.Analysis.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">layout</span><span class="p">,</span> <span class="n">model</span><span class="p">):</span>
 
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">layout</span><span class="p">,</span> <span class="n">BIDSLayout</span><span class="p">):</span>
             <span class="n">layout</span> <span class="o">=</span> <span class="n">BIDSLayout</span><span class="p">(</span><span class="n">layout</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">layout</span> <span class="o">=</span> <span class="n">layout</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">_load_model</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_load_model</span><span class="p">(</span><span class="n">model</span><span class="p">)</span></div>
 
     <span class="k">def</span> <span class="nf">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">for</span> <span class="n">b</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">steps</span><span class="p">:</span>
@@ -247,8 +237,7 @@
             <span class="n">input_nodes</span> <span class="o">=</span> <span class="n">b</span><span class="o">.</span><span class="n">output_nodes</span></div></div>
 
 
-<span class="k">class</span> <span class="nc">Step</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-
+<div class="viewcode-block" id="Step"><a class="viewcode-back" href="../../../generated/bids.analysis.analysis.Step.html#bids.analysis.Step">[docs]</a><span class="k">class</span> <span class="nc">Step</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="sd">&#39;&#39;&#39; Represents a single analysis block from a BIDS-Model specification.</span>
 
 <span class="sd">    Args:</span>
@@ -272,7 +261,7 @@
 <span class="sd">            in setup() if the latter is passed.</span>
 <span class="sd">    &#39;&#39;&#39;</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">layout</span><span class="p">,</span> <span class="n">level</span><span class="p">,</span> <span class="n">index</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">transformations</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+<div class="viewcode-block" id="Step.__init__"><a class="viewcode-back" href="../../../generated/bids.analysis.analysis.Step.html#bids.analysis.Step.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">layout</span><span class="p">,</span> <span class="n">level</span><span class="p">,</span> <span class="n">index</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">transformations</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                 <span class="n">model</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">contrasts</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">input_nodes</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                 <span class="n">auto_contrasts</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
 
@@ -285,7 +274,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">contrasts</span> <span class="o">=</span> <span class="n">contrasts</span> <span class="ow">or</span> <span class="p">[]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">input_nodes</span> <span class="o">=</span> <span class="n">input_nodes</span> <span class="ow">or</span> <span class="p">[]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">auto_contrasts</span> <span class="o">=</span> <span class="n">auto_contrasts</span> <span class="ow">or</span> <span class="p">[]</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">output_nodes</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">output_nodes</span> <span class="o">=</span> <span class="p">[]</span></div>
 
     <span class="k">def</span> <span class="nf">_filter_objects</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">objects</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">):</span>
         <span class="c1"># Keeps only objects that match target entities, and also removes those</span>
@@ -322,7 +311,7 @@
         <span class="n">entities</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span><span class="n">entities</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">sort</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">T</span>
         <span class="k">return</span> <span class="n">BIDSVariableCollection</span><span class="o">.</span><span class="n">from_df</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">entities</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">level</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">setup</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">input_nodes</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">drop_na</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<div class="viewcode-block" id="Step.setup"><a class="viewcode-back" href="../../../generated/bids.analysis.analysis.Step.html#bids.analysis.Step.setup">[docs]</a>    <span class="k">def</span> <span class="nf">setup</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">input_nodes</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">drop_na</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="sd">&#39;&#39;&#39; Set up the Step and construct the design matrix.</span>
 
 <span class="sd">        Args:</span>
@@ -372,9 +361,9 @@
             <span class="n">node</span> <span class="o">=</span> <span class="n">AnalysisNode</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">level</span><span class="p">,</span> <span class="n">coll</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">contrasts</span><span class="p">,</span> <span class="n">input_nodes</span><span class="p">,</span>
                                 <span class="bp">self</span><span class="o">.</span><span class="n">auto_contrasts</span><span class="p">)</span>
 
-            <span class="bp">self</span><span class="o">.</span><span class="n">output_nodes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">output_nodes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">node</span><span class="p">)</span></div>
 
-    <span class="k">def</span> <span class="nf">get_design_matrix</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">names</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;long&#39;</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;both&#39;</span><span class="p">,</span>
+<div class="viewcode-block" id="Step.get_design_matrix"><a class="viewcode-back" href="../../../generated/bids.analysis.analysis.Step.html#bids.analysis.Step.get_design_matrix">[docs]</a>    <span class="k">def</span> <span class="nf">get_design_matrix</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">names</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;long&#39;</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;both&#39;</span><span class="p">,</span>
                           <span class="n">force</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">sampling_rate</span><span class="o">=</span><span class="s1">&#39;TR&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="sd">&#39;&#39;&#39; Get design matrix and associated information.</span>
 
@@ -417,9 +406,9 @@
         <span class="n">nodes</span><span class="p">,</span> <span class="n">kwargs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_filter_objects</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">output_nodes</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">)</span>
         <span class="k">return</span> <span class="p">[</span><span class="n">n</span><span class="o">.</span><span class="n">get_design_matrix</span><span class="p">(</span><span class="n">names</span><span class="p">,</span> <span class="nb">format</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="n">mode</span><span class="p">,</span> <span class="n">force</span><span class="o">=</span><span class="n">force</span><span class="p">,</span>
                                     <span class="n">sampling_rate</span><span class="o">=</span><span class="n">sampling_rate</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-                <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">nodes</span><span class="p">]</span>
+                <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">nodes</span><span class="p">]</span></div>
 
-    <span class="k">def</span> <span class="nf">get_contrasts</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">names</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">variables</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<div class="viewcode-block" id="Step.get_contrasts"><a class="viewcode-back" href="../../../generated/bids.analysis.analysis.Step.html#bids.analysis.Step.get_contrasts">[docs]</a>    <span class="k">def</span> <span class="nf">get_contrasts</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">names</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">variables</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="sd">&#39;&#39;&#39; Return contrast information for the current block.</span>
 
 <span class="sd">        Args:</span>
@@ -441,7 +430,7 @@
 
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="n">nodes</span><span class="p">,</span> <span class="n">kwargs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_filter_objects</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">output_nodes</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">)</span>
-        <span class="k">return</span> <span class="p">[</span><span class="n">n</span><span class="o">.</span><span class="n">get_contrasts</span><span class="p">(</span><span class="n">names</span><span class="p">,</span> <span class="n">variables</span><span class="p">)</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">nodes</span><span class="p">]</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">n</span><span class="o">.</span><span class="n">get_contrasts</span><span class="p">(</span><span class="n">names</span><span class="p">,</span> <span class="n">variables</span><span class="p">)</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">nodes</span><span class="p">]</span></div></div>
 
 
 <span class="n">DesignMatrixInfo</span> <span class="o">=</span> <span class="n">namedtuple</span><span class="p">(</span><span class="s1">&#39;DesignMatrixInfo&#39;</span><span class="p">,</span>
@@ -452,7 +441,7 @@
                                            <span class="s1">&#39;entities&#39;</span><span class="p">))</span>
 
 
-<span class="k">class</span> <span class="nc">AnalysisNode</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<div class="viewcode-block" id="AnalysisNode"><a class="viewcode-back" href="../../../generated/bids.analysis.analysis.AnalysisNode.html#bids.analysis.AnalysisNode">[docs]</a><span class="k">class</span> <span class="nc">AnalysisNode</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="sd">&#39;&#39;&#39; A single analysis node generated within a Step.</span>
 
 <span class="sd">    Args:</span>
@@ -467,7 +456,7 @@
 <span class="sd">            available variables.</span>
 <span class="sd">    &#39;&#39;&#39;</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">level</span><span class="p">,</span> <span class="n">collection</span><span class="p">,</span> <span class="n">contrasts</span><span class="p">,</span> <span class="n">input_nodes</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+<div class="viewcode-block" id="AnalysisNode.__init__"><a class="viewcode-back" href="../../../generated/bids.analysis.analysis.AnalysisNode.html#bids.analysis.AnalysisNode.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">level</span><span class="p">,</span> <span class="n">collection</span><span class="p">,</span> <span class="n">contrasts</span><span class="p">,</span> <span class="n">input_nodes</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                  <span class="n">auto_contrasts</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">level</span> <span class="o">=</span> <span class="n">level</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">collection</span> <span class="o">=</span> <span class="n">collection</span>
@@ -476,7 +465,7 @@
         <span class="k">if</span> <span class="n">auto_contrasts</span> <span class="o">==</span> <span class="kc">True</span><span class="p">:</span>
             <span class="n">auto_contrasts</span> <span class="o">=</span> <span class="n">collection</span><span class="o">.</span><span class="n">variables</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">auto_contrasts</span> <span class="o">=</span> <span class="n">auto_contrasts</span> <span class="ow">or</span> <span class="p">[]</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_contrasts</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_contrasts</span> <span class="o">=</span> <span class="kc">None</span></div>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">entities</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -488,7 +477,7 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">get_contrasts</span><span class="p">()</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_contrasts</span>
 
-    <span class="k">def</span> <span class="nf">get_design_matrix</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">names</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;long&#39;</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;both&#39;</span><span class="p">,</span>
+<div class="viewcode-block" id="AnalysisNode.get_design_matrix"><a class="viewcode-back" href="../../../generated/bids.analysis.analysis.AnalysisNode.html#bids.analysis.AnalysisNode.get_design_matrix">[docs]</a>    <span class="k">def</span> <span class="nf">get_design_matrix</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">names</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;long&#39;</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;both&#39;</span><span class="p">,</span>
                           <span class="n">force</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">sampling_rate</span><span class="o">=</span><span class="s1">&#39;TR&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="sd">&#39;&#39;&#39; Get design matrix and associated information.</span>
 
@@ -560,9 +549,9 @@
             <span class="k">if</span> <span class="n">dense_df</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
                 <span class="n">dense_df</span> <span class="o">=</span> <span class="n">dense_df</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="s1">&#39;onset&#39;</span><span class="p">,</span> <span class="s1">&#39;duration&#39;</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 
-        <span class="k">return</span> <span class="n">DesignMatrixInfo</span><span class="p">(</span><span class="n">sparse_df</span><span class="p">,</span> <span class="n">dense_df</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">entities</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">DesignMatrixInfo</span><span class="p">(</span><span class="n">sparse_df</span><span class="p">,</span> <span class="n">dense_df</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">entities</span><span class="p">)</span></div>
 
-    <span class="k">def</span> <span class="nf">get_contrasts</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">names</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">variables</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="AnalysisNode.get_contrasts"><a class="viewcode-back" href="../../../generated/bids.analysis.analysis.AnalysisNode.html#bids.analysis.AnalysisNode.get_contrasts">[docs]</a>    <span class="k">def</span> <span class="nf">get_contrasts</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">names</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">variables</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&#39;&#39;&#39; Return contrast information for the current block.</span>
 
 <span class="sd">        Args:</span>
@@ -629,9 +618,9 @@
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_contrasts</span> <span class="o">=</span> <span class="p">[</span><span class="n">setup_contrast</span><span class="p">(</span><span class="n">c</span><span class="p">)</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">contrasts</span><span class="p">]</span>
 
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_contrasts</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_contrasts</span></div>
 
-    <span class="k">def</span> <span class="nf">matches_entities</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">entities</span><span class="p">,</span> <span class="n">strict</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<div class="viewcode-block" id="AnalysisNode.matches_entities"><a class="viewcode-back" href="../../../generated/bids.analysis.analysis.AnalysisNode.html#bids.analysis.AnalysisNode.matches_entities">[docs]</a>    <span class="k">def</span> <span class="nf">matches_entities</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">entities</span><span class="p">,</span> <span class="n">strict</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
         <span class="sd">&#39;&#39;&#39; Determine whether current AnalysisNode matches passed entities.</span>
 
 <span class="sd">        Args:</span>
@@ -640,10 +629,10 @@
 <span class="sd">            strict (bool): If True, _all_ entities in the current Node must</span>
 <span class="sd">                match in order to return True.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="k">return</span> <span class="n">matches_entities</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">entities</span><span class="p">,</span> <span class="n">strict</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">matches_entities</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">entities</span><span class="p">,</span> <span class="n">strict</span><span class="p">)</span></div></div>
 
 
-<span class="k">def</span> <span class="nf">apply_transformations</span><span class="p">(</span><span class="n">collection</span><span class="p">,</span> <span class="n">transformations</span><span class="p">,</span> <span class="n">select</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="apply_transformations"><a class="viewcode-back" href="../../../generated/bids.analysis.analysis.apply_transformations.html#bids.analysis.apply_transformations">[docs]</a><span class="k">def</span> <span class="nf">apply_transformations</span><span class="p">(</span><span class="n">collection</span><span class="p">,</span> <span class="n">transformations</span><span class="p">,</span> <span class="n">select</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
     <span class="sd">&#39;&#39;&#39; Apply all transformations to the variables in the collection.</span>
 
 <span class="sd">    Args:</span>
@@ -667,13 +656,11 @@
     <span class="k">if</span> <span class="n">select</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">transform</span><span class="o">.</span><span class="n">Select</span><span class="p">(</span><span class="n">collection</span><span class="p">,</span> <span class="n">select</span><span class="p">)</span>
 
-    <span class="k">return</span> <span class="n">collection</span>
+    <span class="k">return</span> <span class="n">collection</span></div>
 </pre></div>
 
            </div>
-           <div class="articleComments">
-            
-           </div>
+           
           </div>
           <footer>
   
@@ -682,11 +669,11 @@
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2015 - 2018, Developers of pybids.
+        &copy; Copyright 2019, Developers of PyBIDS
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
 
@@ -699,37 +686,15 @@
   
 
 
-  
-
-    <script type="text/javascript">
-        var DOCUMENTATION_OPTIONS = {
-            URL_ROOT:'../../../',
-            VERSION:'0.9.3+75.ge9ae632',
-            COLLAPSE_INDEX:false,
-            FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true,
-            SOURCELINK_SUFFIX: '.txt'
-        };
-    </script>
-      <script type="text/javascript" src="../../../_static/jquery.js"></script>
-      <script type="text/javascript" src="../../../_static/underscore.js"></script>
-      <script type="text/javascript" src="../../../_static/doctools.js"></script>
-      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-
-  
-
-  
-  
-    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
-  
-
-  
-  
   <script type="text/javascript">
       jQuery(function () {
-          SphinxRtdTheme.StickyNav.enable();
+          SphinxRtdTheme.Navigation.enable(true);
       });
   </script>
+
+  
+  
+    
    
 
 </body>

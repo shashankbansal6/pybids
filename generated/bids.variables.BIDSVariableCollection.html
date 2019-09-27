@@ -1,0 +1,399 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>bids.variables.BIDSVariableCollection &mdash; PyBIDS 0.9.4+16.g0a14a17 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="bids.variables.BIDSRunVariableCollection" href="bids.variables.BIDSRunVariableCollection.html" />
+    <link rel="prev" title="bids.variables.DenseRunVariable" href="bids.variables.DenseRunVariable.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> PyBIDS
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../user_guide.html">User guide</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../api.html">API Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../api.html#bids-layout-querying-bids-datasets"><code class="xref py py-mod docutils literal notranslate"><span class="pre">bids.layout</span></code>: Querying BIDS datasets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api.html#bids-analysis-model-specification-for-bids-datasets"><code class="xref py py-mod docutils literal notranslate"><span class="pre">bids.analysis</span></code>: Model specification for BIDS datasets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api.html#bids-reports-data-acquisition-report-generation"><code class="xref py py-mod docutils literal notranslate"><span class="pre">bids.reports</span></code>: Data acquisition report generation</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../api.html#bids-variables-variables"><code class="xref py py-mod docutils literal notranslate"><span class="pre">bids.variables</span></code>: Variables</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="bids.variables.SimpleVariable.html">bids.variables.SimpleVariable</a></li>
+<li class="toctree-l3"><a class="reference internal" href="bids.variables.SparseRunVariable.html">bids.variables.SparseRunVariable</a></li>
+<li class="toctree-l3"><a class="reference internal" href="bids.variables.DenseRunVariable.html">bids.variables.DenseRunVariable</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">bids.variables.BIDSVariableCollection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="bids.variables.BIDSRunVariableCollection.html">bids.variables.BIDSRunVariableCollection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="bids.variables.merge_collections.html">bids.variables.merge_collections</a></li>
+<li class="toctree-l3"><a class="reference internal" href="bids.variables.load_variables.html">bids.variables.load_variables</a></li>
+<li class="toctree-l3"><a class="reference internal" href="bids.variables.merge_variables.html">bids.variables.merge_variables</a></li>
+<li class="toctree-l3"><a class="reference internal" href="bids.variables.io.html">bids.variables.io</a></li>
+<li class="toctree-l3"><a class="reference internal" href="bids.variables.entities.html">bids.variables.entities</a></li>
+<li class="toctree-l3"><a class="reference internal" href="bids.variables.kollekshuns.html">bids.variables.kollekshuns</a></li>
+<li class="toctree-l3"><a class="reference internal" href="bids.variables.variables.html">bids.variables.variables</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../api.html#bids-config-pybids-configuration-utilities"><code class="xref py py-mod docutils literal notranslate"><span class="pre">bids.config</span></code>: PyBIDS Configuration utilities</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api.html#bids-utils-utility-functions"><code class="xref py py-mod docutils literal notranslate"><span class="pre">bids.utils</span></code>: Utility functions</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../whats_new.html">Changelog</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">PyBIDS</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../api.html">API Reference</a> &raquo;</li>
+        
+      <li>bids.variables.BIDSVariableCollection</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/generated/bids.variables.BIDSVariableCollection.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="bids-variables-bidsvariablecollection">
+<h1>bids.variables.BIDSVariableCollection<a class="headerlink" href="#bids-variables-bidsvariablecollection" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="bids.variables.BIDSVariableCollection">
+<em class="property">class </em><code class="sig-name descname">BIDSVariableCollection</code><span class="sig-paren">(</span><em class="sig-param">variables</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bids/variables/kollekshuns.html#BIDSVariableCollection"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bids.variables.BIDSVariableCollection" title="Permalink to this definition">¶</a></dt>
+<dd><p>A container for one or more variables extracted from variable files
+at a single level of analysis.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>variables</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#list" title="(in Python v3.5)"><em>list</em></a>) – A list of BIDSVariables or SimpleVariables.</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li><p>Variables in the list must all share the same analysis level, which
+must be one of ‘session’, ‘subject’, or ‘dataset’ level. For
+run-level Variables, use the BIDSRunVariableCollection.</p></li>
+</ul>
+<p class="rubric">Methods</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#bids.variables.BIDSVariableCollection.clone" title="bids.variables.BIDSVariableCollection.clone"><code class="xref py py-obj docutils literal notranslate"><span class="pre">clone</span></code></a>(self)</p></td>
+<td><p>Returns a shallow copy of the current instance, except that all variables are deep-cloned.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#bids.variables.BIDSVariableCollection.from_df" title="bids.variables.BIDSVariableCollection.from_df"><code class="xref py py-obj docutils literal notranslate"><span class="pre">from_df</span></code></a>(data[, entities, source])</p></td>
+<td><p>Create a Collection from a pandas DataFrame.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#bids.variables.BIDSVariableCollection.match_variables" title="bids.variables.BIDSVariableCollection.match_variables"><code class="xref py py-obj docutils literal notranslate"><span class="pre">match_variables</span></code></a>(self, pattern[, return_type])</p></td>
+<td><p>Return columns whose names match the provided regex pattern.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#bids.variables.BIDSVariableCollection.matches_entities" title="bids.variables.BIDSVariableCollection.matches_entities"><code class="xref py py-obj docutils literal notranslate"><span class="pre">matches_entities</span></code></a>(self, entities[, strict])</p></td>
+<td><p>Checks whether current Collection’s entities match the input.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#bids.variables.BIDSVariableCollection.merge_variables" title="bids.variables.BIDSVariableCollection.merge_variables"><code class="xref py py-obj docutils literal notranslate"><span class="pre">merge_variables</span></code></a>(variables, \*\*kwargs)</p></td>
+<td><p>Concatenates Variables along row axis.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#bids.variables.BIDSVariableCollection.to_df" title="bids.variables.BIDSVariableCollection.to_df"><code class="xref py py-obj docutils literal notranslate"><span class="pre">to_df</span></code></a>(self[, variables, format, fillna])</p></td>
+<td><p>Merge variables into a single pandas DataFrame.</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="bids.variables.BIDSVariableCollection.__init__">
+<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">variables</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bids/variables/kollekshuns.html#BIDSVariableCollection.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bids.variables.BIDSVariableCollection.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
+</dd></dl>
+
+<p class="rubric">Methods</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#bids.variables.BIDSVariableCollection.__init__" title="bids.variables.BIDSVariableCollection.__init__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__init__</span></code></a>(self, variables)</p></td>
+<td><p>Initialize self.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#bids.variables.BIDSVariableCollection.clone" title="bids.variables.BIDSVariableCollection.clone"><code class="xref py py-obj docutils literal notranslate"><span class="pre">clone</span></code></a>(self)</p></td>
+<td><p>Returns a shallow copy of the current instance, except that all variables are deep-cloned.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#bids.variables.BIDSVariableCollection.from_df" title="bids.variables.BIDSVariableCollection.from_df"><code class="xref py py-obj docutils literal notranslate"><span class="pre">from_df</span></code></a>(data[, entities, source])</p></td>
+<td><p>Create a Collection from a pandas DataFrame.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#bids.variables.BIDSVariableCollection.match_variables" title="bids.variables.BIDSVariableCollection.match_variables"><code class="xref py py-obj docutils literal notranslate"><span class="pre">match_variables</span></code></a>(self, pattern[, return_type])</p></td>
+<td><p>Return columns whose names match the provided regex pattern.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#bids.variables.BIDSVariableCollection.matches_entities" title="bids.variables.BIDSVariableCollection.matches_entities"><code class="xref py py-obj docutils literal notranslate"><span class="pre">matches_entities</span></code></a>(self, entities[, strict])</p></td>
+<td><p>Checks whether current Collection’s entities match the input.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#bids.variables.BIDSVariableCollection.merge_variables" title="bids.variables.BIDSVariableCollection.merge_variables"><code class="xref py py-obj docutils literal notranslate"><span class="pre">merge_variables</span></code></a>(variables, \*\*kwargs)</p></td>
+<td><p>Concatenates Variables along row axis.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#bids.variables.BIDSVariableCollection.to_df" title="bids.variables.BIDSVariableCollection.to_df"><code class="xref py py-obj docutils literal notranslate"><span class="pre">to_df</span></code></a>(self[, variables, format, fillna])</p></td>
+<td><p>Merge variables into a single pandas DataFrame.</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="bids.variables.BIDSVariableCollection.clone">
+<code class="sig-name descname">clone</code><span class="sig-paren">(</span><em class="sig-param">self</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bids/variables/kollekshuns.html#BIDSVariableCollection.clone"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bids.variables.BIDSVariableCollection.clone" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a shallow copy of the current instance, except that all
+variables are deep-cloned.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="bids.variables.BIDSVariableCollection.from_df">
+<em class="property">classmethod </em><code class="sig-name descname">from_df</code><span class="sig-paren">(</span><em class="sig-param">data</em>, <em class="sig-param">entities=None</em>, <em class="sig-param">source='contrast'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bids/variables/kollekshuns.html#BIDSVariableCollection.from_df"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bids.variables.BIDSVariableCollection.from_df" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a Collection from a pandas DataFrame.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>df</strong> (<em>DataFrame</em>) – The DataFrame to convert to a Collection. Each
+column will be converted to a SimpleVariable.</p></li>
+<li><p><strong>entities</strong> (<em>DataFrame</em>) – An optional second DataFrame containing
+entity information.</p></li>
+<li><p><strong>source</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a>) – The value to set as the source for all Variables.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A BIDSVariableCollection.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="bids.variables.BIDSVariableCollection.match_variables">
+<code class="sig-name descname">match_variables</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">pattern</em>, <em class="sig-param">return_type='name'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bids/variables/kollekshuns.html#BIDSVariableCollection.match_variables"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bids.variables.BIDSVariableCollection.match_variables" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return columns whose names match the provided regex pattern.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>pattern</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a>) – A regex pattern to match all variable names against.</p></li>
+<li><p><strong>return_type</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a>) – What to return. Must be one of:
+‘name’: Returns a list of names of matching variables.
+‘variable’: Returns a list of Variable objects whose names
+match.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="bids.variables.BIDSVariableCollection.matches_entities">
+<code class="sig-name descname">matches_entities</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">entities</em>, <em class="sig-param">strict=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bids/variables/kollekshuns.html#BIDSVariableCollection.matches_entities"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bids.variables.BIDSVariableCollection.matches_entities" title="Permalink to this definition">¶</a></dt>
+<dd><p>Checks whether current Collection’s entities match the input.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="bids.variables.BIDSVariableCollection.merge_variables">
+<em class="property">static </em><code class="sig-name descname">merge_variables</code><span class="sig-paren">(</span><em class="sig-param">variables</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bids/variables/kollekshuns.html#BIDSVariableCollection.merge_variables"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bids.variables.BIDSVariableCollection.merge_variables" title="Permalink to this definition">¶</a></dt>
+<dd><p>Concatenates Variables along row axis.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>variables</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#list" title="(in Python v3.5)"><em>list</em></a>) – List of Variables to merge. Variables can have
+different names (and all Variables that share a name will be
+concatenated together).</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A list of Variables.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="bids.variables.BIDSVariableCollection.to_df">
+<code class="sig-name descname">to_df</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">variables=None</em>, <em class="sig-param">format='wide'</em>, <em class="sig-param">fillna=nan</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bids/variables/kollekshuns.html#BIDSVariableCollection.to_df"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bids.variables.BIDSVariableCollection.to_df" title="Permalink to this definition">¶</a></dt>
+<dd><p>Merge variables into a single pandas DataFrame.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>variables</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#list" title="(in Python v3.5)"><em>list</em></a>) – Optional list of column names to retain; if None,
+all variables are returned.</p></li>
+<li><p><strong>format</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a>) – Whether to return a DataFrame in ‘wide’ or ‘long’
+format. In ‘wide’ format, each row is defined by a unique
+entity combination, and each variable is in a separate column.
+In ‘long’ format, each row is a unique combination of entities
+and variable names, and a single ‘amplitude’ column provides
+the value.</p></li>
+<li><p><strong>fillna</strong> – Replace missing values with the specified value.</p></li>
+<li><p><strong>kwargs</strong> – Optional keyword arguments to pass onto each Variable’s
+to_df() call (e.g., condition, entities, and timing).</p></li>
+</ul>
+</dd>
+</dl>
+<p>Returns: A pandas DataFrame.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="bids.variables.BIDSRunVariableCollection.html" class="btn btn-neutral float-right" title="bids.variables.BIDSRunVariableCollection" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="bids.variables.DenseRunVariable.html" class="btn btn-neutral float-left" title="bids.variables.DenseRunVariable" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Developers of PyBIDS
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

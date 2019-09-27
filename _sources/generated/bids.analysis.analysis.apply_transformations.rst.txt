@@ -1,0 +1,6 @@
+bids.analysis.analysis.apply\_transformations
+=============================================
+
+.. currentmodule:: bids.analysis.analysis
+
+.. autofunction:: apply_transformations

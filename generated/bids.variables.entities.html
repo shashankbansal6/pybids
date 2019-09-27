@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>bids.variables.entities &mdash; bids 0.9.3+75.ge9ae632 documentation</title>
+  <title>bids.variables.entities &mdash; PyBIDS 0.9.4+16.g0a14a17 documentation</title>
   
 
   
@@ -17,49 +17,40 @@
   
 
   
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
 
-  
-  
     
 
   
-
-  
-  
-    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-  
-
-  
-    <link rel="stylesheet" href="../_static/theme_overrides.css" type="text/css" />
-  
-
-  
-        <link rel="index" title="Index"
-              href="../genindex.html"/>
-        <link rel="search" title="Search" href="../search.html"/>
-    <link rel="top" title="bids 0.9.3+75.ge9ae632 documentation" href="../index.html"/>
-        <link rel="up" title="API Reference" href="../api.html"/>
-        <link rel="next" title="bids.variables.entities.Node" href="bids.variables.entities.Node.html"/>
-        <link rel="prev" title="bids.variables.io.load_variables" href="bids.variables.io.load_variables.html"/> 
-
-  
-  <script src="../_static/js/modernizr.min.js"></script>
-
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="bids.variables.kollekshuns" href="bids.variables.kollekshuns.html" />
+    <link rel="prev" title="bids.variables.io" href="bids.variables.io.html" /> 
 </head>
 
-<body class="wy-body-for-nav" role="document">
+<body class="wy-body-for-nav">
 
    
   <div class="wy-grid-for-nav">
-
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search">
+        <div class="wy-side-nav-search" >
           
 
           
-            <a href="../index.html" class="icon icon-home"> bids
+            <a href="../index.html" class="icon icon-home"> PyBIDS
           
 
           
@@ -90,25 +81,28 @@
             
             
               <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="../user_guide.html">User guide: table of contents</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide.html">User guide</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../api.html">API Reference</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="../api.html#bids-layout-querying-bids-datasets"><code class="docutils literal"><span class="pre">bids.layout</span></code>: Querying BIDS datasets</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../api.html#bids-analysis-model-specification-for-bids-datasets"><code class="docutils literal"><span class="pre">bids.analysis</span></code>: Model specification for BIDS datasets</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../api.html#bids-reports-data-acquisition-report-generation"><code class="docutils literal"><span class="pre">bids.reports</span></code>: Data acquisition report generation</a></li>
-<li class="toctree-l2 current"><a class="reference internal" href="../api.html#bids-variables-variables"><code class="docutils literal"><span class="pre">bids.variables</span></code>: Variables</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../api.html#bids-layout-querying-bids-datasets"><code class="xref py py-mod docutils literal notranslate"><span class="pre">bids.layout</span></code>: Querying BIDS datasets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api.html#bids-analysis-model-specification-for-bids-datasets"><code class="xref py py-mod docutils literal notranslate"><span class="pre">bids.analysis</span></code>: Model specification for BIDS datasets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api.html#bids-reports-data-acquisition-report-generation"><code class="xref py py-mod docutils literal notranslate"><span class="pre">bids.reports</span></code>: Data acquisition report generation</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../api.html#bids-variables-variables"><code class="xref py py-mod docutils literal notranslate"><span class="pre">bids.variables</span></code>: Variables</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="bids.variables.SimpleVariable.html">bids.variables.SimpleVariable</a></li>
+<li class="toctree-l3"><a class="reference internal" href="bids.variables.SparseRunVariable.html">bids.variables.SparseRunVariable</a></li>
+<li class="toctree-l3"><a class="reference internal" href="bids.variables.DenseRunVariable.html">bids.variables.DenseRunVariable</a></li>
+<li class="toctree-l3"><a class="reference internal" href="bids.variables.BIDSVariableCollection.html">bids.variables.BIDSVariableCollection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="bids.variables.BIDSRunVariableCollection.html">bids.variables.BIDSRunVariableCollection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="bids.variables.merge_collections.html">bids.variables.merge_collections</a></li>
+<li class="toctree-l3"><a class="reference internal" href="bids.variables.load_variables.html">bids.variables.load_variables</a></li>
+<li class="toctree-l3"><a class="reference internal" href="bids.variables.merge_variables.html">bids.variables.merge_variables</a></li>
 <li class="toctree-l3"><a class="reference internal" href="bids.variables.io.html">bids.variables.io</a></li>
-<li class="toctree-l3 current"><a class="current reference internal" href="#">bids.variables.entities</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="bids.variables.entities.Node.html">bids.variables.entities.Node</a></li>
-<li class="toctree-l4"><a class="reference internal" href="bids.variables.entities.NodeIndex.html">bids.variables.entities.NodeIndex</a></li>
-<li class="toctree-l4"><a class="reference internal" href="bids.variables.entities.RunInfo.html">bids.variables.entities.RunInfo</a></li>
-<li class="toctree-l4"><a class="reference internal" href="bids.variables.entities.RunNode.html">bids.variables.entities.RunNode</a></li>
-</ul>
-</li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">bids.variables.entities</a></li>
 <li class="toctree-l3"><a class="reference internal" href="bids.variables.kollekshuns.html">bids.variables.kollekshuns</a></li>
 <li class="toctree-l3"><a class="reference internal" href="bids.variables.variables.html">bids.variables.variables</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../api.html#bids-utils-utility-functions"><code class="docutils literal"><span class="pre">bids.utils</span></code>: Utility functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api.html#bids-config-pybids-configuration-utilities"><code class="xref py py-mod docutils literal notranslate"><span class="pre">bids.config</span></code>: PyBIDS Configuration utilities</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api.html#bids-utils-utility-functions"><code class="xref py py-mod docutils literal notranslate"><span class="pre">bids.utils</span></code>: Utility functions</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../whats_new.html">Changelog</a></li>
@@ -123,17 +117,18 @@
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
 
       
-      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+      <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../index.html">bids</a>
+          <a href="../index.html">PyBIDS</a>
         
       </nav>
 
 
-      
       <div class="wy-nav-content">
+        
         <div class="rst-content">
+        
           
 
 
@@ -179,346 +174,326 @@
             
   <div class="section" id="module-bids.variables.entities">
 <span id="bids-variables-entities"></span><h1>bids.variables.entities<a class="headerlink" href="#module-bids.variables.entities" title="Permalink to this headline">¶</a></h1>
+<p>Data classes for internal BIDS data hierarchy.</p>
 <p class="rubric">Classes</p>
-<table border="1" class="longtable docutils">
+<table class="longtable docutils align-default">
 <colgroup>
-<col width="10%" />
-<col width="90%" />
+<col style="width: 10%" />
+<col style="width: 90%" />
 </colgroup>
-<tbody valign="top">
-<tr class="row-odd"><td><a class="reference internal" href="bids.variables.entities.Node.html#bids.variables.entities.Node" title="bids.variables.entities.Node"><code class="xref py py-obj docutils literal"><span class="pre">Node</span></code></a>(level,&nbsp;entities)</td>
-<td>Base class for objects that represent a single object in the BIDS hierarchy.</td>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#bids.variables.entities.Node" title="bids.variables.entities.Node"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Node</span></code></a>(level, entities)</p></td>
+<td><p>Base class for objects that represent a single object in the BIDS hierarchy.</p></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="bids.variables.entities.NodeIndex.html#bids.variables.entities.NodeIndex" title="bids.variables.entities.NodeIndex"><code class="xref py py-obj docutils literal"><span class="pre">NodeIndex</span></code></a>()</td>
-<td>Represents the top level in a BIDS hierarchy.</td>
+<tr class="row-even"><td><p><a class="reference internal" href="#bids.variables.entities.NodeIndex" title="bids.variables.entities.NodeIndex"><code class="xref py py-obj docutils literal notranslate"><span class="pre">NodeIndex</span></code></a>()</p></td>
+<td><p>Represents the top level in a BIDS hierarchy.</p></td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="bids.variables.entities.RunInfo.html#bids.variables.entities.RunInfo" title="bids.variables.entities.RunInfo"><code class="xref py py-obj docutils literal"><span class="pre">RunInfo</span></code></a>(entities,&nbsp;duration,&nbsp;tr,&nbsp;image)</td>
-<td><p class="rubric">Attributes</p>
-</td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#bids.variables.entities.RunInfo" title="bids.variables.entities.RunInfo"><code class="xref py py-obj docutils literal notranslate"><span class="pre">RunInfo</span></code></a></p></td>
+<td><p>A namedtuple storing run-related information.</p></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="bids.variables.entities.RunNode.html#bids.variables.entities.RunNode" title="bids.variables.entities.RunNode"><code class="xref py py-obj docutils literal"><span class="pre">RunNode</span></code></a>(entities,&nbsp;image_file,&nbsp;duration,&nbsp;…)</td>
-<td>Represents a single Run in a BIDS project.</td>
+<tr class="row-even"><td><p><a class="reference internal" href="#bids.variables.entities.RunInfo_" title="bids.variables.entities.RunInfo_"><code class="xref py py-obj docutils literal notranslate"><span class="pre">RunInfo_</span></code></a></p></td>
+<td><p>alias of <a class="reference internal" href="#bids.variables.entities.RunInfo" title="bids.variables.entities.RunInfo"><code class="xref py py-class docutils literal notranslate"><span class="pre">bids.variables.entities.RunInfo</span></code></a></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#bids.variables.entities.RunNode" title="bids.variables.entities.RunNode"><code class="xref py py-obj docutils literal notranslate"><span class="pre">RunNode</span></code></a>(entities, image_file, duration, …)</p></td>
+<td><p>Represents a single Run in a BIDS project.</p></td>
 </tr>
 </tbody>
 </table>
 <dl class="class">
 <dt id="bids.variables.entities.Node">
-<em class="property">class </em><code class="descname">Node</code><span class="sig-paren">(</span><em>level</em>, <em>entities</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bids/variables/entities.html#Node"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bids.variables.entities.Node" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-name descname">Node</code><span class="sig-paren">(</span><em class="sig-param">level</em>, <em class="sig-param">entities</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bids/variables/entities.html#Node"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bids.variables.entities.Node" title="Permalink to this definition">¶</a></dt>
 <dd><p>Base class for objects that represent a single object in the BIDS
 hierarchy.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>id</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#int" title="(in Python v3.5)"><em>int</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a>) – A value uniquely identifying this node. Typically the
-entity value extracted from the filename via layout.</td>
-</tr>
-</tbody>
-</table>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>id</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#int" title="(in Python v3.5)"><em>int</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a>) – A value uniquely identifying this node. Typically the
+entity value extracted from the filename via layout.</p>
+</dd>
+</dl>
 <p class="rubric">Methods</p>
-<table border="1" class="longtable docutils">
+<table class="longtable docutils align-default">
 <colgroup>
-<col width="10%" />
-<col width="90%" />
+<col style="width: 10%" />
+<col style="width: 90%" />
 </colgroup>
-<tbody valign="top">
-<tr class="row-odd"><td><a class="reference internal" href="bids.variables.entities.Node.html#bids.variables.entities.Node.add_variable" title="bids.variables.entities.Node.add_variable"><code class="xref py py-obj docutils literal"><span class="pre">add_variable</span></code></a>(variable)</td>
-<td>Adds a BIDSVariable to the current Node’s list.</td>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#bids.variables.entities.Node.add_variable" title="bids.variables.entities.Node.add_variable"><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_variable</span></code></a>(self, variable)</p></td>
+<td><p>Adds a BIDSVariable to the current Node’s list.</p></td>
 </tr>
 </tbody>
 </table>
 <dl class="method">
 <dt id="bids.variables.entities.Node.add_variable">
-<code class="descname">add_variable</code><span class="sig-paren">(</span><em>variable</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bids/variables/entities.html#Node.add_variable"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bids.variables.entities.Node.add_variable" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">add_variable</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">variable</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bids/variables/entities.html#Node.add_variable"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bids.variables.entities.Node.add_variable" title="Permalink to this definition">¶</a></dt>
 <dd><p>Adds a BIDSVariable to the current Node’s list.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>variable</strong> (<a class="reference internal" href="bids.variables.variables.BIDSVariable.html#bids.variables.variables.BIDSVariable" title="bids.variables.variables.BIDSVariable"><em>BIDSVariable</em></a>) – The Variable to add to the list.</td>
-</tr>
-</tbody>
-</table>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>variable</strong> (<a class="reference internal" href="bids.variables.variables.html#bids.variables.variables.BIDSVariable" title="bids.variables.variables.BIDSVariable"><em>BIDSVariable</em></a>) – The Variable to add to the list.</p>
+</dd>
+</dl>
 </dd></dl>
 
 </dd></dl>
 
 <dl class="class">
 <dt id="bids.variables.entities.NodeIndex">
-<em class="property">class </em><code class="descname">NodeIndex</code><a class="reference internal" href="../_modules/bids/variables/entities.html#NodeIndex"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bids.variables.entities.NodeIndex" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-name descname">NodeIndex</code><a class="reference internal" href="../_modules/bids/variables/entities.html#NodeIndex"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bids.variables.entities.NodeIndex" title="Permalink to this definition">¶</a></dt>
 <dd><p>Represents the top level in a BIDS hierarchy.</p>
 <p class="rubric">Methods</p>
-<table border="1" class="longtable docutils">
+<table class="longtable docutils align-default">
 <colgroup>
-<col width="10%" />
-<col width="90%" />
+<col style="width: 10%" />
+<col style="width: 90%" />
 </colgroup>
-<tbody valign="top">
-<tr class="row-odd"><td><a class="reference internal" href="bids.variables.entities.NodeIndex.html#bids.variables.entities.NodeIndex.add_variable" title="bids.variables.entities.NodeIndex.add_variable"><code class="xref py py-obj docutils literal"><span class="pre">add_variable</span></code></a>(variable)</td>
-<td>Adds a BIDSVariable to the current Node’s list.</td>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#bids.variables.entities.NodeIndex.add_variable" title="bids.variables.entities.NodeIndex.add_variable"><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_variable</span></code></a>(self, variable)</p></td>
+<td><p>Adds a BIDSVariable to the current Node’s list.</p></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="bids.variables.entities.NodeIndex.html#bids.variables.entities.NodeIndex.create_node" title="bids.variables.entities.NodeIndex.create_node"><code class="xref py py-obj docutils literal"><span class="pre">create_node</span></code></a>(level,&nbsp;entities,&nbsp;*args,&nbsp;**kwargs)</td>
-<td>Creates a new child Node.</td>
+<tr class="row-even"><td><p><a class="reference internal" href="#bids.variables.entities.NodeIndex.create_node" title="bids.variables.entities.NodeIndex.create_node"><code class="xref py py-obj docutils literal notranslate"><span class="pre">create_node</span></code></a>(self, level, entities, \*args, …)</p></td>
+<td><p>Creates a new child Node.</p></td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="bids.variables.entities.NodeIndex.html#bids.variables.entities.NodeIndex.get_collections" title="bids.variables.entities.NodeIndex.get_collections"><code class="xref py py-obj docutils literal"><span class="pre">get_collections</span></code></a>(unit[,&nbsp;names,&nbsp;merge,&nbsp;…])</td>
-<td>Retrieve variable data for a specified level in the Dataset.</td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#bids.variables.entities.NodeIndex.get_collections" title="bids.variables.entities.NodeIndex.get_collections"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_collections</span></code></a>(self, unit[, names, merge, …])</p></td>
+<td><p>Retrieve variable data for a specified level in the Dataset.</p></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="bids.variables.entities.NodeIndex.html#bids.variables.entities.NodeIndex.get_nodes" title="bids.variables.entities.NodeIndex.get_nodes"><code class="xref py py-obj docutils literal"><span class="pre">get_nodes</span></code></a>([level,&nbsp;entities,&nbsp;strict])</td>
-<td>Retrieves all nodes that match the specified criteria.</td>
+<tr class="row-even"><td><p><a class="reference internal" href="#bids.variables.entities.NodeIndex.get_nodes" title="bids.variables.entities.NodeIndex.get_nodes"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_nodes</span></code></a>(self[, level, entities, strict])</p></td>
+<td><p>Retrieves all nodes that match the specified criteria.</p></td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="bids.variables.entities.NodeIndex.html#bids.variables.entities.NodeIndex.get_or_create_node" title="bids.variables.entities.NodeIndex.get_or_create_node"><code class="xref py py-obj docutils literal"><span class="pre">get_or_create_node</span></code></a>(level,&nbsp;entities,&nbsp;*args,&nbsp;…)</td>
-<td>Retrieves a child Node based on the specified criteria, creating a new Node if necessary.</td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#bids.variables.entities.NodeIndex.get_or_create_node" title="bids.variables.entities.NodeIndex.get_or_create_node"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_or_create_node</span></code></a>(self, level, entities, …)</p></td>
+<td><p>Retrieves a child Node based on the specified criteria, creating a new Node if necessary.</p></td>
 </tr>
 </tbody>
 </table>
 <dl class="method">
 <dt id="bids.variables.entities.NodeIndex.add_variable">
-<code class="descname">add_variable</code><span class="sig-paren">(</span><em>variable</em><span class="sig-paren">)</span><a class="headerlink" href="#bids.variables.entities.NodeIndex.add_variable" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">add_variable</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">variable</em><span class="sig-paren">)</span><a class="headerlink" href="#bids.variables.entities.NodeIndex.add_variable" title="Permalink to this definition">¶</a></dt>
 <dd><p>Adds a BIDSVariable to the current Node’s list.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>variable</strong> (<a class="reference internal" href="bids.variables.variables.BIDSVariable.html#bids.variables.variables.BIDSVariable" title="bids.variables.variables.BIDSVariable"><em>BIDSVariable</em></a>) – The Variable to add to the list.</td>
-</tr>
-</tbody>
-</table>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>variable</strong> (<a class="reference internal" href="bids.variables.variables.html#bids.variables.variables.BIDSVariable" title="bids.variables.variables.BIDSVariable"><em>BIDSVariable</em></a>) – The Variable to add to the list.</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="method">
 <dt id="bids.variables.entities.NodeIndex.create_node">
-<code class="descname">create_node</code><span class="sig-paren">(</span><em>level</em>, <em>entities</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bids/variables/entities.html#NodeIndex.create_node"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bids.variables.entities.NodeIndex.create_node" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">create_node</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">level</em>, <em class="sig-param">entities</em>, <em class="sig-param">*args</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bids/variables/entities.html#NodeIndex.create_node"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bids.variables.entities.NodeIndex.create_node" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates a new child Node.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>level</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a>) – The level of analysis of the new Node.</li>
-<li><strong>entities</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#dict" title="(in Python v3.5)"><em>dict</em></a>) – Dictionary of entities belonging to Node</li>
-<li><strong>kwargs</strong> (<em>args</em><em>,</em>) – Optional positional or named arguments to pass onto
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>level</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a>) – The level of analysis of the new Node.</p></li>
+<li><p><strong>entities</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#dict" title="(in Python v3.5)"><em>dict</em></a>) – Dictionary of entities belonging to Node</p></li>
+<li><p><strong>kwargs</strong> (<em>args</em><em>,</em>) – Optional positional or named arguments to pass onto
 class-specific initializers. These arguments are only used if
 a Node that matches the passed entities doesn’t already exist,
-and a new one must be created.</li>
+and a new one must be created.</p></li>
 </ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">A Node instance.</p>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A Node instance.</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="method">
 <dt id="bids.variables.entities.NodeIndex.get_collections">
-<code class="descname">get_collections</code><span class="sig-paren">(</span><em>unit</em>, <em>names=None</em>, <em>merge=False</em>, <em>sampling_rate=None</em>, <em>**entities</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bids/variables/entities.html#NodeIndex.get_collections"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bids.variables.entities.NodeIndex.get_collections" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">get_collections</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">unit</em>, <em class="sig-param">names=None</em>, <em class="sig-param">merge=False</em>, <em class="sig-param">sampling_rate=None</em>, <em class="sig-param">**entities</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bids/variables/entities.html#NodeIndex.get_collections"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bids.variables.entities.NodeIndex.get_collections" title="Permalink to this definition">¶</a></dt>
 <dd><p>Retrieve variable data for a specified level in the Dataset.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>unit</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a>) – The unit of analysis to return variables for. Must be
-one of ‘run’, ‘session’, ‘subject’, or ‘dataset’.</li>
-<li><strong>names</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#list" title="(in Python v3.5)"><em>list</em></a>) – Optional list of variables names to return. If
-None, all available variables are returned.</li>
-<li><strong>merge</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#bool" title="(in Python v3.5)"><em>bool</em></a>) – If True, variables are merged across all observations
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>unit</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a>) – The unit of analysis to return variables for. Must be
+one of ‘run’, ‘session’, ‘subject’, or ‘dataset’.</p></li>
+<li><p><strong>names</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#list" title="(in Python v3.5)"><em>list</em></a>) – Optional list of variables names to return. If
+None, all available variables are returned.</p></li>
+<li><p><strong>merge</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#bool" title="(in Python v3.5)"><em>bool</em></a>) – If True, variables are merged across all observations
 of the current unit. E.g., if unit=’subject’ and return_type=
 ‘collection’, variablesfrom all subjects will be merged into a
 single collection. If False, each observation is handled
-separately, and the result is returned as a list.</li>
-<li><strong>sampling_rate</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#int" title="(in Python v3.5)"><em>int</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a>) – If unit=’run’, the sampling rate to
-pass onto the returned BIDSRunVariableCollection.</li>
-<li><strong>entities</strong> – Optional constraints used to limit what gets returned.</li>
+separately, and the result is returned as a list.</p></li>
+<li><p><strong>sampling_rate</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#int" title="(in Python v3.5)"><em>int</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a>) – If unit=’run’, the sampling rate to
+pass onto the returned BIDSRunVariableCollection.</p></li>
+<li><p><strong>entities</strong> – Optional constraints used to limit what gets returned.</p></li>
 </ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">A list of BIDSVariableCollections if merge=False; a single
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A list of BIDSVariableCollections if merge=False; a single
 BIDSVariableCollection if merge=True.</p>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="method">
 <dt id="bids.variables.entities.NodeIndex.get_nodes">
-<code class="descname">get_nodes</code><span class="sig-paren">(</span><em>level=None</em>, <em>entities=None</em>, <em>strict=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bids/variables/entities.html#NodeIndex.get_nodes"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bids.variables.entities.NodeIndex.get_nodes" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">get_nodes</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">level=None</em>, <em class="sig-param">entities=None</em>, <em class="sig-param">strict=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bids/variables/entities.html#NodeIndex.get_nodes"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bids.variables.entities.NodeIndex.get_nodes" title="Permalink to this definition">¶</a></dt>
 <dd><p>Retrieves all nodes that match the specified criteria.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>level</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a>) – The level of analysis of nodes to return.</li>
-<li><strong>entities</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#dict" title="(in Python v3.5)"><em>dict</em></a>) – Entities to filter on. All nodes must have
-matching values on all defined keys to be included.</li>
-<li><strong>strict</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#bool" title="(in Python v3.5)"><em>bool</em></a>) – If True, an exception will be raised if the entities
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>level</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a>) – The level of analysis of nodes to return.</p></li>
+<li><p><strong>entities</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#dict" title="(in Python v3.5)"><em>dict</em></a>) – Entities to filter on. All nodes must have
+matching values on all defined keys to be included.</p></li>
+<li><p><strong>strict</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#bool" title="(in Python v3.5)"><em>bool</em></a>) – If True, an exception will be raised if the entities
 dict contains any keys that aren’t contained in the current
-index.</li>
+index.</p></li>
 </ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">A list of Node instances.</p>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A list of Node instances.</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="method">
 <dt id="bids.variables.entities.NodeIndex.get_or_create_node">
-<code class="descname">get_or_create_node</code><span class="sig-paren">(</span><em>level</em>, <em>entities</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bids/variables/entities.html#NodeIndex.get_or_create_node"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bids.variables.entities.NodeIndex.get_or_create_node" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">get_or_create_node</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">level</em>, <em class="sig-param">entities</em>, <em class="sig-param">*args</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bids/variables/entities.html#NodeIndex.get_or_create_node"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bids.variables.entities.NodeIndex.get_or_create_node" title="Permalink to this definition">¶</a></dt>
 <dd><p>Retrieves a child Node based on the specified criteria, creating a
 new Node if necessary.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>level</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a>) – The level of analysis of the Node.</li>
-<li><strong>entities</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#dict" title="(in Python v3.5)"><em>dict</em></a>) – Dictionary of entities to include in newly-created
-Nodes or filter existing ones.</li>
-<li><strong>kwargs</strong> (<em>args</em><em>,</em>) – Optional positional or named arguments to pass onto
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>level</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a>) – The level of analysis of the Node.</p></li>
+<li><p><strong>entities</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#dict" title="(in Python v3.5)"><em>dict</em></a>) – Dictionary of entities to include in newly-created
+Nodes or filter existing ones.</p></li>
+<li><p><strong>kwargs</strong> (<em>args</em><em>,</em>) – Optional positional or named arguments to pass onto
 class-specific initializers. These arguments are only used if
 a Node that matches the passed entities doesn’t already exist,
-and a new one must be created.</li>
+and a new one must be created.</p></li>
 </ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">A Node instance.</p>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A Node instance.</p>
+</dd>
+</dl>
 </dd></dl>
 
 </dd></dl>
 
 <dl class="class">
 <dt id="bids.variables.entities.RunInfo">
-<em class="property">class </em><code class="descname">RunInfo</code><span class="sig-paren">(</span><em>entities</em>, <em>duration</em>, <em>tr</em>, <em>image</em><span class="sig-paren">)</span><a class="headerlink" href="#bids.variables.entities.RunInfo" title="Permalink to this definition">¶</a></dt>
-<dd><p class="rubric">Attributes</p>
-<table border="1" class="longtable docutils">
-<colgroup>
-<col width="10%" />
-<col width="90%" />
-</colgroup>
-<tbody valign="top">
-<tr class="row-odd"><td><a class="reference internal" href="bids.variables.entities.RunInfo.html#bids.variables.entities.RunInfo.duration" title="bids.variables.entities.RunInfo.duration"><code class="xref py py-obj docutils literal"><span class="pre">duration</span></code></a></td>
-<td>Alias for field number 1</td>
-</tr>
-<tr class="row-even"><td><a class="reference internal" href="bids.variables.entities.RunInfo.html#bids.variables.entities.RunInfo.entities" title="bids.variables.entities.RunInfo.entities"><code class="xref py py-obj docutils literal"><span class="pre">entities</span></code></a></td>
-<td>Alias for field number 0</td>
-</tr>
-<tr class="row-odd"><td><a class="reference internal" href="bids.variables.entities.RunInfo.html#bids.variables.entities.RunInfo.image" title="bids.variables.entities.RunInfo.image"><code class="xref py py-obj docutils literal"><span class="pre">image</span></code></a></td>
-<td>Alias for field number 3</td>
-</tr>
-<tr class="row-even"><td><a class="reference internal" href="bids.variables.entities.RunInfo.html#bids.variables.entities.RunInfo.tr" title="bids.variables.entities.RunInfo.tr"><code class="xref py py-obj docutils literal"><span class="pre">tr</span></code></a></td>
-<td>Alias for field number 2</td>
-</tr>
-</tbody>
-</table>
+<em class="property">class </em><code class="sig-name descname">RunInfo</code><a class="reference internal" href="../_modules/bids/variables/entities.html#RunInfo"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bids.variables.entities.RunInfo" title="Permalink to this definition">¶</a></dt>
+<dd><p>A namedtuple storing run-related information.</p>
+<p>Properties include ‘entities’, ‘duration’, ‘tr’, and ‘image’.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Attributes</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><a class="reference internal" href="#bids.variables.entities.RunInfo.duration" title="bids.variables.entities.RunInfo.duration"><code class="xref py py-obj docutils literal notranslate"><span class="pre">duration</span></code></a></dt><dd><p>Alias for field number 1</p>
+</dd>
+<dt><a class="reference internal" href="#bids.variables.entities.RunInfo.entities" title="bids.variables.entities.RunInfo.entities"><code class="xref py py-obj docutils literal notranslate"><span class="pre">entities</span></code></a></dt><dd><p>Alias for field number 0</p>
+</dd>
+<dt><a class="reference internal" href="#bids.variables.entities.RunInfo.image" title="bids.variables.entities.RunInfo.image"><code class="xref py py-obj docutils literal notranslate"><span class="pre">image</span></code></a></dt><dd><p>Alias for field number 3</p>
+</dd>
+<dt><a class="reference internal" href="#bids.variables.entities.RunInfo.tr" title="bids.variables.entities.RunInfo.tr"><code class="xref py py-obj docutils literal notranslate"><span class="pre">tr</span></code></a></dt><dd><p>Alias for field number 2</p>
+</dd>
+</dl>
+</dd>
+</dl>
 <p class="rubric">Methods</p>
-<table border="1" class="longtable docutils">
+<table class="longtable docutils align-default">
 <colgroup>
-<col width="10%" />
-<col width="90%" />
+<col style="width: 10%" />
+<col style="width: 90%" />
 </colgroup>
-<tbody valign="top">
-<tr class="row-odd"><td><a class="reference internal" href="bids.variables.entities.RunInfo.html#bids.variables.entities.RunInfo.count" title="bids.variables.entities.RunInfo.count"><code class="xref py py-obj docutils literal"><span class="pre">count</span></code></a>(…)</td>
-<td></td>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#bids.variables.entities.RunInfo.count" title="bids.variables.entities.RunInfo.count"><code class="xref py py-obj docutils literal notranslate"><span class="pre">count</span></code></a>()</p></td>
+<td><p></p></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="bids.variables.entities.RunInfo.html#bids.variables.entities.RunInfo.index" title="bids.variables.entities.RunInfo.index"><code class="xref py py-obj docutils literal"><span class="pre">index</span></code></a>((value,&nbsp;[start,&nbsp;…)</td>
-<td>Raises ValueError if the value is not present.</td>
+<tr class="row-even"><td><p><a class="reference internal" href="#bids.variables.entities.RunInfo.index" title="bids.variables.entities.RunInfo.index"><code class="xref py py-obj docutils literal notranslate"><span class="pre">index</span></code></a>()</p></td>
+<td><p>Raises ValueError if the value is not present.</p></td>
 </tr>
 </tbody>
 </table>
 <dl class="method">
 <dt id="bids.variables.entities.RunInfo.count">
-<code class="descname">count</code><span class="sig-paren">(</span><em>value</em><span class="sig-paren">)</span> &#x2192; integer -- return number of occurrences of value<a class="headerlink" href="#bids.variables.entities.RunInfo.count" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">count</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#bids.variables.entities.RunInfo.count" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="attribute">
+<dl class="method">
 <dt id="bids.variables.entities.RunInfo.duration">
-<code class="descname">duration</code><a class="headerlink" href="#bids.variables.entities.RunInfo.duration" title="Permalink to this definition">¶</a></dt>
+<em class="property">property </em><code class="sig-name descname">duration</code><a class="headerlink" href="#bids.variables.entities.RunInfo.duration" title="Permalink to this definition">¶</a></dt>
 <dd><p>Alias for field number 1</p>
 </dd></dl>
 
-<dl class="attribute">
+<dl class="method">
 <dt id="bids.variables.entities.RunInfo.entities">
-<code class="descname">entities</code><a class="headerlink" href="#bids.variables.entities.RunInfo.entities" title="Permalink to this definition">¶</a></dt>
+<em class="property">property </em><code class="sig-name descname">entities</code><a class="headerlink" href="#bids.variables.entities.RunInfo.entities" title="Permalink to this definition">¶</a></dt>
 <dd><p>Alias for field number 0</p>
 </dd></dl>
 
-<dl class="attribute">
+<dl class="method">
 <dt id="bids.variables.entities.RunInfo.image">
-<code class="descname">image</code><a class="headerlink" href="#bids.variables.entities.RunInfo.image" title="Permalink to this definition">¶</a></dt>
+<em class="property">property </em><code class="sig-name descname">image</code><a class="headerlink" href="#bids.variables.entities.RunInfo.image" title="Permalink to this definition">¶</a></dt>
 <dd><p>Alias for field number 3</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="bids.variables.entities.RunInfo.index">
-<code class="descname">index</code><span class="sig-paren">(</span><em>value</em><span class="optional">[</span>, <em>start</em><span class="optional">[</span>, <em>stop</em><span class="optional">]</span><span class="optional">]</span><span class="sig-paren">)</span> &#x2192; integer -- return first index of value.<a class="headerlink" href="#bids.variables.entities.RunInfo.index" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">index</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#bids.variables.entities.RunInfo.index" title="Permalink to this definition">¶</a></dt>
 <dd><p>Raises ValueError if the value is not present.</p>
 </dd></dl>
 
-<dl class="attribute">
+<dl class="method">
 <dt id="bids.variables.entities.RunInfo.tr">
-<code class="descname">tr</code><a class="headerlink" href="#bids.variables.entities.RunInfo.tr" title="Permalink to this definition">¶</a></dt>
+<em class="property">property </em><code class="sig-name descname">tr</code><a class="headerlink" href="#bids.variables.entities.RunInfo.tr" title="Permalink to this definition">¶</a></dt>
 <dd><p>Alias for field number 2</p>
 </dd></dl>
 
 </dd></dl>
 
+<dl class="attribute">
+<dt id="bids.variables.entities.RunInfo_">
+<code class="sig-name descname">RunInfo_</code><a class="headerlink" href="#bids.variables.entities.RunInfo_" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference internal" href="#bids.variables.entities.RunInfo" title="bids.variables.entities.RunInfo"><code class="xref py py-class docutils literal notranslate"><span class="pre">bids.variables.entities.RunInfo</span></code></a></p>
+</dd></dl>
+
 <dl class="class">
 <dt id="bids.variables.entities.RunNode">
-<em class="property">class </em><code class="descname">RunNode</code><span class="sig-paren">(</span><em>entities</em>, <em>image_file</em>, <em>duration</em>, <em>repetition_time</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bids/variables/entities.html#RunNode"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bids.variables.entities.RunNode" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-name descname">RunNode</code><span class="sig-paren">(</span><em class="sig-param">entities</em>, <em class="sig-param">image_file</em>, <em class="sig-param">duration</em>, <em class="sig-param">repetition_time</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bids/variables/entities.html#RunNode"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bids.variables.entities.RunNode" title="Permalink to this definition">¶</a></dt>
 <dd><p>Represents a single Run in a BIDS project.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>id</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#int" title="(in Python v3.5)"><em>int</em></a>) – The index of the run.</li>
-<li><strong>entities</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#dict" title="(in Python v3.5)"><em>dict</em></a>) – Dictionary of entities for this Node.</li>
-<li><strong>image_file</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a>) – The full path to the corresponding nifti image.</li>
-<li><strong>duration</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#float" title="(in Python v3.5)"><em>float</em></a>) – Duration of the run, in seconds.</li>
-<li><strong>repetition_time</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#float" title="(in Python v3.5)"><em>float</em></a>) – TR for the run.</li>
-<li><strong>task</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a>) – The task name for this run.</li>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>id</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#int" title="(in Python v3.5)"><em>int</em></a>) – The index of the run.</p></li>
+<li><p><strong>entities</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#dict" title="(in Python v3.5)"><em>dict</em></a>) – Dictionary of entities for this Node.</p></li>
+<li><p><strong>image_file</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a>) – The full path to the corresponding nifti image.</p></li>
+<li><p><strong>duration</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#float" title="(in Python v3.5)"><em>float</em></a>) – Duration of the run, in seconds.</p></li>
+<li><p><strong>repetition_time</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#float" title="(in Python v3.5)"><em>float</em></a>) – TR for the run.</p></li>
+<li><p><strong>task</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a>) – The task name for this run.</p></li>
 </ul>
-</td>
+</dd>
+</dl>
+<p class="rubric">Methods</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#bids.variables.entities.RunNode.add_variable" title="bids.variables.entities.RunNode.add_variable"><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_variable</span></code></a>(self, variable)</p></td>
+<td><p>Adds a BIDSVariable to the current Node’s list.</p></td>
 </tr>
 </tbody>
 </table>
-<p class="rubric">Methods</p>
-<table border="1" class="longtable docutils">
+<table class="docutils align-default">
 <colgroup>
-<col width="10%" />
-<col width="90%" />
+<col style="width: 55%" />
+<col style="width: 45%" />
 </colgroup>
-<tbody valign="top">
-<tr class="row-odd"><td><a class="reference internal" href="bids.variables.entities.RunNode.html#bids.variables.entities.RunNode.add_variable" title="bids.variables.entities.RunNode.add_variable"><code class="xref py py-obj docutils literal"><span class="pre">add_variable</span></code></a>(variable)</td>
-<td>Adds a BIDSVariable to the current Node’s list.</td>
-</tr>
-<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">get_info</span></code>()</td>
+<tbody>
+<tr class="row-odd"><td><p><strong>get_info</strong></p></td>
 <td></td>
 </tr>
 </tbody>
 </table>
 <dl class="method">
 <dt id="bids.variables.entities.RunNode.add_variable">
-<code class="descname">add_variable</code><span class="sig-paren">(</span><em>variable</em><span class="sig-paren">)</span><a class="headerlink" href="#bids.variables.entities.RunNode.add_variable" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">add_variable</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">variable</em><span class="sig-paren">)</span><a class="headerlink" href="#bids.variables.entities.RunNode.add_variable" title="Permalink to this definition">¶</a></dt>
 <dd><p>Adds a BIDSVariable to the current Node’s list.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>variable</strong> (<a class="reference internal" href="bids.variables.variables.BIDSVariable.html#bids.variables.variables.BIDSVariable" title="bids.variables.variables.BIDSVariable"><em>BIDSVariable</em></a>) – The Variable to add to the list.</td>
-</tr>
-</tbody>
-</table>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>variable</strong> (<a class="reference internal" href="bids.variables.variables.html#bids.variables.variables.BIDSVariable" title="bids.variables.variables.BIDSVariable"><em>BIDSVariable</em></a>) – The Variable to add to the list.</p>
+</dd>
+</dl>
 </dd></dl>
 
 </dd></dl>
@@ -527,18 +502,16 @@ and a new one must be created.</li>
 
 
            </div>
-           <div class="articleComments">
-            
-           </div>
+           
           </div>
           <footer>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="bids.variables.entities.Node.html" class="btn btn-neutral float-right" title="bids.variables.entities.Node" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="bids.variables.kollekshuns.html" class="btn btn-neutral float-right" title="bids.variables.kollekshuns" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="bids.variables.io.load_variables.html" class="btn btn-neutral" title="bids.variables.io.load_variables" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="bids.variables.io.html" class="btn btn-neutral float-left" title="bids.variables.io" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -547,11 +520,11 @@ and a new one must be created.</li>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2015 - 2018, Developers of pybids.
+        &copy; Copyright 2019, Developers of PyBIDS
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
 
@@ -564,37 +537,15 @@ and a new one must be created.</li>
   
 
 
-  
-
-    <script type="text/javascript">
-        var DOCUMENTATION_OPTIONS = {
-            URL_ROOT:'../',
-            VERSION:'0.9.3+75.ge9ae632',
-            COLLAPSE_INDEX:false,
-            FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true,
-            SOURCELINK_SUFFIX: '.txt'
-        };
-    </script>
-      <script type="text/javascript" src="../_static/jquery.js"></script>
-      <script type="text/javascript" src="../_static/underscore.js"></script>
-      <script type="text/javascript" src="../_static/doctools.js"></script>
-      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-
-  
-
-  
-  
-    <script type="text/javascript" src="../_static/js/theme.js"></script>
-  
-
-  
-  
   <script type="text/javascript">
       jQuery(function () {
-          SphinxRtdTheme.StickyNav.enable();
+          SphinxRtdTheme.Navigation.enable(true);
       });
   </script>
+
+  
+  
+    
    
 
 </body>

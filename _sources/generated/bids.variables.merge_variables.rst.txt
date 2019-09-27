@@ -1,0 +1,6 @@
+bids.variables.merge\_variables
+===============================
+
+.. currentmodule:: bids.variables
+
+.. autofunction:: merge_variables

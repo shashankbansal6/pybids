@@ -1,0 +1,253 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>bids.layout.parse_file_entities &mdash; PyBIDS 0.9.4+16.g0a14a17 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="bids.layout.add_config_paths" href="bids.layout.add_config_paths.html" />
+    <link rel="prev" title="bids.layout.Tag" href="bids.layout.Tag.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> PyBIDS
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../user_guide.html">User guide</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../api.html">API Reference</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../api.html#bids-layout-querying-bids-datasets"><code class="xref py py-mod docutils literal notranslate"><span class="pre">bids.layout</span></code>: Querying BIDS datasets</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="bids.layout.BIDSLayout.html">bids.layout.BIDSLayout</a></li>
+<li class="toctree-l3"><a class="reference internal" href="bids.layout.BIDSValidator.html">bids.layout.BIDSValidator</a></li>
+<li class="toctree-l3"><a class="reference internal" href="bids.layout.BIDSFile.html">bids.layout.BIDSFile</a></li>
+<li class="toctree-l3"><a class="reference internal" href="bids.layout.BIDSDataFile.html">bids.layout.BIDSDataFile</a></li>
+<li class="toctree-l3"><a class="reference internal" href="bids.layout.BIDSJSONFile.html">bids.layout.BIDSJSONFile</a></li>
+<li class="toctree-l3"><a class="reference internal" href="bids.layout.Config.html">bids.layout.Config</a></li>
+<li class="toctree-l3"><a class="reference internal" href="bids.layout.Entity.html">bids.layout.Entity</a></li>
+<li class="toctree-l3"><a class="reference internal" href="bids.layout.Tag.html">bids.layout.Tag</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">bids.layout.parse_file_entities</a></li>
+<li class="toctree-l3"><a class="reference internal" href="bids.layout.add_config_paths.html">bids.layout.add_config_paths</a></li>
+<li class="toctree-l3"><a class="reference internal" href="bids.layout.index.BIDSLayoutIndexer.html">bids.layout.index.BIDSLayoutIndexer</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../api.html#bids-analysis-model-specification-for-bids-datasets"><code class="xref py py-mod docutils literal notranslate"><span class="pre">bids.analysis</span></code>: Model specification for BIDS datasets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api.html#bids-reports-data-acquisition-report-generation"><code class="xref py py-mod docutils literal notranslate"><span class="pre">bids.reports</span></code>: Data acquisition report generation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api.html#bids-variables-variables"><code class="xref py py-mod docutils literal notranslate"><span class="pre">bids.variables</span></code>: Variables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api.html#bids-config-pybids-configuration-utilities"><code class="xref py py-mod docutils literal notranslate"><span class="pre">bids.config</span></code>: PyBIDS Configuration utilities</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api.html#bids-utils-utility-functions"><code class="xref py py-mod docutils literal notranslate"><span class="pre">bids.utils</span></code>: Utility functions</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../whats_new.html">Changelog</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">PyBIDS</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../api.html">API Reference</a> &raquo;</li>
+        
+      <li>bids.layout.parse_file_entities</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/generated/bids.layout.parse_file_entities.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="bids-layout-parse-file-entities">
+<h1>bids.layout.parse_file_entities<a class="headerlink" href="#bids-layout-parse-file-entities" title="Permalink to this headline">¶</a></h1>
+<dl class="function">
+<dt id="bids.layout.parse_file_entities">
+<code class="sig-name descname">parse_file_entities</code><span class="sig-paren">(</span><em class="sig-param">filename</em>, <em class="sig-param">entities=None</em>, <em class="sig-param">config=None</em>, <em class="sig-param">include_unmatched=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bids/layout/layout.html#parse_file_entities"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bids.layout.parse_file_entities" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parse the passed filename for entity/value pairs.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>filename</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a>) – The filename to parse for entity values</p></li>
+<li><p><strong>entities</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#list" title="(in Python v3.5)"><em>list</em></a>) – An optional list of Entity instances to use in
+extraction. If passed, the config argument is ignored.</p></li>
+<li><p><strong>config</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a><em>, </em><a class="reference internal" href="bids.layout.Config.html#bids.layout.Config" title="bids.layout.Config"><em>Config</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#list" title="(in Python v3.5)"><em>list</em></a>) – One or more Config objects or names of
+configurations to use in matching. Each element must be a Config
+object, or a valid Config name (e.g., ‘bids’ or ‘derivatives’).
+If None, all available configs are used.</p></li>
+<li><p><strong>include_unmatched</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#bool" title="(in Python v3.5)"><em>bool</em></a>) – If True, unmatched entities are included
+in the returned dict, with values set to None. If False
+(default), unmatched entities are ignored.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="simple">
+<dt>Returns: A dict, where keys are Entity names and values are the</dt><dd><p>values extracted from the filename.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="bids.layout.add_config_paths.html" class="btn btn-neutral float-right" title="bids.layout.add_config_paths" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="bids.layout.Tag.html" class="btn btn-neutral float-left" title="bids.layout.Tag" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Developers of PyBIDS
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

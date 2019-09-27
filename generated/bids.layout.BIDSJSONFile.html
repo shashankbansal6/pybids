@@ -1,0 +1,438 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>bids.layout.BIDSJSONFile &mdash; PyBIDS 0.9.4+16.g0a14a17 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="bids.layout.Config" href="bids.layout.Config.html" />
+    <link rel="prev" title="bids.layout.BIDSDataFile" href="bids.layout.BIDSDataFile.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> PyBIDS
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../user_guide.html">User guide</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../api.html">API Reference</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../api.html#bids-layout-querying-bids-datasets"><code class="xref py py-mod docutils literal notranslate"><span class="pre">bids.layout</span></code>: Querying BIDS datasets</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="bids.layout.BIDSLayout.html">bids.layout.BIDSLayout</a></li>
+<li class="toctree-l3"><a class="reference internal" href="bids.layout.BIDSValidator.html">bids.layout.BIDSValidator</a></li>
+<li class="toctree-l3"><a class="reference internal" href="bids.layout.BIDSFile.html">bids.layout.BIDSFile</a></li>
+<li class="toctree-l3"><a class="reference internal" href="bids.layout.BIDSDataFile.html">bids.layout.BIDSDataFile</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">bids.layout.BIDSJSONFile</a></li>
+<li class="toctree-l3"><a class="reference internal" href="bids.layout.Config.html">bids.layout.Config</a></li>
+<li class="toctree-l3"><a class="reference internal" href="bids.layout.Entity.html">bids.layout.Entity</a></li>
+<li class="toctree-l3"><a class="reference internal" href="bids.layout.Tag.html">bids.layout.Tag</a></li>
+<li class="toctree-l3"><a class="reference internal" href="bids.layout.parse_file_entities.html">bids.layout.parse_file_entities</a></li>
+<li class="toctree-l3"><a class="reference internal" href="bids.layout.add_config_paths.html">bids.layout.add_config_paths</a></li>
+<li class="toctree-l3"><a class="reference internal" href="bids.layout.index.BIDSLayoutIndexer.html">bids.layout.index.BIDSLayoutIndexer</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../api.html#bids-analysis-model-specification-for-bids-datasets"><code class="xref py py-mod docutils literal notranslate"><span class="pre">bids.analysis</span></code>: Model specification for BIDS datasets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api.html#bids-reports-data-acquisition-report-generation"><code class="xref py py-mod docutils literal notranslate"><span class="pre">bids.reports</span></code>: Data acquisition report generation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api.html#bids-variables-variables"><code class="xref py py-mod docutils literal notranslate"><span class="pre">bids.variables</span></code>: Variables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api.html#bids-config-pybids-configuration-utilities"><code class="xref py py-mod docutils literal notranslate"><span class="pre">bids.config</span></code>: PyBIDS Configuration utilities</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api.html#bids-utils-utility-functions"><code class="xref py py-mod docutils literal notranslate"><span class="pre">bids.utils</span></code>: Utility functions</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../whats_new.html">Changelog</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">PyBIDS</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../api.html">API Reference</a> &raquo;</li>
+        
+      <li>bids.layout.BIDSJSONFile</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/generated/bids.layout.BIDSJSONFile.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="bids-layout-bidsjsonfile">
+<h1>bids.layout.BIDSJSONFile<a class="headerlink" href="#bids-layout-bidsjsonfile" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="bids.layout.BIDSJSONFile">
+<em class="property">class </em><code class="sig-name descname">BIDSJSONFile</code><span class="sig-paren">(</span><em class="sig-param">filename</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bids/layout/models.html#BIDSJSONFile"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bids.layout.BIDSJSONFile" title="Permalink to this definition">¶</a></dt>
+<dd><p>Represents a single JSON metadata file in a BIDS dataset.</p>
+<p>Derived from <cite>BIDSFile</cite> and provides additional functionality for reading
+the contents of JSON files as either dicts or strings.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Attributes</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>class_</strong></dt><dd></dd>
+<dt><strong>dirname</strong></dt><dd></dd>
+<dt><strong>filename</strong></dt><dd></dd>
+<dt><strong>is_dir</strong></dt><dd></dd>
+<dt><strong>path</strong></dt><dd></dd>
+<dt><strong>tags</strong></dt><dd></dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Methods</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#bids.layout.BIDSJSONFile.copy" title="bids.layout.BIDSJSONFile.copy"><code class="xref py py-obj docutils literal notranslate"><span class="pre">copy</span></code></a>(self, path_patterns[, symbolic_link, …])</p></td>
+<td><p>Copy the contents of a file to a new location.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#bids.layout.BIDSJSONFile.get_associations" title="bids.layout.BIDSJSONFile.get_associations"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_associations</span></code></a>(self[, kind, include_parents])</p></td>
+<td><p>Get associated files, optionally limiting by association kind.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#bids.layout.BIDSJSONFile.get_dict" title="bids.layout.BIDSJSONFile.get_dict"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_dict</span></code></a>(self)</p></td>
+<td><p>Return the contents of the current file as a dictionary.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#bids.layout.BIDSJSONFile.get_entities" title="bids.layout.BIDSJSONFile.get_entities"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_entities</span></code></a>(self[, metadata, values])</p></td>
+<td><p>Return entity information for the current file.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#bids.layout.BIDSJSONFile.get_json" title="bids.layout.BIDSJSONFile.get_json"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_json</span></code></a>(self)</p></td>
+<td><p>Return the contents of the current file as a JSON string.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#bids.layout.BIDSJSONFile.get_metadata" title="bids.layout.BIDSJSONFile.get_metadata"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_metadata</span></code></a>(self)</p></td>
+<td><p>Return all metadata associated with the current file.</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="bids.layout.BIDSJSONFile.__init__">
+<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">filename</em><span class="sig-paren">)</span><a class="headerlink" href="#bids.layout.BIDSJSONFile.__init__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<p class="rubric">Methods</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#bids.layout.BIDSJSONFile.__init__" title="bids.layout.BIDSJSONFile.__init__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__init__</span></code></a>(self, filename)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#bids.layout.BIDSJSONFile.copy" title="bids.layout.BIDSJSONFile.copy"><code class="xref py py-obj docutils literal notranslate"><span class="pre">copy</span></code></a>(self, path_patterns[, symbolic_link, …])</p></td>
+<td><p>Copy the contents of a file to a new location.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#bids.layout.BIDSJSONFile.get_associations" title="bids.layout.BIDSJSONFile.get_associations"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_associations</span></code></a>(self[, kind, include_parents])</p></td>
+<td><p>Get associated files, optionally limiting by association kind.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#bids.layout.BIDSJSONFile.get_dict" title="bids.layout.BIDSJSONFile.get_dict"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_dict</span></code></a>(self)</p></td>
+<td><p>Return the contents of the current file as a dictionary.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#bids.layout.BIDSJSONFile.get_entities" title="bids.layout.BIDSJSONFile.get_entities"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_entities</span></code></a>(self[, metadata, values])</p></td>
+<td><p>Return entity information for the current file.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#bids.layout.BIDSJSONFile.get_json" title="bids.layout.BIDSJSONFile.get_json"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_json</span></code></a>(self)</p></td>
+<td><p>Return the contents of the current file as a JSON string.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#bids.layout.BIDSJSONFile.get_metadata" title="bids.layout.BIDSJSONFile.get_metadata"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_metadata</span></code></a>(self)</p></td>
+<td><p>Return all metadata associated with the current file.</p></td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Attributes</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">class_</span></code></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">dirname</span></code></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">entities</span></code></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">filename</span></code></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_dir</span></code></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">metadata</span></code></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">path</span></code></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">tags</span></code></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="bids.layout.BIDSJSONFile.copy">
+<code class="sig-name descname">copy</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">path_patterns</em>, <em class="sig-param">symbolic_link=False</em>, <em class="sig-param">root=None</em>, <em class="sig-param">conflicts='fail'</em><span class="sig-paren">)</span><a class="headerlink" href="#bids.layout.BIDSJSONFile.copy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Copy the contents of a file to a new location.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>path_patterns</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#list" title="(in Python v3.5)"><em>list</em></a>) – List of patterns use to construct the new
+filename. See build_path documentation for details.</p></li>
+<li><p><strong>symbolic_link</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#bool" title="(in Python v3.5)"><em>bool</em></a>) – If True, use a symbolic link to point to the
+existing file. If False, creates a new file.</p></li>
+<li><p><strong>root</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a>) – Optional path to prepend to the constructed filename.</p></li>
+<li><p><strong>conflicts</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a>) – <p>Defines the desired action when the output path
+already exists. Must be one of:</p>
+<blockquote>
+<div><p>’fail’: raises an exception
+‘skip’ does nothing
+‘overwrite’: overwrites the existing file
+‘append’: adds  a suffix to each file copy, starting with 1</p>
+</div></blockquote>
+</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="bids.layout.BIDSJSONFile.get_associations">
+<code class="sig-name descname">get_associations</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">kind=None</em>, <em class="sig-param">include_parents=False</em><span class="sig-paren">)</span><a class="headerlink" href="#bids.layout.BIDSJSONFile.get_associations" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get associated files, optionally limiting by association kind.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>kind</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a>) – The kind of association to return (e.g., “Child”).
+By default, all associations are returned.</p></li>
+<li><p><strong>include_parents</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#bool" title="(in Python v3.5)"><em>bool</em></a>) – If True, files related through inheritance
+are included in the returned list. If False, only directly
+associated files are returned. For example, a file’s JSON
+sidecar will always be returned, but other JSON files from
+which the sidecar inherits will only be returned if
+include_parents=True.</p></li>
+</ul>
+</dd>
+</dl>
+<p>Returns: A list of BIDSFile instances.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="bids.layout.BIDSJSONFile.get_dict">
+<code class="sig-name descname">get_dict</code><span class="sig-paren">(</span><em class="sig-param">self</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bids/layout/models.html#BIDSJSONFile.get_dict"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bids.layout.BIDSJSONFile.get_dict" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the contents of the current file as a dictionary.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="bids.layout.BIDSJSONFile.get_entities">
+<code class="sig-name descname">get_entities</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">metadata=False</em>, <em class="sig-param">values='tags'</em><span class="sig-paren">)</span><a class="headerlink" href="#bids.layout.BIDSJSONFile.get_entities" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return entity information for the current file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>metadata</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#bool" title="(in Python v3.5)"><em>bool</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3.5/library/constants.html#None" title="(in Python v3.5)"><em>None</em></a>) – If False (default), only entities defined</p></li>
+<li><p><strong>filenames</strong> (<em>for</em>) – </p></li>
+<li><p><strong>If True</strong><strong>, </strong><strong>only entities found in metadata files</strong><strong> (</strong><strong>and not</strong> (<em>returned.</em>) – </p></li>
+<li><p><strong>for filenames</strong><strong>) </strong><strong>are returned. If None</strong><strong>, </strong><strong>all available</strong> (<em>defined</em>) – </p></li>
+<li><p><strong>are returned.</strong> (<em>entities</em>) – </p></li>
+<li><p><strong>values</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a>) – <p>The kind of object to return in the dict’s values.
+Must be one of:</p>
+<blockquote>
+<div><ul>
+<li><p>’tags’: Returns only the tagged value–e.g., if the key</p></li>
+</ul>
+<p>is “subject”, the value might be “01”.
+* ‘objects’: Returns the corresponding Entity instance.</p>
+</div></blockquote>
+</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="simple">
+<dt>Returns: A dict, where keys are entity names and values are Entity</dt><dd><p>instances.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="bids.layout.BIDSJSONFile.get_json">
+<code class="sig-name descname">get_json</code><span class="sig-paren">(</span><em class="sig-param">self</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bids/layout/models.html#BIDSJSONFile.get_json"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bids.layout.BIDSJSONFile.get_json" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the contents of the current file as a JSON string.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="bids.layout.BIDSJSONFile.get_metadata">
+<code class="sig-name descname">get_metadata</code><span class="sig-paren">(</span><em class="sig-param">self</em><span class="sig-paren">)</span><a class="headerlink" href="#bids.layout.BIDSJSONFile.get_metadata" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return all metadata associated with the current file.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="bids.layout.Config.html" class="btn btn-neutral float-right" title="bids.layout.Config" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="bids.layout.BIDSDataFile.html" class="btn btn-neutral float-left" title="bids.layout.BIDSDataFile" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Developers of PyBIDS
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

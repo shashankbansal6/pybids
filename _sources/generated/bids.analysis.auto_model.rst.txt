@@ -1,12 +1,6 @@
-:mod:`bids.analysis`.auto_model
-============================================
+bids.analysis.auto\_model
+=========================
 
 .. currentmodule:: bids.analysis
 
 .. autofunction:: auto_model
-
-.. include:: bids.analysis.auto_model.examples
-
-.. raw:: html
-
-    <div class="clearer"></div>

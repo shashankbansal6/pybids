@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>bids.reports.utils &mdash; bids 0.9.3+75.ge9ae632 documentation</title>
+  <title>bids.reports.utils &mdash; PyBIDS 0.9.4+16.g0a14a17 documentation</title>
   
 
   
@@ -17,47 +17,38 @@
   
 
   
+  <script type="text/javascript" src="../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
 
-  
-  
     
 
   
-
-  
-  
-    <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
-  
-
-  
-    <link rel="stylesheet" href="../../../_static/theme_overrides.css" type="text/css" />
-  
-
-  
-        <link rel="index" title="Index"
-              href="../../../genindex.html"/>
-        <link rel="search" title="Search" href="../../../search.html"/>
-    <link rel="top" title="bids 0.9.3+75.ge9ae632 documentation" href="../../../index.html"/>
-        <link rel="up" title="Module code" href="../../index.html"/> 
-
-  
-  <script src="../../../_static/js/modernizr.min.js"></script>
-
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
 </head>
 
-<body class="wy-body-for-nav" role="document">
+<body class="wy-body-for-nav">
 
    
   <div class="wy-grid-for-nav">
-
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search">
+        <div class="wy-side-nav-search" >
           
 
           
-            <a href="../../../index.html" class="icon icon-home"> bids
+            <a href="../../../index.html" class="icon icon-home"> PyBIDS
           
 
           
@@ -88,7 +79,7 @@
             
             
               <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../user_guide.html">User guide: table of contents</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../user_guide.html">User guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../api.html">API Reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../whats_new.html">Changelog</a></li>
 </ul>
@@ -102,17 +93,18 @@
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
 
       
-      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+      <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../../../index.html">bids</a>
+          <a href="../../../index.html">PyBIDS</a>
         
       </nav>
 
 
-      
       <div class="wy-nav-content">
+        
         <div class="rst-content">
+        
           
 
 
@@ -142,8 +134,6 @@
     
       <li class="wy-breadcrumbs-aside">
         
-            
-        
       </li>
     
   </ul>
@@ -169,7 +159,7 @@
 <span class="n">LOGGER</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s1">&#39;pybids.reports.utils&#39;</span><span class="p">)</span>
 
 
-<div class="viewcode-block" id="reminder"><a class="viewcode-back" href="../../../generated/bids.reports.utils.reminder.html#bids.reports.utils.reminder">[docs]</a><span class="k">def</span> <span class="nf">reminder</span><span class="p">():</span>
+<div class="viewcode-block" id="reminder"><a class="viewcode-back" href="../../../generated/bids.reports.utils.html#bids.reports.utils.reminder">[docs]</a><span class="k">def</span> <span class="nf">reminder</span><span class="p">():</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Remind users about things they need to do after generating the report.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -177,7 +167,7 @@
            <span class="s1">&#39;a degree symbol.&#39;</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="remove_duplicates"><a class="viewcode-back" href="../../../generated/bids.reports.utils.remove_duplicates.html#bids.reports.utils.remove_duplicates">[docs]</a><span class="k">def</span> <span class="nf">remove_duplicates</span><span class="p">(</span><span class="n">seq</span><span class="p">):</span>
+<div class="viewcode-block" id="remove_duplicates"><a class="viewcode-back" href="../../../generated/bids.reports.utils.html#bids.reports.utils.remove_duplicates">[docs]</a><span class="k">def</span> <span class="nf">remove_duplicates</span><span class="p">(</span><span class="n">seq</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Return unique elements from list while preserving order.</span>
 <span class="sd">    From https://stackoverflow.com/a/480227/2589328</span>
@@ -187,7 +177,7 @@
     <span class="k">return</span> <span class="p">[</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">seq</span> <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="n">x</span> <span class="ow">in</span> <span class="n">seen</span> <span class="ow">or</span> <span class="n">seen_add</span><span class="p">(</span><span class="n">x</span><span class="p">))]</span></div>
 
 
-<div class="viewcode-block" id="num_to_str"><a class="viewcode-back" href="../../../generated/bids.reports.utils.num_to_str.html#bids.reports.utils.num_to_str">[docs]</a><span class="k">def</span> <span class="nf">num_to_str</span><span class="p">(</span><span class="n">num</span><span class="p">):</span>
+<div class="viewcode-block" id="num_to_str"><a class="viewcode-back" href="../../../generated/bids.reports.utils.html#bids.reports.utils.num_to_str">[docs]</a><span class="k">def</span> <span class="nf">num_to_str</span><span class="p">(</span><span class="n">num</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Convert an int or float to a nice string.</span>
 <span class="sd">    E.g.,</span>
@@ -198,7 +188,7 @@
     <span class="k">return</span> <span class="s1">&#39;</span><span class="si">{0:0.02f}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">num</span><span class="p">)</span><span class="o">.</span><span class="n">rstrip</span><span class="p">(</span><span class="s1">&#39;0&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">rstrip</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="list_to_str"><a class="viewcode-back" href="../../../generated/bids.reports.utils.list_to_str.html#bids.reports.utils.list_to_str">[docs]</a><span class="k">def</span> <span class="nf">list_to_str</span><span class="p">(</span><span class="n">lst</span><span class="p">):</span>
+<div class="viewcode-block" id="list_to_str"><a class="viewcode-back" href="../../../generated/bids.reports.utils.html#bids.reports.utils.list_to_str">[docs]</a><span class="k">def</span> <span class="nf">list_to_str</span><span class="p">(</span><span class="n">lst</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Turn a list into a comma- and/or and-separated string.</span>
 
@@ -225,7 +215,7 @@
     <span class="k">return</span> <span class="n">str_</span></div>
 
 
-<div class="viewcode-block" id="get_slice_info"><a class="viewcode-back" href="../../../generated/bids.reports.utils.get_slice_info.html#bids.reports.utils.get_slice_info">[docs]</a><span class="k">def</span> <span class="nf">get_slice_info</span><span class="p">(</span><span class="n">slice_times</span><span class="p">):</span>
+<div class="viewcode-block" id="get_slice_info"><a class="viewcode-back" href="../../../generated/bids.reports.utils.html#bids.reports.utils.get_slice_info">[docs]</a><span class="k">def</span> <span class="nf">get_slice_info</span><span class="p">(</span><span class="n">slice_times</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Extract slice order from slice timing info.</span>
 
@@ -262,7 +252,7 @@
     <span class="k">return</span> <span class="n">slice_order_name</span></div>
 
 
-<div class="viewcode-block" id="get_seqstr"><a class="viewcode-back" href="../../../generated/bids.reports.utils.get_seqstr.html#bids.reports.utils.get_seqstr">[docs]</a><span class="k">def</span> <span class="nf">get_seqstr</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="n">metadata</span><span class="p">):</span>
+<div class="viewcode-block" id="get_seqstr"><a class="viewcode-back" href="../../../generated/bids.reports.utils.html#bids.reports.utils.get_seqstr">[docs]</a><span class="k">def</span> <span class="nf">get_seqstr</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="n">metadata</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Extract and reformat imaging sequence(s) and variant(s) into pretty</span>
 <span class="sd">    strings.</span>
@@ -293,7 +283,7 @@
     <span class="k">return</span> <span class="n">seqs</span><span class="p">,</span> <span class="n">variants</span></div>
 
 
-<div class="viewcode-block" id="get_sizestr"><a class="viewcode-back" href="../../../generated/bids.reports.utils.get_sizestr.html#bids.reports.utils.get_sizestr">[docs]</a><span class="k">def</span> <span class="nf">get_sizestr</span><span class="p">(</span><span class="n">img</span><span class="p">):</span>
+<div class="viewcode-block" id="get_sizestr"><a class="viewcode-back" href="../../../generated/bids.reports.utils.html#bids.reports.utils.get_sizestr">[docs]</a><span class="k">def</span> <span class="nf">get_sizestr</span><span class="p">(</span><span class="n">img</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Extract and reformat voxel size, matrix size, field of view, and number of</span>
 <span class="sd">    slices into pretty strings.</span>
@@ -325,9 +315,7 @@
 </pre></div>
 
            </div>
-           <div class="articleComments">
-            
-           </div>
+           
           </div>
           <footer>
   
@@ -336,11 +324,11 @@
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2015 - 2018, Developers of pybids.
+        &copy; Copyright 2019, Developers of PyBIDS
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
 
@@ -353,37 +341,15 @@
   
 
 
-  
-
-    <script type="text/javascript">
-        var DOCUMENTATION_OPTIONS = {
-            URL_ROOT:'../../../',
-            VERSION:'0.9.3+75.ge9ae632',
-            COLLAPSE_INDEX:false,
-            FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true,
-            SOURCELINK_SUFFIX: '.txt'
-        };
-    </script>
-      <script type="text/javascript" src="../../../_static/jquery.js"></script>
-      <script type="text/javascript" src="../../../_static/underscore.js"></script>
-      <script type="text/javascript" src="../../../_static/doctools.js"></script>
-      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-
-  
-
-  
-  
-    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
-  
-
-  
-  
   <script type="text/javascript">
       jQuery(function () {
-          SphinxRtdTheme.StickyNav.enable();
+          SphinxRtdTheme.Navigation.enable(true);
       });
   </script>
+
+  
+  
+    
    
 
 </body>

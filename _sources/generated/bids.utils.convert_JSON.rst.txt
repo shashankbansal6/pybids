@@ -1,0 +1,6 @@
+bids.utils.convert\_JSON
+========================
+
+.. currentmodule:: bids.utils
+
+.. autofunction:: convert_JSON

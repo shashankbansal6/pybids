@@ -1,0 +1,31 @@
+bids.variables.SimpleVariable
+=============================
+
+.. currentmodule:: bids.variables
+
+.. autoclass:: SimpleVariable
+
+   
+   .. automethod:: __init__
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+   
+      ~SimpleVariable.__init__
+      ~SimpleVariable.apply
+      ~SimpleVariable.clone
+      ~SimpleVariable.filter
+      ~SimpleVariable.get_grouper
+      ~SimpleVariable.matches_entities
+      ~SimpleVariable.merge
+      ~SimpleVariable.select_rows
+      ~SimpleVariable.split
+      ~SimpleVariable.to_df
+   
+   
+
+   
+   
+   

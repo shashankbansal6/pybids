@@ -8,7 +8,6 @@ bids.variables.kollekshuns
    .. rubric:: Functions
 
    .. autosummary::
-      :toctree:
    
       merge_collections
    
@@ -19,7 +18,6 @@ bids.variables.kollekshuns
    .. rubric:: Classes
 
    .. autosummary::
-      :toctree:
    
       BIDSRunVariableCollection
       BIDSVariableCollection

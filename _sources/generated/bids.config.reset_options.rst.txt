@@ -1,0 +1,6 @@
+bids.config.reset\_options
+==========================
+
+.. currentmodule:: bids.config
+
+.. autofunction:: reset_options

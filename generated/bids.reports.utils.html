@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>bids.reports.utils &mdash; bids 0.9.3+75.ge9ae632 documentation</title>
+  <title>bids.reports.utils &mdash; PyBIDS 0.9.4+16.g0a14a17 documentation</title>
   
 
   
@@ -17,48 +17,40 @@
   
 
   
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
 
-  
-  
     
 
   
-
-  
-  
-    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-  
-
-  
-    <link rel="stylesheet" href="../_static/theme_overrides.css" type="text/css" />
-  
-
-  
-        <link rel="index" title="Index"
-              href="../genindex.html"/>
-        <link rel="search" title="Search" href="../search.html"/>
-    <link rel="top" title="bids 0.9.3+75.ge9ae632 documentation" href="../index.html"/>
-        <link rel="up" title="API Reference" href="../api.html"/>
-        <link rel="next" title="bids.reports.utils.get_seqstr" href="bids.reports.utils.get_seqstr.html"/> 
-
-  
-  <script src="../_static/js/modernizr.min.js"></script>
-
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="bids.variables.SimpleVariable" href="bids.variables.SimpleVariable.html" />
+    <link rel="prev" title="bids.reports.BIDSReport" href="bids.reports.BIDSReport.html" /> 
 </head>
 
-<body class="wy-body-for-nav" role="document">
+<body class="wy-body-for-nav">
 
    
   <div class="wy-grid-for-nav">
-
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search">
+        <div class="wy-side-nav-search" >
           
 
           
-            <a href="../index.html" class="icon icon-home"> bids
+            <a href="../index.html" class="icon icon-home"> PyBIDS
           
 
           
@@ -89,26 +81,18 @@
             
             
               <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="../user_guide.html">User guide: table of contents</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide.html">User guide</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../api.html">API Reference</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="../api.html#bids-layout-querying-bids-datasets"><code class="docutils literal"><span class="pre">bids.layout</span></code>: Querying BIDS datasets</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../api.html#bids-analysis-model-specification-for-bids-datasets"><code class="docutils literal"><span class="pre">bids.analysis</span></code>: Model specification for BIDS datasets</a></li>
-<li class="toctree-l2 current"><a class="reference internal" href="../api.html#bids-reports-data-acquisition-report-generation"><code class="docutils literal"><span class="pre">bids.reports</span></code>: Data acquisition report generation</a><ul class="current">
-<li class="toctree-l3"><a class="reference internal" href="bids.reports.BIDSReport.html"><code class="docutils literal"><span class="pre">bids.reports</span></code>.BIDSReport</a></li>
-<li class="toctree-l3 current"><a class="current reference internal" href="#">bids.reports.utils</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="bids.reports.utils.get_seqstr.html">bids.reports.utils.get_seqstr</a></li>
-<li class="toctree-l4"><a class="reference internal" href="bids.reports.utils.get_sizestr.html">bids.reports.utils.get_sizestr</a></li>
-<li class="toctree-l4"><a class="reference internal" href="bids.reports.utils.get_slice_info.html">bids.reports.utils.get_slice_info</a></li>
-<li class="toctree-l4"><a class="reference internal" href="bids.reports.utils.list_to_str.html">bids.reports.utils.list_to_str</a></li>
-<li class="toctree-l4"><a class="reference internal" href="bids.reports.utils.num_to_str.html">bids.reports.utils.num_to_str</a></li>
-<li class="toctree-l4"><a class="reference internal" href="bids.reports.utils.reminder.html">bids.reports.utils.reminder</a></li>
-<li class="toctree-l4"><a class="reference internal" href="bids.reports.utils.remove_duplicates.html">bids.reports.utils.remove_duplicates</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api.html#bids-layout-querying-bids-datasets"><code class="xref py py-mod docutils literal notranslate"><span class="pre">bids.layout</span></code>: Querying BIDS datasets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api.html#bids-analysis-model-specification-for-bids-datasets"><code class="xref py py-mod docutils literal notranslate"><span class="pre">bids.analysis</span></code>: Model specification for BIDS datasets</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../api.html#bids-reports-data-acquisition-report-generation"><code class="xref py py-mod docutils literal notranslate"><span class="pre">bids.reports</span></code>: Data acquisition report generation</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="bids.reports.BIDSReport.html">bids.reports.BIDSReport</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">bids.reports.utils</a></li>
 </ul>
 </li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="../api.html#bids-variables-variables"><code class="docutils literal"><span class="pre">bids.variables</span></code>: Variables</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../api.html#bids-utils-utility-functions"><code class="docutils literal"><span class="pre">bids.utils</span></code>: Utility functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api.html#bids-variables-variables"><code class="xref py py-mod docutils literal notranslate"><span class="pre">bids.variables</span></code>: Variables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api.html#bids-config-pybids-configuration-utilities"><code class="xref py py-mod docutils literal notranslate"><span class="pre">bids.config</span></code>: PyBIDS Configuration utilities</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api.html#bids-utils-utility-functions"><code class="xref py py-mod docutils literal notranslate"><span class="pre">bids.utils</span></code>: Utility functions</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../whats_new.html">Changelog</a></li>
@@ -123,17 +107,18 @@
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
 
       
-      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+      <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../index.html">bids</a>
+          <a href="../index.html">PyBIDS</a>
         
       </nav>
 
 
-      
       <div class="wy-nav-content">
+        
         <div class="rst-content">
+        
           
 
 
@@ -183,144 +168,137 @@
 <p>Utilities to generate the MRI data acquisition portion of a
 methods section from a BIDS dataset.</p>
 <p class="rubric">Functions</p>
-<table border="1" class="longtable docutils">
+<table class="longtable docutils align-default">
 <colgroup>
-<col width="10%" />
-<col width="90%" />
+<col style="width: 10%" />
+<col style="width: 90%" />
 </colgroup>
-<tbody valign="top">
-<tr class="row-odd"><td><a class="reference internal" href="bids.reports.utils.get_seqstr.html#bids.reports.utils.get_seqstr" title="bids.reports.utils.get_seqstr"><code class="xref py py-obj docutils literal"><span class="pre">get_seqstr</span></code></a>(config,&nbsp;metadata)</td>
-<td>Extract and reformat imaging sequence(s) and variant(s) into pretty strings.</td>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#bids.reports.utils.get_seqstr" title="bids.reports.utils.get_seqstr"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_seqstr</span></code></a>(config, metadata)</p></td>
+<td><p>Extract and reformat imaging sequence(s) and variant(s) into pretty strings.</p></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="bids.reports.utils.get_sizestr.html#bids.reports.utils.get_sizestr" title="bids.reports.utils.get_sizestr"><code class="xref py py-obj docutils literal"><span class="pre">get_sizestr</span></code></a>(img)</td>
-<td>Extract and reformat voxel size, matrix size, field of view, and number of slices into pretty strings.</td>
+<tr class="row-even"><td><p><a class="reference internal" href="#bids.reports.utils.get_sizestr" title="bids.reports.utils.get_sizestr"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_sizestr</span></code></a>(img)</p></td>
+<td><p>Extract and reformat voxel size, matrix size, field of view, and number of slices into pretty strings.</p></td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="bids.reports.utils.get_slice_info.html#bids.reports.utils.get_slice_info" title="bids.reports.utils.get_slice_info"><code class="xref py py-obj docutils literal"><span class="pre">get_slice_info</span></code></a>(slice_times)</td>
-<td>Extract slice order from slice timing info.</td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#bids.reports.utils.get_slice_info" title="bids.reports.utils.get_slice_info"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_slice_info</span></code></a>(slice_times)</p></td>
+<td><p>Extract slice order from slice timing info.</p></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="bids.reports.utils.list_to_str.html#bids.reports.utils.list_to_str" title="bids.reports.utils.list_to_str"><code class="xref py py-obj docutils literal"><span class="pre">list_to_str</span></code></a>(lst)</td>
-<td>Turn a list into a comma- and/or and-separated string.</td>
+<tr class="row-even"><td><p><a class="reference internal" href="#bids.reports.utils.list_to_str" title="bids.reports.utils.list_to_str"><code class="xref py py-obj docutils literal notranslate"><span class="pre">list_to_str</span></code></a>(lst)</p></td>
+<td><p>Turn a list into a comma- and/or and-separated string.</p></td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="bids.reports.utils.num_to_str.html#bids.reports.utils.num_to_str" title="bids.reports.utils.num_to_str"><code class="xref py py-obj docutils literal"><span class="pre">num_to_str</span></code></a>(num)</td>
-<td>Convert an int or float to a nice string.</td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#bids.reports.utils.num_to_str" title="bids.reports.utils.num_to_str"><code class="xref py py-obj docutils literal notranslate"><span class="pre">num_to_str</span></code></a>(num)</p></td>
+<td><p>Convert an int or float to a nice string.</p></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="bids.reports.utils.reminder.html#bids.reports.utils.reminder" title="bids.reports.utils.reminder"><code class="xref py py-obj docutils literal"><span class="pre">reminder</span></code></a>()</td>
-<td>Remind users about things they need to do after generating the report.</td>
+<tr class="row-even"><td><p><a class="reference internal" href="#bids.reports.utils.reminder" title="bids.reports.utils.reminder"><code class="xref py py-obj docutils literal notranslate"><span class="pre">reminder</span></code></a>()</p></td>
+<td><p>Remind users about things they need to do after generating the report.</p></td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="bids.reports.utils.remove_duplicates.html#bids.reports.utils.remove_duplicates" title="bids.reports.utils.remove_duplicates"><code class="xref py py-obj docutils literal"><span class="pre">remove_duplicates</span></code></a>(seq)</td>
-<td>Return unique elements from list while preserving order.</td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#bids.reports.utils.remove_duplicates" title="bids.reports.utils.remove_duplicates"><code class="xref py py-obj docutils literal notranslate"><span class="pre">remove_duplicates</span></code></a>(seq)</p></td>
+<td><p>Return unique elements from list while preserving order.</p></td>
 </tr>
 </tbody>
 </table>
 <dl class="function">
 <dt id="bids.reports.utils.get_seqstr">
-<code class="descname">get_seqstr</code><span class="sig-paren">(</span><em>config</em>, <em>metadata</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bids/reports/utils.html#get_seqstr"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bids.reports.utils.get_seqstr" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">get_seqstr</code><span class="sig-paren">(</span><em class="sig-param">config</em>, <em class="sig-param">metadata</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bids/reports/utils.html#get_seqstr"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bids.reports.utils.get_seqstr" title="Permalink to this definition">¶</a></dt>
 <dd><p>Extract and reformat imaging sequence(s) and variant(s) into pretty
 strings.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>config</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#dict" title="(in Python v3.5)"><code class="xref py py-obj docutils literal"><span class="pre">dict</span></code></a>) – A dictionary with relevant information regarding sequences, sequence
-variants, phase encoding directions, and task names.</li>
-<li><strong>metadata</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#dict" title="(in Python v3.5)"><code class="xref py py-obj docutils literal"><span class="pre">dict</span></code></a>) – The metadata for the scan.</li>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>config</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#dict" title="(in Python v3.5)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dict</span></code></a>) – A dictionary with relevant information regarding sequences, sequence
+variants, phase encoding directions, and task names.</p></li>
+<li><p><strong>metadata</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#dict" title="(in Python v3.5)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dict</span></code></a>) – The metadata for the scan.</p></li>
 </ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><ul class="simple">
-<li><strong>seqs</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#str" title="(in Python v3.5)"><code class="xref py py-obj docutils literal"><span class="pre">str</span></code></a>) – Sequence names.</li>
-<li><strong>variants</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#str" title="(in Python v3.5)"><code class="xref py py-obj docutils literal"><span class="pre">str</span></code></a>) – Sequence variant names.</li>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><strong>seqs</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#str" title="(in Python v3.5)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code></a>) – Sequence names.</p></li>
+<li><p><strong>variants</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#str" title="(in Python v3.5)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code></a>) – Sequence variant names.</p></li>
 </ul>
 </p>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="function">
 <dt id="bids.reports.utils.get_sizestr">
-<code class="descname">get_sizestr</code><span class="sig-paren">(</span><em>img</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bids/reports/utils.html#get_sizestr"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bids.reports.utils.get_sizestr" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">get_sizestr</code><span class="sig-paren">(</span><em class="sig-param">img</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bids/reports/utils.html#get_sizestr"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bids.reports.utils.get_sizestr" title="Permalink to this definition">¶</a></dt>
 <dd><p>Extract and reformat voxel size, matrix size, field of view, and number of
 slices into pretty strings.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>img</strong> (<code class="xref py py-obj docutils literal"><span class="pre">nibabel.Nifti1Image</span></code>) – Image from scan from which to derive parameters.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><ul class="simple">
-<li><strong>n_slices</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#int" title="(in Python v3.5)"><code class="xref py py-obj docutils literal"><span class="pre">int</span></code></a>) – Number of slices.</li>
-<li><strong>voxel_size</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#str" title="(in Python v3.5)"><code class="xref py py-obj docutils literal"><span class="pre">str</span></code></a>) – Voxel size string (e.g., ‘2x2x2’)</li>
-<li><strong>matrix_size</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#str" title="(in Python v3.5)"><code class="xref py py-obj docutils literal"><span class="pre">str</span></code></a>) – Matrix size string (e.g., ‘128x128’)</li>
-<li><strong>fov</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#str" title="(in Python v3.5)"><code class="xref py py-obj docutils literal"><span class="pre">str</span></code></a>) – Field of view string (e.g., ‘256x256’)</li>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>img</strong> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">nibabel.Nifti1Image</span></code>) – Image from scan from which to derive parameters.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><strong>n_slices</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#int" title="(in Python v3.5)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">int</span></code></a>) – Number of slices.</p></li>
+<li><p><strong>voxel_size</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#str" title="(in Python v3.5)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code></a>) – Voxel size string (e.g., ‘2x2x2’)</p></li>
+<li><p><strong>matrix_size</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#str" title="(in Python v3.5)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code></a>) – Matrix size string (e.g., ‘128x128’)</p></li>
+<li><p><strong>fov</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#str" title="(in Python v3.5)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code></a>) – Field of view string (e.g., ‘256x256’)</p></li>
 </ul>
-</td>
-</tr>
-</tbody>
-</table>
+</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="function">
 <dt id="bids.reports.utils.get_slice_info">
-<code class="descname">get_slice_info</code><span class="sig-paren">(</span><em>slice_times</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bids/reports/utils.html#get_slice_info"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bids.reports.utils.get_slice_info" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">get_slice_info</code><span class="sig-paren">(</span><em class="sig-param">slice_times</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bids/reports/utils.html#get_slice_info"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bids.reports.utils.get_slice_info" title="Permalink to this definition">¶</a></dt>
 <dd><p>Extract slice order from slice timing info.</p>
 <p>TODO: Be more specific with slice orders.
 Currently anything where there’s some kind of skipping is interpreted as
 interleaved of some kind.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>slice_times</strong> (<em>array-like</em>) – A list of slice times in seconds or milliseconds or whatever.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><strong>slice_order_name</strong> – The name of the slice order sequence.</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#str" title="(in Python v3.5)"><code class="xref py py-obj docutils literal"><span class="pre">str</span></code></a></td>
-</tr>
-</tbody>
-</table>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>slice_times</strong> (<em>array-like</em>) – A list of slice times in seconds or milliseconds or whatever.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>slice_order_name</strong> – The name of the slice order sequence.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#str" title="(in Python v3.5)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code></a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="function">
 <dt id="bids.reports.utils.list_to_str">
-<code class="descname">list_to_str</code><span class="sig-paren">(</span><em>lst</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bids/reports/utils.html#list_to_str"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bids.reports.utils.list_to_str" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">list_to_str</code><span class="sig-paren">(</span><em class="sig-param">lst</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bids/reports/utils.html#list_to_str"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bids.reports.utils.list_to_str" title="Permalink to this definition">¶</a></dt>
 <dd><p>Turn a list into a comma- and/or and-separated string.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>lst</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#list" title="(in Python v3.5)"><code class="xref py py-obj docutils literal"><span class="pre">list</span></code></a>) – A list of strings to join into a single string.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><strong>str_</strong> – A string with commas and/or ands separating th elements from <code class="docutils literal"><span class="pre">lst</span></code>.</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#str" title="(in Python v3.5)"><code class="xref py py-obj docutils literal"><span class="pre">str</span></code></a></td>
-</tr>
-</tbody>
-</table>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>lst</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#list" title="(in Python v3.5)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">list</span></code></a>) – A list of strings to join into a single string.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>str_</strong> – A string with commas and/or ands separating th elements from <code class="docutils literal notranslate"><span class="pre">lst</span></code>.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#str" title="(in Python v3.5)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code></a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="function">
 <dt id="bids.reports.utils.num_to_str">
-<code class="descname">num_to_str</code><span class="sig-paren">(</span><em>num</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bids/reports/utils.html#num_to_str"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bids.reports.utils.num_to_str" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">num_to_str</code><span class="sig-paren">(</span><em class="sig-param">num</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bids/reports/utils.html#num_to_str"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bids.reports.utils.num_to_str" title="Permalink to this definition">¶</a></dt>
 <dd><p>Convert an int or float to a nice string.
 E.g.,</p>
 <blockquote>
-<div>21 -&gt; ‘21’
+<div><p>21 -&gt; ‘21’
 2.500 -&gt; ‘2.5’
-3. -&gt; ‘3’</div></blockquote>
+3. -&gt; ‘3’</p>
+</div></blockquote>
 </dd></dl>
 
 <dl class="function">
 <dt id="bids.reports.utils.reminder">
-<code class="descname">reminder</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bids/reports/utils.html#reminder"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bids.reports.utils.reminder" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">reminder</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bids/reports/utils.html#reminder"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bids.reports.utils.reminder" title="Permalink to this definition">¶</a></dt>
 <dd><p>Remind users about things they need to do after generating the report.</p>
 </dd></dl>
 
 <dl class="function">
 <dt id="bids.reports.utils.remove_duplicates">
-<code class="descname">remove_duplicates</code><span class="sig-paren">(</span><em>seq</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bids/reports/utils.html#remove_duplicates"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bids.reports.utils.remove_duplicates" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">remove_duplicates</code><span class="sig-paren">(</span><em class="sig-param">seq</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bids/reports/utils.html#remove_duplicates"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bids.reports.utils.remove_duplicates" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return unique elements from list while preserving order.
 From <a class="reference external" href="https://stackoverflow.com/a/480227/2589328">https://stackoverflow.com/a/480227/2589328</a></p>
 </dd></dl>
@@ -329,16 +307,16 @@ From <a class="reference external" href="https://stackoverflow.com/a/480227/2589
 
 
            </div>
-           <div class="articleComments">
-            
-           </div>
+           
           </div>
           <footer>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="bids.reports.utils.get_seqstr.html" class="btn btn-neutral float-right" title="bids.reports.utils.get_seqstr" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="bids.variables.SimpleVariable.html" class="btn btn-neutral float-right" title="bids.variables.SimpleVariable" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
+      
+        <a href="bids.reports.BIDSReport.html" class="btn btn-neutral float-left" title="bids.reports.BIDSReport" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -347,11 +325,11 @@ From <a class="reference external" href="https://stackoverflow.com/a/480227/2589
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2015 - 2018, Developers of pybids.
+        &copy; Copyright 2019, Developers of PyBIDS
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
 
@@ -364,37 +342,15 @@ From <a class="reference external" href="https://stackoverflow.com/a/480227/2589
   
 
 
-  
-
-    <script type="text/javascript">
-        var DOCUMENTATION_OPTIONS = {
-            URL_ROOT:'../',
-            VERSION:'0.9.3+75.ge9ae632',
-            COLLAPSE_INDEX:false,
-            FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true,
-            SOURCELINK_SUFFIX: '.txt'
-        };
-    </script>
-      <script type="text/javascript" src="../_static/jquery.js"></script>
-      <script type="text/javascript" src="../_static/underscore.js"></script>
-      <script type="text/javascript" src="../_static/doctools.js"></script>
-      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-
-  
-
-  
-  
-    <script type="text/javascript" src="../_static/js/theme.js"></script>
-  
-
-  
-  
   <script type="text/javascript">
       jQuery(function () {
-          SphinxRtdTheme.StickyNav.enable();
+          SphinxRtdTheme.Navigation.enable(true);
       });
   </script>
+
+  
+  
+    
    
 
 </body>

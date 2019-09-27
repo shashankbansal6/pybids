@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>bids.reports.BIDSReport &mdash; bids 0.9.3+75.ge9ae632 documentation</title>
+  <title>bids.reports.BIDSReport &mdash; PyBIDS 0.9.4+16.g0a14a17 documentation</title>
   
 
   
@@ -17,47 +17,40 @@
   
 
   
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
 
-  
-  
     
 
   
-
-  
-  
-    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-  
-
-  
-    <link rel="stylesheet" href="../_static/theme_overrides.css" type="text/css" />
-  
-
-  
-        <link rel="index" title="Index"
-              href="../genindex.html"/>
-        <link rel="search" title="Search" href="../search.html"/>
-    <link rel="top" title="bids 0.9.3+75.ge9ae632 documentation" href="../index.html"/>
-        <link rel="up" title="API Reference" href="../api.html"/> 
-
-  
-  <script src="../_static/js/modernizr.min.js"></script>
-
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="bids.reports.utils" href="bids.reports.utils.html" />
+    <link rel="prev" title="bids.analysis.analysis.apply_transformations" href="bids.analysis.analysis.apply_transformations.html" /> 
 </head>
 
-<body class="wy-body-for-nav" role="document">
+<body class="wy-body-for-nav">
 
    
   <div class="wy-grid-for-nav">
-
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search">
+        <div class="wy-side-nav-search" >
           
 
           
-            <a href="../index.html" class="icon icon-home"> bids
+            <a href="../index.html" class="icon icon-home"> PyBIDS
           
 
           
@@ -88,19 +81,18 @@
             
             
               <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="../user_guide.html">User guide: table of contents</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide.html">User guide</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../api.html">API Reference</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="../api.html#bids-layout-querying-bids-datasets"><code class="docutils literal"><span class="pre">bids.layout</span></code>: Querying BIDS datasets</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../api.html#bids-analysis-model-specification-for-bids-datasets"><code class="docutils literal"><span class="pre">bids.analysis</span></code>: Model specification for BIDS datasets</a></li>
-<li class="toctree-l2 current"><a class="reference internal" href="../api.html#bids-reports-data-acquisition-report-generation"><code class="docutils literal"><span class="pre">bids.reports</span></code>: Data acquisition report generation</a><ul class="current">
-<li class="toctree-l3 current"><a class="current reference internal" href="#"><code class="docutils literal"><span class="pre">bids.reports</span></code>.BIDSReport</a><ul class="simple">
-</ul>
-</li>
+<li class="toctree-l2"><a class="reference internal" href="../api.html#bids-layout-querying-bids-datasets"><code class="xref py py-mod docutils literal notranslate"><span class="pre">bids.layout</span></code>: Querying BIDS datasets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api.html#bids-analysis-model-specification-for-bids-datasets"><code class="xref py py-mod docutils literal notranslate"><span class="pre">bids.analysis</span></code>: Model specification for BIDS datasets</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../api.html#bids-reports-data-acquisition-report-generation"><code class="xref py py-mod docutils literal notranslate"><span class="pre">bids.reports</span></code>: Data acquisition report generation</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">bids.reports.BIDSReport</a></li>
 <li class="toctree-l3"><a class="reference internal" href="bids.reports.utils.html">bids.reports.utils</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../api.html#bids-variables-variables"><code class="docutils literal"><span class="pre">bids.variables</span></code>: Variables</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../api.html#bids-utils-utility-functions"><code class="docutils literal"><span class="pre">bids.utils</span></code>: Utility functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api.html#bids-variables-variables"><code class="xref py py-mod docutils literal notranslate"><span class="pre">bids.variables</span></code>: Variables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api.html#bids-config-pybids-configuration-utilities"><code class="xref py py-mod docutils literal notranslate"><span class="pre">bids.config</span></code>: PyBIDS Configuration utilities</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api.html#bids-utils-utility-functions"><code class="xref py py-mod docutils literal notranslate"><span class="pre">bids.utils</span></code>: Utility functions</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../whats_new.html">Changelog</a></li>
@@ -115,17 +107,18 @@
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
 
       
-      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+      <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../index.html">bids</a>
+          <a href="../index.html">PyBIDS</a>
         
       </nav>
 
 
-      
       <div class="wy-nav-content">
+        
         <div class="rst-content">
+        
           
 
 
@@ -150,7 +143,7 @@
         
           <li><a href="../api.html">API Reference</a> &raquo;</li>
         
-      <li><code class="docutils literal"><span class="pre">bids.reports</span></code>.BIDSReport</li>
+      <li>bids.reports.BIDSReport</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -170,75 +163,91 @@
            <div itemprop="articleBody">
             
   <div class="section" id="bids-reports-bidsreport">
-<h1><code class="xref py py-mod docutils literal"><span class="pre">bids.reports</span></code>.BIDSReport<a class="headerlink" href="#bids-reports-bidsreport" title="Permalink to this headline">¶</a></h1>
+<h1>bids.reports.BIDSReport<a class="headerlink" href="#bids-reports-bidsreport" title="Permalink to this headline">¶</a></h1>
 <dl class="class">
 <dt id="bids.reports.BIDSReport">
-<em class="property">class </em><code class="descname">BIDSReport</code><span class="sig-paren">(</span><em>layout</em>, <em>config=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bids/reports/report.html#BIDSReport"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bids.reports.BIDSReport" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-name descname">BIDSReport</code><span class="sig-paren">(</span><em class="sig-param">layout</em>, <em class="sig-param">config=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bids/reports/report.html#BIDSReport"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bids.reports.BIDSReport" title="Permalink to this definition">¶</a></dt>
 <dd><p>Generates publication-quality data acquisition methods section from BIDS
 dataset.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>layout</strong> (<a class="reference internal" href="bids.layout.BIDSLayout.html#bids.layout.BIDSLayout" title="bids.layout.BIDSLayout"><code class="xref py py-obj docutils literal"><span class="pre">bids.layout.BIDSLayout</span></code></a>) – Layout object for a BIDS dataset.</li>
-<li><strong>config</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#str" title="(in Python v3.5)"><code class="xref py py-obj docutils literal"><span class="pre">str</span></code></a> or <a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#dict" title="(in Python v3.5)"><code class="xref py py-obj docutils literal"><span class="pre">dict</span></code></a>, optional) – <p>Configuration info for methods generation. Can be a path to a file
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>layout</strong> (<a class="reference internal" href="bids.layout.BIDSLayout.html#bids.layout.BIDSLayout" title="bids.layout.BIDSLayout"><code class="xref py py-obj docutils literal notranslate"><span class="pre">bids.layout.BIDSLayout</span></code></a>) – Layout object for a BIDS dataset.</p></li>
+<li><p><strong>config</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#str" title="(in Python v3.5)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code></a> or <a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#dict" title="(in Python v3.5)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dict</span></code></a>, optional) – <p>Configuration info for methods generation. Can be a path to a file
 (str), a dictionary, or None. If None, loads and uses default
 configuration information.
 Keys in the dictionary include:</p>
 <blockquote>
-<div><dl class="docutils">
-<dt>’dir’:      a dictionary for converting encoding direction strings</dt>
-<dd>(e.g., j-) to descriptions (e.g., anterior to
-posterior)</dd>
-<dt>’seq’:      a dictionary of sequence abbreviations (e.g., EP) and</dt>
-<dd>corresponding names (e.g., echo planar)</dd>
-<dt>’seqvar’:   a dictionary of sequence variant abbreviations</dt>
-<dd>(e.g., SP) and corresponding names (e.g., spoiled)</dd>
+<div><dl class="simple">
+<dt>’dir’:      a dictionary for converting encoding direction strings</dt><dd><p>(e.g., j-) to descriptions (e.g., anterior to
+posterior)</p>
+</dd>
+<dt>’seq’:      a dictionary of sequence abbreviations (e.g., EP) and</dt><dd><p>corresponding names (e.g., echo planar)</p>
+</dd>
+<dt>’seqvar’:   a dictionary of sequence variant abbreviations</dt><dd><p>(e.g., SP) and corresponding names (e.g., spoiled)</p>
+</dd>
 </dl>
 </div></blockquote>
-</li>
+</p></li>
 </ul>
-</td>
+</dd>
+</dl>
+<p class="rubric">Methods</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#bids.reports.BIDSReport.generate" title="bids.reports.BIDSReport.generate"><code class="xref py py-obj docutils literal notranslate"><span class="pre">generate</span></code></a>(self, \*\*kwargs)</p></td>
+<td><p>Generate the methods section.</p></td>
 </tr>
 </tbody>
 </table>
+<dl class="method">
+<dt id="bids.reports.BIDSReport.__init__">
+<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">layout</em>, <em class="sig-param">config=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bids/reports/report.html#BIDSReport.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bids.reports.BIDSReport.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
+</dd></dl>
+
 <p class="rubric">Methods</p>
-<table border="1" class="longtable docutils">
+<table class="longtable docutils align-default">
 <colgroup>
-<col width="10%" />
-<col width="90%" />
+<col style="width: 10%" />
+<col style="width: 90%" />
 </colgroup>
-<tbody valign="top">
-<tr class="row-odd"><td><a class="reference internal" href="#bids.reports.BIDSReport.generate" title="bids.reports.BIDSReport.generate"><code class="xref py py-obj docutils literal"><span class="pre">generate</span></code></a>(**kwargs)</td>
-<td>Generate the methods section.</td>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#bids.reports.BIDSReport.__init__" title="bids.reports.BIDSReport.__init__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__init__</span></code></a>(self, layout[, config])</p></td>
+<td><p>Initialize self.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#bids.reports.BIDSReport.generate" title="bids.reports.BIDSReport.generate"><code class="xref py py-obj docutils literal notranslate"><span class="pre">generate</span></code></a>(self, \*\*kwargs)</p></td>
+<td><p>Generate the methods section.</p></td>
 </tr>
 </tbody>
 </table>
 <dl class="method">
 <dt id="bids.reports.BIDSReport.generate">
-<code class="descname">generate</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bids/reports/report.html#BIDSReport.generate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bids.reports.BIDSReport.generate" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">generate</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bids/reports/report.html#BIDSReport.generate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bids.reports.BIDSReport.generate" title="Permalink to this definition">¶</a></dt>
 <dd><p>Generate the methods section.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>task_converter</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#dict" title="(in Python v3.5)"><code class="xref py py-obj docutils literal"><span class="pre">dict</span></code></a>, optional) – A dictionary with information for converting task names from BIDS
-filename format to human-readable strings.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><strong>counter</strong> – A dictionary of unique descriptions across subjects in the dataset,
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>task_converter</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#dict" title="(in Python v3.5)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dict</span></code></a>, optional) – A dictionary with information for converting task names from BIDS
+filename format to human-readable strings.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>counter</strong> – A dictionary of unique descriptions across subjects in the dataset,
 along with the number of times each pattern occurred. In cases
 where all subjects underwent the same protocol, the most common
 pattern is most likely the most complete. In cases where the
 dataset contains multiple protocols, each pattern will need to be
-inspected manually.</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3.5/library/collections.html#collections.Counter" title="(in Python v3.5)"><code class="xref py py-obj docutils literal"><span class="pre">collections.Counter</span></code></a></td>
-</tr>
-</tbody>
-</table>
+inspected manually.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.5/library/collections.html#collections.Counter" title="(in Python v3.5)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">collections.Counter</span></code></a></p>
+</dd>
+</dl>
 <p class="rubric">Examples</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">os.path</span> <span class="k">import</span> <span class="n">join</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">os.path</span> <span class="k">import</span> <span class="n">join</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">bids.layout</span> <span class="k">import</span> <span class="n">BIDSLayout</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">bids.reports</span> <span class="k">import</span> <span class="n">BIDSReport</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">bids.tests</span> <span class="k">import</span> <span class="n">get_test_data_path</span>
@@ -252,26 +261,33 @@ inspected manually.</td>
 
 </dd></dl>
 
-<div class="clearer"></div></div>
+</div>
 
 
            </div>
-           <div class="articleComments">
-            
-           </div>
+           
           </div>
           <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="bids.reports.utils.html" class="btn btn-neutral float-right" title="bids.reports.utils" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="bids.analysis.analysis.apply_transformations.html" class="btn btn-neutral float-left" title="bids.analysis.analysis.apply_transformations" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
   
 
   <hr/>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2015 - 2018, Developers of pybids.
+        &copy; Copyright 2019, Developers of PyBIDS
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
 
@@ -284,37 +300,15 @@ inspected manually.</td>
   
 
 
-  
-
-    <script type="text/javascript">
-        var DOCUMENTATION_OPTIONS = {
-            URL_ROOT:'../',
-            VERSION:'0.9.3+75.ge9ae632',
-            COLLAPSE_INDEX:false,
-            FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true,
-            SOURCELINK_SUFFIX: '.txt'
-        };
-    </script>
-      <script type="text/javascript" src="../_static/jquery.js"></script>
-      <script type="text/javascript" src="../_static/underscore.js"></script>
-      <script type="text/javascript" src="../_static/doctools.js"></script>
-      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-
-  
-
-  
-  
-    <script type="text/javascript" src="../_static/js/theme.js"></script>
-  
-
-  
-  
   <script type="text/javascript">
       jQuery(function () {
-          SphinxRtdTheme.StickyNav.enable();
+          SphinxRtdTheme.Navigation.enable(true);
       });
   </script>
+
+  
+  
+    
    
 
 </body>

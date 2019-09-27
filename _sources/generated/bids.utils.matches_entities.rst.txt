@@ -1,12 +1,6 @@
-:mod:`bids.utils`.matches_entities
-===============================================
+bids.utils.matches\_entities
+============================
 
 .. currentmodule:: bids.utils
 
 .. autofunction:: matches_entities
-
-.. include:: bids.utils.matches_entities.examples
-
-.. raw:: html
-
-    <div class="clearer"></div>

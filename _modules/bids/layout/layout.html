@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>bids.layout.layout &mdash; bids 0.9.3+75.ge9ae632 documentation</title>
+  <title>bids.layout.layout &mdash; PyBIDS 0.9.4+16.g0a14a17 documentation</title>
   
 
   
@@ -17,47 +17,38 @@
   
 
   
+  <script type="text/javascript" src="../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
 
-  
-  
     
 
   
-
-  
-  
-    <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
-  
-
-  
-    <link rel="stylesheet" href="../../../_static/theme_overrides.css" type="text/css" />
-  
-
-  
-        <link rel="index" title="Index"
-              href="../../../genindex.html"/>
-        <link rel="search" title="Search" href="../../../search.html"/>
-    <link rel="top" title="bids 0.9.3+75.ge9ae632 documentation" href="../../../index.html"/>
-        <link rel="up" title="Module code" href="../../index.html"/> 
-
-  
-  <script src="../../../_static/js/modernizr.min.js"></script>
-
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
 </head>
 
-<body class="wy-body-for-nav" role="document">
+<body class="wy-body-for-nav">
 
    
   <div class="wy-grid-for-nav">
-
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search">
+        <div class="wy-side-nav-search" >
           
 
           
-            <a href="../../../index.html" class="icon icon-home"> bids
+            <a href="../../../index.html" class="icon icon-home"> PyBIDS
           
 
           
@@ -88,7 +79,7 @@
             
             
               <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../user_guide.html">User guide: table of contents</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../user_guide.html">User guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../api.html">API Reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../whats_new.html">Changelog</a></li>
 </ul>
@@ -102,17 +93,18 @@
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
 
       
-      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+      <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../../../index.html">bids</a>
+          <a href="../../../index.html">PyBIDS</a>
         
       </nav>
 
 
-      
       <div class="wy-nav-content">
+        
         <div class="rst-content">
+        
           
 
 
@@ -141,8 +133,6 @@
     
     
       <li class="wy-breadcrumbs-aside">
-        
-            
         
       </li>
     
@@ -191,7 +181,7 @@
 <span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;BIDSLayout&#39;</span><span class="p">]</span>
 
 
-<span class="k">def</span> <span class="nf">parse_file_entities</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">entities</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">config</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+<div class="viewcode-block" id="parse_file_entities"><a class="viewcode-back" href="../../../generated/bids.layout.parse_file_entities.html#bids.layout.parse_file_entities">[docs]</a><span class="k">def</span> <span class="nf">parse_file_entities</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">entities</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">config</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                         <span class="n">include_unmatched</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Parse the passed filename for entity/value pairs.</span>
 
@@ -233,10 +223,10 @@
         <span class="k">if</span> <span class="n">match</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">include_unmatched</span><span class="p">:</span>
             <span class="n">ent_vals</span><span class="p">[</span><span class="n">ent</span><span class="o">.</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">match</span>
 
-    <span class="k">return</span> <span class="n">ent_vals</span>
+    <span class="k">return</span> <span class="n">ent_vals</span></div>
 
 
-<span class="k">def</span> <span class="nf">add_config_paths</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<div class="viewcode-block" id="add_config_paths"><a class="viewcode-back" href="../../../generated/bids.layout.add_config_paths.html#bids.layout.add_config_paths">[docs]</a><span class="k">def</span> <span class="nf">add_config_paths</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Add to the pool of available configuration files for BIDSLayout.</span>
 
 <span class="sd">    Args:</span>
@@ -255,7 +245,7 @@
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Configuration </span><span class="si">{!r}</span><span class="s1"> already exists&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">k</span><span class="p">))</span>
 
     <span class="n">kwargs</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="o">**</span><span class="n">cf</span><span class="o">.</span><span class="n">get_option</span><span class="p">(</span><span class="s1">&#39;config_paths&#39;</span><span class="p">))</span>
-    <span class="n">cf</span><span class="o">.</span><span class="n">set_option</span><span class="p">(</span><span class="s1">&#39;config_paths&#39;</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">)</span>
+    <span class="n">cf</span><span class="o">.</span><span class="n">set_option</span><span class="p">(</span><span class="s1">&#39;config_paths&#39;</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="BIDSLayout"><a class="viewcode-back" href="../../../generated/bids.layout.BIDSLayout.html#bids.layout.BIDSLayout">[docs]</a><span class="k">class</span> <span class="nc">BIDSLayout</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
@@ -324,7 +314,7 @@
     <span class="n">_default_ignore</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;code&quot;</span><span class="p">,</span> <span class="s2">&quot;stimuli&quot;</span><span class="p">,</span> <span class="s2">&quot;sourcedata&quot;</span><span class="p">,</span> <span class="s2">&quot;models&quot;</span><span class="p">,</span>
                        <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;^\.&#39;</span><span class="p">))</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">root</span><span class="p">,</span> <span class="n">validate</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">absolute_paths</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<div class="viewcode-block" id="BIDSLayout.__init__"><a class="viewcode-back" href="../../../generated/bids.layout.BIDSLayout.html#bids.layout.BIDSLayout.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">root</span><span class="p">,</span> <span class="n">validate</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">absolute_paths</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                  <span class="n">derivatives</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">config</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">sources</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">ignore</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                  <span class="n">force_index</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">config_filename</span><span class="o">=</span><span class="s1">&#39;layout_config.json&#39;</span><span class="p">,</span>
                  <span class="n">regex_search</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">database_file</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">reset_database</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
@@ -387,7 +377,7 @@
                 <span class="n">derivatives</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">config</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">sources</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span> <span class="n">ignore</span><span class="o">=</span><span class="n">ignore</span><span class="p">,</span>
                 <span class="n">force_index</span><span class="o">=</span><span class="n">force_index</span><span class="p">,</span> <span class="n">config_filename</span><span class="o">=</span><span class="n">config_filename</span><span class="p">,</span>
                 <span class="n">regex_search</span><span class="o">=</span><span class="n">regex_search</span><span class="p">,</span> <span class="n">reset_database</span><span class="o">=</span><span class="n">reset_database</span><span class="p">,</span>
-                <span class="n">index_metadata</span><span class="o">=</span><span class="n">index_metadata</span><span class="p">)</span>
+                <span class="n">index_metadata</span><span class="o">=</span><span class="n">index_metadata</span><span class="p">)</span></div>
 
     <span class="k">def</span> <span class="nf">__getattr__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Dynamically inspect missing methods for get_&lt;entity&gt;() calls</span>
@@ -986,7 +976,7 @@
                         <span class="n">val_clause</span> <span class="o">=</span> <span class="n">sa</span><span class="o">.</span><span class="n">or_</span><span class="p">(</span><span class="o">*</span><span class="p">[</span><span class="n">Tag</span><span class="o">.</span><span class="n">_value</span><span class="o">.</span><span class="n">op</span><span class="p">(</span><span class="s1">&#39;REGEXP&#39;</span><span class="p">)(</span><span class="nb">str</span><span class="p">(</span><span class="n">v</span><span class="p">))</span>
                                               <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">val</span><span class="p">])</span>
                     <span class="k">else</span><span class="p">:</span>
-                        <span class="n">val_clause</span> <span class="o">=</span> <span class="n">Tag</span><span class="o">.</span><span class="n">_value</span><span class="o">.</span><span class="n">op</span><span class="p">(</span><span class="s1">&#39;REGEXP&#39;</span><span class="p">)(</span><span class="n">val</span><span class="p">)</span>
+                        <span class="n">val_clause</span> <span class="o">=</span> <span class="n">Tag</span><span class="o">.</span><span class="n">_value</span><span class="o">.</span><span class="n">op</span><span class="p">(</span><span class="s1">&#39;REGEXP&#39;</span><span class="p">)(</span><span class="nb">str</span><span class="p">(</span><span class="n">val</span><span class="p">))</span>
                 <span class="k">else</span><span class="p">:</span>
                     <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">val</span><span class="p">,</span> <span class="p">(</span><span class="nb">list</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">)):</span>
                         <span class="n">val_clause</span> <span class="o">=</span> <span class="n">Tag</span><span class="o">.</span><span class="n">_value</span><span class="o">.</span><span class="n">in_</span><span class="p">(</span><span class="n">val</span><span class="p">)</span>
@@ -1360,6 +1350,8 @@
                     <span class="n">seen_configs</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>
 
         <span class="n">built</span> <span class="o">=</span> <span class="n">build_path</span><span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="n">path_patterns</span><span class="p">,</span> <span class="n">strict</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">built</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Unable to construct build path with source </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">source</span><span class="p">))</span>
         <span class="n">to_check</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">sep</span><span class="p">,</span> <span class="n">built</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="ow">not</span> <span class="n">validate</span> <span class="ow">or</span> <span class="n">BIDSValidator</span><span class="p">()</span><span class="o">.</span><span class="n">is_bids</span><span class="p">(</span><span class="n">to_check</span><span class="p">):</span>
@@ -1448,9 +1440,7 @@
 </pre></div>
 
            </div>
-           <div class="articleComments">
-            
-           </div>
+           
           </div>
           <footer>
   
@@ -1459,11 +1449,11 @@
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2015 - 2018, Developers of pybids.
+        &copy; Copyright 2019, Developers of PyBIDS
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
 
@@ -1476,37 +1466,15 @@
   
 
 
-  
-
-    <script type="text/javascript">
-        var DOCUMENTATION_OPTIONS = {
-            URL_ROOT:'../../../',
-            VERSION:'0.9.3+75.ge9ae632',
-            COLLAPSE_INDEX:false,
-            FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true,
-            SOURCELINK_SUFFIX: '.txt'
-        };
-    </script>
-      <script type="text/javascript" src="../../../_static/jquery.js"></script>
-      <script type="text/javascript" src="../../../_static/underscore.js"></script>
-      <script type="text/javascript" src="../../../_static/doctools.js"></script>
-      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-
-  
-
-  
-  
-    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
-  
-
-  
-  
   <script type="text/javascript">
       jQuery(function () {
-          SphinxRtdTheme.StickyNav.enable();
+          SphinxRtdTheme.Navigation.enable(true);
       });
   </script>
+
+  
+  
+    
    
 
 </body>

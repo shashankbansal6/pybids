@@ -1,0 +1,25 @@
+bids.analysis.analysis.Step
+===========================
+
+.. currentmodule:: bids.analysis.analysis
+
+.. autoclass:: Step
+
+   
+   .. automethod:: __init__
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+   
+      ~Step.__init__
+      ~Step.get_contrasts
+      ~Step.get_design_matrix
+      ~Step.setup
+   
+   
+
+   
+   
+   

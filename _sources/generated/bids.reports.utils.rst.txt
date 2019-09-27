@@ -8,7 +8,6 @@ bids.reports.utils
    .. rubric:: Functions
 
    .. autosummary::
-      :toctree:
    
       get_seqstr
       get_sizestr
