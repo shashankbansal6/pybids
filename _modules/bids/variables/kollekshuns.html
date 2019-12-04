@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>bids.variables.kollekshuns &mdash; PyBIDS 0.9.4+16.g0a14a17 documentation</title>
+  <title>bids.variables.kollekshuns &mdash; PyBIDS 0.10.0 documentation</title>
   
 
   
@@ -145,39 +145,44 @@
            <div itemprop="articleBody">
             
   <h1>Source code for bids.variables.kollekshuns</h1><div class="highlight"><pre>
-<span></span><span class="sd">&#39;&#39;&#39; Classes and functions related to the management of sets of BIDSVariables.</span>
+<span></span><span class="sd">&quot;&quot;&quot;Classes and functions related to the management of sets of BIDSVariables.</span>
 
 <span class="sd">Why &#39;kollekshuns&#39;? Because &#39;collections&#39; would conflict with the standard lib</span>
 <span class="sd">module of the same name on Python 2. We could go with something sensible but</span>
 <span class="sd">verbose like &#39;variable_collections&#39;, but that would make far too much sense.</span>
-<span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">&quot;&quot;&quot;</span>
 
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">from</span> <span class="nn">copy</span> <span class="k">import</span> <span class="n">copy</span>
-<span class="kn">from</span> <span class="nn">pandas.api.types</span> <span class="k">import</span> <span class="n">is_numeric_dtype</span>
 <span class="kn">import</span> <span class="nn">warnings</span>
 <span class="kn">import</span> <span class="nn">re</span>
-<span class="kn">from</span> <span class="nn">.variables</span> <span class="k">import</span> <span class="p">(</span><span class="n">SparseRunVariable</span><span class="p">,</span> <span class="n">SimpleVariable</span><span class="p">,</span> <span class="n">DenseRunVariable</span><span class="p">,</span>
-                        <span class="n">merge_variables</span><span class="p">,</span> <span class="n">BIDSVariable</span><span class="p">)</span>
 <span class="kn">from</span> <span class="nn">collections</span> <span class="k">import</span> <span class="n">OrderedDict</span>
 <span class="kn">from</span> <span class="nn">itertools</span> <span class="k">import</span> <span class="n">chain</span>
-<span class="kn">from</span> <span class="nn">bids.utils</span> <span class="k">import</span> <span class="n">listify</span><span class="p">,</span> <span class="n">matches_entities</span>
+<span class="kn">import</span> <span class="nn">fnmatch</span>
+
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">pandas.api.types</span> <span class="k">import</span> <span class="n">is_numeric_dtype</span>
+
+<span class="kn">from</span> <span class="nn">.variables</span> <span class="k">import</span> <span class="p">(</span><span class="n">SparseRunVariable</span><span class="p">,</span> <span class="n">SimpleVariable</span><span class="p">,</span> <span class="n">DenseRunVariable</span><span class="p">,</span>
+                        <span class="n">merge_variables</span><span class="p">,</span> <span class="n">BIDSVariable</span><span class="p">)</span>
+<span class="kn">from</span> <span class="nn">bids.utils</span> <span class="k">import</span> <span class="n">listify</span><span class="p">,</span> <span class="n">matches_entities</span>
 
 
 <div class="viewcode-block" id="BIDSVariableCollection"><a class="viewcode-back" href="../../../generated/bids.variables.kollekshuns.html#bids.variables.BIDSVariableCollection">[docs]</a><span class="k">class</span> <span class="nc">BIDSVariableCollection</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-
-    <span class="sd">&#39;&#39;&#39; A container for one or more variables extracted from variable files</span>
+    <span class="sd">&quot;&quot;&quot;A container for one or more variables extracted from variable files</span>
 <span class="sd">    at a single level of analysis.</span>
 
-<span class="sd">    Args:</span>
-<span class="sd">        variables (list): A list of BIDSVariables or SimpleVariables.</span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    variables : list</span>
+<span class="sd">        A list of BIDSVariables or SimpleVariables.</span>
 
-<span class="sd">    Notes:</span>
-<span class="sd">        * Variables in the list must all share the same analysis level, which</span>
-<span class="sd">          must be one of &#39;session&#39;, &#39;subject&#39;, or &#39;dataset&#39; level. For</span>
-<span class="sd">          run-level Variables, use the BIDSRunVariableCollection.</span>
-<span class="sd">    &#39;&#39;&#39;</span>
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    Variables in the list must all share the same analysis level, which</span>
+<span class="sd">    must be one of &#39;session&#39;, &#39;subject&#39;, or &#39;dataset&#39; level. For</span>
+<span class="sd">    run-level Variables, use the BIDSRunVariableCollection.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
 
 <div class="viewcode-block" id="BIDSVariableCollection.__init__"><a class="viewcode-back" href="../../../generated/bids.variables.BIDSVariableCollection.html#bids.variables.BIDSVariableCollection.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">variables</span><span class="p">):</span>
 
@@ -210,20 +215,28 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">level</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">var_levels</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
         <span class="n">variables</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">merge_variables</span><span class="p">(</span><span class="n">variables</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">variables</span> <span class="o">=</span> <span class="p">{</span><span class="n">v</span><span class="o">.</span><span class="n">name</span><span class="p">:</span> <span class="n">v</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">variables</span><span class="p">}</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_index_entities</span><span class="p">()</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_index_entities</span><span class="p">()</span>
+
+        <span class="c1"># Container for variable groups (see BIDS-StatsModels spec)--maps from</span>
+        <span class="c1"># group names to lists of variables.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">groups</span> <span class="o">=</span> <span class="p">{}</span></div>
 
 <div class="viewcode-block" id="BIDSVariableCollection.merge_variables"><a class="viewcode-back" href="../../../generated/bids.variables.kollekshuns.html#bids.variables.BIDSVariableCollection.merge_variables">[docs]</a>    <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">merge_variables</span><span class="p">(</span><span class="n">variables</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-        <span class="sd">&#39;&#39;&#39; Concatenates Variables along row axis.</span>
+        <span class="sd">&quot;&quot;&quot;Concatenates Variables along row axis.</span>
 
-<span class="sd">        Args:</span>
-<span class="sd">            variables (list): List of Variables to merge. Variables can have</span>
-<span class="sd">                different names (and all Variables that share a name will be</span>
-<span class="sd">                concatenated together).</span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        variables : list</span>
+<span class="sd">            List of Variables to merge. Variables can have</span>
+<span class="sd">            different names (and all Variables that share a name will be</span>
+<span class="sd">            concatenated together).</span>
 
-<span class="sd">        Returns:</span>
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        list</span>
 <span class="sd">            A list of Variables.</span>
-<span class="sd">        &#39;&#39;&#39;</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">var_dict</span> <span class="o">=</span> <span class="n">OrderedDict</span><span class="p">()</span>
         <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">variables</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">v</span><span class="o">.</span><span class="n">name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">var_dict</span><span class="p">:</span>
@@ -233,23 +246,31 @@
                 <span class="k">for</span> <span class="n">vars_</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">var_dict</span><span class="o">.</span><span class="n">values</span><span class="p">())]</span></div>
 
 <div class="viewcode-block" id="BIDSVariableCollection.to_df"><a class="viewcode-back" href="../../../generated/bids.variables.kollekshuns.html#bids.variables.BIDSVariableCollection.to_df">[docs]</a>    <span class="k">def</span> <span class="nf">to_df</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">variables</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;wide&#39;</span><span class="p">,</span> <span class="n">fillna</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-        <span class="sd">&#39;&#39;&#39; Merge variables into a single pandas DataFrame.</span>
+        <span class="sd">&quot;&quot;&quot;Merge variables into a single pandas DataFrame.</span>
 
-<span class="sd">        Args:</span>
-<span class="sd">            variables (list): Optional list of column names to retain; if None,</span>
-<span class="sd">                all variables are returned.</span>
-<span class="sd">            format (str): Whether to return a DataFrame in &#39;wide&#39; or &#39;long&#39;</span>
-<span class="sd">                format. In &#39;wide&#39; format, each row is defined by a unique</span>
-<span class="sd">                entity combination, and each variable is in a separate column.</span>
-<span class="sd">                In &#39;long&#39; format, each row is a unique combination of entities</span>
-<span class="sd">                and variable names, and a single &#39;amplitude&#39; column provides</span>
-<span class="sd">                the value.</span>
-<span class="sd">            fillna: Replace missing values with the specified value.</span>
-<span class="sd">            kwargs: Optional keyword arguments to pass onto each Variable&#39;s</span>
-<span class="sd">                to_df() call (e.g., condition, entities, and timing).</span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        variables : list</span>
+<span class="sd">            Optional list of column names to retain; if None,</span>
+<span class="sd">            all variables are returned.</span>
+<span class="sd">        format : {&#39;wide&#39;, &#39;long&#39;}</span>
+<span class="sd">            Whether to return a DataFrame in &#39;wide&#39; or &#39;long&#39;</span>
+<span class="sd">            format. In &#39;wide&#39; format, each row is defined by a unique</span>
+<span class="sd">            entity combination, and each variable is in a separate column.</span>
+<span class="sd">            In &#39;long&#39; format, each row is a unique combination of entities</span>
+<span class="sd">            and variable names, and a single &#39;amplitude&#39; column provides</span>
+<span class="sd">            the value.</span>
+<span class="sd">        fillna : value</span>
+<span class="sd">            Replace missing values with the specified value.</span>
+<span class="sd">        kwargs : dict</span>
+<span class="sd">            Optional keyword arguments to pass onto each Variable&#39;s</span>
+<span class="sd">            to_df() call (e.g., condition, entities, and timing).</span>
 
-<span class="sd">        Returns: A pandas DataFrame.</span>
-<span class="sd">        &#39;&#39;&#39;</span>
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        :obj:`pandas.DataFrame`</span>
+<span class="sd">            A pandas DataFrame.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="k">if</span> <span class="n">variables</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">variables</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">variables</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
@@ -276,18 +297,23 @@
 
 <div class="viewcode-block" id="BIDSVariableCollection.from_df"><a class="viewcode-back" href="../../../generated/bids.variables.kollekshuns.html#bids.variables.BIDSVariableCollection.from_df">[docs]</a>    <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">from_df</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">entities</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">source</span><span class="o">=</span><span class="s1">&#39;contrast&#39;</span><span class="p">):</span>
-        <span class="sd">&#39;&#39;&#39; Create a Collection from a pandas DataFrame.</span>
+        <span class="sd">&quot;&quot;&quot;Create a Collection from a pandas DataFrame.</span>
 
-<span class="sd">        Args:</span>
-<span class="sd">            df (DataFrame): The DataFrame to convert to a Collection. Each</span>
-<span class="sd">                column will be converted to a SimpleVariable.</span>
-<span class="sd">            entities (DataFrame): An optional second DataFrame containing</span>
-<span class="sd">                entity information.</span>
-<span class="sd">            source (str): The value to set as the source for all Variables.</span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        df : :obj:`pandas.DataFrame`</span>
+<span class="sd">            The DataFrame to convert to a Collection. Each</span>
+<span class="sd">            column will be converted to a SimpleVariable.</span>
+<span class="sd">        entities : :obj:`pandas.DataFrame`</span>
+<span class="sd">            An optional second DataFrame containing</span>
+<span class="sd">            entity information.</span>
+<span class="sd">        source : str</span>
+<span class="sd">            The value to set as the source for all Variables.</span>
 
-<span class="sd">        Returns:</span>
-<span class="sd">            A BIDSVariableCollection.</span>
-<span class="sd">        &#39;&#39;&#39;</span>
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        BIDSVariableCollection</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">variables</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">data</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
             <span class="n">_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;amplitude&#39;</span><span class="p">])</span>
@@ -297,26 +323,28 @@
         <span class="k">return</span> <span class="n">BIDSVariableCollection</span><span class="p">(</span><span class="n">variables</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="BIDSVariableCollection.clone"><a class="viewcode-back" href="../../../generated/bids.variables.kollekshuns.html#bids.variables.BIDSVariableCollection.clone">[docs]</a>    <span class="k">def</span> <span class="nf">clone</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&#39;&#39;&#39; Returns a shallow copy of the current instance, except that all</span>
+        <span class="sd">&quot;&quot;&quot;Returns a shallow copy of the current instance, except that all</span>
 <span class="sd">        variables are deep-cloned.</span>
-<span class="sd">        &#39;&#39;&#39;</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">clone</span> <span class="o">=</span> <span class="n">copy</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
         <span class="n">clone</span><span class="o">.</span><span class="n">variables</span> <span class="o">=</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="n">v</span><span class="o">.</span><span class="n">clone</span><span class="p">()</span> <span class="k">for</span> <span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">variables</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
         <span class="k">return</span> <span class="n">clone</span></div>
 
 <div class="viewcode-block" id="BIDSVariableCollection.matches_entities"><a class="viewcode-back" href="../../../generated/bids.variables.kollekshuns.html#bids.variables.BIDSVariableCollection.matches_entities">[docs]</a>    <span class="k">def</span> <span class="nf">matches_entities</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">entities</span><span class="p">,</span> <span class="n">strict</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
-        <span class="sd">&#39;&#39;&#39; Checks whether current Collection&#39;s entities match the input. &#39;&#39;&#39;</span>
+        <span class="sd">&quot;&quot;&quot;Checks whether current Collection&#39;s entities match the input. &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="n">matches_entities</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">entities</span><span class="p">,</span> <span class="n">strict</span><span class="p">)</span></div>
 
     <span class="k">def</span> <span class="nf">_index_entities</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&#39;&#39;&#39; Sets current instance&#39;s entities based on the existing index.</span>
+        <span class="sd">&quot;&quot;&quot;Sets current instance&#39;s entities based on the existing index.</span>
 
-<span class="sd">        Note: Only entity key/value pairs common to all rows in all contained</span>
-<span class="sd">            Variables are returned. E.g., if a Collection contains Variables</span>
-<span class="sd">            extracted from runs 1, 2 and 3 from subject &#39;01&#39;, the returned dict</span>
-<span class="sd">            will be {&#39;subject&#39;: &#39;01&#39;}; the runs will be excluded as they vary</span>
-<span class="sd">            across the Collection contents.</span>
-<span class="sd">        &#39;&#39;&#39;</span>
+<span class="sd">        Notes</span>
+<span class="sd">        -----</span>
+<span class="sd">        Only entity key/value pairs common to all rows in all contained</span>
+<span class="sd">        Variables are returned. E.g., if a Collection contains Variables</span>
+<span class="sd">        extracted from runs 1, 2 and 3 from subject &#39;01&#39;, the returned dict</span>
+<span class="sd">        will be {&#39;subject&#39;: &#39;01&#39;}; the runs will be excluded as they vary</span>
+<span class="sd">        across the Collection contents.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">all_ents</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="o">.</span><span class="n">from_records</span><span class="p">(</span>
             <span class="p">[</span><span class="n">v</span><span class="o">.</span><span class="n">entities</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">variables</span><span class="o">.</span><span class="n">values</span><span class="p">()])</span>
         <span class="n">constant</span> <span class="o">=</span> <span class="n">all_ents</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">nunique</span><span class="p">()</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span>
@@ -340,37 +368,51 @@
             <span class="n">obj</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">var</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">variables</span><span class="p">[</span><span class="n">var</span><span class="p">]</span> <span class="o">=</span> <span class="n">obj</span>
 
-<div class="viewcode-block" id="BIDSVariableCollection.match_variables"><a class="viewcode-back" href="../../../generated/bids.variables.kollekshuns.html#bids.variables.BIDSVariableCollection.match_variables">[docs]</a>    <span class="k">def</span> <span class="nf">match_variables</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pattern</span><span class="p">,</span> <span class="n">return_type</span><span class="o">=</span><span class="s1">&#39;name&#39;</span><span class="p">):</span>
-        <span class="sd">&#39;&#39;&#39; Return columns whose names match the provided regex pattern.</span>
+<div class="viewcode-block" id="BIDSVariableCollection.match_variables"><a class="viewcode-back" href="../../../generated/bids.variables.kollekshuns.html#bids.variables.BIDSVariableCollection.match_variables">[docs]</a>    <span class="k">def</span> <span class="nf">match_variables</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pattern</span><span class="p">,</span> <span class="n">return_type</span><span class="o">=</span><span class="s1">&#39;name&#39;</span><span class="p">,</span> <span class="n">match_type</span><span class="o">=</span><span class="s1">&#39;unix&#39;</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Return columns whose names match the provided pattern.</span>
 
-<span class="sd">        Args:</span>
-<span class="sd">            pattern (str): A regex pattern to match all variable names against.</span>
-<span class="sd">            return_type (str): What to return. Must be one of:</span>
-<span class="sd">                &#39;name&#39;: Returns a list of names of matching variables.</span>
-<span class="sd">                &#39;variable&#39;: Returns a list of Variable objects whose names</span>
-<span class="sd">                match.</span>
-<span class="sd">        &#39;&#39;&#39;</span>
-        <span class="n">pattern</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">pattern</span><span class="p">)</span>
-        <span class="n">vars_</span> <span class="o">=</span> <span class="p">[</span><span class="n">v</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">variables</span><span class="o">.</span><span class="n">values</span><span class="p">()</span> <span class="k">if</span> <span class="n">pattern</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">v</span><span class="o">.</span><span class="n">name</span><span class="p">)]</span>
-        <span class="k">return</span> <span class="n">vars_</span> <span class="k">if</span> <span class="n">return_type</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;var&#39;</span><span class="p">)</span> \
-            <span class="k">else</span> <span class="p">[</span><span class="n">v</span><span class="o">.</span><span class="n">name</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">vars_</span><span class="p">]</span></div></div>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        pattern : str</span>
+<span class="sd">            A regex pattern to match all variable names against.</span>
+<span class="sd">        return_type : {&#39;name&#39;, &#39;variable&#39;}</span>
+<span class="sd">            What to return. Must be one of:</span>
+<span class="sd">            &#39;name&#39;: Returns a list of names of matching variables.</span>
+<span class="sd">            &#39;variable&#39;: Returns a list of Variable objects whose names</span>
+<span class="sd">            match.</span>
+<span class="sd">        match_type : str</span>
+<span class="sd">            Matching approach to use. Either &#39;regex&#39; (full-blown regular</span>
+<span class="sd">                expression matching) or &#39;unix&#39; (unix-style pattern matching</span>
+<span class="sd">                via the fnmatch module).</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">match_type</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;re&#39;</span><span class="p">):</span>
+            <span class="n">pattern</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">pattern</span><span class="p">)</span>
+            <span class="n">vars_</span> <span class="o">=</span> <span class="p">[</span><span class="n">v</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">variables</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span> <span class="k">if</span> <span class="n">pattern</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">v</span><span class="p">)]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">vars_</span> <span class="o">=</span> <span class="n">fnmatch</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">variables</span><span class="o">.</span><span class="n">keys</span><span class="p">()),</span> <span class="n">pattern</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">vars_</span> <span class="k">if</span> <span class="n">return_type</span> <span class="o">==</span> <span class="s1">&#39;name&#39;</span> \
+            <span class="k">else</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">variables</span><span class="p">[</span><span class="n">v</span><span class="p">]</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">vars_</span><span class="p">]</span></div></div>
 
 
 <div class="viewcode-block" id="BIDSRunVariableCollection"><a class="viewcode-back" href="../../../generated/bids.variables.kollekshuns.html#bids.variables.BIDSRunVariableCollection">[docs]</a><span class="k">class</span> <span class="nc">BIDSRunVariableCollection</span><span class="p">(</span><span class="n">BIDSVariableCollection</span><span class="p">):</span>
-
-    <span class="sd">&#39;&#39;&#39; A container for one or more RunVariables--i.e., Variables that have a</span>
+    <span class="sd">&quot;&quot;&quot;A container for one or more RunVariables--i.e., Variables that have a</span>
 <span class="sd">    temporal dimension.</span>
 
-<span class="sd">    Args:</span>
-<span class="sd">        variables (list): A list of SparseRunVariable and/or DenseRunVariable.</span>
-<span class="sd">        sampling_rate (float): Sampling rate (in Hz) to use when working with</span>
-<span class="sd">            dense representations of variables. If None, defaults to 10.</span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    variables : list</span>
+<span class="sd">        A list of SparseRunVariable and/or DenseRunVariable.</span>
+<span class="sd">    sampling_rate : float</span>
+<span class="sd">        Sampling rate (in Hz) to use when working with</span>
+<span class="sd">        dense representations of variables. If None, defaults to 10.</span>
 
-<span class="sd">    Notes:</span>
-<span class="sd">        * Variables in the list must all be at the &#39;run&#39; level. For other</span>
-<span class="sd">          levels (session, subject, or dataset), use the</span>
-<span class="sd">          BIDSVariableCollection.</span>
-<span class="sd">    &#39;&#39;&#39;</span>
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    Variables in the list must all be at the &#39;run&#39; level. For other</span>
+<span class="sd">    levels (session, subject, or dataset), use the</span>
+<span class="sd">    BIDSVariableCollection.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
 
 <div class="viewcode-block" id="BIDSRunVariableCollection.__init__"><a class="viewcode-back" href="../../../generated/bids.variables.BIDSRunVariableCollection.html#bids.variables.BIDSRunVariableCollection.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">variables</span><span class="p">,</span> <span class="n">sampling_rate</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="c1"># Don&#39;t put the default value in signature because None is passed from</span>
@@ -391,22 +433,28 @@
 
 <div class="viewcode-block" id="BIDSRunVariableCollection.resample"><a class="viewcode-back" href="../../../generated/bids.variables.kollekshuns.html#bids.variables.BIDSRunVariableCollection.resample">[docs]</a>    <span class="k">def</span> <span class="nf">resample</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sampling_rate</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">variables</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">force_dense</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
                  <span class="n">in_place</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="s1">&#39;linear&#39;</span><span class="p">):</span>
-        <span class="sd">&#39;&#39;&#39; Resample all dense variables (and optionally, sparse ones) to the</span>
+        <span class="sd">&quot;&quot;&quot;Resample all dense variables (and optionally, sparse ones) to the</span>
 <span class="sd">        specified sampling rate.</span>
 
-<span class="sd">        Args:</span>
-<span class="sd">            sampling_rate (int, float): Target sampling rate (in Hz). If None,</span>
-<span class="sd">                uses the instance sampling rate.</span>
-<span class="sd">            variables (list): Optional list of Variables to resample. If None,</span>
-<span class="sd">                all variables are resampled.</span>
-<span class="sd">            force_dense (bool): if True, all sparse variables will be forced to</span>
-<span class="sd">                dense.</span>
-<span class="sd">            in_place (bool): When True, all variables are overwritten in-place.</span>
-<span class="sd">                When False, returns resampled versions of all variables.</span>
-<span class="sd">            kind (str): Argument to pass to scipy&#39;s interp1d; indicates the</span>
-<span class="sd">                kind of interpolation approach to use. See interp1d docs for</span>
-<span class="sd">                valid values.</span>
-<span class="sd">        &#39;&#39;&#39;</span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        sampling_rate : int or float</span>
+<span class="sd">            Target sampling rate (in Hz). If None,</span>
+<span class="sd">            uses the instance sampling rate.</span>
+<span class="sd">        variables : list</span>
+<span class="sd">            Optional list of Variables to resample. If None,</span>
+<span class="sd">            all variables are resampled.</span>
+<span class="sd">        force_dense : bool</span>
+<span class="sd">            if True, all sparse variables will be forced to</span>
+<span class="sd">            dense.</span>
+<span class="sd">        in_place : bool</span>
+<span class="sd">            When True, all variables are overwritten in-place.</span>
+<span class="sd">            When False, returns resampled versions of all variables.</span>
+<span class="sd">        kind : str</span>
+<span class="sd">            Argument to pass to scipy&#39;s interp1d; indicates the</span>
+<span class="sd">            kind of interpolation approach to use. See interp1d docs for</span>
+<span class="sd">            valid values.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="c1"># Store old sampling rate-based variables</span>
         <span class="n">sampling_rate</span> <span class="o">=</span> <span class="n">sampling_rate</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">sampling_rate</span>
@@ -437,32 +485,43 @@
 <div class="viewcode-block" id="BIDSRunVariableCollection.to_df"><a class="viewcode-back" href="../../../generated/bids.variables.kollekshuns.html#bids.variables.BIDSRunVariableCollection.to_df">[docs]</a>    <span class="k">def</span> <span class="nf">to_df</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">variables</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;wide&#39;</span><span class="p">,</span> <span class="n">sparse</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
               <span class="n">sampling_rate</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">include_sparse</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">include_dense</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
               <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-        <span class="sd">&#39;&#39;&#39; Merge columns into a single pandas DataFrame.</span>
+        <span class="sd">&quot;&quot;&quot;Merge columns into a single pandas DataFrame.</span>
 
-<span class="sd">        Args:</span>
-<span class="sd">            variables (list): Optional list of variable names to retain;</span>
-<span class="sd">                if None, all variables are written out.</span>
-<span class="sd">            format (str): Whether to return a DataFrame in &#39;wide&#39; or &#39;long&#39;</span>
-<span class="sd">                format. In &#39;wide&#39; format, each row is defined by a unique</span>
-<span class="sd">                onset/duration, and each variable is in a separate column. In</span>
-<span class="sd">                &#39;long&#39; format, each row is a unique combination of onset,</span>
-<span class="sd">                duration, and variable name, and a single &#39;amplitude&#39; column</span>
-<span class="sd">                provides the value.</span>
-<span class="sd">            sparse (bool): If True, variables will be kept in a sparse</span>
-<span class="sd">                format provided they are all internally represented as such.</span>
-<span class="sd">                If False, a dense matrix (i.e., uniform sampling rate for all</span>
-<span class="sd">                events) will be exported. Will be ignored if at least one</span>
-<span class="sd">                variable is dense.</span>
-<span class="sd">            sampling_rate (float): If a dense matrix is written out, the</span>
-<span class="sd">                sampling rate (in Hz) to use for downsampling. Defaults to the</span>
-<span class="sd">                value currently set in the instance.</span>
-<span class="sd">            kwargs: Optional keyword arguments to pass onto each Variable&#39;s</span>
-<span class="sd">                to_df() call (e.g., condition, entities, and timing).</span>
-<span class="sd">            include_sparse (bool): Whether or not to include sparse Variables.</span>
-<span class="sd">            include_dense (bool): Whether or not to include dense Variables.</span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        variables : list</span>
+<span class="sd">            Optional list of variable names to retain;</span>
+<span class="sd">            if None, all variables are written out.</span>
+<span class="sd">        format : str</span>
+<span class="sd">            Whether to return a DataFrame in &#39;wide&#39; or &#39;long&#39;</span>
+<span class="sd">            format. In &#39;wide&#39; format, each row is defined by a unique</span>
+<span class="sd">            onset/duration, and each variable is in a separate column. In</span>
+<span class="sd">            &#39;long&#39; format, each row is a unique combination of onset,</span>
+<span class="sd">            duration, and variable name, and a single &#39;amplitude&#39; column</span>
+<span class="sd">            provides the value.</span>
+<span class="sd">        sparse : bool</span>
+<span class="sd">            If True, variables will be kept in a sparse</span>
+<span class="sd">            format provided they are all internally represented as such.</span>
+<span class="sd">            If False, a dense matrix (i.e., uniform sampling rate for all</span>
+<span class="sd">            events) will be exported. Will be ignored if at least one</span>
+<span class="sd">            variable is dense.</span>
+<span class="sd">        sampling_rate : float</span>
+<span class="sd">            If a dense matrix is written out, the</span>
+<span class="sd">            sampling rate (in Hz) to use for downsampling. Defaults to the</span>
+<span class="sd">            value currently set in the instance.</span>
+<span class="sd">        kwargs : dict</span>
+<span class="sd">            Optional keyword arguments to pass onto each Variable&#39;s</span>
+<span class="sd">            to_df() call (e.g., condition, entities, and timing).</span>
+<span class="sd">        include_sparse : bool</span>
+<span class="sd">            Whether or not to include sparse Variables.</span>
+<span class="sd">        include_dense : bool</span>
+<span class="sd">            Whether or not to include dense Variables.</span>
 
-<span class="sd">        Returns: A pandas DataFrame.</span>
-<span class="sd">        &#39;&#39;&#39;</span>
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        :obj:`pandas.DataFrame`</span>
+<span class="sd">            A pandas DataFrame.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="k">if</span> <span class="ow">not</span> <span class="n">include_sparse</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">include_dense</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;You can&#39;t exclude both dense and sparse &quot;</span>
@@ -499,18 +558,22 @@
 
 
 <div class="viewcode-block" id="merge_collections"><a class="viewcode-back" href="../../../generated/bids.variables.merge_collections.html#bids.variables.merge_collections">[docs]</a><span class="k">def</span> <span class="nf">merge_collections</span><span class="p">(</span><span class="n">collections</span><span class="p">,</span> <span class="n">force_dense</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">sampling_rate</span><span class="o">=</span><span class="s1">&#39;auto&#39;</span><span class="p">):</span>
-    <span class="sd">&#39;&#39;&#39; Merge two or more collections at the same level of analysis.</span>
+    <span class="sd">&quot;&quot;&quot;Merge two or more collections at the same level of analysis.</span>
 
-<span class="sd">    Args:</span>
-<span class="sd">        collections (list): List of Collections to merge.</span>
-<span class="sd">        sampling_rate (int, str): Sampling rate to use if it becomes necessary</span>
-<span class="sd">            to resample DenseRunVariables. Either an integer or &#39;auto&#39; (see</span>
-<span class="sd">            merge_variables docstring for further explanation).</span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    collections : list</span>
+<span class="sd">        List of Collections to merge.</span>
+<span class="sd">    sampling_rate : int or str</span>
+<span class="sd">        Sampling rate to use if it becomes necessary</span>
+<span class="sd">        to resample DenseRunVariables. Either an integer or &#39;auto&#39; (see</span>
+<span class="sd">        merge_variables docstring for further explanation).</span>
 
-<span class="sd">    Returns:</span>
-<span class="sd">        A BIDSVariableCollection or BIDSRunVariableCollection, depending</span>
-<span class="sd">        on the type of the input collections.</span>
-<span class="sd">    &#39;&#39;&#39;</span>
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    BIDSVariableCollection or BIDSRunVariableCollection</span>
+<span class="sd">        Result type depends on the type of the input collections.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">listify</span><span class="p">(</span><span class="n">collections</span><span class="p">))</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">collections</span>
 

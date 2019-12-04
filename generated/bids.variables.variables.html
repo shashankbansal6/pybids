@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>bids.variables.variables &mdash; PyBIDS 0.9.4+16.g0a14a17 documentation</title>
+  <title>bids.variables.variables &mdash; PyBIDS 0.10.0 documentation</title>
   
 
   
@@ -246,15 +246,17 @@
 <dt id="bids.variables.variables.BIDSVariable.apply">
 <code class="sig-name descname">apply</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">func</em>, <em class="sig-param">groupby='run'</em>, <em class="sig-param">*args</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bids/variables/variables.html#BIDSVariable.apply"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bids.variables.variables.BIDSVariable.apply" title="Permalink to this definition">¶</a></dt>
 <dd><p>Applies the passed function to the groups defined by the groupby
-argument. Works identically to the standard pandas df.groupby() call.
-:param func: The function to apply to each group.
-:type func: callable
-:param groupby: Name(s) of column(s) defining the grouping.
-:type groupby: str, list
-:param args, kwargs: Optional positional and keyword arguments to pass</p>
-<blockquote>
-<div><p>onto the function call.</p>
-</div></blockquote>
+argument. Works identically to the standard pandas df.groupby() call.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>func</strong> (<em>callable</em>) – The function to apply to each group.</p></li>
+<li><p><strong>groupby</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#list" title="(in Python v3.5)"><em>list</em></a>) – Name(s) of column(s) defining the grouping.</p></li>
+<li><p><strong>kwargs</strong> (<em>args</em><em>,</em>) – Optional positional and keyword arguments to pass
+onto the function call.</p></li>
+</ul>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="method">
@@ -265,7 +267,7 @@ data and/or any other attributes.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>data</strong> (<em>DataFrame</em><em>, </em><em>ndarray</em>) – Optional new data to substitute into
+<li><p><strong>data</strong> (<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v0.25.3)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code></a> or array_like) – Optional new data to substitute into
 the cloned column. Must have same dimensionality as the
 original.</p></li>
 <li><p><strong>kwargs</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#dict" title="(in Python v3.5)"><em>dict</em></a>) – Optional keyword arguments containing new attribute
@@ -299,7 +301,10 @@ a filtered copy of the Variable is returned.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p>A BIDSVariable, or None if no rows are left after filtering.</p>
+<dd class="field-even"><p></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#bids.variables.variables.BIDSVariable" title="bids.variables.variables.BIDSVariable">BIDSVariable</a> or None if no rows are left after filtering.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -307,15 +312,18 @@ a filtered copy of the Variable is returned.</p></li>
 <dl class="method">
 <dt id="bids.variables.variables.BIDSVariable.get_grouper">
 <code class="sig-name descname">get_grouper</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">groupby='run'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bids/variables/variables.html#BIDSVariable.get_grouper"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bids.variables.variables.BIDSVariable.get_grouper" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return a list suitable for use in groupby calls.
-:param groupby: Name(s) of column(s) defining the grouper</p>
-<blockquote>
-<div><p>object. Anything that would be valid inside a .groupby() call
-on a pandas structure.</p>
-</div></blockquote>
+<dd><p>Return a list suitable for use in groupby calls.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>A list defining the groups.</p>
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>groupby</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#list" title="(in Python v3.5)"><em>list</em></a>) – Name(s) of column(s) defining the grouper
+object. Anything that would be valid inside a .groupby() call
+on a pandas structure.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A list defining the groups.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#list" title="(in Python v3.5)">list</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -336,30 +344,36 @@ on a pandas structure.</p>
 <li><p><strong>variables</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#list" title="(in Python v3.5)"><em>list</em></a>) – A list of Variables to merge.</p></li>
 <li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a>) – Optional name to assign to the output Variable. By
 default, uses the same name as the input variables.</p></li>
-<li><p><strong>kwargs</strong> – Optional keyword arguments to pass onto the class-specific
+<li><p><strong>kwargs</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#dict" title="(in Python v3.5)"><em>dict</em></a>) – Optional keyword arguments to pass onto the class-specific
 merge() call. See merge_variables docstring for details.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p>A single BIDSVariable of the same class as the input variables.</p>
+<dd class="field-even"><p></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>A single BIDSVariable of the same class as the input variables.</p>
 </dd>
 </dl>
-<p>Notes: see merge_variables docstring for additional details.</p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference internal" href="#bids.variables.variables.merge_variables" title="bids.variables.variables.merge_variables"><code class="xref py py-meth docutils literal notranslate"><span class="pre">merge_variables()</span></code></a></p>
+</div>
 </dd></dl>
 
 <dl class="method">
 <dt id="bids.variables.variables.BIDSVariable.to_df">
 <code class="sig-name descname">to_df</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">condition=True</em>, <em class="sig-param">entities=True</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bids/variables/variables.html#BIDSVariable.to_df"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bids.variables.variables.BIDSVariable.to_df" title="Permalink to this definition">¶</a></dt>
-<dd><p>Convert to a DataFrame, with columns for name and entities.
-:param condition: If True, adds a column for condition name, and</p>
-<blockquote>
-<div><p>names the amplitude column ‘amplitude’. If False, returns just
-onset, duration, and amplitude, and gives the amplitude column
-the current column name.</p>
-</div></blockquote>
+<dd><p>Convert to a DataFrame, with columns for name and entities.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>entities</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#bool" title="(in Python v3.5)"><em>bool</em></a>) – If True, adds extra columns for all entities.</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>condition</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#bool" title="(in Python v3.5)"><em>bool</em></a>) – If True, adds a column for condition name, and
+names the amplitude column ‘amplitude’. If False, returns just
+onset, duration, and amplitude, and gives the amplitude column
+the current column name.</p></li>
+<li><p><strong>entities</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#bool" title="(in Python v3.5)"><em>bool</em></a>) – If True, adds extra columns for all entities.</p></li>
+</ul>
 </dd>
 </dl>
 </dd></dl>
@@ -423,15 +437,17 @@ to generate the values. If None, the collection’s sampling rate will be used.<
 <dt id="bids.variables.variables.DenseRunVariable.apply">
 <code class="sig-name descname">apply</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">func</em>, <em class="sig-param">groupby='run'</em>, <em class="sig-param">*args</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#bids.variables.variables.DenseRunVariable.apply" title="Permalink to this definition">¶</a></dt>
 <dd><p>Applies the passed function to the groups defined by the groupby
-argument. Works identically to the standard pandas df.groupby() call.
-:param func: The function to apply to each group.
-:type func: callable
-:param groupby: Name(s) of column(s) defining the grouping.
-:type groupby: str, list
-:param args, kwargs: Optional positional and keyword arguments to pass</p>
-<blockquote>
-<div><p>onto the function call.</p>
-</div></blockquote>
+argument. Works identically to the standard pandas df.groupby() call.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>func</strong> (<em>callable</em>) – The function to apply to each group.</p></li>
+<li><p><strong>groupby</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#list" title="(in Python v3.5)"><em>list</em></a>) – Name(s) of column(s) defining the grouping.</p></li>
+<li><p><strong>kwargs</strong> (<em>args</em><em>,</em>) – Optional positional and keyword arguments to pass
+onto the function call.</p></li>
+</ul>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="method">
@@ -442,7 +458,7 @@ data and/or any other attributes.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>data</strong> (<em>DataFrame</em><em>, </em><em>ndarray</em>) – Optional new data to substitute into
+<li><p><strong>data</strong> (<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v0.25.3)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code></a> or array_like) – Optional new data to substitute into
 the cloned column. Must have same dimensionality as the
 original.</p></li>
 <li><p><strong>kwargs</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#dict" title="(in Python v3.5)"><em>dict</em></a>) – Optional keyword arguments containing new attribute
@@ -476,7 +492,10 @@ a filtered copy of the Variable is returned.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p>A BIDSVariable, or None if no rows are left after filtering.</p>
+<dd class="field-even"><p></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#bids.variables.variables.BIDSVariable" title="bids.variables.variables.BIDSVariable">BIDSVariable</a> or None if no rows are left after filtering.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -484,15 +503,18 @@ a filtered copy of the Variable is returned.</p></li>
 <dl class="method">
 <dt id="bids.variables.variables.DenseRunVariable.get_grouper">
 <code class="sig-name descname">get_grouper</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">groupby='run'</em><span class="sig-paren">)</span><a class="headerlink" href="#bids.variables.variables.DenseRunVariable.get_grouper" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return a list suitable for use in groupby calls.
-:param groupby: Name(s) of column(s) defining the grouper</p>
-<blockquote>
-<div><p>object. Anything that would be valid inside a .groupby() call
-on a pandas structure.</p>
-</div></blockquote>
+<dd><p>Return a list suitable for use in groupby calls.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>A list defining the groups.</p>
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>groupby</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#list" title="(in Python v3.5)"><em>list</em></a>) – Name(s) of column(s) defining the grouper
+object. Anything that would be valid inside a .groupby() call
+on a pandas structure.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A list defining the groups.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#list" title="(in Python v3.5)">list</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -513,15 +535,21 @@ on a pandas structure.</p>
 <li><p><strong>variables</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#list" title="(in Python v3.5)"><em>list</em></a>) – A list of Variables to merge.</p></li>
 <li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a>) – Optional name to assign to the output Variable. By
 default, uses the same name as the input variables.</p></li>
-<li><p><strong>kwargs</strong> – Optional keyword arguments to pass onto the class-specific
+<li><p><strong>kwargs</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#dict" title="(in Python v3.5)"><em>dict</em></a>) – Optional keyword arguments to pass onto the class-specific
 merge() call. See merge_variables docstring for details.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p>A single BIDSVariable of the same class as the input variables.</p>
+<dd class="field-even"><p></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>A single BIDSVariable of the same class as the input variables.</p>
 </dd>
 </dl>
-<p>Notes: see merge_variables docstring for additional details.</p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference internal" href="#bids.variables.variables.merge_variables" title="bids.variables.variables.merge_variables"><code class="xref py py-meth docutils literal notranslate"><span class="pre">merge_variables()</span></code></a></p>
+</div>
 </dd></dl>
 
 <dl class="method">
@@ -534,7 +562,7 @@ merge() call. See merge_variables docstring for details.</p></li>
 <li><p><strong>sampling_rate</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#int" title="(in Python v3.5)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">int</span></code></a>, <a class="reference external" href="https://docs.python.org/3.5/library/functions.html#float" title="(in Python v3.5)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">float</span></code></a>) – Target sampling rate (in Hz).</p></li>
 <li><p><strong>inplace</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#bool" title="(in Python v3.5)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">bool</span></code></a>, optional) – If True, performs resampling in-place. If False, returns a resampled
 copy of the current Variable. Default is False.</p></li>
-<li><p><strong>kind</strong> (<em>{'linear'</em><em>, </em><em>'nearest'</em><em>, </em><em>'zero'</em><em>, </em><em>'slinear'</em><em>, </em><em>'quadratic'</em><em>, </em><em>'cubic'}</em>) – Argument to pass to <a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.interpolate.interp1d.html#scipy.interpolate.interp1d" title="(in SciPy v1.3.0)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">scipy.interpolate.interp1d</span></code></a>; indicates
+<li><p><strong>kind</strong> (<em>{'linear'</em><em>, </em><em>'nearest'</em><em>, </em><em>'zero'</em><em>, </em><em>'slinear'</em><em>, </em><em>'quadratic'</em><em>, </em><em>'cubic'}</em>) – Argument to pass to <a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.interpolate.interp1d.html#scipy.interpolate.interp1d" title="(in SciPy v1.3.3)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">scipy.interpolate.interp1d</span></code></a>; indicates
 the kind of interpolation approach to use. See interp1d docs for
 valid values. Default is ‘linear’.</p></li>
 </ul>
@@ -548,7 +576,7 @@ valid values. Default is ‘linear’.</p></li>
 <dd><p>Split the current DenseRunVariable into multiple columns.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>grouper</strong> (<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v0.25.1)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code></a>) – Binary DF specifying the design matrix to use for splitting. Number
+<dd class="field-odd"><p><strong>grouper</strong> (<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v0.25.3)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code></a>) – Binary DF specifying the design matrix to use for splitting. Number
 of rows must match current <code class="docutils literal notranslate"><span class="pre">DenseRunVariable</span></code>; a new <code class="docutils literal notranslate"><span class="pre">DenseRunVariable</span></code>
 will be generated for each column in the grouper.</p>
 </dd>
@@ -590,12 +618,12 @@ information.</p>
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a>) – Name of the column.</p></li>
-<li><p><strong>data</strong> (<em>DataFrame</em>) – A pandas DataFrame minimally containing a column
+<li><p><strong>data</strong> (<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v0.25.3)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code></a>) – A pandas DataFrame minimally containing a column
 named ‘amplitude’ as well as any identifying entities.</p></li>
 <li><p><strong>source</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a>) – The type of BIDS variable file the data were extracted
 from. Must be one of: ‘events’, ‘physio’, ‘stim’, ‘regressors’,
 ‘scans’, ‘sessions’, ‘participants’, or ‘beh’.</p></li>
-<li><p><strong>kwargs</strong> – Optional keyword arguments passed onto superclass.</p></li>
+<li><p><strong>kwargs</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#dict" title="(in Python v3.5)"><em>dict</em></a>) – Optional keyword arguments passed onto superclass.</p></li>
 </ul>
 </dd>
 </dl>
@@ -639,15 +667,17 @@ from. Must be one of: ‘events’, ‘physio’, ‘stim’, ‘regressors’,
 <dt id="bids.variables.variables.SimpleVariable.apply">
 <code class="sig-name descname">apply</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">func</em>, <em class="sig-param">groupby='run'</em>, <em class="sig-param">*args</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#bids.variables.variables.SimpleVariable.apply" title="Permalink to this definition">¶</a></dt>
 <dd><p>Applies the passed function to the groups defined by the groupby
-argument. Works identically to the standard pandas df.groupby() call.
-:param func: The function to apply to each group.
-:type func: callable
-:param groupby: Name(s) of column(s) defining the grouping.
-:type groupby: str, list
-:param args, kwargs: Optional positional and keyword arguments to pass</p>
-<blockquote>
-<div><p>onto the function call.</p>
-</div></blockquote>
+argument. Works identically to the standard pandas df.groupby() call.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>func</strong> (<em>callable</em>) – The function to apply to each group.</p></li>
+<li><p><strong>groupby</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#list" title="(in Python v3.5)"><em>list</em></a>) – Name(s) of column(s) defining the grouping.</p></li>
+<li><p><strong>kwargs</strong> (<em>args</em><em>,</em>) – Optional positional and keyword arguments to pass
+onto the function call.</p></li>
+</ul>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="method">
@@ -658,7 +688,7 @@ data and/or any other attributes.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>data</strong> (<em>DataFrame</em><em>, </em><em>ndarray</em>) – Optional new data to substitute into
+<li><p><strong>data</strong> (<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v0.25.3)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code></a> or array_like) – Optional new data to substitute into
 the cloned column. Must have same dimensionality as the
 original.</p></li>
 <li><p><strong>kwargs</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#dict" title="(in Python v3.5)"><em>dict</em></a>) – Optional keyword arguments containing new attribute
@@ -692,7 +722,10 @@ a filtered copy of the Variable is returned.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p>A BIDSVariable, or None if no rows are left after filtering.</p>
+<dd class="field-even"><p></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#bids.variables.variables.BIDSVariable" title="bids.variables.variables.BIDSVariable">BIDSVariable</a> or None if no rows are left after filtering.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -700,15 +733,18 @@ a filtered copy of the Variable is returned.</p></li>
 <dl class="method">
 <dt id="bids.variables.variables.SimpleVariable.get_grouper">
 <code class="sig-name descname">get_grouper</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">groupby='run'</em><span class="sig-paren">)</span><a class="headerlink" href="#bids.variables.variables.SimpleVariable.get_grouper" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return a list suitable for use in groupby calls.
-:param groupby: Name(s) of column(s) defining the grouper</p>
-<blockquote>
-<div><p>object. Anything that would be valid inside a .groupby() call
-on a pandas structure.</p>
-</div></blockquote>
+<dd><p>Return a list suitable for use in groupby calls.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>A list defining the groups.</p>
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>groupby</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#list" title="(in Python v3.5)"><em>list</em></a>) – Name(s) of column(s) defining the grouper
+object. Anything that would be valid inside a .groupby() call
+on a pandas structure.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A list defining the groups.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#list" title="(in Python v3.5)">list</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -729,15 +765,21 @@ on a pandas structure.</p>
 <li><p><strong>variables</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#list" title="(in Python v3.5)"><em>list</em></a>) – A list of Variables to merge.</p></li>
 <li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a>) – Optional name to assign to the output Variable. By
 default, uses the same name as the input variables.</p></li>
-<li><p><strong>kwargs</strong> – Optional keyword arguments to pass onto the class-specific
+<li><p><strong>kwargs</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#dict" title="(in Python v3.5)"><em>dict</em></a>) – Optional keyword arguments to pass onto the class-specific
 merge() call. See merge_variables docstring for details.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p>A single BIDSVariable of the same class as the input variables.</p>
+<dd class="field-even"><p></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>A single BIDSVariable of the same class as the input variables.</p>
 </dd>
 </dl>
-<p>Notes: see merge_variables docstring for additional details.</p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference internal" href="#bids.variables.variables.merge_variables" title="bids.variables.variables.merge_variables"><code class="xref py py-meth docutils literal notranslate"><span class="pre">merge_variables()</span></code></a></p>
+</div>
 </dd></dl>
 
 <dl class="method">
@@ -746,7 +788,7 @@ merge() call. See merge_variables docstring for details.</p></li>
 <dd><p>Truncate internal arrays to keep only the specified rows.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>rows</strong> (<em>array</em>) – An integer or boolean array identifying the indices
+<dd class="field-odd"><p><strong>rows</strong> (<em>array_like</em>) – An integer or boolean array identifying the indices
 of rows to keep.</p>
 </dd>
 </dl>
@@ -758,12 +800,16 @@ of rows to keep.</p>
 <dd><p>Split the current SparseRunVariable into multiple columns.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>grouper</strong> (<em>iterable</em>) – list to groupby, where each unique value will
-be taken as the name of the resulting column.</p>
+<dd class="field-odd"><p><strong>grouper</strong> (<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v0.25.3)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code></a>) – Binary DF specifying the design matrix to use for splitting. Number
+of rows must match current <code class="docutils literal notranslate"><span class="pre">SparseRunVariable</span></code>;
+a new <code class="docutils literal notranslate"><span class="pre">SparseRunVariable</span></code> will be generated for each column in
+the grouper.</p>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p>A list of SparseRunVariables, one per unique value in the
-grouper.</p>
+<dd class="field-even"><p></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>A list of SparseRunVariables, one per column in the grouper DF.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -771,16 +817,16 @@ grouper.</p>
 <dl class="method">
 <dt id="bids.variables.variables.SimpleVariable.to_df">
 <code class="sig-name descname">to_df</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">condition=True</em>, <em class="sig-param">entities=True</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#bids.variables.variables.SimpleVariable.to_df" title="Permalink to this definition">¶</a></dt>
-<dd><p>Convert to a DataFrame, with columns for name and entities.
-:param condition: If True, adds a column for condition name, and</p>
-<blockquote>
-<div><p>names the amplitude column ‘amplitude’. If False, returns just
-onset, duration, and amplitude, and gives the amplitude column
-the current column name.</p>
-</div></blockquote>
+<dd><p>Convert to a DataFrame, with columns for name and entities.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>entities</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#bool" title="(in Python v3.5)"><em>bool</em></a>) – If True, adds extra columns for all entities.</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>condition</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#bool" title="(in Python v3.5)"><em>bool</em></a>) – If True, adds a column for condition name, and
+names the amplitude column ‘amplitude’. If False, returns just
+onset, duration, and amplitude, and gives the amplitude column
+the current column name.</p></li>
+<li><p><strong>entities</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#bool" title="(in Python v3.5)"><em>bool</em></a>) – If True, adds extra columns for all entities.</p></li>
+</ul>
 </dd>
 </dl>
 </dd></dl>
@@ -795,14 +841,14 @@ the current column name.</p>
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a>) – Name of the column.</p></li>
-<li><p><strong>data</strong> (<em>DataFrame</em>) – A pandas DataFrame minimally containing the columns
+<li><p><strong>data</strong> (<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v0.25.3)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code></a>) – A pandas DataFrame minimally containing the columns
 ‘onset’, ‘duration’, and ‘amplitude’.</p></li>
 <li><p><strong>run_info</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#list" title="(in Python v3.5)"><em>list</em></a>) – A list of RunInfo objects carrying information about
 all runs represented in the Variable.</p></li>
 <li><p><strong>source</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a>) – The type of BIDS variable file the data were extracted
 from. Must be one of: ‘events’, ‘physio’, ‘stim’, ‘regressors’,
 ‘scans’, ‘sessions’, ‘participants’, or ‘beh’.</p></li>
-<li><p><strong>kwargs</strong> – Optional keyword arguments passed onto superclass.</p></li>
+<li><p><strong>kwargs</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#dict" title="(in Python v3.5)"><em>dict</em></a>) – Optional keyword arguments passed onto superclass.</p></li>
 </ul>
 </dd>
 </dl>
@@ -852,15 +898,17 @@ from. Must be one of: ‘events’, ‘physio’, ‘stim’, ‘regressors’,
 <dt id="bids.variables.variables.SparseRunVariable.apply">
 <code class="sig-name descname">apply</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">func</em>, <em class="sig-param">groupby='run'</em>, <em class="sig-param">*args</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#bids.variables.variables.SparseRunVariable.apply" title="Permalink to this definition">¶</a></dt>
 <dd><p>Applies the passed function to the groups defined by the groupby
-argument. Works identically to the standard pandas df.groupby() call.
-:param func: The function to apply to each group.
-:type func: callable
-:param groupby: Name(s) of column(s) defining the grouping.
-:type groupby: str, list
-:param args, kwargs: Optional positional and keyword arguments to pass</p>
-<blockquote>
-<div><p>onto the function call.</p>
-</div></blockquote>
+argument. Works identically to the standard pandas df.groupby() call.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>func</strong> (<em>callable</em>) – The function to apply to each group.</p></li>
+<li><p><strong>groupby</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#list" title="(in Python v3.5)"><em>list</em></a>) – Name(s) of column(s) defining the grouping.</p></li>
+<li><p><strong>kwargs</strong> (<em>args</em><em>,</em>) – Optional positional and keyword arguments to pass
+onto the function call.</p></li>
+</ul>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="method">
@@ -871,7 +919,7 @@ data and/or any other attributes.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>data</strong> (<em>DataFrame</em><em>, </em><em>ndarray</em>) – Optional new data to substitute into
+<li><p><strong>data</strong> (<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v0.25.3)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code></a> or array_like) – Optional new data to substitute into
 the cloned column. Must have same dimensionality as the
 original.</p></li>
 <li><p><strong>kwargs</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#dict" title="(in Python v3.5)"><em>dict</em></a>) – Optional keyword arguments containing new attribute
@@ -905,7 +953,10 @@ a filtered copy of the Variable is returned.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p>A BIDSVariable, or None if no rows are left after filtering.</p>
+<dd class="field-even"><p></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#bids.variables.variables.BIDSVariable" title="bids.variables.variables.BIDSVariable">BIDSVariable</a> or None if no rows are left after filtering.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -919,15 +970,18 @@ a filtered copy of the Variable is returned.</p></li>
 <dl class="method">
 <dt id="bids.variables.variables.SparseRunVariable.get_grouper">
 <code class="sig-name descname">get_grouper</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">groupby='run'</em><span class="sig-paren">)</span><a class="headerlink" href="#bids.variables.variables.SparseRunVariable.get_grouper" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return a list suitable for use in groupby calls.
-:param groupby: Name(s) of column(s) defining the grouper</p>
-<blockquote>
-<div><p>object. Anything that would be valid inside a .groupby() call
-on a pandas structure.</p>
-</div></blockquote>
+<dd><p>Return a list suitable for use in groupby calls.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>A list defining the groups.</p>
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>groupby</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#list" title="(in Python v3.5)"><em>list</em></a>) – Name(s) of column(s) defining the grouper
+object. Anything that would be valid inside a .groupby() call
+on a pandas structure.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A list defining the groups.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#list" title="(in Python v3.5)">list</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -948,15 +1002,21 @@ on a pandas structure.</p>
 <li><p><strong>variables</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#list" title="(in Python v3.5)"><em>list</em></a>) – A list of Variables to merge.</p></li>
 <li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a>) – Optional name to assign to the output Variable. By
 default, uses the same name as the input variables.</p></li>
-<li><p><strong>kwargs</strong> – Optional keyword arguments to pass onto the class-specific
+<li><p><strong>kwargs</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#dict" title="(in Python v3.5)"><em>dict</em></a>) – Optional keyword arguments to pass onto the class-specific
 merge() call. See merge_variables docstring for details.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p>A single BIDSVariable of the same class as the input variables.</p>
+<dd class="field-even"><p></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>A single BIDSVariable of the same class as the input variables.</p>
 </dd>
 </dl>
-<p>Notes: see merge_variables docstring for additional details.</p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference internal" href="#bids.variables.variables.merge_variables" title="bids.variables.variables.merge_variables"><code class="xref py py-meth docutils literal notranslate"><span class="pre">merge_variables()</span></code></a></p>
+</div>
 </dd></dl>
 
 <dl class="method">
@@ -965,7 +1025,7 @@ merge() call. See merge_variables docstring for details.</p></li>
 <dd><p>Truncate internal arrays to keep only the specified rows.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>rows</strong> (<em>array</em>) – An integer or boolean array identifying the indices
+<dd class="field-odd"><p><strong>rows</strong> (<em>array_like</em>) – An integer or boolean array identifying the indices
 of rows to keep.</p>
 </dd>
 </dl>
@@ -977,12 +1037,16 @@ of rows to keep.</p>
 <dd><p>Split the current SparseRunVariable into multiple columns.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>grouper</strong> (<em>iterable</em>) – list to groupby, where each unique value will
-be taken as the name of the resulting column.</p>
+<dd class="field-odd"><p><strong>grouper</strong> (<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v0.25.3)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code></a>) – Binary DF specifying the design matrix to use for splitting. Number
+of rows must match current <code class="docutils literal notranslate"><span class="pre">SparseRunVariable</span></code>;
+a new <code class="docutils literal notranslate"><span class="pre">SparseRunVariable</span></code> will be generated for each column in
+the grouper.</p>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p>A list of SparseRunVariables, one per unique value in the
-grouper.</p>
+<dd class="field-even"><p></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>A list of SparseRunVariables, one per column in the grouper DF.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -990,15 +1054,17 @@ grouper.</p>
 <dl class="method">
 <dt id="bids.variables.variables.SparseRunVariable.to_dense">
 <code class="sig-name descname">to_dense</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">sampling_rate</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bids/variables/variables.html#SparseRunVariable.to_dense"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bids.variables.variables.SparseRunVariable.to_dense" title="Permalink to this definition">¶</a></dt>
-<dd><p>Convert the current sparse column to a dense representation.
-Returns: A DenseRunVariable.</p>
+<dd><p>Convert the current sparse column to a dense representation.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>sampling_rate</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#int" title="(in Python v3.5)"><em>int</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a>) – Sampling rate (in Hz) to use when
+<dd class="field-odd"><p><strong>sampling_rate</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#int" title="(in Python v3.5)"><em>int</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a>) – Sampling rate (in Hz) to use when
 constructing the DenseRunVariable.</p>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p>A DenseRunVariable.</p>
+<dd class="field-even"><p></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="bids.variables.DenseRunVariable.html#bids.variables.DenseRunVariable" title="bids.variables.DenseRunVariable">DenseRunVariable</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -1006,16 +1072,16 @@ constructing the DenseRunVariable.</p>
 <dl class="method">
 <dt id="bids.variables.variables.SparseRunVariable.to_df">
 <code class="sig-name descname">to_df</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">condition=True</em>, <em class="sig-param">entities=True</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#bids.variables.variables.SparseRunVariable.to_df" title="Permalink to this definition">¶</a></dt>
-<dd><p>Convert to a DataFrame, with columns for name and entities.
-:param condition: If True, adds a column for condition name, and</p>
-<blockquote>
-<div><p>names the amplitude column ‘amplitude’. If False, returns just
-onset, duration, and amplitude, and gives the amplitude column
-the current column name.</p>
-</div></blockquote>
+<dd><p>Convert to a DataFrame, with columns for name and entities.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>entities</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#bool" title="(in Python v3.5)"><em>bool</em></a>) – If True, adds extra columns for all entities.</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>condition</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#bool" title="(in Python v3.5)"><em>bool</em></a>) – If True, adds a column for condition name, and
+names the amplitude column ‘amplitude’. If False, returns just
+onset, duration, and amplitude, and gives the amplitude column
+the current column name.</p></li>
+<li><p><strong>entities</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#bool" title="(in Python v3.5)"><em>bool</em></a>) – If True, adds extra columns for all entities.</p></li>
+</ul>
 </dd>
 </dl>
 </dd></dl>

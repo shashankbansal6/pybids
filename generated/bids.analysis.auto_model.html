@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>bids.analysis.auto_model &mdash; PyBIDS 0.9.4+16.g0a14a17 documentation</title>
+  <title>bids.analysis.auto_model &mdash; PyBIDS 0.10.0 documentation</title>
   
 
   
@@ -172,19 +172,24 @@
 <code class="sig-name descname">auto_model</code><span class="sig-paren">(</span><em class="sig-param">layout</em>, <em class="sig-param">scan_length=None</em>, <em class="sig-param">one_vs_rest=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bids/analysis/auto_model.html#auto_model"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bids.analysis.auto_model" title="Permalink to this definition">¶</a></dt>
 <dd><p>Create a simple default model for each of the tasks in a BIDSLayout.
 Contrasts each trial type against all other trial types and trial types
-at the run level and then uses t-tests at each other level present to
-aggregate these results up.</p>
+at the run level and then uses dummy contrasts at each other level
+present to aggregate these results up.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>layout</strong> (<a class="reference internal" href="bids.layout.BIDSLayout.html#bids.layout.BIDSLayout" title="bids.layout.BIDSLayout"><em>BIDSLayout</em></a>) – </p></li>
-<li><p><strong>scan_length</strong> (<em>Int</em>) – where the scan length can not be read from the nifti.
+<li><p><strong>layout</strong> (<a class="reference internal" href="bids.layout.BIDSLayout.html#bids.layout.BIDSLayout" title="bids.layout.BIDSLayout"><code class="xref py py-obj docutils literal notranslate"><span class="pre">bids.layout.BIDSLayout</span></code></a>) – A BIDSLayout instance</p></li>
+<li><p><strong>scan_length</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#int" title="(in Python v3.5)"><em>int</em></a>) – Scan length for loading event varibles in cases
+where the scan length can not be read from the nifti.
 Primarily for testing.</p></li>
-<li><p><strong>one_vs_rest</strong> (<em>Bool</em>) – contrasts of each trial type against everyother trialtype.</p></li>
+<li><p><strong>one_vs_rest</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#bool" title="(in Python v3.5)"><em>bool</em></a>) – Set to True if you would like to autogenerate
+contrasts of each trial type against everyother trialtype.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p>models (list) list of model dictionaries for each task</p>
+<dd class="field-even"><p>list of model dictionaries for each task</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#list" title="(in Python v3.5)">list</a></p>
 </dd>
 </dl>
 </dd></dl>

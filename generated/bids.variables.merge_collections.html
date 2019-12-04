@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>bids.variables.merge_collections &mdash; PyBIDS 0.9.4+16.g0a14a17 documentation</title>
+  <title>bids.variables.merge_collections &mdash; PyBIDS 0.10.0 documentation</title>
   
 
   
@@ -182,14 +182,16 @@
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>collections</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#list" title="(in Python v3.5)"><em>list</em></a>) – List of Collections to merge.</p></li>
-<li><p><strong>sampling_rate</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#int" title="(in Python v3.5)"><em>int</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a>) – Sampling rate to use if it becomes necessary
+<li><p><strong>sampling_rate</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#int" title="(in Python v3.5)"><em>int</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a>) – Sampling rate to use if it becomes necessary
 to resample DenseRunVariables. Either an integer or ‘auto’ (see
 merge_variables docstring for further explanation).</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p>A BIDSVariableCollection or BIDSRunVariableCollection, depending
-on the type of the input collections.</p>
+<dd class="field-even"><p>Result type depends on the type of the input collections.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="bids.variables.BIDSVariableCollection.html#bids.variables.BIDSVariableCollection" title="bids.variables.BIDSVariableCollection">BIDSVariableCollection</a> or <a class="reference internal" href="bids.variables.BIDSRunVariableCollection.html#bids.variables.BIDSRunVariableCollection" title="bids.variables.BIDSRunVariableCollection">BIDSRunVariableCollection</a></p>
 </dd>
 </dl>
 </dd></dl>

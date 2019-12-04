@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>bids.analysis.auto_model &mdash; PyBIDS 0.9.4+16.g0a14a17 documentation</title>
+  <title>bids.analysis.auto_model &mdash; PyBIDS 0.10.0 documentation</title>
   
 
   
@@ -151,35 +151,41 @@
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 
 
-<span class="k">def</span> <span class="nf">_make_passthrough_contrast</span><span class="p">(</span><span class="n">level</span><span class="p">,</span> <span class="n">contrast_names</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">_make_passthrough_contrast</span><span class="p">(</span><span class="n">level</span><span class="p">,</span> <span class="n">contrast_names</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s2">&quot;t&quot;</span><span class="p">):</span>
     <span class="n">block</span> <span class="o">=</span> <span class="n">OrderedDict</span><span class="p">(</span><span class="n">Level</span><span class="o">=</span><span class="n">level</span><span class="p">,</span> <span class="n">Name</span><span class="o">=</span><span class="n">level</span><span class="p">,</span>
                         <span class="n">Model</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;X&#39;</span><span class="p">:</span> <span class="n">contrast_names</span><span class="p">})</span>
     <span class="n">contrasts</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="k">for</span> <span class="n">cn</span> <span class="ow">in</span> <span class="n">contrast_names</span><span class="p">:</span>
         <span class="n">cdict</span> <span class="o">=</span> <span class="n">OrderedDict</span><span class="p">(</span><span class="n">Name</span><span class="o">=</span><span class="n">level</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">+</span> <span class="s2">&quot;_&quot;</span> <span class="o">+</span> <span class="n">cn</span><span class="p">,</span> <span class="n">ConditionList</span><span class="o">=</span><span class="p">[</span><span class="n">cn</span><span class="p">],</span>
-                            <span class="n">Weights</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">Type</span><span class="o">=</span><span class="s1">&#39;t&#39;</span><span class="p">)</span>
+                            <span class="n">Weights</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">Type</span><span class="o">=</span><span class="nb">type</span><span class="p">)</span>
         <span class="n">contrasts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">cdict</span><span class="p">)</span>
     <span class="n">block</span><span class="p">[</span><span class="s2">&quot;Contrasts&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">contrasts</span>
     <span class="k">return</span> <span class="n">block</span>
 
 
 <div class="viewcode-block" id="auto_model"><a class="viewcode-back" href="../../../generated/bids.analysis.auto_model.html#bids.analysis.auto_model">[docs]</a><span class="k">def</span> <span class="nf">auto_model</span><span class="p">(</span><span class="n">layout</span><span class="p">,</span> <span class="n">scan_length</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">one_vs_rest</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
-    <span class="sd">&#39;&#39;&#39;Create a simple default model for each of the tasks in a BIDSLayout.</span>
+    <span class="sd">&quot;&quot;&quot;Create a simple default model for each of the tasks in a BIDSLayout.</span>
 <span class="sd">    Contrasts each trial type against all other trial types and trial types</span>
-<span class="sd">    at the run level and then uses t-tests at each other level present to</span>
-<span class="sd">    aggregate these results up.</span>
+<span class="sd">    at the run level and then uses dummy contrasts at each other level</span>
+<span class="sd">    present to aggregate these results up.</span>
 
-<span class="sd">    Args:</span>
-<span class="sd">        layout (BIDSLayout) A BIDSLayout instance</span>
-<span class="sd">        scan_length (Int) Scan length for loading event varibles in cases</span>
-<span class="sd">             where the scan length can not be read from the nifti.</span>
-<span class="sd">             Primarily for testing.</span>
-<span class="sd">        one_vs_rest (Bool) Set to True if you would like to autogenerate</span>
-<span class="sd">             contrasts of each trial type against everyother trialtype.</span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    layout : :obj:`bids.layout.BIDSLayout`</span>
+<span class="sd">        A BIDSLayout instance</span>
+<span class="sd">    scan_length : int</span>
+<span class="sd">        Scan length for loading event varibles in cases</span>
+<span class="sd">        where the scan length can not be read from the nifti.</span>
+<span class="sd">        Primarily for testing.</span>
+<span class="sd">    one_vs_rest : bool</span>
+<span class="sd">        Set to True if you would like to autogenerate</span>
+<span class="sd">        contrasts of each trial type against everyother trialtype.</span>
 
-<span class="sd">    Returns:</span>
-<span class="sd">        models (list) list of model dictionaries for each task</span>
-<span class="sd">    &#39;&#39;&#39;</span>
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    list</span>
+<span class="sd">        list of model dictionaries for each task</span>
+<span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="n">base_name</span> <span class="o">=</span> <span class="n">split</span><span class="p">(</span><span class="n">layout</span><span class="o">.</span><span class="n">root</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
     <span class="n">tasks</span> <span class="o">=</span> <span class="n">layout</span><span class="o">.</span><span class="n">entities</span><span class="p">[</span><span class="s1">&#39;task&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span>
@@ -248,20 +254,20 @@
             <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">sessions</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
                 <span class="c1"># get contrasts names from previous block</span>
                 <span class="n">contrast_names</span> <span class="o">=</span> <span class="p">[</span><span class="n">cc</span><span class="p">[</span><span class="s2">&quot;Name&quot;</span><span class="p">]</span> <span class="k">for</span> <span class="n">cc</span> <span class="ow">in</span> <span class="n">steps</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="s2">&quot;Contrasts&quot;</span><span class="p">]]</span>
-                <span class="n">steps</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">_make_passthrough_contrast</span><span class="p">(</span><span class="s2">&quot;Session&quot;</span><span class="p">,</span>
-                                                         <span class="n">contrast_names</span><span class="p">))</span>
+                <span class="n">steps</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">_make_passthrough_contrast</span><span class="p">(</span>
+                    <span class="s2">&quot;Session&quot;</span><span class="p">,</span> <span class="n">contrast_names</span><span class="p">,</span> <span class="s2">&quot;FEMA&quot;</span><span class="p">))</span>
 
             <span class="n">subjects</span> <span class="o">=</span> <span class="n">layout</span><span class="o">.</span><span class="n">get_subjects</span><span class="p">()</span>
             <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">subjects</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
                 <span class="c1"># get contrasts names from previous block</span>
                 <span class="n">contrast_names</span> <span class="o">=</span> <span class="p">[</span><span class="n">cc</span><span class="p">[</span><span class="s2">&quot;Name&quot;</span><span class="p">]</span> <span class="k">for</span> <span class="n">cc</span> <span class="ow">in</span> <span class="n">steps</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="s2">&quot;Contrasts&quot;</span><span class="p">]]</span>
-                <span class="n">steps</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">_make_passthrough_contrast</span><span class="p">(</span><span class="s2">&quot;Subject&quot;</span><span class="p">,</span>
-                                                         <span class="n">contrast_names</span><span class="p">))</span>
+                <span class="n">steps</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">_make_passthrough_contrast</span><span class="p">(</span>
+                    <span class="s2">&quot;Subject&quot;</span><span class="p">,</span> <span class="n">contrast_names</span><span class="p">,</span> <span class="s2">&quot;FEMA&quot;</span><span class="p">))</span>
 
             <span class="c1"># get contrasts names from previous block</span>
             <span class="n">contrast_names</span> <span class="o">=</span> <span class="p">[</span><span class="n">cc</span><span class="p">[</span><span class="s2">&quot;Name&quot;</span><span class="p">]</span> <span class="k">for</span> <span class="n">cc</span> <span class="ow">in</span> <span class="n">steps</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="s2">&quot;Contrasts&quot;</span><span class="p">]]</span>
-            <span class="n">steps</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">_make_passthrough_contrast</span><span class="p">(</span><span class="s2">&quot;Dataset&quot;</span><span class="p">,</span>
-                                                     <span class="n">contrast_names</span><span class="p">))</span>
+            <span class="n">steps</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">_make_passthrough_contrast</span><span class="p">(</span>
+                <span class="s2">&quot;Dataset&quot;</span><span class="p">,</span> <span class="n">contrast_names</span><span class="p">,</span> <span class="s2">&quot;t&quot;</span><span class="p">))</span>
 
         <span class="n">model</span><span class="p">[</span><span class="s2">&quot;Steps&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">steps</span>
         <span class="n">task_models</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>

@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>bids.variables.BIDSRunVariableCollection &mdash; PyBIDS 0.9.4+16.g0a14a17 documentation</title>
+  <title>bids.variables.BIDSRunVariableCollection &mdash; PyBIDS 0.10.0 documentation</title>
   
 
   
@@ -189,11 +189,9 @@ dense representations of variables. If None, defaults to 10.</p></li>
 </dd>
 </dl>
 <p class="rubric">Notes</p>
-<ul class="simple">
-<li><p>Variables in the list must all be at the ‘run’ level. For other
+<p>Variables in the list must all be at the ‘run’ level. For other
 levels (session, subject, or dataset), use the
-BIDSVariableCollection.</p></li>
-</ul>
+BIDSVariableCollection.</p>
 <p class="rubric">Methods</p>
 <table class="longtable docutils align-default">
 <colgroup>
@@ -207,8 +205,8 @@ BIDSVariableCollection.</p></li>
 <tr class="row-even"><td><p><a class="reference internal" href="#bids.variables.BIDSRunVariableCollection.from_df" title="bids.variables.BIDSRunVariableCollection.from_df"><code class="xref py py-obj docutils literal notranslate"><span class="pre">from_df</span></code></a>(data[, entities, source])</p></td>
 <td><p>Create a Collection from a pandas DataFrame.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#bids.variables.BIDSRunVariableCollection.match_variables" title="bids.variables.BIDSRunVariableCollection.match_variables"><code class="xref py py-obj docutils literal notranslate"><span class="pre">match_variables</span></code></a>(self, pattern[, return_type])</p></td>
-<td><p>Return columns whose names match the provided regex pattern.</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#bids.variables.BIDSRunVariableCollection.match_variables" title="bids.variables.BIDSRunVariableCollection.match_variables"><code class="xref py py-obj docutils literal notranslate"><span class="pre">match_variables</span></code></a>(self, pattern[, …])</p></td>
+<td><p>Return columns whose names match the provided pattern.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#bids.variables.BIDSRunVariableCollection.matches_entities" title="bids.variables.BIDSRunVariableCollection.matches_entities"><code class="xref py py-obj docutils literal notranslate"><span class="pre">matches_entities</span></code></a>(self, entities[, strict])</p></td>
 <td><p>Checks whether current Collection’s entities match the input.</p></td>
@@ -246,8 +244,8 @@ BIDSVariableCollection.</p></li>
 <tr class="row-odd"><td><p><a class="reference internal" href="#bids.variables.BIDSRunVariableCollection.from_df" title="bids.variables.BIDSRunVariableCollection.from_df"><code class="xref py py-obj docutils literal notranslate"><span class="pre">from_df</span></code></a>(data[, entities, source])</p></td>
 <td><p>Create a Collection from a pandas DataFrame.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#bids.variables.BIDSRunVariableCollection.match_variables" title="bids.variables.BIDSRunVariableCollection.match_variables"><code class="xref py py-obj docutils literal notranslate"><span class="pre">match_variables</span></code></a>(self, pattern[, return_type])</p></td>
-<td><p>Return columns whose names match the provided regex pattern.</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#bids.variables.BIDSRunVariableCollection.match_variables" title="bids.variables.BIDSRunVariableCollection.match_variables"><code class="xref py py-obj docutils literal notranslate"><span class="pre">match_variables</span></code></a>(self, pattern[, …])</p></td>
+<td><p>Return columns whose names match the provided pattern.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#bids.variables.BIDSRunVariableCollection.matches_entities" title="bids.variables.BIDSRunVariableCollection.matches_entities"><code class="xref py py-obj docutils literal notranslate"><span class="pre">matches_entities</span></code></a>(self, entities[, strict])</p></td>
 <td><p>Checks whether current Collection’s entities match the input.</p></td>
@@ -277,31 +275,40 @@ variables are deep-cloned.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>df</strong> (<em>DataFrame</em>) – The DataFrame to convert to a Collection. Each
+<li><p><strong>df</strong> (<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v0.25.3)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code></a>) – The DataFrame to convert to a Collection. Each
 column will be converted to a SimpleVariable.</p></li>
-<li><p><strong>entities</strong> (<em>DataFrame</em>) – An optional second DataFrame containing
+<li><p><strong>entities</strong> (<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v0.25.3)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code></a>) – An optional second DataFrame containing
 entity information.</p></li>
 <li><p><strong>source</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a>) – The value to set as the source for all Variables.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p>A BIDSVariableCollection.</p>
+<dd class="field-even"><p></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="bids.variables.BIDSVariableCollection.html#bids.variables.BIDSVariableCollection" title="bids.variables.BIDSVariableCollection">BIDSVariableCollection</a></p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="method">
 <dt id="bids.variables.BIDSRunVariableCollection.match_variables">
-<code class="sig-name descname">match_variables</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">pattern</em>, <em class="sig-param">return_type='name'</em><span class="sig-paren">)</span><a class="headerlink" href="#bids.variables.BIDSRunVariableCollection.match_variables" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return columns whose names match the provided regex pattern.</p>
+<code class="sig-name descname">match_variables</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">pattern</em>, <em class="sig-param">return_type='name'</em>, <em class="sig-param">match_type='unix'</em><span class="sig-paren">)</span><a class="headerlink" href="#bids.variables.BIDSRunVariableCollection.match_variables" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return columns whose names match the provided pattern.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>pattern</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a>) – A regex pattern to match all variable names against.</p></li>
-<li><p><strong>return_type</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a>) – What to return. Must be one of:
+<li><p><strong>return_type</strong> (<em>{'name'</em><em>, </em><em>'variable'}</em>) – What to return. Must be one of:
 ‘name’: Returns a list of names of matching variables.
 ‘variable’: Returns a list of Variable objects whose names
 match.</p></li>
+<li><p><strong>match_type</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a>) – <dl class="simple">
+<dt>Matching approach to use. Either ‘regex’ (full-blown regular</dt><dd><p>expression matching) or ‘unix’ (unix-style pattern matching
+via the fnmatch module).</p>
+</dd>
+</dl>
+</p></li>
 </ul>
 </dd>
 </dl>
@@ -326,6 +333,9 @@ concatenated together).</p>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>A list of Variables.</p>
 </dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#list" title="(in Python v3.5)">list</a></p>
+</dd>
 </dl>
 </dd></dl>
 
@@ -337,7 +347,7 @@ specified sampling rate.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>sampling_rate</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#int" title="(in Python v3.5)"><em>int</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3.5/library/functions.html#float" title="(in Python v3.5)"><em>float</em></a>) – Target sampling rate (in Hz). If None,
+<li><p><strong>sampling_rate</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#int" title="(in Python v3.5)"><em>int</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3.5/library/functions.html#float" title="(in Python v3.5)"><em>float</em></a>) – Target sampling rate (in Hz). If None,
 uses the instance sampling rate.</p></li>
 <li><p><strong>variables</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#list" title="(in Python v3.5)"><em>list</em></a>) – Optional list of Variables to resample. If None,
 all variables are resampled.</p></li>
@@ -376,14 +386,19 @@ variable is dense.</p></li>
 <li><p><strong>sampling_rate</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#float" title="(in Python v3.5)"><em>float</em></a>) – If a dense matrix is written out, the
 sampling rate (in Hz) to use for downsampling. Defaults to the
 value currently set in the instance.</p></li>
-<li><p><strong>kwargs</strong> – Optional keyword arguments to pass onto each Variable’s
+<li><p><strong>kwargs</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#dict" title="(in Python v3.5)"><em>dict</em></a>) – Optional keyword arguments to pass onto each Variable’s
 to_df() call (e.g., condition, entities, and timing).</p></li>
 <li><p><strong>include_sparse</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#bool" title="(in Python v3.5)"><em>bool</em></a>) – Whether or not to include sparse Variables.</p></li>
 <li><p><strong>include_dense</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#bool" title="(in Python v3.5)"><em>bool</em></a>) – Whether or not to include dense Variables.</p></li>
 </ul>
 </dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A pandas DataFrame.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v0.25.3)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code></a></p>
+</dd>
 </dl>
-<p>Returns: A pandas DataFrame.</p>
 </dd></dl>
 
 </dd></dl>

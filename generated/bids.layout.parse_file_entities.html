@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>bids.layout.parse_file_entities &mdash; PyBIDS 0.9.4+16.g0a14a17 documentation</title>
+  <title>bids.layout.parse_file_entities &mdash; PyBIDS 0.10.0 documentation</title>
   
 
   
@@ -181,20 +181,23 @@
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>filename</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a>) – The filename to parse for entity values</p></li>
-<li><p><strong>entities</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#list" title="(in Python v3.5)"><em>list</em></a>) – An optional list of Entity instances to use in
-extraction. If passed, the config argument is ignored.</p></li>
-<li><p><strong>config</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a><em>, </em><a class="reference internal" href="bids.layout.Config.html#bids.layout.Config" title="bids.layout.Config"><em>Config</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#list" title="(in Python v3.5)"><em>list</em></a>) – One or more Config objects or names of
-configurations to use in matching. Each element must be a Config
-object, or a valid Config name (e.g., ‘bids’ or ‘derivatives’).
-If None, all available configs are used.</p></li>
-<li><p><strong>include_unmatched</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#bool" title="(in Python v3.5)"><em>bool</em></a>) – If True, unmatched entities are included
-in the returned dict, with values set to None. If False
-(default), unmatched entities are ignored.</p></li>
+<li><p><strong>entities</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#list" title="(in Python v3.5)"><em>list</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3.5/library/constants.html#None" title="(in Python v3.5)"><em>None</em></a><em>, </em><em>optional</em>) – An optional list of Entity instances to use in extraction.
+If passed, the config argument is ignored. Default is None.</p></li>
+<li><p><strong>config</strong> (str or <code class="xref py py-obj docutils literal notranslate"><span class="pre">bids.layout.models.Config</span></code> or list or None, optional) – One or more <code class="xref py py-obj docutils literal notranslate"><span class="pre">bids.layout.models.Config</span></code> objects or names of
+configurations to use in matching. Each element must be a
+<code class="xref py py-obj docutils literal notranslate"><span class="pre">bids.layout.models.Config</span></code> object, or a valid
+<code class="xref py py-obj docutils literal notranslate"><span class="pre">bids.layout.models.Config</span></code> name (e.g., ‘bids’ or ‘derivatives’).
+If None, all available configs are used. Default is None.</p></li>
+<li><p><strong>include_unmatched</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#bool" title="(in Python v3.5)"><em>bool</em></a><em>, </em><em>optional</em>) – If True, unmatched entities are included in the returned dict,
+with values set to None.
+If False (default), unmatched entities are ignored.</p></li>
 </ul>
 </dd>
-</dl>
-<dl class="simple">
-<dt>Returns: A dict, where keys are Entity names and values are the</dt><dd><p>values extracted from the filename.</p>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Keys are Entity names and values are the values from the filename.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#dict" title="(in Python v3.5)">dict</a></p>
 </dd>
 </dl>
 </dd></dl>

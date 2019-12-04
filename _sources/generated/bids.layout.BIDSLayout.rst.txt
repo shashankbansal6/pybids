@@ -30,6 +30,7 @@ bids.layout.BIDSLayout
       ~BIDSLayout.get_metadata
       ~BIDSLayout.get_nearest
       ~BIDSLayout.get_tr
+      ~BIDSLayout.load
       ~BIDSLayout.parse_file_entities
       ~BIDSLayout.save
       ~BIDSLayout.to_df

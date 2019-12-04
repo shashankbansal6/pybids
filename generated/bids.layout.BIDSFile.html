@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>bids.layout.BIDSFile &mdash; PyBIDS 0.9.4+16.g0a14a17 documentation</title>
+  <title>bids.layout.BIDSFile &mdash; PyBIDS 0.10.0 documentation</title>
   
 
   
@@ -283,12 +283,12 @@
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>path_patterns</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#list" title="(in Python v3.5)"><em>list</em></a>) – List of patterns use to construct the new
-filename. See build_path documentation for details.</p></li>
+filename. See <code class="xref py py-obj docutils literal notranslate"><span class="pre">build_path</span></code> documentation for details.</p></li>
 <li><p><strong>symbolic_link</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#bool" title="(in Python v3.5)"><em>bool</em></a>) – If True, use a symbolic link to point to the
 existing file. If False, creates a new file.</p></li>
 <li><p><strong>root</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a>) – Optional path to prepend to the constructed filename.</p></li>
-<li><p><strong>conflicts</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a>) – <p>Defines the desired action when the output path
-already exists. Must be one of:</p>
+<li><p><strong>conflicts</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a>) – <p>Defines the desired action when the output path already exists.
+Must be one of:</p>
 <blockquote>
 <div><p>’fail’: raises an exception
 ‘skip’ does nothing
@@ -318,8 +318,13 @@ which the sidecar inherits will only be returned if
 include_parents=True.</p></li>
 </ul>
 </dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A list of BIDSFile instances.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#list" title="(in Python v3.5)">list</a></p>
+</dd>
 </dl>
-<p>Returns: A list of BIDSFile instances.</p>
 </dd></dl>
 
 <dl class="method">
@@ -329,11 +334,11 @@ include_parents=True.</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>metadata</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#bool" title="(in Python v3.5)"><em>bool</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3.5/library/constants.html#None" title="(in Python v3.5)"><em>None</em></a>) – If False (default), only entities defined</p></li>
-<li><p><strong>filenames</strong> (<em>for</em>) – </p></li>
-<li><p><strong>If True</strong><strong>, </strong><strong>only entities found in metadata files</strong><strong> (</strong><strong>and not</strong> (<em>returned.</em>) – </p></li>
-<li><p><strong>for filenames</strong><strong>) </strong><strong>are returned. If None</strong><strong>, </strong><strong>all available</strong> (<em>defined</em>) – </p></li>
-<li><p><strong>are returned.</strong> (<em>entities</em>) – </p></li>
+<li><p><strong>metadata</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#bool" title="(in Python v3.5)"><em>bool</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3.5/library/constants.html#None" title="(in Python v3.5)"><em>None</em></a>) – If False (default), only entities defined
+for filenames (and not those found in the JSON sidecar) are
+returned. If True, only entities found in metadata files (and not
+defined for filenames) are returned. If None, all available
+entities are returned.</p></li>
 <li><p><strong>values</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a>) – <p>The kind of object to return in the dict’s values.
 Must be one of:</p>
 <blockquote>
@@ -346,9 +351,12 @@ Must be one of:</p>
 </p></li>
 </ul>
 </dd>
-</dl>
-<dl class="simple">
-<dt>Returns: A dict, where keys are entity names and values are Entity</dt><dd><p>instances.</p>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A dict, where keys are entity names and values are Entity
+instances.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#dict" title="(in Python v3.5)">dict</a></p>
 </dd>
 </dl>
 </dd></dl>

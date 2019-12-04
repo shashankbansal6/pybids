@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>bids.variables.io &mdash; PyBIDS 0.9.4+16.g0a14a17 documentation</title>
+  <title>bids.variables.io &mdash; PyBIDS 0.10.0 documentation</title>
   
 
   
@@ -194,12 +194,12 @@
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>layout</strong> (<a class="reference internal" href="bids.layout.BIDSLayout.html#bids.layout.BIDSLayout" title="bids.layout.BIDSLayout"><em>BIDSLayout</em></a>) – BIDSLayout containing variable files.</p></li>
-<li><p><strong>types</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#list" title="(in Python v3.5)"><em>list</em></a>) – Types of variables to retrieve. All valid values
+<li><p><strong>layout</strong> (<a class="reference internal" href="bids.layout.BIDSLayout.html#bids.layout.BIDSLayout" title="bids.layout.BIDSLayout"><code class="xref py py-obj docutils literal notranslate"><span class="pre">bids.layout.BIDSLayout</span></code></a>) – BIDSLayout containing variable files.</p></li>
+<li><p><strong>types</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#list" title="(in Python v3.5)"><em>list</em></a>) – Types of variables to retrieve. All valid values
 reflect the filename stipulated in the BIDS spec for each kind of
 variable. Valid values include: ‘events’, ‘physio’, ‘stim’,
 ‘scans’, ‘participants’, ‘sessions’, and ‘regressors’.</p></li>
-<li><p><strong>levels</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#list" title="(in Python v3.5)"><em>list</em></a>) – Optional level(s) of variables to load. Valid
+<li><p><strong>levels</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#list" title="(in Python v3.5)"><em>list</em></a>) – Optional level(s) of variables to load. Valid
 values are ‘run’, ‘session’, ‘subject’, or ‘dataset’. This is
 simply a shorthand way to specify types–e.g., ‘run’ will be
 converted to types=[‘events’, ‘physio’, ‘stim’, ‘regressors’].</p></li>
@@ -210,17 +210,20 @@ filtering operations like dropping NaNs).</p></li>
 loaded data in. Can be used to iteratively construct a dataset
 that contains otherwise heterogeneous sets of variables. If None,
 a new NodeIndex is used.</p></li>
-<li><p><strong>scope</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#list" title="(in Python v3.5)"><em>list</em></a>) – The scope of the space to search for variables. See
+<li><p><strong>scope</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#list" title="(in Python v3.5)"><em>list</em></a>) – The scope of the space to search for variables. See
 docstring for BIDSLayout for details and valid predefined values.</p></li>
-<li><p><strong>kwargs</strong> – Optional keyword arguments to pass onto the individual
+<li><p><strong>kwargs</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#dict" title="(in Python v3.5)"><em>dict</em></a>) – Optional keyword arguments to pass onto the individual
 load_*_variables() calls.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p>A NodeIndex instance.</p>
+<dd class="field-even"><p></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>A NodeIndex instance.</p>
 </dd>
 </dl>
-<p class="rubric">Example</p>
+<p class="rubric">Examples</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">load_variables</span><span class="p">(</span><span class="n">layout</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;events&#39;</span><span class="p">,</span> <span class="s1">&#39;physio&#39;</span><span class="p">],</span> <span class="n">subject</span><span class="o">=</span><span class="s1">&#39;01&#39;</span><span class="p">)</span>
 <span class="go"># returns all variables stored in _events.tsv and _physio.tsv.gz files</span>
 <span class="go"># for runs that belong to subject with id &#39;01&#39;.</span>

@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>bids.layout.Tag &mdash; PyBIDS 0.9.4+16.g0a14a17 documentation</title>
+  <title>bids.layout.Tag &mdash; PyBIDS 0.10.0 documentation</title>
   
 
   
@@ -182,7 +182,7 @@
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>file</strong> (<a class="reference internal" href="bids.layout.BIDSFile.html#bids.layout.BIDSFile" title="bids.layout.BIDSFile"><em>BIDSFile</em></a>) – The associated BIDSFile.</p></li>
 <li><p><strong>entity</strong> (<a class="reference internal" href="bids.layout.Entity.html#bids.layout.Entity" title="bids.layout.Entity"><em>Entity</em></a>) – The associated Entity.</p></li>
-<li><p><strong>value</strong> – The value to store for this file/entity pair. Must be of type
+<li><p><strong>value</strong> (<em>json-serializable type</em>) – The value to store for this file/entity pair. Must be of type
 str, int, float, bool, or any json-serializable structure.</p></li>
 <li><p><strong>dtype</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a>) – Optional type for the value field. If None, inferred from
 value. If passed, must be one of str, int, float, bool, or json.

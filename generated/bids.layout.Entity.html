@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>bids.layout.Entity &mdash; PyBIDS 0.9.4+16.g0a14a17 documentation</title>
+  <title>bids.layout.Entity &mdash; PyBIDS 0.10.0 documentation</title>
   
 
   
@@ -293,8 +293,13 @@ config (False).</p></li>
 <dd class="field-odd"><p><strong>files</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#bool" title="(in Python v3.5)"><em>bool</em></a>) – When True, counts all files mapped to the Entity.
 When False, counts all unique values.</p>
 </dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Count of unique values or files.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.5/library/functions.html#int" title="(in Python v3.5)">int</a></p>
+</dd>
 </dl>
-<p>Returns: an int.</p>
 </dd></dl>
 
 <dl class="method">
@@ -303,10 +308,15 @@ When False, counts all unique values.</p>
 <dd><p>Determine whether the passed file matches the Entity.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>f</strong> (<em>File</em>) – The BIDSFile instance to match against.</p>
+<dd class="field-odd"><p><strong>f</strong> (<a class="reference internal" href="bids.layout.BIDSFile.html#bids.layout.BIDSFile" title="bids.layout.BIDSFile"><em>BIDSFile</em></a>) – The BIDSFile instance to match against.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>the matched value if a match was found, otherwise None.</p>
 </dd>
 </dl>
-<p>Returns: the matched value if a match was found, otherwise None.</p>
 </dd></dl>
 
 <dl class="method">

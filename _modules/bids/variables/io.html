@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>bids.variables.io &mdash; PyBIDS 0.9.4+16.g0a14a17 documentation</title>
+  <title>bids.variables.io &mdash; PyBIDS 0.10.0 documentation</title>
   
 
   
@@ -165,38 +165,48 @@
 
 <div class="viewcode-block" id="load_variables"><a class="viewcode-back" href="../../../generated/bids.variables.load_variables.html#bids.variables.io.load_variables">[docs]</a><span class="k">def</span> <span class="nf">load_variables</span><span class="p">(</span><span class="n">layout</span><span class="p">,</span> <span class="n">types</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">levels</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">skip_empty</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                    <span class="n">dataset</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">scope</span><span class="o">=</span><span class="s1">&#39;all&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-    <span class="sd">&#39;&#39;&#39; A convenience wrapper for one or more load_*_variables() calls.</span>
+    <span class="sd">&quot;&quot;&quot;A convenience wrapper for one or more load_*_variables() calls.</span>
 
-<span class="sd">    Args:</span>
-<span class="sd">        layout (BIDSLayout): BIDSLayout containing variable files.</span>
-<span class="sd">        types (str, list): Types of variables to retrieve. All valid values</span>
-<span class="sd">            reflect the filename stipulated in the BIDS spec for each kind of</span>
-<span class="sd">            variable. Valid values include: &#39;events&#39;, &#39;physio&#39;, &#39;stim&#39;,</span>
-<span class="sd">            &#39;scans&#39;, &#39;participants&#39;, &#39;sessions&#39;, and &#39;regressors&#39;.</span>
-<span class="sd">        levels (str, list): Optional level(s) of variables to load. Valid</span>
-<span class="sd">            values are &#39;run&#39;, &#39;session&#39;, &#39;subject&#39;, or &#39;dataset&#39;. This is</span>
-<span class="sd">            simply a shorthand way to specify types--e.g., &#39;run&#39; will be</span>
-<span class="sd">            converted to types=[&#39;events&#39;, &#39;physio&#39;, &#39;stim&#39;, &#39;regressors&#39;].</span>
-<span class="sd">        skip_empty (bool): Whether or not to skip empty Variables (i.e.,</span>
-<span class="sd">            where there are no rows/records in a file after applying any</span>
-<span class="sd">            filtering operations like dropping NaNs).</span>
-<span class="sd">        dataset (NodeIndex): An existing NodeIndex container to store the</span>
-<span class="sd">            loaded data in. Can be used to iteratively construct a dataset</span>
-<span class="sd">            that contains otherwise heterogeneous sets of variables. If None,</span>
-<span class="sd">            a new NodeIndex is used.</span>
-<span class="sd">        scope (str, list): The scope of the space to search for variables. See</span>
-<span class="sd">            docstring for BIDSLayout for details and valid predefined values.</span>
-<span class="sd">        kwargs: Optional keyword arguments to pass onto the individual</span>
-<span class="sd">            load_*_variables() calls.</span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    layout : :obj:`bids.layout.BIDSLayout`</span>
+<span class="sd">        BIDSLayout containing variable files.</span>
+<span class="sd">    types : str or list</span>
+<span class="sd">        Types of variables to retrieve. All valid values</span>
+<span class="sd">        reflect the filename stipulated in the BIDS spec for each kind of</span>
+<span class="sd">        variable. Valid values include: &#39;events&#39;, &#39;physio&#39;, &#39;stim&#39;,</span>
+<span class="sd">        &#39;scans&#39;, &#39;participants&#39;, &#39;sessions&#39;, and &#39;regressors&#39;.</span>
+<span class="sd">    levels : str or list</span>
+<span class="sd">        Optional level(s) of variables to load. Valid</span>
+<span class="sd">        values are &#39;run&#39;, &#39;session&#39;, &#39;subject&#39;, or &#39;dataset&#39;. This is</span>
+<span class="sd">        simply a shorthand way to specify types--e.g., &#39;run&#39; will be</span>
+<span class="sd">        converted to types=[&#39;events&#39;, &#39;physio&#39;, &#39;stim&#39;, &#39;regressors&#39;].</span>
+<span class="sd">    skip_empty : bool</span>
+<span class="sd">        Whether or not to skip empty Variables (i.e.,</span>
+<span class="sd">        where there are no rows/records in a file after applying any</span>
+<span class="sd">        filtering operations like dropping NaNs).</span>
+<span class="sd">    dataset : NodeIndex</span>
+<span class="sd">        An existing NodeIndex container to store the</span>
+<span class="sd">        loaded data in. Can be used to iteratively construct a dataset</span>
+<span class="sd">        that contains otherwise heterogeneous sets of variables. If None,</span>
+<span class="sd">        a new NodeIndex is used.</span>
+<span class="sd">    scope : str or list</span>
+<span class="sd">        The scope of the space to search for variables. See</span>
+<span class="sd">        docstring for BIDSLayout for details and valid predefined values.</span>
+<span class="sd">    kwargs : dict</span>
+<span class="sd">        Optional keyword arguments to pass onto the individual</span>
+<span class="sd">        load_*_variables() calls.</span>
 
-<span class="sd">    Returns:</span>
-<span class="sd">        A NodeIndex instance.</span>
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    A NodeIndex instance.</span>
 
-<span class="sd">    Example:</span>
-<span class="sd">        &gt;&gt;&gt; load_variables(layout, [&#39;events&#39;, &#39;physio&#39;], subject=&#39;01&#39;)</span>
-<span class="sd">        # returns all variables stored in _events.tsv and _physio.tsv.gz files</span>
-<span class="sd">        # for runs that belong to subject with id &#39;01&#39;.</span>
-<span class="sd">    &#39;&#39;&#39;</span>
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; load_variables(layout, [&#39;events&#39;, &#39;physio&#39;], subject=&#39;01&#39;)</span>
+<span class="sd">    # returns all variables stored in _events.tsv and _physio.tsv.gz files</span>
+<span class="sd">    # for runs that belong to subject with id &#39;01&#39;.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="n">TYPES</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;events&#39;</span><span class="p">,</span> <span class="s1">&#39;physio&#39;</span><span class="p">,</span> <span class="s1">&#39;stim&#39;</span><span class="p">,</span> <span class="s1">&#39;scans&#39;</span><span class="p">,</span> <span class="s1">&#39;participants&#39;</span><span class="p">,</span> <span class="s1">&#39;sessions&#39;</span><span class="p">,</span>
              <span class="s1">&#39;regressors&#39;</span><span class="p">]</span>
@@ -241,38 +251,51 @@
                          <span class="n">drop_na</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">events</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">physio</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">stim</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                          <span class="n">regressors</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">skip_empty</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">scope</span><span class="o">=</span><span class="s1">&#39;all&#39;</span><span class="p">,</span>
                          <span class="o">**</span><span class="n">selectors</span><span class="p">):</span>
-    <span class="sd">&#39;&#39;&#39; Loads all variables found in *_events.tsv files and returns them as a</span>
+    <span class="sd">&quot;&quot;&quot;Loads all variables found in *_events.tsv files and returns them as a</span>
 <span class="sd">    BIDSVariableCollection.</span>
 
-<span class="sd">    Args:</span>
-<span class="sd">        layout (BIDSLayout): A BIDSLayout to scan.</span>
-<span class="sd">        dataset (NodeIndex): A BIDS NodeIndex container. If None, a new one is</span>
-<span class="sd">            initialized.</span>
-<span class="sd">        columns (list): Optional list of names specifying which columns in the</span>
-<span class="sd">            event files to read. By default, reads all columns found.</span>
-<span class="sd">        scan_length (float): Optional duration of runs (in seconds). By</span>
-<span class="sd">            default, this will be extracted from the BOLD image. However, in</span>
-<span class="sd">            cases where the user doesn&#39;t have access to the images (e.g.,</span>
-<span class="sd">            because only file handles are locally available), a fixed duration</span>
-<span class="sd">            can be manually specified as a fallback.</span>
-<span class="sd">        drop_na (bool): If True, removes all events where amplitude is n/a. If</span>
-<span class="sd">            False, leaves n/a values intact. Note that in the latter case,</span>
-<span class="sd">            transformations that requires numeric values may fail.</span>
-<span class="sd">        events (bool): If True, extracts variables from events.tsv</span>
-<span class="sd">            files.</span>
-<span class="sd">        physio (bool): If True, extracts variables from _physio files.</span>
-<span class="sd">        stim (bool): If True, extracts variables from _stim files.</span>
-<span class="sd">        skip_empty (bool): Whether or not to skip empty Variables (i.e.,</span>
-<span class="sd">            where there are no rows/records in a file, or all onsets,</span>
-<span class="sd">            durations, and amplitudes are 0).</span>
-<span class="sd">        scope (str, list): The scope of the space to search for variables. See</span>
-<span class="sd">            docstring for BIDSLayout for details and valid predefined values.</span>
-<span class="sd">        selectors (dict): Optional keyword arguments passed onto the</span>
-<span class="sd">            BIDSLayout instance&#39;s get() method; can be used to constrain</span>
-<span class="sd">            which data are loaded.</span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    layout : :obj:`bids.layout.BIDSLayout`</span>
+<span class="sd">        A BIDSLayout to scan.</span>
+<span class="sd">    dataset : NodeIndex</span>
+<span class="sd">        A BIDS NodeIndex container. If None, a new one is</span>
+<span class="sd">        initialized.</span>
+<span class="sd">    columns : list</span>
+<span class="sd">        Optional list of names specifying which columns in the</span>
+<span class="sd">        event files to read. By default, reads all columns found.</span>
+<span class="sd">    scan_length : float</span>
+<span class="sd">        Optional duration of runs (in seconds). By</span>
+<span class="sd">        default, this will be extracted from the BOLD image. However, in</span>
+<span class="sd">        cases where the user doesn&#39;t have access to the images (e.g.,</span>
+<span class="sd">        because only file handles are locally available), a fixed duration</span>
+<span class="sd">        can be manually specified as a fallback.</span>
+<span class="sd">    drop_na : bool</span>
+<span class="sd">        If True, removes all events where amplitude is n/a. If</span>
+<span class="sd">        False, leaves n/a values intact. Note that in the latter case,</span>
+<span class="sd">        transformations that requires numeric values may fail.</span>
+<span class="sd">    events : bool</span>
+<span class="sd">        If True, extracts variables from events.tsv files.</span>
+<span class="sd">    physio : bool</span>
+<span class="sd">        If True, extracts variables from _physio files.</span>
+<span class="sd">    stim : bool</span>
+<span class="sd">        If True, extracts variables from _stim files.</span>
+<span class="sd">    skip_empty : bool</span>
+<span class="sd">        Whether or not to skip empty Variables (i.e.,</span>
+<span class="sd">        where there are no rows/records in a file, or all onsets,</span>
+<span class="sd">        durations, and amplitudes are 0).</span>
+<span class="sd">    scope : str or list</span>
+<span class="sd">        The scope of the space to search for variables. See</span>
+<span class="sd">        docstring for BIDSLayout for details and valid predefined values.</span>
+<span class="sd">    selectors : dict</span>
+<span class="sd">        Optional keyword arguments passed onto the</span>
+<span class="sd">        BIDSLayout instance&#39;s get() method; can be used to constrain</span>
+<span class="sd">        which data are loaded.</span>
 
-<span class="sd">    Returns: A NodeIndex instance.</span>
-<span class="sd">    &#39;&#39;&#39;</span>
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    A NodeIndex instance.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="c1"># Extract any non-keyword arguments</span>
     <span class="n">selectors</span> <span class="o">=</span> <span class="n">selectors</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
@@ -479,26 +502,36 @@
 
 <span class="k">def</span> <span class="nf">_load_tsv_variables</span><span class="p">(</span><span class="n">layout</span><span class="p">,</span> <span class="n">suffix</span><span class="p">,</span> <span class="n">dataset</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                         <span class="n">prepend_type</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">scope</span><span class="o">=</span><span class="s1">&#39;all&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">selectors</span><span class="p">):</span>
-    <span class="sd">&#39;&#39;&#39; Reads variables from scans.tsv, sessions.tsv, and participants.tsv.</span>
+    <span class="sd">&quot;&quot;&quot;Reads variables from scans.tsv, sessions.tsv, and participants.tsv.</span>
 
-<span class="sd">    Args:</span>
-<span class="sd">        layout (BIDSLayout): The BIDSLayout to use.</span>
-<span class="sd">        suffix (str): The suffix of file to read from. Must be one of &#39;scans&#39;,</span>
-<span class="sd">            &#39;sessions&#39;, or &#39;participants&#39;.</span>
-<span class="sd">        dataset (NodeIndex): A BIDS NodeIndex container. If None, a new one is</span>
-<span class="sd">            initialized.</span>
-<span class="sd">        columns (list): Optional list of names specifying which columns in the</span>
-<span class="sd">            files to return. If None, all columns are returned.</span>
-<span class="sd">        prepend_type (bool): If True, variable names are prepended with the</span>
-<span class="sd">            type name (e.g., &#39;age&#39; becomes &#39;participants.age&#39;).</span>
-<span class="sd">        scope (str, list): The scope of the space to search for variables. See</span>
-<span class="sd">            docstring for BIDSLayout for details and valid predefined values.</span>
-<span class="sd">        selectors (dict): Optional keyword arguments passed onto the</span>
-<span class="sd">            BIDSLayout instance&#39;s get() method; can be used to constrain</span>
-<span class="sd">            which data are loaded.</span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    layout : :obj:`bids.layout.BIDSLayout`</span>
+<span class="sd">        The BIDSLayout to use.</span>
+<span class="sd">    suffix : str</span>
+<span class="sd">        The suffix of file to read from. Must be one of &#39;scans&#39;,</span>
+<span class="sd">        &#39;sessions&#39;, or &#39;participants&#39;.</span>
+<span class="sd">    dataset : NodeIndex</span>
+<span class="sd">        A BIDS NodeIndex container. If None, a new one is</span>
+<span class="sd">        initialized.</span>
+<span class="sd">    columns : list</span>
+<span class="sd">        Optional list of names specifying which columns in the</span>
+<span class="sd">        files to return. If None, all columns are returned.</span>
+<span class="sd">    prepend_type : bool</span>
+<span class="sd">        If True, variable names are prepended with the</span>
+<span class="sd">        type name (e.g., &#39;age&#39; becomes &#39;participants.age&#39;).</span>
+<span class="sd">    scope : str or list</span>
+<span class="sd">        The scope of the space to search for variables. See</span>
+<span class="sd">        docstring for BIDSLayout for details and valid predefined values.</span>
+<span class="sd">    selectors : dict</span>
+<span class="sd">        Optional keyword arguments passed onto the</span>
+<span class="sd">        BIDSLayout instance&#39;s get() method; can be used to constrain</span>
+<span class="sd">        which data are loaded.</span>
 
-<span class="sd">    Returns: A NodeIndex instance.</span>
-<span class="sd">    &#39;&#39;&#39;</span>
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    A NodeIndex instance.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="c1"># Sanitize the selectors: only keep entities at current level or above</span>
     <span class="n">remap</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;scans&#39;</span><span class="p">:</span> <span class="s1">&#39;run&#39;</span><span class="p">,</span> <span class="s1">&#39;sessions&#39;</span><span class="p">:</span> <span class="s1">&#39;session&#39;</span><span class="p">,</span> <span class="s1">&#39;participants&#39;</span><span class="p">:</span> <span class="s1">&#39;subject&#39;</span><span class="p">}</span>

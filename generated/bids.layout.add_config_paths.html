@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>bids.layout.add_config_paths &mdash; PyBIDS 0.9.4+16.g0a14a17 documentation</title>
+  <title>bids.layout.add_config_paths &mdash; PyBIDS 0.10.0 documentation</title>
   
 
   
@@ -179,11 +179,11 @@
 <dd><p>Add to the pool of available configuration files for BIDSLayout.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>kwargs</strong> – dictionary specifying where to find additional config files.
+<dd class="field-odd"><p><strong>kwargs</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#dict" title="(in Python v3.5)"><em>dict</em></a>) – Dictionary specifying where to find additional config files.
 Keys are names, values are paths to the corresponding .json file.</p>
 </dd>
 </dl>
-<p class="rubric">Example</p>
+<p class="rubric">Examples</p>
 <p>&gt; add_config_paths(my_config=’/path/to/config’)
 &gt; layout = BIDSLayout(‘/path/to/bids’, config=[‘bids’, ‘my_config’])</p>
 </dd></dl>

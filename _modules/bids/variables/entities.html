@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>bids.variables.entities &mdash; PyBIDS 0.9.4+16.g0a14a17 documentation</title>
+  <title>bids.variables.entities &mdash; PyBIDS 0.10.0 documentation</title>
   
 
   
@@ -154,13 +154,15 @@
 
 
 <div class="viewcode-block" id="Node"><a class="viewcode-back" href="../../../generated/bids.variables.entities.html#bids.variables.entities.Node">[docs]</a><span class="k">class</span> <span class="nc">Node</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-    <span class="sd">&#39;&#39;&#39; Base class for objects that represent a single object in the BIDS</span>
+    <span class="sd">&quot;&quot;&quot;Base class for objects that represent a single object in the BIDS</span>
 <span class="sd">    hierarchy.</span>
 
-<span class="sd">    Args:</span>
-<span class="sd">        id (int, str): A value uniquely identifying this node. Typically the</span>
-<span class="sd">            entity value extracted from the filename via layout.</span>
-<span class="sd">    &#39;&#39;&#39;</span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    id : int or str</span>
+<span class="sd">        A value uniquely identifying this node. Typically the</span>
+<span class="sd">        entity value extracted from the filename via layout.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">level</span><span class="p">,</span> <span class="n">entities</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">level</span> <span class="o">=</span> <span class="n">level</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
@@ -168,25 +170,34 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">variables</span> <span class="o">=</span> <span class="p">{}</span>
 
 <div class="viewcode-block" id="Node.add_variable"><a class="viewcode-back" href="../../../generated/bids.variables.entities.html#bids.variables.entities.Node.add_variable">[docs]</a>    <span class="k">def</span> <span class="nf">add_variable</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">variable</span><span class="p">):</span>
-        <span class="sd">&#39;&#39;&#39; Adds a BIDSVariable to the current Node&#39;s list.</span>
+        <span class="sd">&quot;&quot;&quot;Adds a BIDSVariable to the current Node&#39;s list.</span>
 
-<span class="sd">        Args:</span>
-<span class="sd">            variable (BIDSVariable): The Variable to add to the list.</span>
-<span class="sd">        &#39;&#39;&#39;</span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        variable : BIDSVariable</span>
+<span class="sd">            The Variable to add to the list.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">variables</span><span class="p">[</span><span class="n">variable</span><span class="o">.</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">variable</span></div></div>
 
 
 <div class="viewcode-block" id="RunNode"><a class="viewcode-back" href="../../../generated/bids.variables.entities.html#bids.variables.entities.RunNode">[docs]</a><span class="k">class</span> <span class="nc">RunNode</span><span class="p">(</span><span class="n">Node</span><span class="p">):</span>
-    <span class="sd">&#39;&#39;&#39; Represents a single Run in a BIDS project.</span>
+    <span class="sd">&quot;&quot;&quot;Represents a single Run in a BIDS project.</span>
 
-<span class="sd">    Args:</span>
-<span class="sd">        id (int): The index of the run.</span>
-<span class="sd">        entities (dict): Dictionary of entities for this Node.</span>
-<span class="sd">        image_file (str): The full path to the corresponding nifti image.</span>
-<span class="sd">        duration (float): Duration of the run, in seconds.</span>
-<span class="sd">        repetition_time (float): TR for the run.</span>
-<span class="sd">        task (str): The task name for this run.</span>
-<span class="sd">    &#39;&#39;&#39;</span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    id : int</span>
+<span class="sd">        The index of the run.</span>
+<span class="sd">    entities : dict</span>
+<span class="sd">        Dictionary of entities for this Node.</span>
+<span class="sd">    image_file : str</span>
+<span class="sd">        The full path to the corresponding nifti image.</span>
+<span class="sd">    duration : float</span>
+<span class="sd">        Duration of the run, in seconds.</span>
+<span class="sd">    repetition_time : float</span>
+<span class="sd">        TR for the run.</span>
+<span class="sd">    task : str</span>
+<span class="sd">        The task name for this run.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">entities</span><span class="p">,</span> <span class="n">image_file</span><span class="p">,</span> <span class="n">duration</span><span class="p">,</span> <span class="n">repetition_time</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">image_file</span> <span class="o">=</span> <span class="n">image_file</span>
@@ -216,35 +227,43 @@
     <span class="k">pass</span></div>
 
 
-<div class="viewcode-block" id="NodeIndex"><a class="viewcode-back" href="../../../generated/bids.variables.entities.html#bids.variables.entities.NodeIndex">[docs]</a><span class="k">class</span> <span class="nc">NodeIndex</span><span class="p">(</span><span class="n">Node</span><span class="p">):</span>
-    <span class="sd">&#39;&#39;&#39; Represents the top level in a BIDS hierarchy. &#39;&#39;&#39;</span>
+<div class="viewcode-block" id="NodeIndex"><a class="viewcode-back" href="../../../generated/bids.variables.entities.html#bids.variables.entities.NodeIndex">[docs]</a><span class="k">class</span> <span class="nc">NodeIndex</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Represents the top level in a BIDS hierarchy. &quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">NodeIndex</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">nodes</span> <span class="o">=</span> <span class="p">[]</span>
 
 <div class="viewcode-block" id="NodeIndex.get_collections"><a class="viewcode-back" href="../../../generated/bids.variables.entities.html#bids.variables.entities.NodeIndex.get_collections">[docs]</a>    <span class="k">def</span> <span class="nf">get_collections</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">unit</span><span class="p">,</span> <span class="n">names</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">merge</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
                         <span class="n">sampling_rate</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">entities</span><span class="p">):</span>
-        <span class="sd">&#39;&#39;&#39; Retrieve variable data for a specified level in the Dataset.</span>
+        <span class="sd">&quot;&quot;&quot;Retrieve variable data for a specified level in the Dataset.</span>
 
-<span class="sd">        Args:</span>
-<span class="sd">            unit (str): The unit of analysis to return variables for. Must be</span>
-<span class="sd">                one of &#39;run&#39;, &#39;session&#39;, &#39;subject&#39;, or &#39;dataset&#39;.</span>
-<span class="sd">            names (list): Optional list of variables names to return. If</span>
-<span class="sd">                None, all available variables are returned.</span>
-<span class="sd">            merge (bool): If True, variables are merged across all observations</span>
-<span class="sd">                of the current unit. E.g., if unit=&#39;subject&#39; and return_type=</span>
-<span class="sd">                &#39;collection&#39;, variablesfrom all subjects will be merged into a</span>
-<span class="sd">                single collection. If False, each observation is handled</span>
-<span class="sd">                separately, and the result is returned as a list.</span>
-<span class="sd">            sampling_rate (int, str): If unit=&#39;run&#39;, the sampling rate to</span>
-<span class="sd">                pass onto the returned BIDSRunVariableCollection.</span>
-<span class="sd">            entities: Optional constraints used to limit what gets returned.</span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        unit : str</span>
+<span class="sd">            The unit of analysis to return variables for. Must be</span>
+<span class="sd">            one of &#39;run&#39;, &#39;session&#39;, &#39;subject&#39;, or &#39;dataset&#39;.</span>
+<span class="sd">        names : list</span>
+<span class="sd">            Optional list of variables names to return. If</span>
+<span class="sd">            None, all available variables are returned.</span>
+<span class="sd">        merge : bool</span>
+<span class="sd">            If True, variables are merged across all observations</span>
+<span class="sd">            of the current unit. E.g., if unit=&#39;subject&#39; and return_type=</span>
+<span class="sd">            &#39;collection&#39;, variablesfrom all subjects will be merged into a</span>
+<span class="sd">            single collection. If False, each observation is handled</span>
+<span class="sd">            separately, and the result is returned as a list.</span>
+<span class="sd">        sampling_rate : int or str</span>
+<span class="sd">            If unit=&#39;run&#39;, the sampling rate to</span>
+<span class="sd">            pass onto the returned BIDSRunVariableCollection.</span>
+<span class="sd">        entities : dict</span>
+<span class="sd">            Optional constraints used to limit what gets returned.</span>
 
-<span class="sd">        Returns:</span>
-<span class="sd">            A list of BIDSVariableCollections if merge=False; a single</span>
-<span class="sd">            BIDSVariableCollection if merge=True.</span>
-<span class="sd">        &#39;&#39;&#39;</span>
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        A list of BIDSVariableCollections if merge=False; a single</span>
+<span class="sd">        BIDSVariableCollection if merge=True.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="n">nodes</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_nodes</span><span class="p">(</span><span class="n">unit</span><span class="p">,</span> <span class="n">entities</span><span class="p">)</span>
         <span class="n">var_sets</span> <span class="o">=</span> <span class="p">[]</span>
@@ -280,19 +299,24 @@
         <span class="k">return</span> <span class="n">results</span></div>
 
 <div class="viewcode-block" id="NodeIndex.get_nodes"><a class="viewcode-back" href="../../../generated/bids.variables.entities.html#bids.variables.entities.NodeIndex.get_nodes">[docs]</a>    <span class="k">def</span> <span class="nf">get_nodes</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">entities</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">strict</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
-        <span class="sd">&#39;&#39;&#39; Retrieves all nodes that match the specified criteria.</span>
+        <span class="sd">&quot;&quot;&quot;Retrieves all nodes that match the specified criteria.</span>
 
-<span class="sd">        Args:</span>
-<span class="sd">            level (str): The level of analysis of nodes to return.</span>
-<span class="sd">            entities (dict): Entities to filter on. All nodes must have</span>
-<span class="sd">                matching values on all defined keys to be included.</span>
-<span class="sd">            strict (bool): If True, an exception will be raised if the entities</span>
-<span class="sd">                dict contains any keys that aren&#39;t contained in the current</span>
-<span class="sd">                index.</span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        level : str</span>
+<span class="sd">            The level of analysis of nodes to return.</span>
+<span class="sd">        entities : dict</span>
+<span class="sd">            Entities to filter on. All nodes must have</span>
+<span class="sd">            matching values on all defined keys to be included.</span>
+<span class="sd">        strict : bool</span>
+<span class="sd">            If True, an exception will be raised if the entities</span>
+<span class="sd">            dict contains any keys that aren&#39;t contained in the current</span>
+<span class="sd">            index.</span>
 
-<span class="sd">        Returns:</span>
-<span class="sd">            A list of Node instances.</span>
-<span class="sd">        &#39;&#39;&#39;</span>
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        A list of Node instances.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="n">entities</span> <span class="o">=</span> <span class="p">{}</span> <span class="k">if</span> <span class="n">entities</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">entities</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
 
@@ -333,19 +357,24 @@
         <span class="k">return</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">nodes</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">inds</span><span class="p">]</span></div>
 
 <div class="viewcode-block" id="NodeIndex.create_node"><a class="viewcode-back" href="../../../generated/bids.variables.entities.html#bids.variables.entities.NodeIndex.create_node">[docs]</a>    <span class="k">def</span> <span class="nf">create_node</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">level</span><span class="p">,</span> <span class="n">entities</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-        <span class="sd">&#39;&#39;&#39; Creates a new child Node.</span>
+        <span class="sd">&quot;&quot;&quot;Creates a new child Node.</span>
 
-<span class="sd">        Args:</span>
-<span class="sd">            level (str): The level of analysis of the new Node.</span>
-<span class="sd">            entities (dict): Dictionary of entities belonging to Node</span>
-<span class="sd">            args, kwargs: Optional positional or named arguments to pass onto</span>
-<span class="sd">                class-specific initializers. These arguments are only used if</span>
-<span class="sd">                a Node that matches the passed entities doesn&#39;t already exist,</span>
-<span class="sd">                and a new one must be created.</span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        level : str</span>
+<span class="sd">            The level of analysis of the new Node.</span>
+<span class="sd">        entities : dict</span>
+<span class="sd">            Dictionary of entities belonging to Node</span>
+<span class="sd">        args, kwargs : dict</span>
+<span class="sd">            Optional positional or named arguments to pass onto</span>
+<span class="sd">            class-specific initializers. These arguments are only used if</span>
+<span class="sd">            a Node that matches the passed entities doesn&#39;t already exist,</span>
+<span class="sd">            and a new one must be created.</span>
 
-<span class="sd">        Returns:</span>
-<span class="sd">            A Node instance.</span>
-<span class="sd">        &#39;&#39;&#39;</span>
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        A Node instance.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="k">if</span> <span class="n">level</span> <span class="o">==</span> <span class="s1">&#39;run&#39;</span><span class="p">:</span>
             <span class="n">node</span> <span class="o">=</span> <span class="n">RunNode</span><span class="p">(</span><span class="n">entities</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
@@ -359,21 +388,26 @@
         <span class="k">return</span> <span class="n">node</span></div>
 
 <div class="viewcode-block" id="NodeIndex.get_or_create_node"><a class="viewcode-back" href="../../../generated/bids.variables.entities.html#bids.variables.entities.NodeIndex.get_or_create_node">[docs]</a>    <span class="k">def</span> <span class="nf">get_or_create_node</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">level</span><span class="p">,</span> <span class="n">entities</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-        <span class="sd">&#39;&#39;&#39; Retrieves a child Node based on the specified criteria, creating a</span>
+        <span class="sd">&quot;&quot;&quot;Retrieves a child Node based on the specified criteria, creating a</span>
 <span class="sd">        new Node if necessary.</span>
 
-<span class="sd">        Args:</span>
-<span class="sd">            level (str): The level of analysis of the Node.</span>
-<span class="sd">            entities (dict): Dictionary of entities to include in newly-created</span>
-<span class="sd">                Nodes or filter existing ones.</span>
-<span class="sd">            args, kwargs: Optional positional or named arguments to pass onto</span>
-<span class="sd">                class-specific initializers. These arguments are only used if</span>
-<span class="sd">                a Node that matches the passed entities doesn&#39;t already exist,</span>
-<span class="sd">                and a new one must be created.</span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        level : str</span>
+<span class="sd">            The level of analysis of the Node.</span>
+<span class="sd">        entities : dict</span>
+<span class="sd">            Dictionary of entities to include in newly-created</span>
+<span class="sd">            Nodes or filter existing ones.</span>
+<span class="sd">        args, kwargs : dict</span>
+<span class="sd">            Optional positional or named arguments to pass onto</span>
+<span class="sd">            class-specific initializers. These arguments are only used if</span>
+<span class="sd">            a Node that matches the passed entities doesn&#39;t already exist,</span>
+<span class="sd">            and a new one must be created.</span>
 
-<span class="sd">        Returns:</span>
-<span class="sd">            A Node instance.</span>
-<span class="sd">        &#39;&#39;&#39;</span>
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        A Node instance.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_nodes</span><span class="p">(</span><span class="n">level</span><span class="p">,</span> <span class="n">entities</span><span class="p">)</span>
 

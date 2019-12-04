@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>bids.config &mdash; PyBIDS 0.9.4+16.g0a14a17 documentation</title>
+  <title>bids.config &mdash; PyBIDS 0.10.0 documentation</title>
   
 
   
@@ -151,7 +151,6 @@
 <span class="kn">from</span> <span class="nn">os.path</span> <span class="k">import</span> <span class="n">join</span><span class="p">,</span> <span class="n">expanduser</span><span class="p">,</span> <span class="n">exists</span>
 <span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">from</span> <span class="nn">io</span> <span class="k">import</span> <span class="nb">open</span>
-<span class="kn">from</span> <span class="nn">six</span> <span class="k">import</span> <span class="n">string_types</span>
 
 <span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;set_option&#39;</span><span class="p">,</span> <span class="s1">&#39;set_options&#39;</span><span class="p">,</span> <span class="s1">&#39;get_option&#39;</span><span class="p">]</span>
 
@@ -189,7 +188,7 @@
 
 <div class="viewcode-block" id="get_option"><a class="viewcode-back" href="../../generated/bids.config.get_option.html#bids.config.get_option">[docs]</a><span class="k">def</span> <span class="nf">get_option</span><span class="p">(</span><span class="n">key</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot; Retrieve the current value of a package-wide option.</span>
-<span class="sd">    </span>
+
 <span class="sd">    Args:</span>
 <span class="sd">        key (str): The name of the option to retrieve.</span>
 
@@ -208,7 +207,7 @@
 <span class="sd">        error_on_missing (bool): If True, raises an error if a file doesn&#39;t</span>
 <span class="sd">            exist.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">filenames</span><span class="p">,</span> <span class="n">string_types</span><span class="p">):</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">filenames</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
         <span class="n">filenames</span> <span class="o">=</span> <span class="p">[</span><span class="n">filenames</span><span class="p">]</span>
     <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">filenames</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">exists</span><span class="p">(</span><span class="n">f</span><span class="p">):</span>
