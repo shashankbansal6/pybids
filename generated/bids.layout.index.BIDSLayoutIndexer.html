@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>bids.layout.index.BIDSLayoutIndexer &mdash; PyBIDS 0.10.0 documentation</title>
+  <title>bids.layout.index.BIDSLayoutIndexer &mdash; PyBIDS 0.10.2+64.g1bf62ab documentation</title>
   
 
   
@@ -21,10 +21,10 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../_static/jquery.js"></script>
-        <script type="text/javascript" src="../_static/underscore.js"></script>
-        <script type="text/javascript" src="../_static/doctools.js"></script>
-        <script type="text/javascript" src="../_static/language_data.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -35,7 +35,7 @@
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="bids.analysis.Analysis" href="bids.analysis.Analysis.html" />
+    <link rel="next" title="bids.layout.writing" href="bids.layout.writing.html" />
     <link rel="prev" title="bids.layout.add_config_paths" href="bids.layout.add_config_paths.html" /> 
 </head>
 
@@ -95,6 +95,7 @@
 <li class="toctree-l3"><a class="reference internal" href="bids.layout.parse_file_entities.html">bids.layout.parse_file_entities</a></li>
 <li class="toctree-l3"><a class="reference internal" href="bids.layout.add_config_paths.html">bids.layout.add_config_paths</a></li>
 <li class="toctree-l3 current"><a class="current reference internal" href="#">bids.layout.index.BIDSLayoutIndexer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="bids.layout.writing.html">bids.layout.writing</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../api.html#bids-analysis-model-specification-for-bids-datasets"><code class="xref py py-mod docutils literal notranslate"><span class="pre">bids.analysis</span></code>: Model specification for BIDS datasets</a></li>
@@ -192,7 +193,7 @@
 <tr class="row-odd"><td><p><a class="reference internal" href="#bids.layout.index.BIDSLayoutIndexer.index_files" title="bids.layout.index.BIDSLayoutIndexer.index_files"><code class="xref py py-obj docutils literal notranslate"><span class="pre">index_files</span></code></a>(self)</p></td>
 <td><p>Index all files in the BIDS dataset.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#bids.layout.index.BIDSLayoutIndexer.index_metadata" title="bids.layout.index.BIDSLayoutIndexer.index_metadata"><code class="xref py py-obj docutils literal notranslate"><span class="pre">index_metadata</span></code></a>(self)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#bids.layout.index.BIDSLayoutIndexer.index_metadata" title="bids.layout.index.BIDSLayoutIndexer.index_metadata"><code class="xref py py-obj docutils literal notranslate"><span class="pre">index_metadata</span></code></a>(self, \*\*filters)</p></td>
 <td><p>Index metadata for all files in the BIDS dataset.</p></td>
 </tr>
 </tbody>
@@ -216,7 +217,7 @@
 <tr class="row-even"><td><p><a class="reference internal" href="#bids.layout.index.BIDSLayoutIndexer.index_files" title="bids.layout.index.BIDSLayoutIndexer.index_files"><code class="xref py py-obj docutils literal notranslate"><span class="pre">index_files</span></code></a>(self)</p></td>
 <td><p>Index all files in the BIDS dataset.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#bids.layout.index.BIDSLayoutIndexer.index_metadata" title="bids.layout.index.BIDSLayoutIndexer.index_metadata"><code class="xref py py-obj docutils literal notranslate"><span class="pre">index_metadata</span></code></a>(self)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#bids.layout.index.BIDSLayoutIndexer.index_metadata" title="bids.layout.index.BIDSLayoutIndexer.index_metadata"><code class="xref py py-obj docutils literal notranslate"><span class="pre">index_metadata</span></code></a>(self, \*\*filters)</p></td>
 <td><p>Index metadata for all files in the BIDS dataset.</p></td>
 </tr>
 </tbody>
@@ -229,8 +230,16 @@
 
 <dl class="method">
 <dt id="bids.layout.index.BIDSLayoutIndexer.index_metadata">
-<code class="sig-name descname">index_metadata</code><span class="sig-paren">(</span><em class="sig-param">self</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bids/layout/index.html#BIDSLayoutIndexer.index_metadata"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bids.layout.index.BIDSLayoutIndexer.index_metadata" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">index_metadata</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">**filters</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bids/layout/index.html#BIDSLayoutIndexer.index_metadata"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bids.layout.index.BIDSLayoutIndexer.index_metadata" title="Permalink to this definition">¶</a></dt>
 <dd><p>Index metadata for all files in the BIDS dataset.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>**filters</strong> – keyword arguments passed to the .get() method of a
+<a class="reference internal" href="bids.layout.BIDSLayout.html#bids.layout.BIDSLayout" title="bids.layout.BIDSLayout"><code class="xref py py-obj docutils literal notranslate"><span class="pre">bids.layout.BIDSLayout</span></code></a> object.
+These keyword arguments define what files get selected
+for metadata indexing.</p>
+</dd>
+</dl>
 </dd></dl>
 
 </dd></dl>
@@ -245,7 +254,7 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="bids.analysis.Analysis.html" class="btn btn-neutral float-right" title="bids.analysis.Analysis" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="bids.layout.writing.html" class="btn btn-neutral float-right" title="bids.layout.writing" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="bids.layout.add_config_paths.html" class="btn btn-neutral float-left" title="bids.layout.add_config_paths" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>

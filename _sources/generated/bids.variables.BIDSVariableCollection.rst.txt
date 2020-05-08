@@ -17,7 +17,6 @@ bids.variables.BIDSVariableCollection
       ~BIDSVariableCollection.clone
       ~BIDSVariableCollection.from_df
       ~BIDSVariableCollection.match_variables
-      ~BIDSVariableCollection.matches_entities
       ~BIDSVariableCollection.merge_variables
       ~BIDSVariableCollection.to_df
    

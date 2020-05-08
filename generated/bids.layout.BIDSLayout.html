@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>bids.layout.BIDSLayout &mdash; PyBIDS 0.10.0 documentation</title>
+  <title>bids.layout.BIDSLayout &mdash; PyBIDS 0.10.2+64.g1bf62ab documentation</title>
   
 
   
@@ -21,10 +21,10 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../_static/jquery.js"></script>
-        <script type="text/javascript" src="../_static/underscore.js"></script>
-        <script type="text/javascript" src="../_static/doctools.js"></script>
-        <script type="text/javascript" src="../_static/language_data.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -95,6 +95,7 @@
 <li class="toctree-l3"><a class="reference internal" href="bids.layout.parse_file_entities.html">bids.layout.parse_file_entities</a></li>
 <li class="toctree-l3"><a class="reference internal" href="bids.layout.add_config_paths.html">bids.layout.add_config_paths</a></li>
 <li class="toctree-l3"><a class="reference internal" href="bids.layout.index.BIDSLayoutIndexer.html">bids.layout.index.BIDSLayoutIndexer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="bids.layout.writing.html">bids.layout.writing</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../api.html#bids-analysis-model-specification-for-bids-datasets"><code class="xref py py-mod docutils literal notranslate"><span class="pre">bids.analysis</span></code>: Model specification for BIDS datasets</a></li>
@@ -429,7 +430,7 @@ containing one more more pipeline directories, or to a single
 pipeline directory (e.g., derivatives/fmriprep).</p></li>
 <li><p><strong>parent_database_path</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a>) – If not None, use the pipeline name from the dataset_description.json
 file as the database folder name to nest within the parent database
-folder name to write out derivatie index to.</p></li>
+folder name to write out derivative index to.</p></li>
 <li><p><strong>kwargs</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#dict" title="(in Python v3.5)"><em>dict</em></a>) – Optional keyword arguments to pass on to
 BIDSLayout() when initializing each of the derivative datasets.</p></li>
 </ul>
@@ -443,7 +444,7 @@ specification for details.</p>
 
 <dl class="method">
 <dt id="bids.layout.BIDSLayout.build_path">
-<code class="sig-name descname">build_path</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">source</em>, <em class="sig-param">path_patterns=None</em>, <em class="sig-param">strict=False</em>, <em class="sig-param">scope='all'</em>, <em class="sig-param">validate=True</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bids/layout/layout.html#BIDSLayout.build_path"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bids.layout.BIDSLayout.build_path" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">build_path</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">source</em>, <em class="sig-param">path_patterns=None</em>, <em class="sig-param">strict=False</em>, <em class="sig-param">scope='all'</em>, <em class="sig-param">validate=True</em>, <em class="sig-param">absolute_paths=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bids/layout/layout.html#BIDSLayout.build_path"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bids.layout.BIDSLayout.build_path" title="Permalink to this definition">¶</a></dt>
 <dd><p>Construct a target filename for a file or dictionary of entities.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -466,7 +467,7 @@ be used. Entities should be represented by the name
 surrounded by curly braces. Optional portions of the patterns
 should be denoted by square brackets. Entities that require a
 specific value for the pattern to match can pass them inside
-carets. Default values can be assigned by specifying a string
+angle brackets. Default values can be assigned by specifying a string
 after the pipe operator. E.g., (e.g., {type&lt;image&gt;|bold} would
 only match the pattern if the entity ‘type’ was passed and its
 value is “image”, otherwise the default value “bold” will be
@@ -488,6 +489,10 @@ higher precedence).</p></li>
 <li><p><strong>validate</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#bool" title="(in Python v3.5)"><em>bool</em></a><em>, </em><em>optional</em>) – If True, built path must pass BIDS validator. If
 False, no validation is attempted, and an invalid path may be
 returned (e.g., if an entity value contains a hyphen).</p></li>
+<li><p><strong>absolute_paths</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#bool" title="(in Python v3.5)"><em>bool</em></a><em>, </em><em>optional</em>) – Optionally override the instance-wide option
+to report either absolute or relative (to the top of the
+dataset) paths. If None, will fall back on the value specified
+at BIDSLayout initialization.</p></li>
 </ul>
 </dd>
 </dl>
@@ -521,7 +526,7 @@ Must be one of:</p>
 <div><p>’fail’: raises an exception
 ‘skip’ does nothing
 ‘overwrite’: overwrites the existing file
-‘append’: adds  a suffix to each file copy, starting with 1</p>
+‘append’: adds a suffix to each file copy, starting with 1</p>
 </div></blockquote>
 </p></li>
 <li><p><strong>kwargs</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#dict" title="(in Python v3.5)"><em>dict</em></a>) – Optional key word arguments to pass into a get() query.</p></li>
@@ -564,10 +569,10 @@ Must be one of:</p>
 nodes/directories that match the specified scope will be
 searched. Possible values include:
 ‘all’ (default): search all available directories.
-‘derivatives’: search all derivatives directories
-‘raw’: search only BIDS-Raw directories
-‘self’: search only the directly called BIDSLayout
-&lt;PipelineName&gt;: the name of a BIDS-Derivatives pipeline</p></li>
+‘derivatives’: search all derivatives directories.
+‘raw’: search only BIDS-Raw directories.
+‘self’: search only the directly called BIDSLayout.
+&lt;PipelineName&gt;: the name of a BIDS-Derivatives pipeline.</p></li>
 <li><p><strong>regex_search</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#bool" title="(in Python v3.5)"><em>bool</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3.5/library/constants.html#None" title="(in Python v3.5)"><em>None</em></a><em>, </em><em>optional</em>) – Whether to require exact matching
 (False) or regex search (True) when comparing the query string
 to each entity.</p></li>
@@ -641,7 +646,7 @@ subjects will be merged into a single collection. If False, each
 observation is handled separately, and the result is returned
 as a list.</p></li>
 <li><p><strong>sampling_rate</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#int" title="(in Python v3.5)"><em>int</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a>) – If level=’run’, the sampling rate to pass onto the returned
-<a class="reference internal" href="bids.variables.kollekshuns.html#bids.variables.kollekshuns.BIDSRunVariableCollection" title="bids.variables.kollekshuns.BIDSRunVariableCollection"><code class="xref py py-obj docutils literal notranslate"><span class="pre">bids.variables.kollekshuns.BIDSRunVariableCollection</span></code></a>.</p></li>
+<a class="reference internal" href="bids.variables.collections.html#bids.variables.collections.BIDSRunVariableCollection" title="bids.variables.collections.BIDSRunVariableCollection"><code class="xref py py-obj docutils literal notranslate"><span class="pre">bids.variables.collections.BIDSRunVariableCollection</span></code></a>.</p></li>
 <li><p><strong>skip_empty</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#bool" title="(in Python v3.5)"><em>bool</em></a>) – Whether or not to skip empty Variables (i.e., where there are no
 rows/records in a file after applying any filtering operations
 like dropping NaNs).</p></li>
@@ -650,13 +655,13 @@ like dropping NaNs).</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p>or <a class="reference internal" href="bids.variables.kollekshuns.html#bids.variables.kollekshuns.BIDSVariableCollection" title="bids.variables.kollekshuns.BIDSVariableCollection"><code class="xref py py-obj docutils literal notranslate"><span class="pre">bids.variables.kollekshuns.BIDSVariableCollection</span></code></a>
+<dd class="field-even"><p>or <a class="reference internal" href="bids.variables.collections.html#bids.variables.collections.BIDSVariableCollection" title="bids.variables.collections.BIDSVariableCollection"><code class="xref py py-obj docutils literal notranslate"><span class="pre">bids.variables.collections.BIDSVariableCollection</span></code></a>
 A list if merge=False;
-a single <a class="reference internal" href="bids.variables.kollekshuns.html#bids.variables.kollekshuns.BIDSVariableCollection" title="bids.variables.kollekshuns.BIDSVariableCollection"><code class="xref py py-obj docutils literal notranslate"><span class="pre">bids.variables.kollekshuns.BIDSVariableCollection</span></code></a>
+a single <a class="reference internal" href="bids.variables.collections.html#bids.variables.collections.BIDSVariableCollection" title="bids.variables.collections.BIDSVariableCollection"><code class="xref py py-obj docutils literal notranslate"><span class="pre">bids.variables.collections.BIDSVariableCollection</span></code></a>
 if merge=True.</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>list of <a class="reference internal" href="bids.variables.kollekshuns.html#bids.variables.kollekshuns.BIDSVariableCollection" title="bids.variables.kollekshuns.BIDSVariableCollection"><code class="xref py py-obj docutils literal notranslate"><span class="pre">bids.variables.kollekshuns.BIDSVariableCollection</span></code></a></p>
+<dd class="field-odd"><p>list of <a class="reference internal" href="bids.variables.collections.html#bids.variables.collections.BIDSVariableCollection" title="bids.variables.collections.BIDSVariableCollection"><code class="xref py py-obj docutils literal notranslate"><span class="pre">bids.variables.collections.BIDSVariableCollection</span></code></a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -892,7 +897,7 @@ values extracted from the filename.</p>
 <code class="sig-name descname">save</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">database_path</em>, <em class="sig-param">replace_connection=True</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bids/layout/layout.html#BIDSLayout.save"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bids.layout.BIDSLayout.save" title="Permalink to this definition">¶</a></dt>
 <dd><p>Save the current index as a SQLite3 DB at the specified location.</p>
 <p>Note: This is only necessary if a database_path was not specified
-at initalization, and the user now wants to save the index.
+at initialization, and the user now wants to save the index.
 If a database_path was specified originally, there is no need to
 re-save using this method.</p>
 <dl class="field-list simple">
@@ -932,7 +937,7 @@ a tracked entity. NaNs are injected whenever a file has no
 value for a given attribute.</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v0.25.3)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code></a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.0.3)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code></a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -962,11 +967,12 @@ Must be one of:</p>
 <div><p>’fail’: raises an exception
 ‘skip’ does nothing
 ‘overwrite’: overwrites the existing file
-‘append’: adds  a suffix to each file copy, starting with 1</p>
+‘append’: adds a suffix to each file copy, starting with 1</p>
 </div></blockquote>
 </p></li>
 <li><p><strong>strict</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#bool" title="(in Python v3.5)"><em>bool</em></a>) – If True, all entities must be matched inside a
-pattern in order to be a valid match. If False, extra entities</p></li>
+pattern in order to be a valid match. If False, extra entities
+will be ignored so long as all mandatory entities are found.</p></li>
 <li><p><strong>validate</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#bool" title="(in Python v3.5)"><em>bool</em></a>) – If True, built path must pass BIDS validator. If
 False, no validation is attempted, and an invalid path may be
 returned (e.g., if an entity value contains a hyphen).</p></li>

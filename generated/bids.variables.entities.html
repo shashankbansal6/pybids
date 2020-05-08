@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>bids.variables.entities &mdash; PyBIDS 0.10.0 documentation</title>
+  <title>bids.variables.entities &mdash; PyBIDS 0.10.2+64.g1bf62ab documentation</title>
   
 
   
@@ -21,10 +21,10 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../_static/jquery.js"></script>
-        <script type="text/javascript" src="../_static/underscore.js"></script>
-        <script type="text/javascript" src="../_static/doctools.js"></script>
-        <script type="text/javascript" src="../_static/language_data.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -35,7 +35,7 @@
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="bids.variables.kollekshuns" href="bids.variables.kollekshuns.html" />
+    <link rel="next" title="bids.variables.collections" href="bids.variables.collections.html" />
     <link rel="prev" title="bids.variables.io" href="bids.variables.io.html" /> 
 </head>
 
@@ -97,7 +97,7 @@
 <li class="toctree-l3"><a class="reference internal" href="bids.variables.merge_variables.html">bids.variables.merge_variables</a></li>
 <li class="toctree-l3"><a class="reference internal" href="bids.variables.io.html">bids.variables.io</a></li>
 <li class="toctree-l3 current"><a class="current reference internal" href="#">bids.variables.entities</a></li>
-<li class="toctree-l3"><a class="reference internal" href="bids.variables.kollekshuns.html">bids.variables.kollekshuns</a></li>
+<li class="toctree-l3"><a class="reference internal" href="bids.variables.collections.html">bids.variables.collections</a></li>
 <li class="toctree-l3"><a class="reference internal" href="bids.variables.variables.html">bids.variables.variables</a></li>
 </ul>
 </li>
@@ -268,8 +268,8 @@ entity value extracted from the filename via layout.</p>
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>level</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a>) – The level of analysis of the new Node.</p></li>
-<li><p><strong>entities</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#dict" title="(in Python v3.5)"><em>dict</em></a>) – Dictionary of entities belonging to Node</p></li>
-<li><p><strong>kwargs</strong> (<em>args</em><em>,</em>) – Optional positional or named arguments to pass onto
+<li><p><strong>entities</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#dict" title="(in Python v3.5)"><em>dict</em></a>) – Dictionary of entities belonging to Node.</p></li>
+<li><p><strong>kwargs</strong> (<em>args</em><em>,</em>) – Optional positional or named arguments to pass on to
 class-specific initializers. These arguments are only used if
 a Node that matches the passed entities doesn’t already exist,
 and a new one must be created.</p></li>
@@ -297,7 +297,7 @@ one of ‘run’, ‘session’, ‘subject’, or ‘dataset’.</p></li>
 None, all available variables are returned.</p></li>
 <li><p><strong>merge</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#bool" title="(in Python v3.5)"><em>bool</em></a>) – If True, variables are merged across all observations
 of the current unit. E.g., if unit=’subject’ and return_type=
-‘collection’, variablesfrom all subjects will be merged into a
+‘collection’, variables from all subjects will be merged into a
 single collection. If False, each observation is handled
 separately, and the result is returned as a list.</p></li>
 <li><p><strong>sampling_rate</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#int" title="(in Python v3.5)"><em>int</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a>) – If unit=’run’, the sampling rate to
@@ -350,7 +350,7 @@ new Node if necessary.</p>
 <li><p><strong>level</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a>) – The level of analysis of the Node.</p></li>
 <li><p><strong>entities</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#dict" title="(in Python v3.5)"><em>dict</em></a>) – Dictionary of entities to include in newly-created
 Nodes or filter existing ones.</p></li>
-<li><p><strong>kwargs</strong> (<em>args</em><em>,</em>) – Optional positional or named arguments to pass onto
+<li><p><strong>kwargs</strong> (<em>args</em><em>,</em>) – Optional positional or named arguments to pass on to
 class-specific initializers. These arguments are only used if
 a Node that matches the passed entities doesn’t already exist,
 and a new one must be created.</p></li>
@@ -508,7 +508,7 @@ and a new one must be created.</p></li>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="bids.variables.kollekshuns.html" class="btn btn-neutral float-right" title="bids.variables.kollekshuns" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="bids.variables.collections.html" class="btn btn-neutral float-right" title="bids.variables.collections" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="bids.variables.io.html" class="btn btn-neutral float-left" title="bids.variables.io" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>

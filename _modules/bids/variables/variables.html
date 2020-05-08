@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>bids.variables.variables &mdash; PyBIDS 0.10.0 documentation</title>
+  <title>bids.variables.variables &mdash; PyBIDS 0.10.2+64.g1bf62ab documentation</title>
   
 
   
@@ -21,10 +21,10 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../../../_static/jquery.js"></script>
-        <script type="text/javascript" src="../../../_static/underscore.js"></script>
-        <script type="text/javascript" src="../../../_static/doctools.js"></script>
-        <script type="text/javascript" src="../../../_static/language_data.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/language_data.js"></script>
     
     <script type="text/javascript" src="../../../_static/js/theme.js"></script>
 
@@ -147,15 +147,18 @@
   <h1>Source code for bids.variables.variables</h1><div class="highlight"><pre>
 <span></span><span class="sd">&quot;&quot;&quot; Classes for representing BIDS variables. &quot;&quot;&quot;</span>
 
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">import</span> <span class="nn">math</span>
 <span class="kn">import</span> <span class="nn">warnings</span>
-<span class="kn">from</span> <span class="nn">copy</span> <span class="k">import</span> <span class="n">deepcopy</span>
-<span class="kn">from</span> <span class="nn">abc</span> <span class="k">import</span> <span class="n">abstractmethod</span><span class="p">,</span> <span class="n">ABCMeta</span>
-<span class="kn">from</span> <span class="nn">bids.utils</span> <span class="k">import</span> <span class="n">listify</span>
-<span class="kn">from</span> <span class="nn">itertools</span> <span class="k">import</span> <span class="n">chain</span>
-<span class="kn">from</span> <span class="nn">bids.utils</span> <span class="k">import</span> <span class="n">matches_entities</span>
+<span class="kn">from</span> <span class="nn">copy</span> <span class="kn">import</span> <span class="n">deepcopy</span>
+<span class="kn">from</span> <span class="nn">abc</span> <span class="kn">import</span> <span class="n">abstractmethod</span><span class="p">,</span> <span class="n">ABCMeta</span>
+<span class="kn">from</span> <span class="nn">itertools</span> <span class="kn">import</span> <span class="n">chain</span>
+<span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">reduce</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+<span class="kn">from</span> <span class="nn">bids.utils</span> <span class="kn">import</span> <span class="n">listify</span>
+<span class="kn">from</span> <span class="nn">bids.utils</span> <span class="kn">import</span> <span class="n">matches_entities</span>
 
 <div class="viewcode-block" id="BIDSVariable"><a class="viewcode-back" href="../../../generated/bids.variables.variables.html#bids.variables.BIDSVariable">[docs]</a><span class="k">class</span> <span class="nc">BIDSVariable</span><span class="p">(</span><span class="n">metaclass</span><span class="o">=</span><span class="n">ABCMeta</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Base representation of a column in a BIDS project. &quot;&quot;&quot;</span>
@@ -165,11 +168,11 @@
     <span class="c1"># as properties on the BIDSVariable instance.</span>
     <span class="n">_property_columns</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">values</span><span class="p">,</span> <span class="n">source</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">values</span><span class="p">,</span> <span class="n">source</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">values</span> <span class="o">=</span> <span class="n">values</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">source</span> <span class="o">=</span> <span class="n">source</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_index_entities</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">entities</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_extract_entities</span><span class="p">()</span>
 
 <div class="viewcode-block" id="BIDSVariable.clone"><a class="viewcode-back" href="../../../generated/bids.variables.variables.html#bids.variables.BIDSVariable.clone">[docs]</a>    <span class="k">def</span> <span class="nf">clone</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Clone (deep copy) the current column, optionally replacing its</span>
@@ -367,12 +370,8 @@
 
         <span class="k">return</span> <span class="n">data</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="BIDSVariable.matches_entities"><a class="viewcode-back" href="../../../generated/bids.variables.variables.html#bids.variables.BIDSVariable.matches_entities">[docs]</a>    <span class="k">def</span> <span class="nf">matches_entities</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">entities</span><span class="p">,</span> <span class="n">strict</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Checks whether current Variable&#39;s entities match the input. &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="n">matches_entities</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">entities</span><span class="p">,</span> <span class="n">strict</span><span class="p">)</span></div>
-
-    <span class="k">def</span> <span class="nf">_index_entities</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Returns a dict of entities for the current Variable.</span>
+    <span class="k">def</span> <span class="nf">_extract_entities</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Returns a dict of all non-varying entities for the current Variable.</span>
 
 <span class="sd">        Notes</span>
 <span class="sd">        -----</span>
@@ -384,10 +383,10 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">constant</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">nunique</span><span class="p">()</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">constant</span><span class="o">.</span><span class="n">empty</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">entities</span> <span class="o">=</span> <span class="p">{}</span>
+            <span class="k">return</span> <span class="p">{}</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">keep</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">columns</span><span class="p">[</span><span class="n">constant</span><span class="p">]</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">entities</span> <span class="o">=</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="n">k</span><span class="p">]</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">keep</span><span class="p">}</span></div>
+            <span class="k">return</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="n">k</span><span class="p">]</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">keep</span><span class="p">}</span></div>
 
 
 <div class="viewcode-block" id="SimpleVariable"><a class="viewcode-back" href="../../../generated/bids.variables.variables.html#bids.variables.SimpleVariable">[docs]</a><span class="k">class</span> <span class="nc">SimpleVariable</span><span class="p">(</span><span class="n">BIDSVariable</span><span class="p">):</span>
@@ -411,7 +410,7 @@
 
     <span class="n">_entity_columns</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;condition&#39;</span><span class="p">,</span> <span class="s1">&#39;amplitude&#39;</span><span class="p">}</span>
 
-<div class="viewcode-block" id="SimpleVariable.__init__"><a class="viewcode-back" href="../../../generated/bids.variables.SimpleVariable.html#bids.variables.SimpleVariable.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">source</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<div class="viewcode-block" id="SimpleVariable.__init__"><a class="viewcode-back" href="../../../generated/bids.variables.SimpleVariable.html#bids.variables.SimpleVariable.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">source</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 
         <span class="n">ent_cols</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">_entity_columns</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="n">ent_cols</span><span class="p">]</span>
@@ -494,7 +493,7 @@
 
     <span class="n">_property_columns</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;onset&#39;</span><span class="p">,</span> <span class="s1">&#39;duration&#39;</span><span class="p">}</span>
 
-<div class="viewcode-block" id="SparseRunVariable.__init__"><a class="viewcode-back" href="../../../generated/bids.variables.SparseRunVariable.html#bids.variables.SparseRunVariable.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">run_info</span><span class="p">,</span> <span class="n">source</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<div class="viewcode-block" id="SparseRunVariable.__init__"><a class="viewcode-back" href="../../../generated/bids.variables.SparseRunVariable.html#bids.variables.SparseRunVariable.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">run_info</span><span class="p">,</span> <span class="n">source</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">run_info</span><span class="p">,</span> <span class="s1">&#39;duration&#39;</span><span class="p">):</span>
             <span class="n">run_info</span> <span class="o">=</span> <span class="p">[</span><span class="n">run_info</span><span class="p">]</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">run_info</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
@@ -509,45 +508,75 @@
         <span class="sd">&quot;&quot;&quot;Return the total duration of the Variable&#39;s run(s). &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="nb">sum</span><span class="p">([</span><span class="n">r</span><span class="o">.</span><span class="n">duration</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">run_info</span><span class="p">])</span></div>
 
-<div class="viewcode-block" id="SparseRunVariable.to_dense"><a class="viewcode-back" href="../../../generated/bids.variables.variables.html#bids.variables.SparseRunVariable.to_dense">[docs]</a>    <span class="k">def</span> <span class="nf">to_dense</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sampling_rate</span><span class="p">):</span>
+<div class="viewcode-block" id="SparseRunVariable.to_dense"><a class="viewcode-back" href="../../../generated/bids.variables.variables.html#bids.variables.SparseRunVariable.to_dense">[docs]</a>    <span class="k">def</span> <span class="nf">to_dense</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sampling_rate</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Convert the current sparse column to a dense representation.</span>
+
+<span class="sd">        If sampling_rate is not provided, the largest interval able to</span>
+<span class="sd">        faithfully represent all onsets and durations will be determined.</span>
+<span class="sd">        The sampling rate is the reciprocal of that interval.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
-<span class="sd">        sampling_rate : int or str</span>
-<span class="sd">            Sampling rate (in Hz) to use when</span>
-<span class="sd">            constructing the DenseRunVariable.</span>
+<span class="sd">        sampling_rate : float or None</span>
+<span class="sd">            Sampling rate (in Hz) to use when constructing the DenseRunVariable</span>
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
 <span class="sd">        DenseRunVariable</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">duration</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">ceil</span><span class="p">(</span><span class="n">sampling_rate</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_duration</span><span class="p">()))</span>
+        <span class="c1"># Cast onsets and durations to milliseconds</span>
+        <span class="n">onsets</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">onset</span> <span class="o">*</span> <span class="mi">1000</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+        <span class="n">durations</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">duration</span> <span class="o">*</span> <span class="mi">1000</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+        <span class="n">gcd</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">gcd</span><span class="o">.</span><span class="n">reduce</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">r_</span><span class="p">[</span><span class="n">onsets</span><span class="p">,</span> <span class="n">durations</span><span class="p">])</span>
+        <span class="n">bin_sr</span> <span class="o">=</span> <span class="mf">1000.</span> <span class="o">/</span> <span class="n">gcd</span>
+
+        <span class="c1"># never use a computed SR smaller than the requested one, because</span>
+        <span class="c1"># when events are widely-spaced and timing is very regular, this can</span>
+        <span class="c1"># result in a nasty loss of precision in the resampling step.</span>
+        <span class="k">if</span> <span class="n">sampling_rate</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">bin_sr</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">bin_sr</span><span class="p">,</span> <span class="n">sampling_rate</span><span class="p">)</span>
+
+        <span class="n">duration</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">ceil</span><span class="p">(</span><span class="n">bin_sr</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_duration</span><span class="p">()))</span>
         <span class="n">ts</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">duration</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
 
-        <span class="n">onsets</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">onset</span> <span class="o">*</span> <span class="n">sampling_rate</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
-        <span class="n">durations</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">duration</span> <span class="o">*</span> <span class="n">sampling_rate</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+        <span class="n">onsets</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">onset</span> <span class="o">*</span> <span class="n">bin_sr</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+        <span class="n">durations</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">duration</span> <span class="o">*</span> <span class="n">bin_sr</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
 
         <span class="n">run_i</span><span class="p">,</span> <span class="n">start</span><span class="p">,</span> <span class="n">last_ind</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span>
         <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">val</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">values</span><span class="p">):</span>
             <span class="k">if</span> <span class="n">onsets</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">last_ind</span><span class="p">:</span>
-                <span class="n">start</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">run_info</span><span class="p">[</span><span class="n">run_i</span><span class="p">]</span><span class="o">.</span><span class="n">duration</span> <span class="o">*</span> <span class="n">sampling_rate</span>
+                <span class="n">start</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">run_info</span><span class="p">[</span><span class="n">run_i</span><span class="p">]</span><span class="o">.</span><span class="n">duration</span> <span class="o">*</span> <span class="n">bin_sr</span>
                 <span class="n">run_i</span> <span class="o">+=</span> <span class="mi">1</span>
             <span class="n">_onset</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">start</span> <span class="o">+</span> <span class="n">onsets</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
             <span class="n">_offset</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">_onset</span> <span class="o">+</span> <span class="n">durations</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
             <span class="k">if</span> <span class="n">_onset</span> <span class="o">&gt;=</span> <span class="n">duration</span><span class="p">:</span>
-                <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s2">&quot;The onset time of a variable seems to exceed the runs&quot;</span>
-                              <span class="s2">&quot;duration, hence runs are incremented by one internally.&quot;</span><span class="p">)</span>
+                <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s2">&quot;The onset time of a variable seems to exceed &quot;</span>
+                              <span class="s2">&quot;the runs duration, hence runs are incremented &quot;</span>
+                              <span class="s2">&quot;by one internally.&quot;</span><span class="p">)</span>
             <span class="n">ts</span><span class="p">[</span><span class="n">_onset</span><span class="p">:</span><span class="n">_offset</span><span class="p">]</span> <span class="o">=</span> <span class="n">val</span>
             <span class="n">last_ind</span> <span class="o">=</span> <span class="n">onsets</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
 
         <span class="n">run_info</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">run_info</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">DenseRunVariable</span><span class="p">(</span>
+        <span class="n">dense_var</span> <span class="o">=</span> <span class="n">DenseRunVariable</span><span class="p">(</span>
             <span class="n">name</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
             <span class="n">values</span><span class="o">=</span><span class="n">ts</span><span class="p">,</span>
             <span class="n">run_info</span><span class="o">=</span><span class="n">run_info</span><span class="p">,</span>
             <span class="n">source</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">source</span><span class="p">,</span>
-            <span class="n">sampling_rate</span><span class="o">=</span><span class="n">sampling_rate</span><span class="p">)</span></div>
+            <span class="n">sampling_rate</span><span class="o">=</span><span class="n">bin_sr</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">sampling_rate</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">bin_sr</span> <span class="o">!=</span> <span class="n">sampling_rate</span><span class="p">:</span>
+            <span class="n">dense_var</span><span class="o">.</span><span class="n">resample</span><span class="p">(</span><span class="n">sampling_rate</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">dense_var</span></div>
+
+    <span class="k">def</span> <span class="nf">_extract_entities</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># Get all entities common to all runs. The super method already does</span>
+        <span class="c1"># this for entities that show up in filenames, so we just add the</span>
+        <span class="c1"># ones that show up in the RunInfo tuples, as those include metadata.</span>
+        <span class="n">ent_items</span> <span class="o">=</span> <span class="p">[</span><span class="n">run</span><span class="o">.</span><span class="n">entities</span><span class="o">.</span><span class="n">items</span><span class="p">()</span> <span class="k">for</span> <span class="n">run</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">run_info</span><span class="p">]</span>
+        <span class="n">entities</span> <span class="o">=</span> <span class="n">reduce</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="n">x</span> <span class="o">&amp;</span> <span class="n">y</span><span class="p">,</span> <span class="n">ent_items</span><span class="p">,</span> <span class="n">ent_items</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="n">base_ents</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">_extract_entities</span><span class="p">()</span>
+        <span class="k">return</span> <span class="nb">dict</span><span class="p">(</span><span class="n">entities</span><span class="p">,</span> <span class="o">**</span><span class="n">base_ents</span><span class="p">)</span>
 
     <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">_merge</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">variables</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
@@ -576,7 +605,7 @@
 <span class="sd">        to generate the values. If None, the collection&#39;s sampling rate will be used.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-<div class="viewcode-block" id="DenseRunVariable.__init__"><a class="viewcode-back" href="../../../generated/bids.variables.DenseRunVariable.html#bids.variables.DenseRunVariable.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">values</span><span class="p">,</span> <span class="n">run_info</span><span class="p">,</span> <span class="n">source</span><span class="p">,</span> <span class="n">sampling_rate</span><span class="p">):</span>
+<div class="viewcode-block" id="DenseRunVariable.__init__"><a class="viewcode-back" href="../../../generated/bids.variables.DenseRunVariable.html#bids.variables.DenseRunVariable.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">values</span><span class="p">,</span> <span class="n">run_info</span><span class="p">,</span> <span class="n">source</span><span class="p">,</span> <span class="n">sampling_rate</span><span class="p">):</span>
 
         <span class="n">values</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">values</span><span class="p">)</span>
 
@@ -650,7 +679,6 @@
         <span class="k">if</span> <span class="n">sampling_rate</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">sampling_rate</span><span class="p">:</span>
             <span class="k">return</span>
 
-        <span class="n">old_sr</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sampling_rate</span>
         <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">index</span><span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_build_entity_index</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">run_info</span><span class="p">,</span> <span class="n">sampling_rate</span><span class="p">)</span>
@@ -660,7 +688,7 @@
 
         <span class="k">if</span> <span class="n">sampling_rate</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">sampling_rate</span><span class="p">:</span>
             <span class="c1"># Downsampling, so filter the signal</span>
-            <span class="kn">from</span> <span class="nn">scipy.signal</span> <span class="k">import</span> <span class="n">butter</span><span class="p">,</span> <span class="n">filtfilt</span>
+            <span class="kn">from</span> <span class="nn">scipy.signal</span> <span class="kn">import</span> <span class="n">butter</span><span class="p">,</span> <span class="n">filtfilt</span>
             <span class="c1"># cutoff = new Nyqist / old Nyquist</span>
             <span class="n">b</span><span class="p">,</span> <span class="n">a</span> <span class="o">=</span> <span class="n">butter</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="p">(</span><span class="n">sampling_rate</span> <span class="o">/</span> <span class="mf">2.0</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sampling_rate</span> <span class="o">/</span> <span class="mf">2.0</span><span class="p">),</span>
                           <span class="n">btype</span><span class="o">=</span><span class="s1">&#39;low&#39;</span><span class="p">,</span> <span class="n">output</span><span class="o">=</span><span class="s1">&#39;ba&#39;</span><span class="p">,</span> <span class="n">analog</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
@@ -668,7 +696,7 @@
         <span class="k">else</span><span class="p">:</span>
             <span class="n">y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">ravel</span><span class="p">()</span>
 
-        <span class="kn">from</span> <span class="nn">scipy.interpolate</span> <span class="k">import</span> <span class="n">interp1d</span>
+        <span class="kn">from</span> <span class="nn">scipy.interpolate</span> <span class="kn">import</span> <span class="n">interp1d</span>
         <span class="n">f</span> <span class="o">=</span> <span class="n">interp1d</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="n">kind</span><span class="p">)</span>
         <span class="n">x_new</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">num</span><span class="o">=</span><span class="n">num</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">values</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">f</span><span class="p">(</span><span class="n">x_new</span><span class="p">))</span>
@@ -716,8 +744,8 @@
                     <span class="n">msg</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;Cannot merge DenseRunVariables (</span><span class="si">%s</span><span class="s2">) with different&quot;</span>
                            <span class="s2">&quot; sampling rates (</span><span class="si">%s</span><span class="s2">). Either specify an integer &quot;</span>
                            <span class="s2">&quot;sampling rate to use for all variables, or set &quot;</span>
-                           <span class="s2">&quot;sampling_rate=&#39;auto&#39; to use the highest sampling &quot;</span>
-                           <span class="s2">&quot;rate found.&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">rates</span><span class="p">))</span>
+                           <span class="s2">&quot;sampling_rate=&#39;highest&#39; to use the highest sampling&quot;</span>
+                           <span class="s2">&quot; rate found.&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">rates</span><span class="p">))</span>
                     <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
 
         <span class="n">variables</span> <span class="o">=</span> <span class="p">[</span><span class="n">v</span><span class="o">.</span><span class="n">resample</span><span class="p">(</span><span class="n">sampling_rate</span><span class="p">)</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">variables</span><span class="p">]</span>
@@ -746,9 +774,10 @@
 <span class="sd">        Optional keyword arguments to pass onto the class-specific merge() call.</span>
 <span class="sd">        Possible args:</span>
 <span class="sd">            - sampling_rate (int, str): The sampling rate to use if resampling</span>
-<span class="sd">              of DenseRunVariables is necessary for harmonization. If &#39;auto&#39;,</span>
-<span class="sd">              the highest sampling rate found will be used. This argument is</span>
-<span class="sd">              only used when passing DenseRunVariables in the variables list.</span>
+<span class="sd">              of DenseRunVariables is necessary for harmonization. If</span>
+<span class="sd">              &#39;highest&#39;, the highest sampling rate found will be used. This</span>
+<span class="sd">              argument is only used when passing DenseRunVariables in the</span>
+<span class="sd">              variables list.</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
@@ -756,7 +785,7 @@
 
 <span class="sd">    Notes</span>
 <span class="sd">    -----</span>
-<span class="sd">    - Currently, this function only support homogenously-typed lists. In</span>
+<span class="sd">    - Currently, this function only support homogeneously-typed lists. In</span>
 <span class="sd">      future, it may be extended to support implicit conversion.</span>
 <span class="sd">    - Variables in the list must all share the same name (i.e., it is not</span>
 <span class="sd">      possible to merge two different variables into a single variable.)</span>

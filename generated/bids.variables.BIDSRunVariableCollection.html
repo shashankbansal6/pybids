@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>bids.variables.BIDSRunVariableCollection &mdash; PyBIDS 0.10.0 documentation</title>
+  <title>bids.variables.BIDSRunVariableCollection &mdash; PyBIDS 0.10.2+64.g1bf62ab documentation</title>
   
 
   
@@ -21,10 +21,10 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../_static/jquery.js"></script>
-        <script type="text/javascript" src="../_static/underscore.js"></script>
-        <script type="text/javascript" src="../_static/doctools.js"></script>
-        <script type="text/javascript" src="../_static/language_data.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -97,7 +97,7 @@
 <li class="toctree-l3"><a class="reference internal" href="bids.variables.merge_variables.html">bids.variables.merge_variables</a></li>
 <li class="toctree-l3"><a class="reference internal" href="bids.variables.io.html">bids.variables.io</a></li>
 <li class="toctree-l3"><a class="reference internal" href="bids.variables.entities.html">bids.variables.entities</a></li>
-<li class="toctree-l3"><a class="reference internal" href="bids.variables.kollekshuns.html">bids.variables.kollekshuns</a></li>
+<li class="toctree-l3"><a class="reference internal" href="bids.variables.collections.html">bids.variables.collections</a></li>
 <li class="toctree-l3"><a class="reference internal" href="bids.variables.variables.html">bids.variables.variables</a></li>
 </ul>
 </li>
@@ -176,7 +176,7 @@
 <h1>bids.variables.BIDSRunVariableCollection<a class="headerlink" href="#bids-variables-bidsrunvariablecollection" title="Permalink to this headline">¶</a></h1>
 <dl class="class">
 <dt id="bids.variables.BIDSRunVariableCollection">
-<em class="property">class </em><code class="sig-name descname">BIDSRunVariableCollection</code><span class="sig-paren">(</span><em class="sig-param">variables</em>, <em class="sig-param">sampling_rate=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bids/variables/kollekshuns.html#BIDSRunVariableCollection"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bids.variables.BIDSRunVariableCollection" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-name descname">BIDSRunVariableCollection</code><span class="sig-paren">(</span><em class="sig-param">variables</em>, <em class="sig-param">sampling_rate=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bids/variables/collections.html#BIDSRunVariableCollection"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bids.variables.BIDSRunVariableCollection" title="Permalink to this definition">¶</a></dt>
 <dd><p>A container for one or more RunVariables–i.e., Variables that have a
 temporal dimension.</p>
 <dl class="field-list simple">
@@ -205,26 +205,46 @@ BIDSVariableCollection.</p>
 <tr class="row-even"><td><p><a class="reference internal" href="#bids.variables.BIDSRunVariableCollection.from_df" title="bids.variables.BIDSRunVariableCollection.from_df"><code class="xref py py-obj docutils literal notranslate"><span class="pre">from_df</span></code></a>(data[, entities, source])</p></td>
 <td><p>Create a Collection from a pandas DataFrame.</p></td>
 </tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#bids.variables.BIDSRunVariableCollection.get_dense_variables" title="bids.variables.BIDSRunVariableCollection.get_dense_variables"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_dense_variables</span></code></a>(self[, variables])</p></td>
+<td><p>Returns a list of all stored DenseRunVariables.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#bids.variables.BIDSRunVariableCollection.get_sparse_variables" title="bids.variables.BIDSRunVariableCollection.get_sparse_variables"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_sparse_variables</span></code></a>(self[, variables])</p></td>
+<td><p>Returns a list of all stored SparseRunVariables.</p></td>
+</tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#bids.variables.BIDSRunVariableCollection.match_variables" title="bids.variables.BIDSRunVariableCollection.match_variables"><code class="xref py py-obj docutils literal notranslate"><span class="pre">match_variables</span></code></a>(self, pattern[, …])</p></td>
 <td><p>Return columns whose names match the provided pattern.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#bids.variables.BIDSRunVariableCollection.matches_entities" title="bids.variables.BIDSRunVariableCollection.matches_entities"><code class="xref py py-obj docutils literal notranslate"><span class="pre">matches_entities</span></code></a>(self, entities[, strict])</p></td>
-<td><p>Checks whether current Collection’s entities match the input.</p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#bids.variables.BIDSRunVariableCollection.merge_variables" title="bids.variables.BIDSRunVariableCollection.merge_variables"><code class="xref py py-obj docutils literal notranslate"><span class="pre">merge_variables</span></code></a>(variables, \*\*kwargs)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#bids.variables.BIDSRunVariableCollection.merge_variables" title="bids.variables.BIDSRunVariableCollection.merge_variables"><code class="xref py py-obj docutils literal notranslate"><span class="pre">merge_variables</span></code></a>(variables, \*\*kwargs)</p></td>
 <td><p>Concatenates Variables along row axis.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#bids.variables.BIDSRunVariableCollection.resample" title="bids.variables.BIDSRunVariableCollection.resample"><code class="xref py py-obj docutils literal notranslate"><span class="pre">resample</span></code></a>(self[, sampling_rate, variables, …])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#bids.variables.BIDSRunVariableCollection.resample" title="bids.variables.BIDSRunVariableCollection.resample"><code class="xref py py-obj docutils literal notranslate"><span class="pre">resample</span></code></a>(self[, sampling_rate, variables, …])</p></td>
 <td><p>Resample all dense variables (and optionally, sparse ones) to the specified sampling rate.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#bids.variables.BIDSRunVariableCollection.to_df" title="bids.variables.BIDSRunVariableCollection.to_df"><code class="xref py py-obj docutils literal notranslate"><span class="pre">to_df</span></code></a>(self[, variables, format, sparse, …])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#bids.variables.BIDSRunVariableCollection.to_dense" title="bids.variables.BIDSRunVariableCollection.to_dense"><code class="xref py py-obj docutils literal notranslate"><span class="pre">to_dense</span></code></a>(self[, sampling_rate, variables, …])</p></td>
+<td><p>Convert all contained SparseRunVariables to DenseRunVariables.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#bids.variables.BIDSRunVariableCollection.to_df" title="bids.variables.BIDSRunVariableCollection.to_df"><code class="xref py py-obj docutils literal notranslate"><span class="pre">to_df</span></code></a>(self[, variables, format, fillna, …])</p></td>
 <td><p>Merge columns into a single pandas DataFrame.</p></td>
+</tr>
+</tbody>
+</table>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 58%" />
+<col style="width: 42%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><strong>all_dense</strong></p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><strong>all_sparse</strong></p></td>
+<td></td>
 </tr>
 </tbody>
 </table>
 <dl class="method">
 <dt id="bids.variables.BIDSRunVariableCollection.__init__">
-<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">variables</em>, <em class="sig-param">sampling_rate=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bids/variables/kollekshuns.html#BIDSRunVariableCollection.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bids.variables.BIDSRunVariableCollection.__init__" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">variables</em>, <em class="sig-param">sampling_rate=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bids/variables/collections.html#BIDSRunVariableCollection.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bids.variables.BIDSRunVariableCollection.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
 </dd></dl>
 
@@ -238,25 +258,37 @@ BIDSVariableCollection.</p>
 <tr class="row-odd"><td><p><a class="reference internal" href="#bids.variables.BIDSRunVariableCollection.__init__" title="bids.variables.BIDSRunVariableCollection.__init__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__init__</span></code></a>(self, variables[, sampling_rate])</p></td>
 <td><p>Initialize self.</p></td>
 </tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">all_dense</span></code>(self)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">all_sparse</span></code>(self)</p></td>
+<td><p></p></td>
+</tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#bids.variables.BIDSRunVariableCollection.clone" title="bids.variables.BIDSRunVariableCollection.clone"><code class="xref py py-obj docutils literal notranslate"><span class="pre">clone</span></code></a>(self)</p></td>
 <td><p>Returns a shallow copy of the current instance, except that all variables are deep-cloned.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#bids.variables.BIDSRunVariableCollection.from_df" title="bids.variables.BIDSRunVariableCollection.from_df"><code class="xref py py-obj docutils literal notranslate"><span class="pre">from_df</span></code></a>(data[, entities, source])</p></td>
 <td><p>Create a Collection from a pandas DataFrame.</p></td>
 </tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#bids.variables.BIDSRunVariableCollection.get_dense_variables" title="bids.variables.BIDSRunVariableCollection.get_dense_variables"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_dense_variables</span></code></a>(self[, variables])</p></td>
+<td><p>Returns a list of all stored DenseRunVariables.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#bids.variables.BIDSRunVariableCollection.get_sparse_variables" title="bids.variables.BIDSRunVariableCollection.get_sparse_variables"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_sparse_variables</span></code></a>(self[, variables])</p></td>
+<td><p>Returns a list of all stored SparseRunVariables.</p></td>
+</tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#bids.variables.BIDSRunVariableCollection.match_variables" title="bids.variables.BIDSRunVariableCollection.match_variables"><code class="xref py py-obj docutils literal notranslate"><span class="pre">match_variables</span></code></a>(self, pattern[, …])</p></td>
 <td><p>Return columns whose names match the provided pattern.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#bids.variables.BIDSRunVariableCollection.matches_entities" title="bids.variables.BIDSRunVariableCollection.matches_entities"><code class="xref py py-obj docutils literal notranslate"><span class="pre">matches_entities</span></code></a>(self, entities[, strict])</p></td>
-<td><p>Checks whether current Collection’s entities match the input.</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#bids.variables.BIDSRunVariableCollection.merge_variables" title="bids.variables.BIDSRunVariableCollection.merge_variables"><code class="xref py py-obj docutils literal notranslate"><span class="pre">merge_variables</span></code></a>(variables, \*\*kwargs)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#bids.variables.BIDSRunVariableCollection.merge_variables" title="bids.variables.BIDSRunVariableCollection.merge_variables"><code class="xref py py-obj docutils literal notranslate"><span class="pre">merge_variables</span></code></a>(variables, \*\*kwargs)</p></td>
 <td><p>Concatenates Variables along row axis.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#bids.variables.BIDSRunVariableCollection.resample" title="bids.variables.BIDSRunVariableCollection.resample"><code class="xref py py-obj docutils literal notranslate"><span class="pre">resample</span></code></a>(self[, sampling_rate, variables, …])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#bids.variables.BIDSRunVariableCollection.resample" title="bids.variables.BIDSRunVariableCollection.resample"><code class="xref py py-obj docutils literal notranslate"><span class="pre">resample</span></code></a>(self[, sampling_rate, variables, …])</p></td>
 <td><p>Resample all dense variables (and optionally, sparse ones) to the specified sampling rate.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#bids.variables.BIDSRunVariableCollection.to_df" title="bids.variables.BIDSRunVariableCollection.to_df"><code class="xref py py-obj docutils literal notranslate"><span class="pre">to_df</span></code></a>(self[, variables, format, sparse, …])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#bids.variables.BIDSRunVariableCollection.to_dense" title="bids.variables.BIDSRunVariableCollection.to_dense"><code class="xref py py-obj docutils literal notranslate"><span class="pre">to_dense</span></code></a>(self[, sampling_rate, variables, …])</p></td>
+<td><p>Convert all contained SparseRunVariables to DenseRunVariables.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#bids.variables.BIDSRunVariableCollection.to_df" title="bids.variables.BIDSRunVariableCollection.to_df"><code class="xref py py-obj docutils literal notranslate"><span class="pre">to_df</span></code></a>(self[, variables, format, fillna, …])</p></td>
 <td><p>Merge columns into a single pandas DataFrame.</p></td>
 </tr>
 </tbody>
@@ -275,9 +307,9 @@ variables are deep-cloned.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>df</strong> (<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v0.25.3)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code></a>) – The DataFrame to convert to a Collection. Each
+<li><p><strong>df</strong> (<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.0.3)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code></a>) – The DataFrame to convert to a Collection. Each
 column will be converted to a SimpleVariable.</p></li>
-<li><p><strong>entities</strong> (<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v0.25.3)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code></a>) – An optional second DataFrame containing
+<li><p><strong>entities</strong> (<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.0.3)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code></a>) – An optional second DataFrame containing
 entity information.</p></li>
 <li><p><strong>source</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a>) – The value to set as the source for all Variables.</p></li>
 </ul>
@@ -292,13 +324,25 @@ entity information.</p></li>
 </dd></dl>
 
 <dl class="method">
+<dt id="bids.variables.BIDSRunVariableCollection.get_dense_variables">
+<code class="sig-name descname">get_dense_variables</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">variables=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bids/variables/collections.html#BIDSRunVariableCollection.get_dense_variables"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bids.variables.BIDSRunVariableCollection.get_dense_variables" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a list of all stored DenseRunVariables.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="bids.variables.BIDSRunVariableCollection.get_sparse_variables">
+<code class="sig-name descname">get_sparse_variables</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">variables=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bids/variables/collections.html#BIDSRunVariableCollection.get_sparse_variables"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bids.variables.BIDSRunVariableCollection.get_sparse_variables" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a list of all stored SparseRunVariables.</p>
+</dd></dl>
+
+<dl class="method">
 <dt id="bids.variables.BIDSRunVariableCollection.match_variables">
 <code class="sig-name descname">match_variables</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">pattern</em>, <em class="sig-param">return_type='name'</em>, <em class="sig-param">match_type='unix'</em><span class="sig-paren">)</span><a class="headerlink" href="#bids.variables.BIDSRunVariableCollection.match_variables" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return columns whose names match the provided pattern.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>pattern</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a>) – A regex pattern to match all variable names against.</p></li>
+<li><p><strong>pattern</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#list" title="(in Python v3.5)"><em>list</em></a>) – One or more regex patterns to match all variable names against.</p></li>
 <li><p><strong>return_type</strong> (<em>{'name'</em><em>, </em><em>'variable'}</em>) – What to return. Must be one of:
 ‘name’: Returns a list of names of matching variables.
 ‘variable’: Returns a list of Variable objects whose names
@@ -311,13 +355,13 @@ via the fnmatch module).</p>
 </p></li>
 </ul>
 </dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>A list of all matching variables or variable names</p>
+</dd>
 </dl>
-</dd></dl>
-
-<dl class="method">
-<dt id="bids.variables.BIDSRunVariableCollection.matches_entities">
-<code class="sig-name descname">matches_entities</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">entities</em>, <em class="sig-param">strict=False</em><span class="sig-paren">)</span><a class="headerlink" href="#bids.variables.BIDSRunVariableCollection.matches_entities" title="Permalink to this definition">¶</a></dt>
-<dd><p>Checks whether current Collection’s entities match the input.</p>
 </dd></dl>
 
 <dl class="method">
@@ -341,31 +385,66 @@ concatenated together).</p>
 
 <dl class="method">
 <dt id="bids.variables.BIDSRunVariableCollection.resample">
-<code class="sig-name descname">resample</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">sampling_rate=None</em>, <em class="sig-param">variables=None</em>, <em class="sig-param">force_dense=False</em>, <em class="sig-param">in_place=False</em>, <em class="sig-param">kind='linear'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bids/variables/kollekshuns.html#BIDSRunVariableCollection.resample"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bids.variables.BIDSRunVariableCollection.resample" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">resample</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">sampling_rate=None</em>, <em class="sig-param">variables=None</em>, <em class="sig-param">force_dense=False</em>, <em class="sig-param">in_place=False</em>, <em class="sig-param">kind='linear'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bids/variables/collections.html#BIDSRunVariableCollection.resample"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bids.variables.BIDSRunVariableCollection.resample" title="Permalink to this definition">¶</a></dt>
 <dd><p>Resample all dense variables (and optionally, sparse ones) to the
 specified sampling rate.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>sampling_rate</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#int" title="(in Python v3.5)"><em>int</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3.5/library/functions.html#float" title="(in Python v3.5)"><em>float</em></a>) – Target sampling rate (in Hz). If None,
-uses the instance sampling rate.</p></li>
-<li><p><strong>variables</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#list" title="(in Python v3.5)"><em>list</em></a>) – Optional list of Variables to resample. If None,
-all variables are resampled.</p></li>
-<li><p><strong>force_dense</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#bool" title="(in Python v3.5)"><em>bool</em></a>) – if True, all sparse variables will be forced to
-dense.</p></li>
+<li><p><strong>sampling_rate</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#int" title="(in Python v3.5)"><em>int</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3.5/library/functions.html#float" title="(in Python v3.5)"><em>float</em></a>) – Target sampling rate (in Hz). If None, uses the instance value.</p></li>
+<li><p><strong>variables</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#list" title="(in Python v3.5)"><em>list</em></a>) – Optional list of names of Variables to resample. If None, all
+variables are resampled.</p></li>
+<li><p><strong>force_dense</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#bool" title="(in Python v3.5)"><em>bool</em></a>) – if True, all sparse variables will be forced to dense.</p></li>
 <li><p><strong>in_place</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#bool" title="(in Python v3.5)"><em>bool</em></a>) – When True, all variables are overwritten in-place.
 When False, returns resampled versions of all variables.</p></li>
-<li><p><strong>kind</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a>) – Argument to pass to scipy’s interp1d; indicates the
-kind of interpolation approach to use. See interp1d docs for
-valid values.</p></li>
+<li><p><strong>kind</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a>) – Argument to pass to scipy’s interp1d; indicates the kind of
+interpolation approach to use. See interp1d docs for valid values.</p></li>
 </ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>A BIDSVariableCollection (if in_place is False)</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="method">
+<dt id="bids.variables.BIDSRunVariableCollection.to_dense">
+<code class="sig-name descname">to_dense</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">sampling_rate=None</em>, <em class="sig-param">variables=None</em>, <em class="sig-param">in_place=False</em>, <em class="sig-param">kind='linear'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bids/variables/collections.html#BIDSRunVariableCollection.to_dense"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bids.variables.BIDSRunVariableCollection.to_dense" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert all contained SparseRunVariables to DenseRunVariables.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>sampling_rate</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/constants.html#None" title="(in Python v3.5)"><em>None</em></a><em>, </em><em>{'TR'</em><em>, </em><em>'highest'}</em><em>, </em><a class="reference external" href="https://docs.python.org/3.5/library/functions.html#float" title="(in Python v3.5)"><em>float</em></a>) – Sampling rate to use when densifying sparse variables. If None,
+uses the currently stored instance value. If ‘TR’, the repetition
+time is used, if available, to select the sampling rate (1/TR).
+If ‘highest’, all variables are resampled to the highest sampling
+rate of any of the existing dense variables. The sampling rate may
+also be specified explicitly in Hz as a float.</p></li>
+<li><p><strong>variables</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#list" title="(in Python v3.5)"><em>list</em></a>) – Optional list of names of Variables to resample. If None, all
+variables are resampled.</p></li>
+<li><p><strong>in_place</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#bool" title="(in Python v3.5)"><em>bool</em></a>) – When True, all variables are overwritten in-place.
+When False, returns resampled versions of all variables.</p></li>
+<li><p><strong>kind</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a>) – Argument to pass to scipy’s interp1d; indicates the kind of
+interpolation approach to use. See interp1d docs for valid values.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>A BIDSVariableCollection (if in_place is False)</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>Categorical variables are ignored.</p>
+</dd></dl>
+
+<dl class="method">
 <dt id="bids.variables.BIDSRunVariableCollection.to_df">
-<code class="sig-name descname">to_df</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">variables=None</em>, <em class="sig-param">format='wide'</em>, <em class="sig-param">sparse=True</em>, <em class="sig-param">sampling_rate=None</em>, <em class="sig-param">include_sparse=True</em>, <em class="sig-param">include_dense=True</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bids/variables/kollekshuns.html#BIDSRunVariableCollection.to_df"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bids.variables.BIDSRunVariableCollection.to_df" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">to_df</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">variables=None</em>, <em class="sig-param">format='wide'</em>, <em class="sig-param">fillna=nan</em>, <em class="sig-param">sampling_rate='highest'</em>, <em class="sig-param">include_sparse=True</em>, <em class="sig-param">include_dense=True</em>, <em class="sig-param">entities=True</em>, <em class="sig-param">timing=True</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bids/variables/collections.html#BIDSRunVariableCollection.to_df"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bids.variables.BIDSRunVariableCollection.to_df" title="Permalink to this definition">¶</a></dt>
 <dd><p>Merge columns into a single pandas DataFrame.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -378,27 +457,36 @@ onset/duration, and each variable is in a separate column. In
 ‘long’ format, each row is a unique combination of onset,
 duration, and variable name, and a single ‘amplitude’ column
 provides the value.</p></li>
-<li><p><strong>sparse</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#bool" title="(in Python v3.5)"><em>bool</em></a>) – If True, variables will be kept in a sparse
-format provided they are all internally represented as such.
-If False, a dense matrix (i.e., uniform sampling rate for all
-events) will be exported. Will be ignored if at least one
-variable is dense.</p></li>
-<li><p><strong>sampling_rate</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#float" title="(in Python v3.5)"><em>float</em></a>) – If a dense matrix is written out, the
-sampling rate (in Hz) to use for downsampling. Defaults to the
-value currently set in the instance.</p></li>
-<li><p><strong>kwargs</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#dict" title="(in Python v3.5)"><em>dict</em></a>) – Optional keyword arguments to pass onto each Variable’s
-to_df() call (e.g., condition, entities, and timing).</p></li>
-<li><p><strong>include_sparse</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#bool" title="(in Python v3.5)"><em>bool</em></a>) – Whether or not to include sparse Variables.</p></li>
-<li><p><strong>include_dense</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#bool" title="(in Python v3.5)"><em>bool</em></a>) – Whether or not to include dense Variables.</p></li>
+<li><p><strong>fillna</strong> (<em>value</em>) – Replace missing values with the specified value.</p></li>
+<li><p><strong>sampling_rate</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#float" title="(in Python v3.5)"><em>float</em></a>) – Specifies the sampling rate to use for all variables in the event
+that resampling needs to be performed (i.e., if some variables are
+sparse, or if dense variables have different sampling rates). Must
+be one of ‘TR’, ‘highest’, None, or a float (specifying the rate in
+Hz). If None, uses the instance sampling rate (10 Hz by default).</p></li>
+<li><p><strong>include_sparse</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#bool" title="(in Python v3.5)"><em>bool</em></a>) – Whether or not to include sparse variables in the output.</p></li>
+<li><p><strong>include_dense</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#bool" title="(in Python v3.5)"><em>bool</em></a>) – Whether or not to include dense variables in the output.</p></li>
+<li><p><strong>entities</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#bool" title="(in Python v3.5)"><em>bool</em></a>) – Whether or not to include a column for each entity.</p></li>
+<li><p><strong>timing</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#bool" title="(in Python v3.5)"><em>bool</em></a>) – Whether or not to include onset and duration columns.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>A pandas DataFrame.</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v0.25.3)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code></a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.0.3)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code></a></p>
 </dd>
 </dl>
+<p class="rubric">Notes</p>
+<p>The precise format of the resulting DataFrame depends on the variables
+contained in the current instance. If all variables are sparse, the
+output will also be sparse–i.e., the events in the DataFrame may have
+non-uniform timing. If at least one dense variable is present, and the
+user has not explicitly excluded dense variables (by setting
+include_dense=False), all selected variables will be implicitly
+converted to dense using the specified <cite>sampling_rate</cite> (if provided).
+To avoid unexpected behavior, we recommend converting mixed collections
+to all-dense form explicitly via the <cite>to_dense()</cite> or <cite>resample()</cite>
+methods before calling <cite>to_df()</cite>.</p>
 </dd></dl>
 
 </dd></dl>

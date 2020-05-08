@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>bids.analysis.analysis.Step &mdash; PyBIDS 0.10.0 documentation</title>
+  <title>bids.analysis.analysis.Step &mdash; PyBIDS 0.10.2+64.g1bf62ab documentation</title>
   
 
   
@@ -21,10 +21,10 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../_static/jquery.js"></script>
-        <script type="text/javascript" src="../_static/underscore.js"></script>
-        <script type="text/javascript" src="../_static/doctools.js"></script>
-        <script type="text/javascript" src="../_static/language_data.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -35,7 +35,7 @@
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="bids.analysis.analysis.AnalysisNode" href="bids.analysis.analysis.AnalysisNode.html" />
+    <link rel="next" title="bids.reports.BIDSReport" href="bids.reports.BIDSReport.html" />
     <link rel="prev" title="bids.analysis.auto_model" href="bids.analysis.auto_model.html" /> 
 </head>
 
@@ -88,8 +88,6 @@
 <li class="toctree-l3"><a class="reference internal" href="bids.analysis.Analysis.html">bids.analysis.Analysis</a></li>
 <li class="toctree-l3"><a class="reference internal" href="bids.analysis.auto_model.html">bids.analysis.auto_model</a></li>
 <li class="toctree-l3 current"><a class="current reference internal" href="#">bids.analysis.analysis.Step</a></li>
-<li class="toctree-l3"><a class="reference internal" href="bids.analysis.analysis.AnalysisNode.html">bids.analysis.analysis.AnalysisNode</a></li>
-<li class="toctree-l3"><a class="reference internal" href="bids.analysis.analysis.apply_transformations.html">bids.analysis.analysis.apply_transformations</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../api.html#bids-reports-data-acquisition-report-generation"><code class="xref py py-mod docutils literal notranslate"><span class="pre">bids.reports</span></code>: Data acquisition report generation</a></li>
@@ -169,29 +167,27 @@
 <h1>bids.analysis.analysis.Step<a class="headerlink" href="#bids-analysis-analysis-step" title="Permalink to this headline">¶</a></h1>
 <dl class="class">
 <dt id="bids.analysis.analysis.Step">
-<em class="property">class </em><code class="sig-name descname">Step</code><span class="sig-paren">(</span><em class="sig-param">layout</em>, <em class="sig-param">level</em>, <em class="sig-param">index</em>, <em class="sig-param">name=None</em>, <em class="sig-param">transformations=None</em>, <em class="sig-param">model=None</em>, <em class="sig-param">contrasts=None</em>, <em class="sig-param">input_nodes=None</em>, <em class="sig-param">dummy_contrasts=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bids/analysis/analysis.html#Step"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bids.analysis.analysis.Step" title="Permalink to this definition">¶</a></dt>
-<dd><p>Represents a single analysis block from a BIDS-Model specification.</p>
+<em class="property">class </em><code class="sig-name descname">Step</code><span class="sig-paren">(</span><em class="sig-param">layout</em>, <em class="sig-param">level</em>, <em class="sig-param">index</em>, <em class="sig-param">name=None</em>, <em class="sig-param">transformations=None</em>, <em class="sig-param">model=None</em>, <em class="sig-param">contrasts=None</em>, <em class="sig-param">inputs=None</em>, <em class="sig-param">dummy_contrasts=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bids/analysis/analysis.html#Step"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bids.analysis.analysis.Step" title="Permalink to this definition">¶</a></dt>
+<dd><p>Represents a single analysis step from a BIDS-Model specification.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>layout</strong> (<a class="reference internal" href="bids.layout.BIDSLayout.html#bids.layout.BIDSLayout" title="bids.layout.BIDSLayout"><code class="xref py py-obj docutils literal notranslate"><span class="pre">bids.layout.BIDSLayout</span></code></a>) – The BIDSLayout containing all project files.</p></li>
-<li><p><strong>level</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a>) – The BIDS keyword to use as the grouping variable; must be
-one of [‘run’, ‘session’, ‘subject’, or ‘dataset’].</p></li>
-<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#int" title="(in Python v3.5)"><em>int</em></a>) – The numerical index of the current Step within the
-sequence of steps.</p></li>
-<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a>) – Optional name to assign to the block. Must be specified
-in order to enable name-based indexing in the parent Analysis.</p></li>
+<li><p><strong>level</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a>) – The BIDS keyword to use as the grouping variable; must be one of
+[‘run’, ‘session’, ‘subject’, or ‘dataset’].</p></li>
+<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#int" title="(in Python v3.5)"><em>int</em></a>) – The numerical index of the current Step within the sequence of steps.</p></li>
+<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a>) – Optional name to assign to the step. Must be specified in order to
+enable name-based indexing in the parent Analysis.</p></li>
 <li><p><strong>transformations</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#list" title="(in Python v3.5)"><em>list</em></a>) – List of BIDS-Model transformations to apply.</p></li>
-<li><p><strong>model</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#dict" title="(in Python v3.5)"><em>dict</em></a>) – The ‘model’ part of the BIDS-Model block specification.</p></li>
-<li><p><strong>contrasts</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#list" title="(in Python v3.5)"><em>list</em></a>) – List of contrasts to apply to the parameter estimates
-generated when the model is fit.</p></li>
-<li><p><strong>input_nodes</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#list" title="(in Python v3.5)"><em>list</em></a>) – Optional list of AnalysisNodes to use as input to
-this Step (typically, the output from the preceding Step).</p></li>
-<li><p><strong>dummy_contrasts</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#dict" title="(in Python v3.5)"><em>dict</em></a>) – Optional dictionary specifying which conditions to create
-indicator contrasts for. Dictionary must include a
-“type” key (‘t’ or ‘FEMA’), and optionally a subset of “conditions”.
-This parameter is over-written by the setting
-in setup() if the latter is passed.</p></li>
+<li><p><strong>model</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#dict" title="(in Python v3.5)"><em>dict</em></a>) – The ‘model’ part of the BIDS-StatsModels specification.</p></li>
+<li><p><strong>contrasts</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#list" title="(in Python v3.5)"><em>list</em></a>) – List of contrasts to apply to the parameter estimates generated when
+the model is fit.</p></li>
+<li><p><strong>inputs</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#list" title="(in Python v3.5)"><em>list</em></a>) – Optional list of BIDSVariableCollections to use as input to this Step
+(typically, the outputs from the preceding Step).</p></li>
+<li><p><strong>dummy_contrasts</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#dict" title="(in Python v3.5)"><em>dict</em></a>) – Optional dictionary specifying which conditions to create indicator
+contrasts for. Dictionary must include a “type” key (‘t’ or ‘FEMA’),
+and optionally a subset of “conditions”. This parameter is over-written
+by the setting in setup() if the latter is passed.</p></li>
 </ul>
 </dd>
 </dl>
@@ -202,20 +198,23 @@ in setup() if the latter is passed.</p></li>
 <col style="width: 90%" />
 </colgroup>
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#bids.analysis.analysis.Step.get_contrasts" title="bids.analysis.analysis.Step.get_contrasts"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_contrasts</span></code></a>(self[, names, variables])</p></td>
-<td><p>Return contrast information for the current block.</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#bids.analysis.analysis.Step.get_collections" title="bids.analysis.analysis.Step.get_collections"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_collections</span></code></a>(self, \*\*filters)</p></td>
+<td><p>Returns BIDSVariableCollections at the current Step.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#bids.analysis.analysis.Step.get_design_matrix" title="bids.analysis.analysis.Step.get_design_matrix"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_design_matrix</span></code></a>(self[, names, format, …])</p></td>
-<td><p>Get design matrix and associated information.</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#bids.analysis.analysis.Step.get_contrasts" title="bids.analysis.analysis.Step.get_contrasts"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_contrasts</span></code></a>(self, collection[, names, …])</p></td>
+<td><p>Return contrast information at this step for the passed collection.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#bids.analysis.analysis.Step.setup" title="bids.analysis.analysis.Step.setup"><code class="xref py py-obj docutils literal notranslate"><span class="pre">setup</span></code></a>(self[, input_nodes, drop_na])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#bids.analysis.analysis.Step.get_model_spec" title="bids.analysis.analysis.Step.get_model_spec"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_model_spec</span></code></a>(self, collection[, sampling_rate])</p></td>
+<td><p>Get a ModelSpec instance for the passed collection.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#bids.analysis.analysis.Step.setup" title="bids.analysis.analysis.Step.setup"><code class="xref py py-obj docutils literal notranslate"><span class="pre">setup</span></code></a>(self[, inputs, drop_na])</p></td>
 <td><p>Set up the Step and construct the design matrix.</p></td>
 </tr>
 </tbody>
 </table>
 <dl class="method">
 <dt id="bids.analysis.analysis.Step.__init__">
-<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">layout</em>, <em class="sig-param">level</em>, <em class="sig-param">index</em>, <em class="sig-param">name=None</em>, <em class="sig-param">transformations=None</em>, <em class="sig-param">model=None</em>, <em class="sig-param">contrasts=None</em>, <em class="sig-param">input_nodes=None</em>, <em class="sig-param">dummy_contrasts=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bids/analysis/analysis.html#Step.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bids.analysis.analysis.Step.__init__" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">layout</em>, <em class="sig-param">level</em>, <em class="sig-param">index</em>, <em class="sig-param">name=None</em>, <em class="sig-param">transformations=None</em>, <em class="sig-param">model=None</em>, <em class="sig-param">contrasts=None</em>, <em class="sig-param">inputs=None</em>, <em class="sig-param">dummy_contrasts=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bids/analysis/analysis.html#Step.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bids.analysis.analysis.Step.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
 </dd></dl>
 
@@ -229,109 +228,111 @@ in setup() if the latter is passed.</p></li>
 <tr class="row-odd"><td><p><a class="reference internal" href="#bids.analysis.analysis.Step.__init__" title="bids.analysis.analysis.Step.__init__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__init__</span></code></a>(self, layout, level, index[, name, …])</p></td>
 <td><p>Initialize self.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#bids.analysis.analysis.Step.get_contrasts" title="bids.analysis.analysis.Step.get_contrasts"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_contrasts</span></code></a>(self[, names, variables])</p></td>
-<td><p>Return contrast information for the current block.</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#bids.analysis.analysis.Step.get_collections" title="bids.analysis.analysis.Step.get_collections"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_collections</span></code></a>(self, \*\*filters)</p></td>
+<td><p>Returns BIDSVariableCollections at the current Step.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#bids.analysis.analysis.Step.get_design_matrix" title="bids.analysis.analysis.Step.get_design_matrix"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_design_matrix</span></code></a>(self[, names, format, …])</p></td>
-<td><p>Get design matrix and associated information.</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#bids.analysis.analysis.Step.get_contrasts" title="bids.analysis.analysis.Step.get_contrasts"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_contrasts</span></code></a>(self, collection[, names, …])</p></td>
+<td><p>Return contrast information at this step for the passed collection.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#bids.analysis.analysis.Step.setup" title="bids.analysis.analysis.Step.setup"><code class="xref py py-obj docutils literal notranslate"><span class="pre">setup</span></code></a>(self[, input_nodes, drop_na])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#bids.analysis.analysis.Step.get_model_spec" title="bids.analysis.analysis.Step.get_model_spec"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_model_spec</span></code></a>(self, collection[, sampling_rate])</p></td>
+<td><p>Get a ModelSpec instance for the passed collection.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#bids.analysis.analysis.Step.setup" title="bids.analysis.analysis.Step.setup"><code class="xref py py-obj docutils literal notranslate"><span class="pre">setup</span></code></a>(self[, inputs, drop_na])</p></td>
 <td><p>Set up the Step and construct the design matrix.</p></td>
 </tr>
 </tbody>
 </table>
 <dl class="method">
+<dt id="bids.analysis.analysis.Step.get_collections">
+<code class="sig-name descname">get_collections</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">**filters</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bids/analysis/analysis.html#Step.get_collections"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bids.analysis.analysis.Step.get_collections" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns BIDSVariableCollections at the current Step.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>filters</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#dict" title="(in Python v3.5)"><em>dict</em></a>) – Optional keyword filters used to constrain which of the available
+collections get returned (e.g., passing subject=[‘01’, ‘02’] will
+return collections for only subjects ‘01’ and ‘02’).</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>One instance per unit of the current analysis level (e.g., if
+level=’run’, each element in the list represents the collection
+for a single run).</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>list of BIDSVariableCollection instances</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
 <dt id="bids.analysis.analysis.Step.get_contrasts">
-<code class="sig-name descname">get_contrasts</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">names=None</em>, <em class="sig-param">variables=None</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bids/analysis/analysis.html#Step.get_contrasts"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bids.analysis.analysis.Step.get_contrasts" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return contrast information for the current block.</p>
+<code class="sig-name descname">get_contrasts</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">collection</em>, <em class="sig-param">names=None</em>, <em class="sig-param">variables=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bids/analysis/analysis.html#Step.get_contrasts"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bids.analysis.analysis.Step.get_contrasts" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return contrast information at this step for the passed collection.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>names</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#list" title="(in Python v3.5)"><em>list</em></a>) – Optional list of names of contrasts to return. If
-None (default), all contrasts are returned.</p></li>
-<li><p><strong>variables</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#bool" title="(in Python v3.5)"><em>bool</em></a>) – Optional list of strings giving the names of
-design matrix columns to use when generating the matrix of
-weights.</p></li>
-<li><p><strong>kwargs</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#dict" title="(in Python v3.5)"><em>dict</em></a>) – Optional keyword arguments used to constrain which of the
-available nodes get returned (e.g., passing subject=[‘01’,
-‘02’] will return contrast  information only for subjects ‘01’
-and ‘02’).</p></li>
+<li><p><strong>collection</strong> (<a class="reference internal" href="bids.variables.BIDSVariableCollection.html#bids.variables.BIDSVariableCollection" title="bids.variables.BIDSVariableCollection"><em>BIDSVariableCollection</em></a>) – The collection to generate/validate contrasts for.</p></li>
+<li><p><strong>names</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#list" title="(in Python v3.5)"><em>list</em></a>) – Optional list of names of contrasts to return. If None (default),
+all contrasts are returned.</p></li>
+<li><p><strong>variables</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#bool" title="(in Python v3.5)"><em>bool</em></a>) – Optional list of strings giving the names of design matrix columns
+to use when generating the matrix of weights.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p>A list with one element per unit of the current analysis level
-(e.g., if level=’run’, each element in the list representing the
-contrast information for a single run). Each element is a list of
-ContrastInfo namedtuples (one per contrast).</p>
+<dd class="field-even"><p>A list of ContrastInfo namedtuples, one per contrast.</p>
 </dd>
 <dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#list" title="(in Python v3.5)">list</a></p>
 </dd>
 </dl>
+<p class="rubric">Notes</p>
+<p>The ‘variables’ argument take precedence over the natural process
+of column selection. I.e., if a variable shows up in a contrast, but
+isn’t named in variables, it will <em>not</em> be included in the result.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="bids.analysis.analysis.Step.get_design_matrix">
-<code class="sig-name descname">get_design_matrix</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">names=None</em>, <em class="sig-param">format='long'</em>, <em class="sig-param">mode='both'</em>, <em class="sig-param">force=False</em>, <em class="sig-param">sampling_rate='TR'</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bids/analysis/analysis.html#Step.get_design_matrix"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bids.analysis.analysis.Step.get_design_matrix" title="Permalink to this definition">¶</a></dt>
-<dd><p>Get design matrix and associated information.</p>
+<dt id="bids.analysis.analysis.Step.get_model_spec">
+<code class="sig-name descname">get_model_spec</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">collection</em>, <em class="sig-param">sampling_rate='TR'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bids/analysis/analysis.html#Step.get_model_spec"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bids.analysis.analysis.Step.get_model_spec" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get a ModelSpec instance for the passed collection.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>names</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#list" title="(in Python v3.5)"><em>list</em></a>) – Optional list of names of variables to include in the
-returned design matrix. If None, all variables are included.</p></li>
-<li><p><strong>format</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a>) – Whether to return the design matrix in ‘long’ or
-‘wide’ format. Note that dense design matrices are always
-returned in ‘wide’ format.</p></li>
-<li><p><strong>mode</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a>) – Specifies whether to return variables in a sparse
-representation (‘sparse’), dense representation (‘dense’), or
-both (‘both’).</p></li>
-<li><p><strong>force</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#bool" title="(in Python v3.5)"><em>bool</em></a>) – Indicates how to handle columns not of the type
-indicated by the mode argument. When False, variables of the
-non-selected type will be silently ignored. When True,
-variables will be forced to the desired representation. For
-example, if mode=’dense’ and force=True, sparse variables will
-be converted to dense variables and included in the returned
-design matrix in the .dense attribute. The force argument is
-ignored entirely if mode=’both’.</p></li>
-<li><p><strong>sampling_rate</strong> (<em>{'TR'</em><em>, </em><em>'highest'}</em><em> or </em><a class="reference external" href="https://docs.python.org/3.5/library/functions.html#float" title="(in Python v3.5)"><em>float</em></a>) – Sampling rate at which to
-generate the dense design matrix. When ‘TR’, the repetition
-time is used, if available, to select the sampling rate (1/TR).
-When ‘highest’, all variables are resampled to the highest
-sampling rate of any variable. The sampling rate may also be
-specified explicitly in Hz. Has no effect on sparse design
-matrices.</p></li>
-<li><p><strong>kwargs</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#dict" title="(in Python v3.5)"><em>dict</em></a>) – Optional keyword arguments. Includes (1) selectors used
-to constrain which of the available nodes get returned
-(e.g., passing subject=[‘01’, ‘02’] will return design
-information only for subjects ‘01’ and ‘02’), and (2) arguments
-passed on to each Variable’s to_df() call (e.g.,
-sampling_rate, entities, timing, etc.).</p></li>
+<li><p><strong>collection</strong> (<a class="reference internal" href="bids.variables.BIDSVariableCollection.html#bids.variables.BIDSVariableCollection" title="bids.variables.BIDSVariableCollection"><em>BIDSVariableCollection</em></a>) – The BIDSVariableCollection to construct a model for.</p></li>
+<li><p><strong>sampling_rate</strong> (<em>{'TR'</em><em>, </em><em>'highest'}</em><em> or </em><a class="reference external" href="https://docs.python.org/3.5/library/functions.html#float" title="(in Python v3.5)"><em>float</em></a>) – For run-level models, the sampling rate at which to generate the
+design matrix. When ‘TR’, the repetition time is used, if
+available, to select the sampling rate (1/TR). When ‘highest’, all
+variables are resampled to the highest sampling rate of any
+variable in the collection. The sampling rate may also be specified
+explicitly in Hz. Has no effect on non-run-level collections.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p>one tuple per unit of the current
-analysis level (e.g., if level=’run’, each element in the list
-represents the design matrix for a single run).</p>
+<dd class="field-even"><p></p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>list of DesignMatrixInfo namedtuples</p>
+<dd class="field-odd"><p>A bids.analysis.model_spec.ModelSpec instance.</p>
 </dd>
 </dl>
+<p class="rubric">Notes</p>
+<p>If the passed BIDSVariableCollection contains any sparse variables,
+they will be automatically converted to dense (using the specified
+sampling rate) before the ModelSpec is constructed. For non-run-level
+collections, timing is irrelevant, so the design matrix is constructed
+based on the “as-is” values found in each variable.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="bids.analysis.analysis.Step.setup">
-<code class="sig-name descname">setup</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">input_nodes=None</em>, <em class="sig-param">drop_na=False</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bids/analysis/analysis.html#Step.setup"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bids.analysis.analysis.Step.setup" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">setup</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">inputs=None</em>, <em class="sig-param">drop_na=False</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bids/analysis/analysis.html#Step.setup"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bids.analysis.analysis.Step.setup" title="Permalink to this definition">¶</a></dt>
 <dd><p>Set up the Step and construct the design matrix.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>input_nodes</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#list" title="(in Python v3.5)"><em>list</em></a>) – Optional list of Node objects produced by
-the preceding Step in the analysis. If None, uses any inputs
-passed in at Step initialization.</p></li>
-<li><p><strong>drop_na</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#bool" title="(in Python v3.5)"><em>bool</em></a>) – Boolean indicating whether or not to automatically
-drop events that have a n/a amplitude when reading in data
-from event files.</p></li>
+<li><p><strong>inputs</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#list" title="(in Python v3.5)"><em>list</em></a>) – Optional list of BIDSVariableCollections produced as output by the
+preceding Step in the analysis. If None, uses inputs passed at
+initialization (if any).</p></li>
+<li><p><strong>drop_na</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#bool" title="(in Python v3.5)"><em>bool</em></a>) – Boolean indicating whether or not to automatically drop events that
+have a n/a amplitude when reading in data from event files.</p></li>
 <li><p><strong>kwargs</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#dict" title="(in Python v3.5)"><em>dict</em></a>) – Optional keyword arguments to pass onto load_variables.</p></li>
 </ul>
 </dd>
@@ -350,7 +351,7 @@ from event files.</p></li>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="bids.analysis.analysis.AnalysisNode.html" class="btn btn-neutral float-right" title="bids.analysis.analysis.AnalysisNode" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="bids.reports.BIDSReport.html" class="btn btn-neutral float-right" title="bids.reports.BIDSReport" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="bids.analysis.auto_model.html" class="btn btn-neutral float-left" title="bids.analysis.auto_model" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>

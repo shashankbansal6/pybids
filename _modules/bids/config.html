@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>bids.config &mdash; PyBIDS 0.10.0 documentation</title>
+  <title>bids.config &mdash; PyBIDS 0.10.2+64.g1bf62ab documentation</title>
   
 
   
@@ -21,10 +21,10 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../../_static/jquery.js"></script>
-        <script type="text/javascript" src="../../_static/underscore.js"></script>
-        <script type="text/javascript" src="../../_static/doctools.js"></script>
-        <script type="text/javascript" src="../../_static/language_data.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/language_data.js"></script>
     
     <script type="text/javascript" src="../../_static/js/theme.js"></script>
 
@@ -148,9 +148,9 @@
 <span></span><span class="sd">&#39;&#39;&#39; Utilities for manipulating package-level settings. &#39;&#39;&#39;</span>
 
 <span class="kn">import</span> <span class="nn">json</span>
-<span class="kn">from</span> <span class="nn">os.path</span> <span class="k">import</span> <span class="n">join</span><span class="p">,</span> <span class="n">expanduser</span><span class="p">,</span> <span class="n">exists</span>
+<span class="kn">from</span> <span class="nn">os.path</span> <span class="kn">import</span> <span class="n">join</span><span class="p">,</span> <span class="n">expanduser</span><span class="p">,</span> <span class="n">exists</span>
 <span class="kn">import</span> <span class="nn">os</span>
-<span class="kn">from</span> <span class="nn">io</span> <span class="k">import</span> <span class="nb">open</span>
+<span class="kn">from</span> <span class="nn">io</span> <span class="kn">import</span> <span class="nb">open</span>
 
 <span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;set_option&#39;</span><span class="p">,</span> <span class="s1">&#39;set_options&#39;</span><span class="p">,</span> <span class="s1">&#39;get_option&#39;</span><span class="p">]</span>
 
@@ -219,12 +219,12 @@
 
 
 <div class="viewcode-block" id="reset_options"><a class="viewcode-back" href="../../generated/bids.config.reset_options.html#bids.config.reset_options">[docs]</a><span class="k">def</span> <span class="nf">reset_options</span><span class="p">(</span><span class="n">update_from_file</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
-    <span class="sd">&#39;&#39;&#39; Reset all options to the package defaults.</span>
+    <span class="sd">&quot;&quot;&quot; Reset all options to the package defaults.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        update_from_file (bool): If True, re-applies any config files found in</span>
 <span class="sd">            standard locations.</span>
-<span class="sd">    &#39;&#39;&#39;</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">global</span> <span class="n">_settings</span>
     <span class="n">_settings</span> <span class="o">=</span> <span class="n">_default_settings</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
     <span class="k">if</span> <span class="n">update_from_file</span><span class="p">:</span>

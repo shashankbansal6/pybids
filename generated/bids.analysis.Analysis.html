@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>bids.analysis.Analysis &mdash; PyBIDS 0.10.0 documentation</title>
+  <title>bids.analysis.Analysis &mdash; PyBIDS 0.10.2+64.g1bf62ab documentation</title>
   
 
   
@@ -21,10 +21,10 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../_static/jquery.js"></script>
-        <script type="text/javascript" src="../_static/underscore.js"></script>
-        <script type="text/javascript" src="../_static/doctools.js"></script>
-        <script type="text/javascript" src="../_static/language_data.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -36,7 +36,7 @@
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="bids.analysis.auto_model" href="bids.analysis.auto_model.html" />
-    <link rel="prev" title="bids.layout.index.BIDSLayoutIndexer" href="bids.layout.index.BIDSLayoutIndexer.html" /> 
+    <link rel="prev" title="bids.layout.writing" href="bids.layout.writing.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -88,8 +88,6 @@
 <li class="toctree-l3 current"><a class="current reference internal" href="#">bids.analysis.Analysis</a></li>
 <li class="toctree-l3"><a class="reference internal" href="bids.analysis.auto_model.html">bids.analysis.auto_model</a></li>
 <li class="toctree-l3"><a class="reference internal" href="bids.analysis.analysis.Step.html">bids.analysis.analysis.Step</a></li>
-<li class="toctree-l3"><a class="reference internal" href="bids.analysis.analysis.AnalysisNode.html">bids.analysis.analysis.AnalysisNode</a></li>
-<li class="toctree-l3"><a class="reference internal" href="bids.analysis.analysis.apply_transformations.html">bids.analysis.analysis.apply_transformations</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../api.html#bids-reports-data-acquisition-report-generation"><code class="xref py py-mod docutils literal notranslate"><span class="pre">bids.reports</span></code>: Data acquisition report generation</a></li>
@@ -224,7 +222,7 @@ dict containing the model info.</p></li>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>steps</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#list" title="(in Python v3.5)"><em>list</em></a>) – Optional list of steps to set up. Each element
 must be either an int giving the index of the step in the
-JSON config block list, or a str giving the (unique) name of
+JSON config step list, or a str giving the (unique) name of
 the step, as specified in the JSON config. Steps that do not
 match either index or name will be skipped.</p></li>
 <li><p><strong>drop_na</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#bool" title="(in Python v3.5)"><em>bool</em></a>) – Boolean indicating whether or not to automatically
@@ -250,7 +248,7 @@ from event files.</p></li>
         <a href="bids.analysis.auto_model.html" class="btn btn-neutral float-right" title="bids.analysis.auto_model" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="bids.layout.index.BIDSLayoutIndexer.html" class="btn btn-neutral float-left" title="bids.layout.index.BIDSLayoutIndexer" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="bids.layout.writing.html" class="btn btn-neutral float-left" title="bids.layout.writing" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

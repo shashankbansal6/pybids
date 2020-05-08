@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>bids.variables.io &mdash; PyBIDS 0.10.0 documentation</title>
+  <title>bids.variables.io &mdash; PyBIDS 0.10.2+64.g1bf62ab documentation</title>
   
 
   
@@ -21,10 +21,10 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../../../_static/jquery.js"></script>
-        <script type="text/javascript" src="../../../_static/underscore.js"></script>
-        <script type="text/javascript" src="../../../_static/doctools.js"></script>
-        <script type="text/javascript" src="../../../_static/language_data.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/language_data.js"></script>
     
     <script type="text/javascript" src="../../../_static/js/theme.js"></script>
 
@@ -147,16 +147,16 @@
   <h1>Source code for bids.variables.io</h1><div class="highlight"><pre>
 <span></span><span class="sd">&quot;&quot;&quot; Tools for reading/writing BIDS data files. &quot;&quot;&quot;</span>
 
-<span class="kn">from</span> <span class="nn">os.path</span> <span class="k">import</span> <span class="n">join</span>
+<span class="kn">from</span> <span class="nn">os.path</span> <span class="kn">import</span> <span class="n">join</span>
 <span class="kn">import</span> <span class="nn">warnings</span>
 <span class="kn">import</span> <span class="nn">json</span>
 
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 
-<span class="kn">from</span> <span class="nn">bids.utils</span> <span class="k">import</span> <span class="n">listify</span>
-<span class="kn">from</span> <span class="nn">.entities</span> <span class="k">import</span> <span class="n">NodeIndex</span>
-<span class="kn">from</span> <span class="nn">.variables</span> <span class="k">import</span> <span class="n">SparseRunVariable</span><span class="p">,</span> <span class="n">DenseRunVariable</span><span class="p">,</span> <span class="n">SimpleVariable</span>
+<span class="kn">from</span> <span class="nn">bids.utils</span> <span class="kn">import</span> <span class="n">listify</span>
+<span class="kn">from</span> <span class="nn">.entities</span> <span class="kn">import</span> <span class="n">NodeIndex</span>
+<span class="kn">from</span> <span class="nn">.variables</span> <span class="kn">import</span> <span class="n">SparseRunVariable</span><span class="p">,</span> <span class="n">DenseRunVariable</span><span class="p">,</span> <span class="n">SimpleVariable</span>
 
 
 <span class="n">BASE_ENTITIES</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;subject&#39;</span><span class="p">,</span> <span class="s1">&#39;session&#39;</span><span class="p">,</span> <span class="s1">&#39;task&#39;</span><span class="p">,</span> <span class="s1">&#39;run&#39;</span><span class="p">]</span>
@@ -203,7 +203,7 @@
 
 <span class="sd">    Examples</span>
 <span class="sd">    --------</span>
-<span class="sd">    &gt;&gt;&gt; load_variables(layout, [&#39;events&#39;, &#39;physio&#39;], subject=&#39;01&#39;)</span>
+<span class="sd">    &gt;&gt;&gt; load_variables(layout, [&#39;events&#39;, &#39;physio&#39;], subject=&#39;01&#39;)  # doctest: +SKIP</span>
 <span class="sd">    # returns all variables stored in _events.tsv and _physio.tsv.gz files</span>
 <span class="sd">    # for runs that belong to subject with id &#39;01&#39;.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -288,7 +288,7 @@
 <span class="sd">        The scope of the space to search for variables. See</span>
 <span class="sd">        docstring for BIDSLayout for details and valid predefined values.</span>
 <span class="sd">    selectors : dict</span>
-<span class="sd">        Optional keyword arguments passed onto the</span>
+<span class="sd">        Optional keyword arguments passed on to the</span>
 <span class="sd">        BIDSLayout instance&#39;s get() method; can be used to constrain</span>
 <span class="sd">        which data are loaded.</span>
 
@@ -388,11 +388,11 @@
                     <span class="k">if</span> <span class="p">(</span><span class="n">_data</span><span class="p">[</span><span class="s1">&#39;amplitude&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">all</span><span class="p">()</span> <span class="ow">and</span> \
                             <span class="s1">&#39;trial_type&#39;</span> <span class="ow">in</span> <span class="n">_data</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
                         <span class="n">msg</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;Column &#39;amplitude&#39; with constant value 1 &quot;</span>
-                                <span class="s2">&quot;is unnecessary in event files; ignoring it.&quot;</span><span class="p">)</span>
+                               <span class="s2">&quot;is unnecessary in event files; ignoring it.&quot;</span><span class="p">)</span>
                         <span class="n">_data</span> <span class="o">=</span> <span class="n">_data</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s1">&#39;amplitude&#39;</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
                     <span class="k">else</span><span class="p">:</span>
                         <span class="n">msg</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;Column name &#39;amplitude&#39; is reserved; &quot;</span>
-                                <span class="s2">&quot;renaming it to &#39;amplitude_&#39;.&quot;</span><span class="p">)</span>
+                               <span class="s2">&quot;renaming it to &#39;amplitude_&#39;.&quot;</span><span class="p">)</span>
                         <span class="n">_data</span> <span class="o">=</span> <span class="n">_data</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span>
                             <span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;amplitude&#39;</span><span class="p">:</span> <span class="s1">&#39;amplitude_&#39;</span><span class="p">})</span>
                     <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>

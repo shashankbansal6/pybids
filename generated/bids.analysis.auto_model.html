@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>bids.analysis.auto_model &mdash; PyBIDS 0.10.0 documentation</title>
+  <title>bids.analysis.auto_model &mdash; PyBIDS 0.10.2+64.g1bf62ab documentation</title>
   
 
   
@@ -21,10 +21,10 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../_static/jquery.js"></script>
-        <script type="text/javascript" src="../_static/underscore.js"></script>
-        <script type="text/javascript" src="../_static/doctools.js"></script>
-        <script type="text/javascript" src="../_static/language_data.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -88,8 +88,6 @@
 <li class="toctree-l3"><a class="reference internal" href="bids.analysis.Analysis.html">bids.analysis.Analysis</a></li>
 <li class="toctree-l3 current"><a class="current reference internal" href="#">bids.analysis.auto_model</a></li>
 <li class="toctree-l3"><a class="reference internal" href="bids.analysis.analysis.Step.html">bids.analysis.analysis.Step</a></li>
-<li class="toctree-l3"><a class="reference internal" href="bids.analysis.analysis.AnalysisNode.html">bids.analysis.analysis.AnalysisNode</a></li>
-<li class="toctree-l3"><a class="reference internal" href="bids.analysis.analysis.apply_transformations.html">bids.analysis.analysis.apply_transformations</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../api.html#bids-reports-data-acquisition-report-generation"><code class="xref py py-mod docutils literal notranslate"><span class="pre">bids.reports</span></code>: Data acquisition report generation</a></li>
@@ -178,7 +176,7 @@ present to aggregate these results up.</p>
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>layout</strong> (<a class="reference internal" href="bids.layout.BIDSLayout.html#bids.layout.BIDSLayout" title="bids.layout.BIDSLayout"><code class="xref py py-obj docutils literal notranslate"><span class="pre">bids.layout.BIDSLayout</span></code></a>) – A BIDSLayout instance</p></li>
-<li><p><strong>scan_length</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#int" title="(in Python v3.5)"><em>int</em></a>) – Scan length for loading event varibles in cases
+<li><p><strong>scan_length</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#int" title="(in Python v3.5)"><em>int</em></a>) – Scan length for loading event variables in cases
 where the scan length can not be read from the nifti.
 Primarily for testing.</p></li>
 <li><p><strong>one_vs_rest</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#bool" title="(in Python v3.5)"><em>bool</em></a>) – Set to True if you would like to autogenerate

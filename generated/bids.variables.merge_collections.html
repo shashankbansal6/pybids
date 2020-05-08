@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>bids.variables.merge_collections &mdash; PyBIDS 0.10.0 documentation</title>
+  <title>bids.variables.merge_collections &mdash; PyBIDS 0.10.2+64.g1bf62ab documentation</title>
   
 
   
@@ -21,10 +21,10 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../_static/jquery.js"></script>
-        <script type="text/javascript" src="../_static/underscore.js"></script>
-        <script type="text/javascript" src="../_static/doctools.js"></script>
-        <script type="text/javascript" src="../_static/language_data.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -97,7 +97,7 @@
 <li class="toctree-l3"><a class="reference internal" href="bids.variables.merge_variables.html">bids.variables.merge_variables</a></li>
 <li class="toctree-l3"><a class="reference internal" href="bids.variables.io.html">bids.variables.io</a></li>
 <li class="toctree-l3"><a class="reference internal" href="bids.variables.entities.html">bids.variables.entities</a></li>
-<li class="toctree-l3"><a class="reference internal" href="bids.variables.kollekshuns.html">bids.variables.kollekshuns</a></li>
+<li class="toctree-l3"><a class="reference internal" href="bids.variables.collections.html">bids.variables.collections</a></li>
 <li class="toctree-l3"><a class="reference internal" href="bids.variables.variables.html">bids.variables.variables</a></li>
 </ul>
 </li>
@@ -176,15 +176,17 @@
 <h1>bids.variables.merge_collections<a class="headerlink" href="#bids-variables-merge-collections" title="Permalink to this headline">¶</a></h1>
 <dl class="function">
 <dt id="bids.variables.merge_collections">
-<code class="sig-name descname">merge_collections</code><span class="sig-paren">(</span><em class="sig-param">collections</em>, <em class="sig-param">force_dense=False</em>, <em class="sig-param">sampling_rate='auto'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bids/variables/kollekshuns.html#merge_collections"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bids.variables.merge_collections" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">merge_collections</code><span class="sig-paren">(</span><em class="sig-param">collections</em>, <em class="sig-param">sampling_rate='highest'</em>, <em class="sig-param">output_level=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bids/variables/collections.html#merge_collections"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bids.variables.merge_collections" title="Permalink to this definition">¶</a></dt>
 <dd><p>Merge two or more collections at the same level of analysis.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>collections</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#list" title="(in Python v3.5)"><em>list</em></a>) – List of Collections to merge.</p></li>
 <li><p><strong>sampling_rate</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#int" title="(in Python v3.5)"><em>int</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a>) – Sampling rate to use if it becomes necessary
-to resample DenseRunVariables. Either an integer or ‘auto’ (see
+to resample DenseRunVariables. Either an integer or ‘highest’ (see
 merge_variables docstring for further explanation).</p></li>
+<li><p><strong>output_level</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a><em>, </em><em>optional</em>) – Assign a new level (e.g., ‘run’, ‘subject’, etc.) to the merged
+collection. If None, the current level is retained.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>

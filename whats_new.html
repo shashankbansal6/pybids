@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Changelog &mdash; PyBIDS 0.10.0 documentation</title>
+  <title>Changelog &mdash; PyBIDS 0.10.2+64.g1bf62ab documentation</title>
   
 
   
@@ -21,10 +21,10 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-        <script type="text/javascript" src="_static/jquery.js"></script>
-        <script type="text/javascript" src="_static/underscore.js"></script>
-        <script type="text/javascript" src="_static/doctools.js"></script>
-        <script type="text/javascript" src="_static/language_data.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
     
     <script type="text/javascript" src="_static/js/theme.js"></script>
 
@@ -83,6 +83,8 @@
 <li class="toctree-l1"><a class="reference internal" href="user_guide.html">User guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api.html">API Reference</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Changelog</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#version-0-10-2-february-26-2020">Version 0.10.2 (February 26, 2020)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#version-0-10-1-february-10-2020">Version 0.10.1 (February 10, 2020)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#version-0-10-0-december-03-2019">Version 0.10.0 (December 03, 2019)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#version-0-9-5-november-6-2019">Version 0.9.5 (November 6, 2019)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#version-0-9-4-september-20-2019">Version 0.9.4 (September 20, 2019)</a></li>
@@ -169,6 +171,34 @@
             
   <div class="section" id="changelog">
 <h1>Changelog<a class="headerlink" href="#changelog" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="version-0-10-2-february-26-2020">
+<h2>Version 0.10.2 (February 26, 2020)<a class="headerlink" href="#version-0-10-2-february-26-2020" title="Permalink to this headline">¶</a></h2>
+<p>Bug fix release in the 0.10.x series.</p>
+<ul class="simple">
+<li><p>FIX: Add Replace as exception to recursive JSON conversion (#589)</p></li>
+</ul>
+</div>
+<div class="section" id="version-0-10-1-february-10-2020">
+<h2>Version 0.10.1 (February 10, 2020)<a class="headerlink" href="#version-0-10-1-february-10-2020" title="Permalink to this headline">¶</a></h2>
+<p>Bug fix release in the 0.10.x series.</p>
+<p>This release just makes available some of the latest minor fixes and improvements.</p>
+<ul class="simple">
+<li><p>FIX: Replace <code class="docutils literal notranslate"><span class="pre">os.path.sep</span></code> with <code class="docutils literal notranslate"><span class="pre">fwdslash</span></code> because bids validator hardcodes fwd (#582)</p></li>
+<li><p>FIX: Refactor of <code class="docutils literal notranslate"><span class="pre">build_path</span></code> and inner machinery (#574)</p></li>
+<li><p>FIX: Domain entity, and slow <code class="docutils literal notranslate"><span class="pre">__repr__</span></code> (#569)</p></li>
+<li><p>FIX: “strict” helptext in <code class="docutils literal notranslate"><span class="pre">BIDSLayout.write_contents_to_file</span></code> (#566)</p></li>
+<li><p>FIX: typos in helpstrings and comments (#564)</p></li>
+<li><p>FIX: Correct term “caret” to “angle bracket” in helpstrings (#565)</p></li>
+<li><p>ENH: Extend <code class="docutils literal notranslate"><span class="pre">build_path</span></code> to generate lists of files (#576)</p></li>
+<li><p>ENH: Add one parametric test of <code class="docutils literal notranslate"><span class="pre">BIDSLayout.build_path</span></code> (#577)</p></li>
+<li><p>ENH: Enable partial metadata indexing (#560)</p></li>
+<li><p>ENH: Upscale to collection sampling rate prior to resampling (#568)</p></li>
+<li><p>ENH: Calculate default sampling rate for <code class="docutils literal notranslate"><span class="pre">SparseRunVariable.to_dense</span></code> (#571)</p></li>
+<li><p>MNT: Add <code class="docutils literal notranslate"><span class="pre">.vscode</span></code> (for Visual Studio Code) to <code class="docutils literal notranslate"><span class="pre">.gitignore</span></code> (#562)</p></li>
+<li><p>MNT: Ignore pip-wheel-metadata (#581)</p></li>
+<li><p>DOC: Remove Python 2 support statement, now that v0.10.0 has dropped it (#561)</p></li>
+</ul>
+</div>
 <div class="section" id="version-0-10-0-december-03-2019">
 <h2>Version 0.10.0 (December 03, 2019)<a class="headerlink" href="#version-0-10-0-december-03-2019" title="Permalink to this headline">¶</a></h2>
 <p>New feature release in the 0.10.x series.</p>
@@ -488,7 +518,7 @@ handling of <code class="docutils literal notranslate"><span class="pre">Path</s
 <li><p><code class="docutils literal notranslate"><span class="pre">bids.variables.entities.py</span></code>: Classes for representing BIDS hierarchies as a graph-like structure.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">bids.variables.variables.py</span></code>: Classes and functions for representing and manipulating non-imaging data read from BIDS projects (e.g., fMRI events, densely-sampled physiological measures, etc.).</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">bids.variables.io.py</span></code>: Tools for loading variable data from BIDS projects.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">bids.variables.kollekshuns</span></code>: Containers that facilitate aggregation and manipulation of <code class="docutils literal notranslate"><span class="pre">Variable</span></code> classes.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">bids.variables.collections</span></code>: Containers that facilitate aggregation and manipulation of <code class="docutils literal notranslate"><span class="pre">Variable</span></code> classes.</p></li>
 </ul>
 </li>
 <li><p>Extensions to the <code class="docutils literal notranslate"><span class="pre">BIDSLayout</span></code> class that make it easy to retrieve data/variables from the project (i.e., <code class="docutils literal notranslate"><span class="pre">Layout.get_collections</span></code>)</p></li>

@@ -18,7 +18,6 @@ bids.variables.SimpleVariable
       ~SimpleVariable.clone
       ~SimpleVariable.filter
       ~SimpleVariable.get_grouper
-      ~SimpleVariable.matches_entities
       ~SimpleVariable.merge
       ~SimpleVariable.select_rows
       ~SimpleVariable.split

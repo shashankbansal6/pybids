@@ -19,7 +19,6 @@ bids.variables.SparseRunVariable
       ~SparseRunVariable.filter
       ~SparseRunVariable.get_duration
       ~SparseRunVariable.get_grouper
-      ~SparseRunVariable.matches_entities
       ~SparseRunVariable.merge
       ~SparseRunVariable.select_rows
       ~SparseRunVariable.split

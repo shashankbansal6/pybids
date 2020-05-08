@@ -18,7 +18,6 @@ bids.variables.DenseRunVariable
       ~DenseRunVariable.clone
       ~DenseRunVariable.filter
       ~DenseRunVariable.get_grouper
-      ~DenseRunVariable.matches_entities
       ~DenseRunVariable.merge
       ~DenseRunVariable.resample
       ~DenseRunVariable.split

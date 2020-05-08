@@ -14,8 +14,9 @@ bids.analysis.analysis.Step
    .. autosummary::
    
       ~Step.__init__
+      ~Step.get_collections
       ~Step.get_contrasts
-      ~Step.get_design_matrix
+      ~Step.get_model_spec
       ~Step.setup
    
    

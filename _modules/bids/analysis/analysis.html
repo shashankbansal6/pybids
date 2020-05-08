@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>bids.analysis.analysis &mdash; PyBIDS 0.10.0 documentation</title>
+  <title>bids.analysis.analysis &mdash; PyBIDS 0.10.2+64.g1bf62ab documentation</title>
   
 
   
@@ -21,10 +21,10 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../../../_static/jquery.js"></script>
-        <script type="text/javascript" src="../../../_static/underscore.js"></script>
-        <script type="text/javascript" src="../../../_static/doctools.js"></script>
-        <script type="text/javascript" src="../../../_static/language_data.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/language_data.js"></script>
     
     <script type="text/javascript" src="../../../_static/js/theme.js"></script>
 
@@ -145,16 +145,21 @@
            <div itemprop="articleBody">
             
   <h1>Source code for bids.analysis.analysis</h1><div class="highlight"><pre>
-<span></span><span class="kn">import</span> <span class="nn">json</span>
-<span class="kn">from</span> <span class="nn">io</span> <span class="k">import</span> <span class="nb">open</span>
-<span class="kn">from</span> <span class="nn">bids.layout</span> <span class="k">import</span> <span class="n">BIDSLayout</span>
-<span class="kn">from</span> <span class="nn">bids.utils</span> <span class="k">import</span> <span class="n">matches_entities</span><span class="p">,</span> <span class="n">convert_JSON</span>
-<span class="kn">from</span> <span class="nn">bids.variables</span> <span class="k">import</span> <span class="n">BIDSVariableCollection</span><span class="p">,</span> <span class="n">merge_collections</span>
-<span class="kn">from</span> <span class="nn">.</span> <span class="k">import</span> <span class="n">transformations</span> <span class="k">as</span> <span class="n">transform</span>
-<span class="kn">from</span> <span class="nn">collections</span> <span class="k">import</span> <span class="n">namedtuple</span><span class="p">,</span> <span class="n">OrderedDict</span>
+<span></span><span class="sd">&quot;&quot;&quot;BIDS-StatsModels functionality.&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">json</span>
+<span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">namedtuple</span><span class="p">,</span> <span class="n">OrderedDict</span>
+<span class="kn">from</span> <span class="nn">itertools</span> <span class="kn">import</span> <span class="n">chain</span>
+
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">from</span> <span class="nn">itertools</span> <span class="k">import</span> <span class="n">chain</span>
+
+<span class="kn">from</span> <span class="nn">bids.layout</span> <span class="kn">import</span> <span class="n">BIDSLayout</span>
+<span class="kn">from</span> <span class="nn">bids.utils</span> <span class="kn">import</span> <span class="n">matches_entities</span><span class="p">,</span> <span class="n">convert_JSON</span>
+<span class="kn">from</span> <span class="nn">bids.variables</span> <span class="kn">import</span> <span class="p">(</span><span class="n">BIDSVariableCollection</span><span class="p">,</span> <span class="n">SparseRunVariable</span><span class="p">,</span>
+                            <span class="n">merge_collections</span><span class="p">)</span>
+<span class="kn">from</span> <span class="nn">bids.analysis</span> <span class="kn">import</span> <span class="n">transformations</span> <span class="k">as</span> <span class="n">tm</span>
+<span class="kn">from</span> <span class="nn">.model_spec</span> <span class="kn">import</span> <span class="n">create_model_spec</span>
 
 
 <div class="viewcode-block" id="Analysis"><a class="viewcode-back" href="../../../generated/bids.analysis.Analysis.html#bids.analysis.Analysis">[docs]</a><span class="k">class</span> <span class="nc">Analysis</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
@@ -171,7 +176,7 @@
 <span class="sd">        dict containing the model info.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-<div class="viewcode-block" id="Analysis.__init__"><a class="viewcode-back" href="../../../generated/bids.analysis.Analysis.html#bids.analysis.Analysis.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">layout</span><span class="p">,</span> <span class="n">model</span><span class="p">):</span>
+<div class="viewcode-block" id="Analysis.__init__"><a class="viewcode-back" href="../../../generated/bids.analysis.Analysis.html#bids.analysis.Analysis.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">layout</span><span class="p">,</span> <span class="n">model</span><span class="p">):</span>
 
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">layout</span><span class="p">,</span> <span class="n">BIDSLayout</span><span class="p">):</span>
             <span class="n">layout</span> <span class="o">=</span> <span class="n">BIDSLayout</span><span class="p">(</span><span class="n">layout</span><span class="p">)</span>
@@ -179,17 +184,17 @@
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_load_model</span><span class="p">(</span><span class="n">model</span><span class="p">)</span></div>
 
-    <span class="k">def</span> <span class="nf">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">for</span> <span class="n">b</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">steps</span><span class="p">:</span>
             <span class="k">yield</span> <span class="n">b</span>
 
-    <span class="k">def</span> <span class="nf">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">):</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">steps</span><span class="p">[</span><span class="n">index</span><span class="p">]</span>
         <span class="n">level</span> <span class="o">=</span> <span class="n">index</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
         <span class="n">name_matches</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">filter</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="n">level</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">steps</span><span class="p">))</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">name_matches</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="s1">&#39;There is no block with the name &quot;</span><span class="si">%s</span><span class="s1">&quot;.&#39;</span> <span class="o">%</span> <span class="n">index</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="s1">&#39;There is no step with the name &quot;</span><span class="si">%s</span><span class="s1">&quot;.&#39;</span> <span class="o">%</span> <span class="n">index</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">name_matches</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 
 
@@ -204,7 +209,6 @@
         <span class="n">steps</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="p">[</span><span class="s1">&#39;steps&#39;</span><span class="p">]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">steps</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">step_args</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">steps</span><span class="p">):</span>
-            <span class="n">step_args</span><span class="p">[</span><span class="s1">&#39;level&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">step_args</span><span class="p">[</span><span class="s1">&#39;level&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
             <span class="n">step</span> <span class="o">=</span> <span class="n">Step</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">layout</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="n">i</span><span class="p">,</span> <span class="o">**</span><span class="n">step_args</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">steps</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">step</span><span class="p">)</span>
 
@@ -216,7 +220,7 @@
 <span class="sd">        steps : list</span>
 <span class="sd">            Optional list of steps to set up. Each element</span>
 <span class="sd">            must be either an int giving the index of the step in the</span>
-<span class="sd">            JSON config block list, or a str giving the (unique) name of</span>
+<span class="sd">            JSON config step list, or a str giving the (unique) name of</span>
 <span class="sd">            the step, as specified in the JSON config. Steps that do not</span>
 <span class="sd">            match either index or name will be skipped.</span>
 <span class="sd">        drop_na : bool</span>
@@ -225,60 +229,59 @@
 <span class="sd">            from event files.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
-        <span class="c1"># In the beginning, there was nothing</span>
-        <span class="n">input_nodes</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="c1"># The first Step in the sequence can&#39;t have any contrast inputs</span>
+        <span class="n">input_contrasts</span> <span class="o">=</span> <span class="kc">None</span>
 
         <span class="c1"># Use inputs from model, and update with kwargs</span>
         <span class="n">selectors</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;input&#39;</span><span class="p">,</span> <span class="p">{})</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
         <span class="n">selectors</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">kwargs</span><span class="p">)</span>
 
-        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">b</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">steps</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">step</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">steps</span><span class="p">):</span>
 
-            <span class="c1"># Skip any steps whose names or indexes don&#39;t match block list</span>
-            <span class="k">if</span> <span class="n">steps</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">i</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">steps</span> <span class="ow">and</span> <span class="n">b</span><span class="o">.</span><span class="n">name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">steps</span><span class="p">:</span>
+            <span class="c1"># Skip any steps whose names or indexes don&#39;t match step list</span>
+            <span class="k">if</span> <span class="n">steps</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">i</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">steps</span> <span class="ow">and</span> <span class="n">step</span><span class="o">.</span><span class="n">name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">steps</span><span class="p">:</span>
                 <span class="k">continue</span>
 
-            <span class="n">b</span><span class="o">.</span><span class="n">setup</span><span class="p">(</span><span class="n">input_nodes</span><span class="p">,</span> <span class="n">drop_na</span><span class="o">=</span><span class="n">drop_na</span><span class="p">,</span> <span class="o">**</span><span class="n">selectors</span><span class="p">)</span>
-            <span class="n">input_nodes</span> <span class="o">=</span> <span class="n">b</span><span class="o">.</span><span class="n">output_nodes</span></div></div>
+            <span class="n">step</span><span class="o">.</span><span class="n">setup</span><span class="p">(</span><span class="n">input_contrasts</span><span class="p">,</span> <span class="n">drop_na</span><span class="o">=</span><span class="n">drop_na</span><span class="p">,</span> <span class="o">**</span><span class="n">selectors</span><span class="p">)</span>
+            <span class="n">input_contrasts</span> <span class="o">=</span> <span class="p">[</span><span class="n">step</span><span class="o">.</span><span class="n">get_contrasts</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>
+                               <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">step</span><span class="o">.</span><span class="n">get_collections</span><span class="p">(</span><span class="o">**</span><span class="n">selectors</span><span class="p">)]</span>
+            <span class="n">input_contrasts</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">chain</span><span class="p">(</span><span class="o">*</span><span class="n">input_contrasts</span><span class="p">))</span></div></div>
 
 
 <div class="viewcode-block" id="Step"><a class="viewcode-back" href="../../../generated/bids.analysis.analysis.Step.html#bids.analysis.Step">[docs]</a><span class="k">class</span> <span class="nc">Step</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Represents a single analysis block from a BIDS-Model specification.</span>
+    <span class="sd">&quot;&quot;&quot;Represents a single analysis step from a BIDS-Model specification.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
 <span class="sd">    layout : :obj:`bids.layout.BIDSLayout`</span>
 <span class="sd">        The BIDSLayout containing all project files.</span>
 <span class="sd">    level : str</span>
-<span class="sd">        The BIDS keyword to use as the grouping variable; must be</span>
-<span class="sd">        one of [&#39;run&#39;, &#39;session&#39;, &#39;subject&#39;, or &#39;dataset&#39;].</span>
+<span class="sd">        The BIDS keyword to use as the grouping variable; must be one of</span>
+<span class="sd">        [&#39;run&#39;, &#39;session&#39;, &#39;subject&#39;, or &#39;dataset&#39;].</span>
 <span class="sd">    index : int</span>
-<span class="sd">        The numerical index of the current Step within the</span>
-<span class="sd">        sequence of steps.</span>
+<span class="sd">        The numerical index of the current Step within the sequence of steps.</span>
 <span class="sd">    name : str</span>
-<span class="sd">        Optional name to assign to the block. Must be specified</span>
-<span class="sd">        in order to enable name-based indexing in the parent Analysis.</span>
+<span class="sd">        Optional name to assign to the step. Must be specified in order to</span>
+<span class="sd">        enable name-based indexing in the parent Analysis.</span>
 <span class="sd">    transformations : list</span>
 <span class="sd">        List of BIDS-Model transformations to apply.</span>
 <span class="sd">    model : dict</span>
-<span class="sd">        The &#39;model&#39; part of the BIDS-Model block specification.</span>
+<span class="sd">        The &#39;model&#39; part of the BIDS-StatsModels specification.</span>
 <span class="sd">    contrasts : list</span>
-<span class="sd">        List of contrasts to apply to the parameter estimates</span>
-<span class="sd">        generated when the model is fit.</span>
-<span class="sd">    input_nodes : list</span>
-<span class="sd">        Optional list of AnalysisNodes to use as input to</span>
-<span class="sd">        this Step (typically, the output from the preceding Step).</span>
+<span class="sd">        List of contrasts to apply to the parameter estimates generated when</span>
+<span class="sd">        the model is fit.</span>
+<span class="sd">    inputs : list</span>
+<span class="sd">        Optional list of BIDSVariableCollections to use as input to this Step</span>
+<span class="sd">        (typically, the outputs from the preceding Step).</span>
 <span class="sd">    dummy_contrasts : dict</span>
-<span class="sd">        Optional dictionary specifying which conditions to create</span>
-<span class="sd">        indicator contrasts for. Dictionary must include a</span>
-<span class="sd">        &quot;type&quot; key (&#39;t&#39; or &#39;FEMA&#39;), and optionally a subset of &quot;conditions&quot;.</span>
-<span class="sd">        This parameter is over-written by the setting</span>
-<span class="sd">        in setup() if the latter is passed.</span>
+<span class="sd">        Optional dictionary specifying which conditions to create indicator</span>
+<span class="sd">        contrasts for. Dictionary must include a &quot;type&quot; key (&#39;t&#39; or &#39;FEMA&#39;),</span>
+<span class="sd">        and optionally a subset of &quot;conditions&quot;. This parameter is over-written</span>
+<span class="sd">        by the setting in setup() if the latter is passed.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-<div class="viewcode-block" id="Step.__init__"><a class="viewcode-back" href="../../../generated/bids.analysis.analysis.Step.html#bids.analysis.Step.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">layout</span><span class="p">,</span> <span class="n">level</span><span class="p">,</span> <span class="n">index</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">transformations</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-                 <span class="n">model</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">contrasts</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">input_nodes</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-                 <span class="n">dummy_contrasts</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<div class="viewcode-block" id="Step.__init__"><a class="viewcode-back" href="../../../generated/bids.analysis.analysis.Step.html#bids.analysis.Step.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">layout</span><span class="p">,</span> <span class="n">level</span><span class="p">,</span> <span class="n">index</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">transformations</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">model</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">contrasts</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">inputs</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">dummy_contrasts</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">layout</span> <span class="o">=</span> <span class="n">layout</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">level</span> <span class="o">=</span> <span class="n">level</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">index</span>
@@ -286,23 +289,26 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">transformations</span> <span class="o">=</span> <span class="n">transformations</span> <span class="ow">or</span> <span class="p">[]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">model</span> <span class="o">=</span> <span class="n">model</span> <span class="ow">or</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">contrasts</span> <span class="o">=</span> <span class="n">contrasts</span> <span class="ow">or</span> <span class="p">[]</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">input_nodes</span> <span class="o">=</span> <span class="n">input_nodes</span> <span class="ow">or</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">inputs</span> <span class="o">=</span> <span class="n">inputs</span> <span class="ow">or</span> <span class="p">[]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">dummy_contrasts</span> <span class="o">=</span> <span class="n">dummy_contrasts</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">output_nodes</span> <span class="o">=</span> <span class="p">[]</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_collections</span> <span class="o">=</span> <span class="p">[]</span></div>
 
-    <span class="k">def</span> <span class="nf">_filter_objects</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">objects</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">):</span>
-        <span class="c1"># Keeps only objects that match target entities, and also removes those</span>
-        <span class="c1"># keys from the kwargs dict.</span>
+    <span class="k">def</span> <span class="nf">_filter_collections</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">collections</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">):</span>
+        <span class="c1"># Keeps only collections that match target entities, and also removes</span>
+        <span class="c1"># those keys from the kwargs dict.</span>
         <span class="n">valid_ents</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;task&#39;</span><span class="p">,</span> <span class="s1">&#39;subject&#39;</span><span class="p">,</span> <span class="s1">&#39;session&#39;</span><span class="p">,</span> <span class="s1">&#39;run&#39;</span><span class="p">}</span>
         <span class="n">entities</span> <span class="o">=</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">k</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">dict</span><span class="p">(</span><span class="n">kwargs</span><span class="p">)</span> <span class="k">if</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">valid_ents</span><span class="p">}</span>
-        <span class="n">objects</span> <span class="o">=</span> <span class="p">[</span><span class="n">o</span> <span class="k">for</span> <span class="n">o</span> <span class="ow">in</span> <span class="n">objects</span> <span class="k">if</span> <span class="n">o</span><span class="o">.</span><span class="n">matches_entities</span><span class="p">(</span><span class="n">entities</span><span class="p">)]</span>
-        <span class="k">return</span> <span class="p">(</span><span class="n">objects</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">)</span>
+        <span class="n">collections</span> <span class="o">=</span> <span class="p">[</span><span class="n">c</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">collections</span> <span class="k">if</span> <span class="n">matches_entities</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="n">entities</span><span class="p">)]</span>
+        <span class="k">return</span> <span class="p">(</span><span class="n">collections</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">_group_objects</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">objects</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">_group_objects_by_entities</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">objects</span><span class="p">):</span>
         <span class="c1"># Group list of objects into bins defined by all entities at current</span>
-        <span class="c1"># Step level or higher.</span>
+        <span class="c1"># Step level or higher. E.g., if the level is &#39;subject&#39;, the</span>
+        <span class="c1"># returned list will have one element per subject, where each element</span>
+        <span class="c1"># is a list containing all objects that belongs to that subject. Any</span>
+        <span class="c1"># object with a defined .entities attribute is groupable.</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">level</span> <span class="o">==</span> <span class="s1">&#39;dataset&#39;</span><span class="p">:</span>
-            <span class="k">return</span> <span class="p">[</span><span class="n">objects</span><span class="p">]</span>
+            <span class="k">return</span> <span class="p">{</span><span class="s1">&#39;dataset&#39;</span><span class="p">:</span> <span class="n">objects</span><span class="p">}</span>
         <span class="n">groups</span> <span class="o">=</span> <span class="n">OrderedDict</span><span class="p">()</span>
         <span class="n">valid_ents</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;subject&#39;</span><span class="p">,</span> <span class="s1">&#39;session&#39;</span><span class="p">,</span> <span class="s1">&#39;task&#39;</span><span class="p">,</span> <span class="s1">&#39;run&#39;</span><span class="p">]</span>
         <span class="n">valid_ents</span> <span class="o">=</span> <span class="n">valid_ents</span><span class="p">[:(</span><span class="n">valid_ents</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">level</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)]</span>
@@ -312,37 +318,78 @@
             <span class="k">if</span> <span class="n">key</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">groups</span><span class="p">:</span>
                 <span class="n">groups</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
             <span class="n">groups</span><span class="p">[</span><span class="n">key</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">o</span><span class="p">)</span>
-        <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="n">groups</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
+        <span class="k">return</span> <span class="n">groups</span>
 
-    <span class="k">def</span> <span class="nf">_concatenate_input_nodes</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">nodes</span><span class="p">):</span>
-        <span class="n">data</span><span class="p">,</span> <span class="n">entities</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[]</span>
-        <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">nodes</span><span class="p">:</span>
-            <span class="n">contrasts</span> <span class="o">=</span> <span class="p">[</span><span class="n">c</span><span class="o">.</span><span class="n">name</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">n</span><span class="o">.</span><span class="n">contrasts</span><span class="p">]</span>
-            <span class="n">row</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">contrasts</span><span class="p">)),</span> <span class="n">index</span><span class="o">=</span><span class="n">contrasts</span><span class="p">)</span>
-            <span class="n">data</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">row</span><span class="p">)</span>
-            <span class="n">entities</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">n</span><span class="o">.</span><span class="n">entities</span><span class="p">))</span>
-        <span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">sort</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">T</span>
-        <span class="n">entities</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span><span class="n">entities</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">sort</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">T</span>
-        <span class="k">return</span> <span class="n">BIDSVariableCollection</span><span class="o">.</span><span class="n">from_df</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">entities</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">level</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">_merge_contrast_inputs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">inputs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Merges a list of ContrastInfo tuples and constructs a dict mapping</span>
+<span class="sd">        from units of the current level to BIDSVariableCollections.</span>
 
-<div class="viewcode-block" id="Step.setup"><a class="viewcode-back" href="../../../generated/bids.analysis.analysis.Step.html#bids.analysis.Step.setup">[docs]</a>    <span class="k">def</span> <span class="nf">setup</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">input_nodes</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">drop_na</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        inputs: [[ContrastInfo]]</span>
+<span class="sd">            List of list of ContrastInfo tuples passed from the previous Step.</span>
+<span class="sd">            Each element in the outer list maps to the output of a unit at the</span>
+<span class="sd">            previous level; each element in the inner list is a ContrastInfo</span>
+<span class="sd">            tuple. E.g., if contrast information is being passed from run-level</span>
+<span class="sd">            to subject-level, each outer element is a run.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        A dictionary, where the keys are the values of the entities at the</span>
+<span class="sd">        current level (e.g., &#39;01&#39;, &#39;02&#39;...) and the values are</span>
+<span class="sd">        BIDSVariableCollection containing contrast information.</span>
+
+<span class="sd">        Notes</span>
+<span class="sd">        -----</span>
+<span class="sd">        Each output BIDSVariableCollection contains information for a single</span>
+<span class="sd">        unit at the present level. The variables in the collection reflect the</span>
+<span class="sd">        union of all contrasts found in one or more of the inputs. A value of</span>
+<span class="sd">        1 indicates that the contrast is present for a given row in the input;</span>
+<span class="sd">        0 indicates that the contrast was missing.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">groups</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_group_objects_by_entities</span><span class="p">(</span><span class="n">inputs</span><span class="p">)</span>
+
+        <span class="n">ent_cols</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">groups</span><span class="o">.</span><span class="n">values</span><span class="p">())[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">entities</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+
+        <span class="n">collections</span> <span class="o">=</span> <span class="p">{}</span>
+
+        <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">contrasts</span> <span class="ow">in</span> <span class="n">groups</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="c1"># Create a DF with contrasts in rows and contrast names in columns</span>
+            <span class="n">data</span> <span class="o">=</span> <span class="p">[{</span><span class="o">**</span><span class="n">c</span><span class="o">.</span><span class="n">entities</span><span class="p">,</span> <span class="o">**</span><span class="p">{</span><span class="n">c</span><span class="o">.</span><span class="n">name</span><span class="p">:</span> <span class="mi">1</span><span class="p">}}</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">contrasts</span><span class="p">]</span>
+            <span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="o">.</span><span class="n">from_records</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+            <span class="c1"># Group by all entities and sum, collapsing over rows belonging</span>
+            <span class="c1"># to the current unit</span>
+            <span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">ent_cols</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+            <span class="c1"># Split the DF up into separate data and entities DFs</span>
+            <span class="n">entities</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">to_frame</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+            <span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="c1"># Construct the collection</span>
+            <span class="n">coll</span> <span class="o">=</span> <span class="n">BIDSVariableCollection</span><span class="o">.</span><span class="n">from_df</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">entities</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">level</span><span class="p">)</span>
+            <span class="n">collections</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">coll</span>
+
+        <span class="k">return</span> <span class="n">collections</span>
+
+<div class="viewcode-block" id="Step.setup"><a class="viewcode-back" href="../../../generated/bids.analysis.analysis.Step.html#bids.analysis.Step.setup">[docs]</a>    <span class="k">def</span> <span class="nf">setup</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">inputs</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">drop_na</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Set up the Step and construct the design matrix.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
-<span class="sd">        input_nodes : list</span>
-<span class="sd">            Optional list of Node objects produced by</span>
-<span class="sd">            the preceding Step in the analysis. If None, uses any inputs</span>
-<span class="sd">            passed in at Step initialization.</span>
+<span class="sd">        inputs : list</span>
+<span class="sd">            Optional list of BIDSVariableCollections produced as output by the</span>
+<span class="sd">            preceding Step in the analysis. If None, uses inputs passed at</span>
+<span class="sd">            initialization (if any).</span>
 <span class="sd">        drop_na : bool</span>
-<span class="sd">            Boolean indicating whether or not to automatically</span>
-<span class="sd">            drop events that have a n/a amplitude when reading in data</span>
-<span class="sd">            from event files.</span>
+<span class="sd">            Boolean indicating whether or not to automatically drop events that</span>
+<span class="sd">            have a n/a amplitude when reading in data from event files.</span>
 <span class="sd">        kwargs : dict</span>
 <span class="sd">            Optional keyword arguments to pass onto load_variables.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">output_nodes</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="n">input_nodes</span> <span class="o">=</span> <span class="n">input_nodes</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">input_nodes</span> <span class="ow">or</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_collections</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="c1"># Convert input contrasts to a list of BIDSVariableCollections</span>
+        <span class="n">inputs</span> <span class="o">=</span> <span class="n">inputs</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">inputs</span> <span class="ow">or</span> <span class="p">[]</span>
+        <span class="n">input_grps</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_merge_contrast_inputs</span><span class="p">(</span><span class="n">inputs</span><span class="p">)</span> <span class="k">if</span> <span class="n">inputs</span> <span class="k">else</span> <span class="p">{}</span>
 
         <span class="c1"># TODO: remove the scan_length argument entirely once we switch tests</span>
         <span class="c1"># to use the synthetic dataset with image headers.</span>
@@ -350,263 +397,65 @@
             <span class="n">kwargs</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
             <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;scan_length&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
 
+        <span class="c1"># Now handle variables read from the BIDS dataset: read them in, filter</span>
+        <span class="c1"># on passed selectors, and group by unit of current level</span>
         <span class="n">collections</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">layout</span><span class="o">.</span><span class="n">get_collections</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">level</span><span class="p">,</span> <span class="n">drop_na</span><span class="o">=</span><span class="n">drop_na</span><span class="p">,</span>
                                                   <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-        <span class="n">objects</span> <span class="o">=</span> <span class="n">collections</span> <span class="o">+</span> <span class="n">input_nodes</span>
+        <span class="n">collections</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_filter_collections</span><span class="p">(</span><span class="n">collections</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">)</span>
+        <span class="n">groups</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_group_objects_by_entities</span><span class="p">(</span><span class="n">collections</span><span class="p">)</span>
 
-        <span class="n">objects</span><span class="p">,</span> <span class="n">kwargs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_filter_objects</span><span class="p">(</span><span class="n">objects</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">)</span>
-        <span class="n">groups</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_group_objects</span><span class="p">(</span><span class="n">objects</span><span class="p">)</span>
+        <span class="c1"># Merge in the inputs</span>
+        <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">input_</span> <span class="ow">in</span> <span class="n">input_grps</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">key</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">groups</span><span class="p">:</span>
+                <span class="n">groups</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="n">groups</span><span class="p">[</span><span class="n">key</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">input_</span><span class="p">)</span>
 
         <span class="c1"># Set up and validate variable lists</span>
         <span class="n">model</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span> <span class="ow">or</span> <span class="p">{}</span>
         <span class="n">X</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="p">[])</span>
 
-        <span class="k">for</span> <span class="n">grp</span> <span class="ow">in</span> <span class="n">groups</span><span class="p">:</span>
-            <span class="c1"># Split into separate lists of Collections and Nodes</span>
-            <span class="n">input_nodes</span> <span class="o">=</span> <span class="p">[</span><span class="n">o</span> <span class="k">for</span> <span class="n">o</span> <span class="ow">in</span> <span class="n">grp</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">o</span><span class="p">,</span> <span class="n">AnalysisNode</span><span class="p">)]</span>
-            <span class="n">colls</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">grp</span><span class="p">)</span> <span class="o">-</span> <span class="nb">set</span><span class="p">(</span><span class="n">input_nodes</span><span class="p">))</span>
+        <span class="k">for</span> <span class="n">grp</span><span class="p">,</span> <span class="n">colls</span> <span class="ow">in</span> <span class="n">groups</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">coll</span> <span class="o">=</span> <span class="n">merge_collections</span><span class="p">(</span><span class="n">colls</span><span class="p">)</span>
 
-            <span class="k">if</span> <span class="n">input_nodes</span><span class="p">:</span>
-                <span class="n">node_coll</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_concatenate_input_nodes</span><span class="p">(</span><span class="n">input_nodes</span><span class="p">)</span>
-                <span class="n">colls</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">node_coll</span><span class="p">)</span>
+            <span class="n">colls</span> <span class="o">=</span> <span class="n">tm</span><span class="o">.</span><span class="n">TransformerManager</span><span class="p">()</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">coll</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">transformations</span><span class="p">)</span>
 
-            <span class="n">coll</span> <span class="o">=</span> <span class="n">merge_collections</span><span class="p">(</span><span class="n">colls</span><span class="p">)</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">colls</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="k">else</span> <span class="n">colls</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-
-            <span class="n">coll</span> <span class="o">=</span> <span class="n">apply_transformations</span><span class="p">(</span><span class="n">coll</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">transformations</span><span class="p">)</span>
             <span class="k">if</span> <span class="n">X</span><span class="p">:</span>
-                <span class="n">transform</span><span class="o">.</span><span class="n">Select</span><span class="p">(</span><span class="n">coll</span><span class="p">,</span> <span class="n">X</span><span class="p">)</span>
+                <span class="n">tm</span><span class="o">.</span><span class="n">Select</span><span class="p">(</span><span class="n">coll</span><span class="p">,</span> <span class="n">X</span><span class="p">)</span>
 
-            <span class="n">node</span> <span class="o">=</span> <span class="n">AnalysisNode</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">level</span><span class="p">,</span> <span class="n">coll</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">contrasts</span><span class="p">,</span> <span class="n">input_nodes</span><span class="p">,</span>
-                                <span class="bp">self</span><span class="o">.</span><span class="n">dummy_contrasts</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_collections</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">coll</span><span class="p">)</span></div>
 
-            <span class="bp">self</span><span class="o">.</span><span class="n">output_nodes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">node</span><span class="p">)</span></div>
-
-<div class="viewcode-block" id="Step.get_design_matrix"><a class="viewcode-back" href="../../../generated/bids.analysis.analysis.Step.html#bids.analysis.Step.get_design_matrix">[docs]</a>    <span class="k">def</span> <span class="nf">get_design_matrix</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">names</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;long&#39;</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;both&#39;</span><span class="p">,</span>
-                          <span class="n">force</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">sampling_rate</span><span class="o">=</span><span class="s1">&#39;TR&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Get design matrix and associated information.</span>
+<div class="viewcode-block" id="Step.get_collections"><a class="viewcode-back" href="../../../generated/bids.analysis.analysis.Step.html#bids.analysis.Step.get_collections">[docs]</a>    <span class="k">def</span> <span class="nf">get_collections</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">filters</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Returns BIDSVariableCollections at the current Step.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
-<span class="sd">        names : list</span>
-<span class="sd">            Optional list of names of variables to include in the</span>
-<span class="sd">            returned design matrix. If None, all variables are included.</span>
-<span class="sd">        format : str</span>
-<span class="sd">            Whether to return the design matrix in &#39;long&#39; or</span>
-<span class="sd">            &#39;wide&#39; format. Note that dense design matrices are always</span>
-<span class="sd">            returned in &#39;wide&#39; format.</span>
-<span class="sd">        mode : str</span>
-<span class="sd">            Specifies whether to return variables in a sparse</span>
-<span class="sd">            representation (&#39;sparse&#39;), dense representation (&#39;dense&#39;), or</span>
-<span class="sd">            both (&#39;both&#39;).</span>
-<span class="sd">        force : bool</span>
-<span class="sd">            Indicates how to handle columns not of the type</span>
-<span class="sd">            indicated by the mode argument. When False, variables of the</span>
-<span class="sd">            non-selected type will be silently ignored. When True,</span>
-<span class="sd">            variables will be forced to the desired representation. For</span>
-<span class="sd">            example, if mode=&#39;dense&#39; and force=True, sparse variables will</span>
-<span class="sd">            be converted to dense variables and included in the returned</span>
-<span class="sd">            design matrix in the .dense attribute. The force argument is</span>
-<span class="sd">            ignored entirely if mode=&#39;both&#39;.</span>
-<span class="sd">        sampling_rate : {&#39;TR&#39;, &#39;highest&#39;} or float</span>
-<span class="sd">            Sampling rate at which to</span>
-<span class="sd">            generate the dense design matrix. When &#39;TR&#39;, the repetition</span>
-<span class="sd">            time is used, if available, to select the sampling rate (1/TR).</span>
-<span class="sd">            When &#39;highest&#39;, all variables are resampled to the highest</span>
-<span class="sd">            sampling rate of any variable. The sampling rate may also be</span>
-<span class="sd">            specified explicitly in Hz. Has no effect on sparse design</span>
-<span class="sd">            matrices.</span>
-<span class="sd">        kwargs : dict</span>
-<span class="sd">            Optional keyword arguments. Includes (1) selectors used</span>
-<span class="sd">            to constrain which of the available nodes get returned</span>
-<span class="sd">            (e.g., passing subject=[&#39;01&#39;, &#39;02&#39;] will return design</span>
-<span class="sd">            information only for subjects &#39;01&#39; and &#39;02&#39;), and (2) arguments</span>
-<span class="sd">            passed on to each Variable&#39;s to_df() call (e.g.,</span>
-<span class="sd">            sampling_rate, entities, timing, etc.).</span>
+<span class="sd">        filters : dict</span>
+<span class="sd">            Optional keyword filters used to constrain which of the available</span>
+<span class="sd">            collections get returned (e.g., passing subject=[&#39;01&#39;, &#39;02&#39;] will</span>
+<span class="sd">            return collections for only subjects &#39;01&#39; and &#39;02&#39;).</span>
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
-<span class="sd">        list of DesignMatrixInfo namedtuples</span>
-<span class="sd">            one tuple per unit of the current</span>
-<span class="sd">            analysis level (e.g., if level=&#39;run&#39;, each element in the list</span>
-<span class="sd">            represents the design matrix for a single run).</span>
+<span class="sd">        list of BIDSVariableCollection instances</span>
+<span class="sd">            One instance per unit of the current analysis level (e.g., if</span>
+<span class="sd">            level=&#39;run&#39;, each element in the list represents the collection</span>
+<span class="sd">            for a single run).</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">nodes</span><span class="p">,</span> <span class="n">kwargs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_filter_objects</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">output_nodes</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">)</span>
-        <span class="k">return</span> <span class="p">[</span><span class="n">n</span><span class="o">.</span><span class="n">get_design_matrix</span><span class="p">(</span><span class="n">names</span><span class="p">,</span> <span class="nb">format</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="n">mode</span><span class="p">,</span> <span class="n">force</span><span class="o">=</span><span class="n">force</span><span class="p">,</span>
-                                    <span class="n">sampling_rate</span><span class="o">=</span><span class="n">sampling_rate</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-                <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">nodes</span><span class="p">]</span></div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_filter_collections</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_collections</span><span class="p">,</span> <span class="n">filters</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span></div>
 
-<div class="viewcode-block" id="Step.get_contrasts"><a class="viewcode-back" href="../../../generated/bids.analysis.analysis.Step.html#bids.analysis.Step.get_contrasts">[docs]</a>    <span class="k">def</span> <span class="nf">get_contrasts</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">names</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">variables</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Return contrast information for the current block.</span>
+<div class="viewcode-block" id="Step.get_contrasts"><a class="viewcode-back" href="../../../generated/bids.analysis.analysis.Step.html#bids.analysis.Step.get_contrasts">[docs]</a>    <span class="k">def</span> <span class="nf">get_contrasts</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">collection</span><span class="p">,</span> <span class="n">names</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">variables</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Return contrast information at this step for the passed collection.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
+<span class="sd">        collection : BIDSVariableCollection</span>
+<span class="sd">            The collection to generate/validate contrasts for.</span>
 <span class="sd">        names : list</span>
-<span class="sd">            Optional list of names of contrasts to return. If</span>
-<span class="sd">            None (default), all contrasts are returned.</span>
+<span class="sd">            Optional list of names of contrasts to return. If None (default),</span>
+<span class="sd">            all contrasts are returned.</span>
 <span class="sd">        variables : bool</span>
-<span class="sd">            Optional list of strings giving the names of</span>
-<span class="sd">            design matrix columns to use when generating the matrix of</span>
-<span class="sd">            weights.</span>
-<span class="sd">        kwargs : dict</span>
-<span class="sd">            Optional keyword arguments used to constrain which of the</span>
-<span class="sd">            available nodes get returned (e.g., passing subject=[&#39;01&#39;,</span>
-<span class="sd">            &#39;02&#39;] will return contrast  information only for subjects &#39;01&#39;</span>
-<span class="sd">            and &#39;02&#39;).</span>
-
-<span class="sd">        Returns</span>
-<span class="sd">        -------</span>
-<span class="sd">        list</span>
-<span class="sd">            A list with one element per unit of the current analysis level</span>
-<span class="sd">            (e.g., if level=&#39;run&#39;, each element in the list representing the</span>
-<span class="sd">            contrast information for a single run). Each element is a list of</span>
-<span class="sd">            ContrastInfo namedtuples (one per contrast).</span>
-
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">nodes</span><span class="p">,</span> <span class="n">kwargs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_filter_objects</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">output_nodes</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">)</span>
-        <span class="k">return</span> <span class="p">[</span><span class="n">n</span><span class="o">.</span><span class="n">get_contrasts</span><span class="p">(</span><span class="n">names</span><span class="p">,</span> <span class="n">variables</span><span class="p">)</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">nodes</span><span class="p">]</span></div></div>
-
-
-<span class="n">DesignMatrixInfo</span> <span class="o">=</span> <span class="n">namedtuple</span><span class="p">(</span><span class="s1">&#39;DesignMatrixInfo&#39;</span><span class="p">,</span>
-                              <span class="p">(</span><span class="s1">&#39;sparse&#39;</span><span class="p">,</span> <span class="s1">&#39;dense&#39;</span><span class="p">,</span> <span class="s1">&#39;entities&#39;</span><span class="p">))</span>
-
-
-<span class="n">ContrastInfo</span> <span class="o">=</span> <span class="n">namedtuple</span><span class="p">(</span><span class="s1">&#39;ContrastInfo&#39;</span><span class="p">,</span> <span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">,</span> <span class="s1">&#39;weights&#39;</span><span class="p">,</span> <span class="s1">&#39;type&#39;</span><span class="p">,</span>
-                                           <span class="s1">&#39;entities&#39;</span><span class="p">))</span>
-
-
-<div class="viewcode-block" id="AnalysisNode"><a class="viewcode-back" href="../../../generated/bids.analysis.analysis.AnalysisNode.html#bids.analysis.AnalysisNode">[docs]</a><span class="k">class</span> <span class="nc">AnalysisNode</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;A single analysis node generated within a Step.</span>
-
-<span class="sd">    Parameters</span>
-<span class="sd">    ----------</span>
-<span class="sd">    level : str</span>
-<span class="sd">        The level of the Node. Most be one of &#39;run&#39;, &#39;session&#39;,</span>
-<span class="sd">        &#39;subject&#39;, or &#39;dataset&#39;.</span>
-<span class="sd">    collection : :obj:`bids.variables.kollekshuns.BIDSVariableCollection`</span>
-<span class="sd">        The BIDSVariableCollection containing variables at this Node.</span>
-<span class="sd">    contrasts : list</span>
-<span class="sd">        A list of contrasts defined in the originating Step.</span>
-<span class="sd">    dummy_contrasts : list</span>
-<span class="sd">        Optional dictionary specifying which conditions to create</span>
-<span class="sd">        indicator contrasts for. Dictionary must include a</span>
-<span class="sd">        &quot;type&quot; key (&#39;t&#39; or &#39;FEMA&#39;), and optionally a subset of &quot;conditions&quot;.</span>
-<span class="sd">        This parameter is over-written by the setting</span>
-<span class="sd">        in setup() if the latter is passed.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-
-<div class="viewcode-block" id="AnalysisNode.__init__"><a class="viewcode-back" href="../../../generated/bids.analysis.analysis.AnalysisNode.html#bids.analysis.AnalysisNode.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">level</span><span class="p">,</span> <span class="n">collection</span><span class="p">,</span> <span class="n">contrasts</span><span class="p">,</span> <span class="n">input_nodes</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-                 <span class="n">dummy_contrasts</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">level</span> <span class="o">=</span> <span class="n">level</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">collection</span> <span class="o">=</span> <span class="n">collection</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_block_contrasts</span> <span class="o">=</span> <span class="n">contrasts</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">input_nodes</span> <span class="o">=</span> <span class="n">input_nodes</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">dummy_contrasts</span> <span class="o">=</span> <span class="n">dummy_contrasts</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_contrasts</span> <span class="o">=</span> <span class="kc">None</span></div>
-
-    <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">entities</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">collection</span><span class="o">.</span><span class="n">entities</span>
-
-    <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">contrasts</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_contrasts</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">get_contrasts</span><span class="p">()</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_contrasts</span>
-
-<div class="viewcode-block" id="AnalysisNode.get_design_matrix"><a class="viewcode-back" href="../../../generated/bids.analysis.analysis.AnalysisNode.html#bids.analysis.AnalysisNode.get_design_matrix">[docs]</a>    <span class="k">def</span> <span class="nf">get_design_matrix</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">names</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;long&#39;</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;both&#39;</span><span class="p">,</span>
-                          <span class="n">force</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">sampling_rate</span><span class="o">=</span><span class="s1">&#39;TR&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Get design matrix and associated information.</span>
-
-<span class="sd">        Parameters</span>
-<span class="sd">        ----------</span>
-<span class="sd">        names : list</span>
-<span class="sd">            Optional list of names of variables to include in the</span>
-<span class="sd">            returned design matrix. If None, all variables are included.</span>
-<span class="sd">        format : str</span>
-<span class="sd">            Whether to return the design matrix in &#39;long&#39; or</span>
-<span class="sd">            &#39;wide&#39; format. Note that dense design matrices are always</span>
-<span class="sd">            returned in &#39;wide&#39; format.</span>
-<span class="sd">        mode : str</span>
-<span class="sd">            Specifies whether to return variables in a sparse</span>
-<span class="sd">            representation (&#39;sparse&#39;), dense representation (&#39;dense&#39;), or</span>
-<span class="sd">            both (&#39;both&#39;).</span>
-<span class="sd">        force : bool</span>
-<span class="sd">            Indicates how to handle columns not of the type</span>
-<span class="sd">            indicated by the mode argument. When False, variables of the</span>
-<span class="sd">            non-selected type will be silently ignored. When True,</span>
-<span class="sd">            variables will be forced to the desired representation. For</span>
-<span class="sd">            example, if mode=&#39;dense&#39; and force=True, sparse variables will</span>
-<span class="sd">            be converted to dense variables and included in the returned</span>
-<span class="sd">            design matrix in the .dense attribute. The force argument is</span>
-<span class="sd">            ignored entirely if mode=&#39;both&#39;.</span>
-<span class="sd">        sampling_rate : {&#39;TR&#39;, &#39;highest&#39;} or float</span>
-<span class="sd">            Sampling rate at which to</span>
-<span class="sd">            generate the dense design matrix. When &#39;TR&#39;, the repetition</span>
-<span class="sd">            time is used, if available, to select the sampling rate (1/TR).</span>
-<span class="sd">            When &#39;highest&#39;, all variables are resampled to the highest</span>
-<span class="sd">            sampling rate of any variable. The sampling rate may also be</span>
-<span class="sd">            specified explicitly in Hz. Has no effect on sparse design</span>
-<span class="sd">            matrices.</span>
-<span class="sd">        kwargs : dict</span>
-<span class="sd">            Optional keyword arguments to pass onto each Variable&#39;s</span>
-<span class="sd">            to_df() call (e.g., sampling_rate, entities, timing, etc.).</span>
-
-<span class="sd">        Returns</span>
-<span class="sd">        -------</span>
-<span class="sd">        A DesignMatrixInfo namedtuple.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">sparse_df</span><span class="p">,</span> <span class="n">dense_df</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span>
-        <span class="n">coll</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">collection</span>
-
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">level</span> <span class="o">!=</span> <span class="s1">&#39;run&#39;</span> <span class="ow">and</span> <span class="n">mode</span> <span class="o">!=</span> <span class="s1">&#39;sparse&#39;</span><span class="p">:</span>
-            <span class="n">mode</span> <span class="o">=</span> <span class="s1">&#39;sparse&#39;</span>
-
-        <span class="n">include_sparse</span> <span class="o">=</span> <span class="n">include_dense</span> <span class="o">=</span> <span class="p">(</span><span class="n">force</span> <span class="ow">and</span> <span class="n">mode</span> <span class="o">!=</span> <span class="s1">&#39;both&#39;</span><span class="p">)</span>
-
-        <span class="k">if</span> <span class="n">mode</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;sparse&#39;</span><span class="p">,</span> <span class="s1">&#39;both&#39;</span><span class="p">]:</span>
-            <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;sparse&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
-            <span class="n">sparse_df</span> <span class="o">=</span> <span class="n">coll</span><span class="o">.</span><span class="n">to_df</span><span class="p">(</span><span class="n">names</span><span class="p">,</span> <span class="nb">format</span><span class="p">,</span> <span class="n">include_dense</span><span class="o">=</span><span class="n">include_dense</span><span class="p">,</span>
-                                   <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-
-        <span class="k">if</span> <span class="n">mode</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;dense&#39;</span><span class="p">,</span> <span class="s1">&#39;both&#39;</span><span class="p">]:</span>
-            <span class="c1"># The current implementation of pivoting to wide in</span>
-            <span class="c1"># BIDSVariableCollection.to_df() breaks if we don&#39;t have the</span>
-            <span class="c1"># temporal columns to index on, so we force their inclusion first</span>
-            <span class="c1"># and then drop them afterwards.</span>
-            <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;timing&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
-            <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;sparse&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
-
-            <span class="k">if</span> <span class="n">sampling_rate</span> <span class="o">==</span> <span class="s1">&#39;TR&#39;</span><span class="p">:</span>
-                <span class="n">trs</span> <span class="o">=</span> <span class="p">{</span><span class="n">var</span><span class="o">.</span><span class="n">run_info</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">tr</span> <span class="k">for</span> <span class="n">var</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">collection</span><span class="o">.</span><span class="n">variables</span><span class="o">.</span><span class="n">values</span><span class="p">()}</span>
-                <span class="k">if</span> <span class="ow">not</span> <span class="n">trs</span><span class="p">:</span>
-                    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Repetition time unavailable; specify sampling_rate &quot;</span>
-                                     <span class="s2">&quot;explicitly&quot;</span><span class="p">)</span>
-                <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">trs</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
-                    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Non-unique Repetition times found (</span><span class="si">{!r}</span><span class="s2">); specify &quot;</span>
-                                     <span class="s2">&quot;sampling_rate explicitly&quot;</span><span class="p">)</span>
-                <span class="n">sampling_rate</span> <span class="o">=</span> <span class="mf">1.</span> <span class="o">/</span> <span class="n">trs</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
-            <span class="k">elif</span> <span class="n">sampling_rate</span> <span class="o">==</span> <span class="s1">&#39;highest&#39;</span><span class="p">:</span>
-                <span class="n">sampling_rate</span> <span class="o">=</span> <span class="kc">None</span>
-            <span class="n">dense_df</span> <span class="o">=</span> <span class="n">coll</span><span class="o">.</span><span class="n">to_df</span><span class="p">(</span><span class="n">names</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;wide&#39;</span><span class="p">,</span>
-                                  <span class="n">include_sparse</span><span class="o">=</span><span class="n">include_sparse</span><span class="p">,</span>
-                                  <span class="n">sampling_rate</span><span class="o">=</span><span class="n">sampling_rate</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-            <span class="k">if</span> <span class="n">dense_df</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-                <span class="n">dense_df</span> <span class="o">=</span> <span class="n">dense_df</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="s1">&#39;onset&#39;</span><span class="p">,</span> <span class="s1">&#39;duration&#39;</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-
-        <span class="k">return</span> <span class="n">DesignMatrixInfo</span><span class="p">(</span><span class="n">sparse_df</span><span class="p">,</span> <span class="n">dense_df</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">entities</span><span class="p">)</span></div>
-
-<div class="viewcode-block" id="AnalysisNode.get_contrasts"><a class="viewcode-back" href="../../../generated/bids.analysis.analysis.AnalysisNode.html#bids.analysis.AnalysisNode.get_contrasts">[docs]</a>    <span class="k">def</span> <span class="nf">get_contrasts</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">names</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">variables</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Return contrast information for the current block.</span>
-
-<span class="sd">        Parameters</span>
-<span class="sd">        ----------</span>
-<span class="sd">        names : list</span>
-<span class="sd">            Optional list of names of contrasts to return. If</span>
-<span class="sd">            None (default), all contrasts are returned.</span>
-<span class="sd">        variables : bool</span>
-<span class="sd">            Optional list of strings giving the names of</span>
-<span class="sd">            design matrix columns to use when generating the matrix of</span>
-<span class="sd">            weights.</span>
+<span class="sd">            Optional list of strings giving the names of design matrix columns</span>
+<span class="sd">            to use when generating the matrix of weights.</span>
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
@@ -616,21 +465,20 @@
 <span class="sd">        Notes</span>
 <span class="sd">        -----</span>
 <span class="sd">        The &#39;variables&#39; argument take precedence over the natural process</span>
-<span class="sd">        of column selection. I.e.,</span>
-<span class="sd">            if a variable shows up in a contrast, but isn&#39;t named in</span>
-<span class="sd">            variables, it will *not* be included in the returned</span>
+<span class="sd">        of column selection. I.e., if a variable shows up in a contrast, but</span>
+<span class="sd">        isn&#39;t named in variables, it will *not* be included in the result.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="c1"># Verify that there are no invalid columns in the condition_lists</span>
-        <span class="n">all_conds</span> <span class="o">=</span> <span class="p">[</span><span class="n">c</span><span class="p">[</span><span class="s1">&#39;condition_list&#39;</span><span class="p">]</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_block_contrasts</span><span class="p">]</span>
+        <span class="n">all_conds</span> <span class="o">=</span> <span class="p">[</span><span class="n">c</span><span class="p">[</span><span class="s1">&#39;condition_list&#39;</span><span class="p">]</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">contrasts</span><span class="p">]</span>
         <span class="n">all_conds</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">chain</span><span class="p">(</span><span class="o">*</span><span class="n">all_conds</span><span class="p">))</span>
-        <span class="n">bad_conds</span> <span class="o">=</span> <span class="n">all_conds</span> <span class="o">-</span> <span class="nb">set</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">collection</span><span class="o">.</span><span class="n">variables</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+        <span class="n">bad_conds</span> <span class="o">=</span> <span class="n">all_conds</span> <span class="o">-</span> <span class="nb">set</span><span class="p">(</span><span class="n">collection</span><span class="o">.</span><span class="n">variables</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
         <span class="k">if</span> <span class="n">bad_conds</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Invalid condition names passed in one or more &quot;</span>
                              <span class="s2">&quot; contrast condition lists: </span><span class="si">%s</span><span class="s2">.&quot;</span> <span class="o">%</span> <span class="n">bad_conds</span><span class="p">)</span>
 
         <span class="c1"># Construct a list of all contrasts, including dummy contrasts</span>
-        <span class="n">contrasts</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_block_contrasts</span><span class="p">)</span>
+        <span class="n">contrasts</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">contrasts</span><span class="p">)</span>
 
         <span class="c1"># Check that all contrasts have unique name</span>
         <span class="n">contrast_names</span> <span class="o">=</span> <span class="p">[</span><span class="n">c</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">contrasts</span><span class="p">]</span>
@@ -641,9 +489,9 @@
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">dummy_contrasts</span><span class="p">:</span>
             <span class="k">if</span> <span class="s1">&#39;conditions&#39;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">dummy_contrasts</span><span class="p">:</span>
                 <span class="n">conditions</span> <span class="o">=</span> <span class="p">[</span><span class="n">c</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">dummy_contrasts</span><span class="p">[</span><span class="s1">&#39;conditions&#39;</span><span class="p">]</span>
-                              <span class="k">if</span> <span class="n">c</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">collection</span><span class="o">.</span><span class="n">variables</span><span class="o">.</span><span class="n">keys</span><span class="p">()]</span>
+                              <span class="k">if</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">collection</span><span class="o">.</span><span class="n">variables</span><span class="o">.</span><span class="n">keys</span><span class="p">()]</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="n">conditions</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">collection</span><span class="o">.</span><span class="n">variables</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
+                <span class="n">conditions</span> <span class="o">=</span> <span class="n">collection</span><span class="o">.</span><span class="n">variables</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
 
             <span class="k">for</span> <span class="n">col_name</span> <span class="ow">in</span> <span class="n">conditions</span><span class="p">:</span>
                 <span class="k">if</span> <span class="n">col_name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">contrast_names</span><span class="p">:</span>
@@ -669,55 +517,50 @@
 
             <span class="n">test_type</span> <span class="o">=</span> <span class="n">c</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;type&#39;</span><span class="p">,</span> <span class="p">(</span><span class="s1">&#39;t&#39;</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">weights</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span> <span class="k">else</span> <span class="s1">&#39;F&#39;</span><span class="p">))</span>
 
-            <span class="k">return</span> <span class="n">ContrastInfo</span><span class="p">(</span><span class="n">c</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">],</span> <span class="n">weights</span><span class="p">,</span> <span class="n">test_type</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">entities</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">ContrastInfo</span><span class="p">(</span><span class="n">c</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">],</span> <span class="n">weights</span><span class="p">,</span> <span class="n">test_type</span><span class="p">,</span>
+                                <span class="n">collection</span><span class="o">.</span><span class="n">entities</span><span class="p">)</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">_contrasts</span> <span class="o">=</span> <span class="p">[</span><span class="n">setup_contrast</span><span class="p">(</span><span class="n">c</span><span class="p">)</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">contrasts</span><span class="p">]</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">setup_contrast</span><span class="p">(</span><span class="n">c</span><span class="p">)</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">contrasts</span><span class="p">]</span></div>
 
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_contrasts</span></div>
-
-<div class="viewcode-block" id="AnalysisNode.matches_entities"><a class="viewcode-back" href="../../../generated/bids.analysis.analysis.AnalysisNode.html#bids.analysis.AnalysisNode.matches_entities">[docs]</a>    <span class="k">def</span> <span class="nf">matches_entities</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">entities</span><span class="p">,</span> <span class="n">strict</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Determine whether current AnalysisNode matches passed entities.</span>
+<div class="viewcode-block" id="Step.get_model_spec"><a class="viewcode-back" href="../../../generated/bids.analysis.analysis.Step.html#bids.analysis.Step.get_model_spec">[docs]</a>    <span class="k">def</span> <span class="nf">get_model_spec</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">collection</span><span class="p">,</span> <span class="n">sampling_rate</span><span class="o">=</span><span class="s1">&#39;TR&#39;</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Get a ModelSpec instance for the passed collection.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
-<span class="sd">        entities : dict</span>
-<span class="sd">            Dictionary of entities to match. Keys are entity</span>
-<span class="sd">            names; values are single values or lists.</span>
-<span class="sd">        strict : bool</span>
-<span class="sd">            If True, _all_ entities in the current Node must</span>
-<span class="sd">            match in order to return True.</span>
+<span class="sd">        collection : BIDSVariableCollection</span>
+<span class="sd">            The BIDSVariableCollection to construct a model for.</span>
+<span class="sd">        sampling_rate : {&#39;TR&#39;, &#39;highest&#39;} or float</span>
+<span class="sd">            For run-level models, the sampling rate at which to generate the</span>
+<span class="sd">            design matrix. When &#39;TR&#39;, the repetition time is used, if</span>
+<span class="sd">            available, to select the sampling rate (1/TR). When &#39;highest&#39;, all</span>
+<span class="sd">            variables are resampled to the highest sampling rate of any</span>
+<span class="sd">            variable in the collection. The sampling rate may also be specified</span>
+<span class="sd">            explicitly in Hz. Has no effect on non-run-level collections.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        A bids.analysis.model_spec.ModelSpec instance.</span>
+
+<span class="sd">        Notes</span>
+<span class="sd">        -----</span>
+<span class="sd">        If the passed BIDSVariableCollection contains any sparse variables,</span>
+<span class="sd">        they will be automatically converted to dense (using the specified</span>
+<span class="sd">        sampling rate) before the ModelSpec is constructed. For non-run-level</span>
+<span class="sd">        collections, timing is irrelevant, so the design matrix is constructed</span>
+<span class="sd">        based on the &quot;as-is&quot; values found in each variable.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="n">matches_entities</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">entities</span><span class="p">,</span> <span class="n">strict</span><span class="p">)</span></div></div>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Cannot generate a ModelSpec instance; no &quot;</span>
+                             <span class="s2">&quot;BIDS-StatsModels model specification found &quot;</span>
+                             <span class="s2">&quot;for this step!&quot;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">collection</span><span class="o">.</span><span class="n">level</span> <span class="o">==</span> <span class="s1">&#39;run&#39;</span><span class="p">:</span>
+            <span class="n">collection</span> <span class="o">=</span> <span class="n">collection</span><span class="o">.</span><span class="n">resample</span><span class="p">(</span><span class="n">sampling_rate</span><span class="p">,</span> <span class="n">force_dense</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">create_model_spec</span><span class="p">(</span><span class="n">collection</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="p">)</span></div></div>
 
 
-<div class="viewcode-block" id="apply_transformations"><a class="viewcode-back" href="../../../generated/bids.analysis.analysis.apply_transformations.html#bids.analysis.apply_transformations">[docs]</a><span class="k">def</span> <span class="nf">apply_transformations</span><span class="p">(</span><span class="n">collection</span><span class="p">,</span> <span class="n">transformations</span><span class="p">,</span> <span class="n">select</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Apply all transformations to the variables in the collection.</span>
-
-<span class="sd">    Parameters</span>
-<span class="sd">    ----------</span>
-<span class="sd">    transformations : list</span>
-<span class="sd">        List of transformations to apply.</span>
-<span class="sd">    select : list</span>
-<span class="sd">        Optional list of names of variables to retain after all</span>
-<span class="sd">        transformations are applied.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">transformations</span><span class="p">:</span>
-        <span class="n">kwargs</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
-        <span class="n">func</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">)</span>
-        <span class="n">cols</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;input&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
-
-        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
-            <span class="k">if</span> <span class="n">func</span> <span class="ow">in</span> <span class="p">(</span><span class="s1">&#39;and&#39;</span><span class="p">,</span> <span class="s1">&#39;or&#39;</span><span class="p">):</span>
-                <span class="n">func</span> <span class="o">+=</span> <span class="s1">&#39;_&#39;</span>
-            <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">transform</span><span class="p">,</span> <span class="n">func</span><span class="p">):</span>
-                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;No transformation &#39;</span><span class="si">%s</span><span class="s2">&#39; found!&quot;</span> <span class="o">%</span> <span class="n">func</span><span class="p">)</span>
-            <span class="n">func</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">transform</span><span class="p">,</span> <span class="n">func</span><span class="p">)</span>
-            <span class="n">func</span><span class="p">(</span><span class="n">collection</span><span class="p">,</span> <span class="n">cols</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-
-    <span class="k">if</span> <span class="n">select</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="n">transform</span><span class="o">.</span><span class="n">Select</span><span class="p">(</span><span class="n">collection</span><span class="p">,</span> <span class="n">select</span><span class="p">)</span>
-
-    <span class="k">return</span> <span class="n">collection</span></div>
+<span class="n">ContrastInfo</span> <span class="o">=</span> <span class="n">namedtuple</span><span class="p">(</span><span class="s1">&#39;ContrastInfo&#39;</span><span class="p">,</span> <span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">,</span> <span class="s1">&#39;weights&#39;</span><span class="p">,</span> <span class="s1">&#39;type&#39;</span><span class="p">,</span>
+                                           <span class="s1">&#39;entities&#39;</span><span class="p">))</span>
 </pre></div>
 
            </div>

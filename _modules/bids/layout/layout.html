@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>bids.layout.layout &mdash; PyBIDS 0.10.0 documentation</title>
+  <title>bids.layout.layout &mdash; PyBIDS 0.10.2+64.g1bf62ab documentation</title>
   
 
   
@@ -21,10 +21,10 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../../../_static/jquery.js"></script>
-        <script type="text/javascript" src="../../../_static/underscore.js"></script>
-        <script type="text/javascript" src="../../../_static/doctools.js"></script>
-        <script type="text/javascript" src="../../../_static/language_data.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/language_data.js"></script>
     
     <script type="text/javascript" src="../../../_static/js/theme.js"></script>
 
@@ -149,29 +149,30 @@
 <span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">json</span>
 <span class="kn">import</span> <span class="nn">re</span>
-<span class="kn">from</span> <span class="nn">collections</span> <span class="k">import</span> <span class="n">defaultdict</span>
-<span class="kn">from</span> <span class="nn">io</span> <span class="k">import</span> <span class="nb">open</span>
-<span class="kn">from</span> <span class="nn">functools</span> <span class="k">import</span> <span class="n">partial</span>
-<span class="kn">from</span> <span class="nn">itertools</span> <span class="k">import</span> <span class="n">chain</span>
+<span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">defaultdict</span>
+<span class="kn">from</span> <span class="nn">io</span> <span class="kn">import</span> <span class="nb">open</span>
+<span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">partial</span>
+<span class="kn">from</span> <span class="nn">itertools</span> <span class="kn">import</span> <span class="n">chain</span>
 <span class="kn">import</span> <span class="nn">copy</span>
 <span class="kn">import</span> <span class="nn">warnings</span>
 <span class="kn">import</span> <span class="nn">sqlite3</span>
 <span class="kn">import</span> <span class="nn">enum</span>
-<span class="kn">from</span> <span class="nn">pathlib</span> <span class="k">import</span> <span class="n">Path</span>
+<span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
 
 <span class="kn">import</span> <span class="nn">sqlalchemy</span> <span class="k">as</span> <span class="nn">sa</span>
-<span class="kn">from</span> <span class="nn">sqlalchemy.orm</span> <span class="k">import</span> <span class="n">joinedload</span>
-<span class="kn">from</span> <span class="nn">bids_validator</span> <span class="k">import</span> <span class="n">BIDSValidator</span>
+<span class="kn">from</span> <span class="nn">sqlalchemy.orm</span> <span class="kn">import</span> <span class="n">joinedload</span>
+<span class="kn">from</span> <span class="nn">bids_validator</span> <span class="kn">import</span> <span class="n">BIDSValidator</span>
 
-<span class="kn">from</span> <span class="nn">..utils</span> <span class="k">import</span> <span class="n">listify</span><span class="p">,</span> <span class="n">natural_sort</span><span class="p">,</span> <span class="n">make_bidsfile</span>
-<span class="kn">from</span> <span class="nn">..external</span> <span class="k">import</span> <span class="n">inflect</span>
-<span class="kn">from</span> <span class="nn">.writing</span> <span class="k">import</span> <span class="n">build_path</span><span class="p">,</span> <span class="n">write_contents_to_file</span>
-<span class="kn">from</span> <span class="nn">.models</span> <span class="k">import</span> <span class="p">(</span><span class="n">Base</span><span class="p">,</span> <span class="n">Config</span><span class="p">,</span> <span class="n">BIDSFile</span><span class="p">,</span> <span class="n">Entity</span><span class="p">,</span> <span class="n">Tag</span><span class="p">)</span>
-<span class="kn">from</span> <span class="nn">.index</span> <span class="k">import</span> <span class="n">BIDSLayoutIndexer</span>
-<span class="kn">from</span> <span class="nn">..</span> <span class="k">import</span> <span class="n">config</span> <span class="k">as</span> <span class="n">cf</span>
+<span class="kn">from</span> <span class="nn">..utils</span> <span class="kn">import</span> <span class="n">listify</span><span class="p">,</span> <span class="n">natural_sort</span><span class="p">,</span> <span class="n">make_bidsfile</span>
+<span class="kn">from</span> <span class="nn">..external</span> <span class="kn">import</span> <span class="n">inflect</span>
+<span class="kn">from</span> <span class="nn">.writing</span> <span class="kn">import</span> <span class="n">build_path</span><span class="p">,</span> <span class="n">write_contents_to_file</span>
+<span class="kn">from</span> <span class="nn">.models</span> <span class="kn">import</span> <span class="p">(</span><span class="n">Base</span><span class="p">,</span> <span class="n">Config</span><span class="p">,</span> <span class="n">BIDSFile</span><span class="p">,</span> <span class="n">Entity</span><span class="p">,</span> <span class="n">Tag</span><span class="p">)</span>
+<span class="kn">from</span> <span class="nn">.index</span> <span class="kn">import</span> <span class="n">BIDSLayoutIndexer</span>
+<span class="kn">from</span> <span class="nn">.utils</span> <span class="kn">import</span> <span class="n">BIDSMetadata</span>
+<span class="kn">from</span> <span class="nn">..</span> <span class="kn">import</span> <span class="n">config</span> <span class="k">as</span> <span class="n">cf</span>
 
 <span class="k">try</span><span class="p">:</span>
-    <span class="kn">from</span> <span class="nn">os.path</span> <span class="k">import</span> <span class="n">commonpath</span>
+    <span class="kn">from</span> <span class="nn">os.path</span> <span class="kn">import</span> <span class="n">commonpath</span>
 <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
     <span class="k">def</span> <span class="nf">commonpath</span><span class="p">(</span><span class="n">paths</span><span class="p">):</span>
         <span class="n">prefix</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">commonprefix</span><span class="p">(</span><span class="n">paths</span><span class="p">)</span>
@@ -340,7 +341,7 @@
     <span class="n">_default_ignore</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;code&quot;</span><span class="p">,</span> <span class="s2">&quot;stimuli&quot;</span><span class="p">,</span> <span class="s2">&quot;sourcedata&quot;</span><span class="p">,</span> <span class="s2">&quot;models&quot;</span><span class="p">,</span>
                        <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;^\.&#39;</span><span class="p">))</span>
 
-<div class="viewcode-block" id="BIDSLayout.__init__"><a class="viewcode-back" href="../../../generated/bids.layout.BIDSLayout.html#bids.layout.BIDSLayout.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">root</span><span class="p">,</span> <span class="n">validate</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">absolute_paths</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<div class="viewcode-block" id="BIDSLayout.__init__"><a class="viewcode-back" href="../../../generated/bids.layout.BIDSLayout.html#bids.layout.BIDSLayout.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">root</span><span class="p">,</span> <span class="n">validate</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">absolute_paths</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                  <span class="n">derivatives</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">config</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">sources</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">ignore</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                  <span class="n">force_index</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">config_filename</span><span class="o">=</span><span class="s1">&#39;layout_config.json&#39;</span><span class="p">,</span>
                  <span class="n">regex_search</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">database_path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">database_file</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
@@ -424,7 +425,7 @@
                 <span class="n">reset_database</span><span class="o">=</span><span class="n">index_dataset</span> <span class="ow">or</span> <span class="n">reset_database</span>
                 <span class="p">)</span></div>
 
-    <span class="k">def</span> <span class="nf">__getattr__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__getattr__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Dynamically inspect missing methods for get_&lt;entity&gt;() calls</span>
 <span class="sd">        and return a partial function of get() if a match is found.&quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">key</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;get_&#39;</span><span class="p">):</span>
@@ -444,14 +445,32 @@
         <span class="k">raise</span> <span class="ne">AttributeError</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2"> object has no attribute named </span><span class="si">%r</span><span class="s2">&quot;</span> <span class="o">%</span>
                              <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="n">key</span><span class="p">))</span>
 
-    <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Provide a tidy summary of key properties.&quot;&quot;&quot;</span>
-        <span class="c1"># TODO: Replace each nested list comprehension with a single DB query</span>
-        <span class="n">n_sessions</span> <span class="o">=</span> <span class="nb">len</span><span class="p">([</span><span class="n">session</span> <span class="k">for</span> <span class="n">isub</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_subjects</span><span class="p">()</span>
-                          <span class="k">for</span> <span class="n">session</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_sessions</span><span class="p">(</span><span class="n">subject</span><span class="o">=</span><span class="n">isub</span><span class="p">)])</span>
-        <span class="n">n_runs</span> <span class="o">=</span> <span class="nb">len</span><span class="p">([</span><span class="n">run</span> <span class="k">for</span> <span class="n">isub</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_subjects</span><span class="p">()</span>
-                      <span class="k">for</span> <span class="n">run</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_runs</span><span class="p">(</span><span class="n">subject</span><span class="o">=</span><span class="n">isub</span><span class="p">)])</span>
-        <span class="n">n_subjects</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_subjects</span><span class="p">())</span>
+        <span class="n">n_subjects</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span>
+            <span class="p">[</span><span class="n">s</span><span class="o">.</span><span class="n">value</span>
+             <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">Tag</span><span class="p">)</span><span class="o">.</span><span class="n">filter_by</span><span class="p">(</span>
+                 <span class="n">entity_name</span><span class="o">=</span><span class="s1">&#39;subject&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">group_by</span><span class="p">(</span><span class="n">Tag</span><span class="o">.</span><span class="n">_value</span><span class="p">)]</span>
+            <span class="p">)</span>
+
+        <span class="n">n_sessions</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span>
+            <span class="nb">set</span><span class="p">(</span>
+                <span class="p">(</span><span class="n">t</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="n">t</span><span class="o">.</span><span class="n">file</span><span class="o">.</span><span class="n">entities</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;subject&#39;</span><span class="p">))</span>
+                 <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span>
+                 <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">Tag</span><span class="p">)</span><span class="o">.</span><span class="n">filter_by</span><span class="p">(</span><span class="n">entity_name</span><span class="o">=</span><span class="s1">&#39;session&#39;</span><span class="p">)</span>
+                 <span class="k">if</span> <span class="n">t</span><span class="o">.</span><span class="n">file</span><span class="o">.</span><span class="n">entities</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;subject&#39;</span><span class="p">)</span>
+                 <span class="p">)</span>
+            <span class="p">)</span>
+
+        <span class="n">n_runs</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span>
+            <span class="nb">set</span><span class="p">(</span>
+                <span class="p">(</span><span class="n">t</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="n">t</span><span class="o">.</span><span class="n">file</span><span class="o">.</span><span class="n">entities</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;subject&#39;</span><span class="p">))</span>
+                 <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span>
+                 <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">Tag</span><span class="p">)</span><span class="o">.</span><span class="n">filter_by</span><span class="p">(</span><span class="n">entity_name</span><span class="o">=</span><span class="s1">&#39;run&#39;</span><span class="p">)</span>
+                 <span class="k">if</span> <span class="n">t</span><span class="o">.</span><span class="n">file</span><span class="o">.</span><span class="n">entities</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;subject&#39;</span><span class="p">)</span>
+                 <span class="p">)</span>
+            <span class="p">)</span>
+
         <span class="n">root</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="p">[</span><span class="o">-</span><span class="mi">30</span><span class="p">:]</span>
         <span class="n">s</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;BIDS Layout: ...</span><span class="si">{}</span><span class="s2"> | Subjects: </span><span class="si">{}</span><span class="s2"> | Sessions: </span><span class="si">{}</span><span class="s2"> | &quot;</span>
              <span class="s2">&quot;Runs: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">root</span><span class="p">,</span> <span class="n">n_subjects</span><span class="p">,</span> <span class="n">n_sessions</span><span class="p">,</span> <span class="n">n_runs</span><span class="p">))</span>
@@ -467,7 +486,7 @@
             <span class="c1"># pooling is not necessary. The scheme also prevents a connection</span>
             <span class="c1"># from being used again in a different thread and works best</span>
             <span class="c1"># with SQLite&#39;s coarse-grained file locking.</span>
-            <span class="kn">from</span> <span class="nn">sqlalchemy.pool</span> <span class="k">import</span> <span class="n">NullPool</span>
+            <span class="kn">from</span> <span class="nn">sqlalchemy.pool</span> <span class="kn">import</span> <span class="n">NullPool</span>
             <span class="n">engine</span> <span class="o">=</span> <span class="n">sa</span><span class="o">.</span><span class="n">create_engine</span><span class="p">(</span>
                 <span class="s1">&#39;sqlite:///</span><span class="si">{dbfilepath}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">dbfilepath</span><span class="o">=</span><span class="n">database_file</span><span class="p">),</span>
                 <span class="n">connect_args</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;check_same_thread&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">},</span>
@@ -481,7 +500,7 @@
             <span class="c1"># connection. The StaticPool implementation will maintain a single</span>
             <span class="c1"># connection globally, and the check_same_thread flag can be passed</span>
             <span class="c1"># to Pysqlite as False:</span>
-            <span class="kn">from</span> <span class="nn">sqlalchemy.pool</span> <span class="k">import</span> <span class="n">StaticPool</span>
+            <span class="kn">from</span> <span class="nn">sqlalchemy.pool</span> <span class="kn">import</span> <span class="n">StaticPool</span>
             <span class="n">engine</span> <span class="o">=</span> <span class="n">sa</span><span class="o">.</span><span class="n">create_engine</span><span class="p">(</span>
                 <span class="s1">&#39;sqlite://&#39;</span><span class="p">,</span>  <span class="c1"># In memory database</span>
                 <span class="n">connect_args</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;check_same_thread&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">},</span>
@@ -539,8 +558,8 @@
 
     <span class="k">def</span> <span class="nf">_init_db</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">database_path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">reset_database</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
         <span class="n">database_file</span><span class="p">,</span> <span class="n">database_sidecar</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_db_paths</span><span class="p">(</span><span class="n">database_path</span><span class="p">)</span>
-        <span class="c1"># Reset database if needed and return whether or not it was reset</span>
-        <span class="c1"># determining if the database needs resetting must be done prior</span>
+        <span class="c1"># Reset database if needed and return whether or not it was reset.</span>
+        <span class="c1"># Determining if the database needs resetting must be done prior</span>
         <span class="c1"># to setting the session (which creates the empty database file)</span>
         <span class="n">reset_database</span> <span class="o">=</span> <span class="p">(</span>
             <span class="n">reset_database</span> <span class="ow">or</span>  <span class="c1"># Manual Request</span>
@@ -634,7 +653,7 @@
         <span class="c1"># We assume something is a BIDS-derivatives dataset if it either has a</span>
         <span class="c1"># defined pipeline name, or is applying the &#39;derivatives&#39; rules.</span>
         <span class="n">pl_name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">description</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;PipelineDescription&quot;</span><span class="p">,</span> <span class="p">{})</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;Name&quot;</span><span class="p">)</span>
-        <span class="n">is_deriv</span> <span class="o">=</span> <span class="nb">bool</span><span class="p">(</span><span class="n">pl_name</span> <span class="ow">or</span> <span class="p">(</span><span class="s1">&#39;derivatives&#39;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">))</span>
+        <span class="n">is_deriv</span> <span class="o">=</span> <span class="nb">bool</span><span class="p">(</span><span class="s1">&#39;derivatives&#39;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">)</span>
 
         <span class="k">return</span> <span class="p">((</span><span class="ow">not</span> <span class="n">is_deriv</span> <span class="ow">and</span> <span class="s1">&#39;raw&#39;</span> <span class="ow">in</span> <span class="n">scope</span><span class="p">)</span> <span class="ow">or</span>
                 <span class="p">(</span><span class="n">is_deriv</span> <span class="ow">and</span> <span class="p">(</span><span class="s1">&#39;derivatives&#39;</span> <span class="ow">in</span> <span class="n">scope</span> <span class="ow">or</span> <span class="n">pl_name</span> <span class="ow">in</span> <span class="n">scope</span><span class="p">)))</span>
@@ -706,7 +725,7 @@
         <span class="sd">&quot;&quot;&quot;Save the current index as a SQLite3 DB at the specified location.</span>
 
 <span class="sd">        Note: This is only necessary if a database_path was not specified</span>
-<span class="sd">        at initalization, and the user now wants to save the index.</span>
+<span class="sd">        at initialization, and the user now wants to save the index.</span>
 <span class="sd">        If a database_path was specified originally, there is no need to</span>
 <span class="sd">        re-save using this method.</span>
 
@@ -861,7 +880,7 @@
 <span class="sd">        parent_database_path : str</span>
 <span class="sd">            If not None, use the pipeline name from the dataset_description.json</span>
 <span class="sd">            file as the database folder name to nest within the parent database</span>
-<span class="sd">            folder name to write out derivatie index to.</span>
+<span class="sd">            folder name to write out derivative index to.</span>
 <span class="sd">        kwargs : dict</span>
 <span class="sd">            Optional keyword arguments to pass on to</span>
 <span class="sd">            BIDSLayout() when initializing each of the derivative datasets.</span>
@@ -997,10 +1016,10 @@
 <span class="sd">            nodes/directories that match the specified scope will be</span>
 <span class="sd">            searched. Possible values include:</span>
 <span class="sd">            &#39;all&#39; (default): search all available directories.</span>
-<span class="sd">            &#39;derivatives&#39;: search all derivatives directories</span>
-<span class="sd">            &#39;raw&#39;: search only BIDS-Raw directories</span>
-<span class="sd">            &#39;self&#39;: search only the directly called BIDSLayout</span>
-<span class="sd">            &lt;PipelineName&gt;: the name of a BIDS-Derivatives pipeline</span>
+<span class="sd">            &#39;derivatives&#39;: search all derivatives directories.</span>
+<span class="sd">            &#39;raw&#39;: search only BIDS-Raw directories.</span>
+<span class="sd">            &#39;self&#39;: search only the directly called BIDSLayout.</span>
+<span class="sd">            &lt;PipelineName&gt;: the name of a BIDS-Derivatives pipeline.</span>
 <span class="sd">        regex_search : bool or None, optional</span>
 <span class="sd">            Whether to require exact matching</span>
 <span class="sd">            (False) or regex search (True) when comparing the query string</span>
@@ -1220,7 +1239,7 @@
 <span class="sd">            as a list.</span>
 <span class="sd">        sampling_rate : int or str</span>
 <span class="sd">            If level=&#39;run&#39;, the sampling rate to pass onto the returned</span>
-<span class="sd">            :obj:`bids.variables.kollekshuns.BIDSRunVariableCollection`.</span>
+<span class="sd">            :obj:`bids.variables.collections.BIDSRunVariableCollection`.</span>
 <span class="sd">        skip_empty : bool</span>
 <span class="sd">            Whether or not to skip empty Variables (i.e., where there are no</span>
 <span class="sd">            rows/records in a file after applying any filtering operations</span>
@@ -1231,14 +1250,14 @@
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
-<span class="sd">        list of :obj:`bids.variables.kollekshuns.BIDSVariableCollection`</span>
-<span class="sd">            or :obj:`bids.variables.kollekshuns.BIDSVariableCollection`</span>
+<span class="sd">        list of :obj:`bids.variables.collections.BIDSVariableCollection`</span>
+<span class="sd">            or :obj:`bids.variables.collections.BIDSVariableCollection`</span>
 <span class="sd">            A list if merge=False;</span>
-<span class="sd">            a single :obj:`bids.variables.kollekshuns.BIDSVariableCollection`</span>
+<span class="sd">            a single :obj:`bids.variables.collections.BIDSVariableCollection`</span>
 <span class="sd">            if merge=True.</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="kn">from</span> <span class="nn">bids.variables</span> <span class="k">import</span> <span class="n">load_variables</span>
+        <span class="kn">from</span> <span class="nn">bids.variables</span> <span class="kn">import</span> <span class="n">load_variables</span>
         <span class="n">index</span> <span class="o">=</span> <span class="n">load_variables</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">types</span><span class="o">=</span><span class="n">types</span><span class="p">,</span> <span class="n">levels</span><span class="o">=</span><span class="n">level</span><span class="p">,</span>
                                <span class="n">skip_empty</span><span class="o">=</span><span class="n">skip_empty</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">index</span><span class="o">.</span><span class="n">get_collections</span><span class="p">(</span><span class="n">level</span><span class="p">,</span> <span class="n">variables</span><span class="p">,</span> <span class="n">merge</span><span class="p">,</span>
@@ -1275,6 +1294,7 @@
 <span class="sd">        precedence, per the inheritance rules in the BIDS specification.</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">md</span> <span class="o">=</span> <span class="n">BIDSMetadata</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">path</span><span class="p">))</span>
         <span class="k">for</span> <span class="n">layout</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_layouts_in_scope</span><span class="p">(</span><span class="n">scope</span><span class="p">):</span>
 
             <span class="n">query</span> <span class="o">=</span> <span class="p">(</span><span class="n">layout</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">Tag</span><span class="p">)</span>
@@ -1286,9 +1306,10 @@
 
             <span class="n">results</span> <span class="o">=</span> <span class="n">query</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
             <span class="k">if</span> <span class="n">results</span><span class="p">:</span>
-                <span class="k">return</span> <span class="p">{</span><span class="n">t</span><span class="o">.</span><span class="n">entity_name</span><span class="p">:</span> <span class="n">t</span><span class="o">.</span><span class="n">value</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">results</span><span class="p">}</span>
+                <span class="n">md</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="n">t</span><span class="o">.</span><span class="n">entity_name</span><span class="p">:</span> <span class="n">t</span><span class="o">.</span><span class="n">value</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">results</span><span class="p">})</span>
+                <span class="k">return</span> <span class="n">md</span>
 
-        <span class="k">return</span> <span class="p">{}</span></div>
+        <span class="k">return</span> <span class="n">md</span></div>
 
 <div class="viewcode-block" id="BIDSLayout.get_dataset_description"><a class="viewcode-back" href="../../../generated/bids.layout.BIDSLayout.html#bids.layout.BIDSLayout.get_dataset_description">[docs]</a>    <span class="k">def</span> <span class="nf">get_dataset_description</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scope</span><span class="o">=</span><span class="s1">&#39;self&#39;</span><span class="p">,</span> <span class="n">all_</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Return contents of dataset_description.json.</span>
@@ -1533,7 +1554,7 @@
         <span class="k">return</span> <span class="n">all_trs</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span></div>
 
 <div class="viewcode-block" id="BIDSLayout.build_path"><a class="viewcode-back" href="../../../generated/bids.layout.BIDSLayout.html#bids.layout.BIDSLayout.build_path">[docs]</a>    <span class="k">def</span> <span class="nf">build_path</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">source</span><span class="p">,</span> <span class="n">path_patterns</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">strict</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-                   <span class="n">scope</span><span class="o">=</span><span class="s1">&#39;all&#39;</span><span class="p">,</span> <span class="n">validate</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+                   <span class="n">scope</span><span class="o">=</span><span class="s1">&#39;all&#39;</span><span class="p">,</span> <span class="n">validate</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">absolute_paths</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Construct a target filename for a file or dictionary of entities.</span>
 
 <span class="sd">        Parameters</span>
@@ -1553,7 +1574,7 @@
 <span class="sd">            surrounded by curly braces. Optional portions of the patterns</span>
 <span class="sd">            should be denoted by square brackets. Entities that require a</span>
 <span class="sd">            specific value for the pattern to match can pass them inside</span>
-<span class="sd">            carets. Default values can be assigned by specifying a string</span>
+<span class="sd">            angle brackets. Default values can be assigned by specifying a string</span>
 <span class="sd">            after the pipe operator. E.g., (e.g., {type&lt;image&gt;|bold} would</span>
 <span class="sd">            only match the pattern if the entity &#39;type&#39; was passed and its</span>
 <span class="sd">            value is &quot;image&quot;, otherwise the default value &quot;bold&quot; will be</span>
@@ -1575,6 +1596,11 @@
 <span class="sd">            If True, built path must pass BIDS validator. If</span>
 <span class="sd">            False, no validation is attempted, and an invalid path may be</span>
 <span class="sd">            returned (e.g., if an entity value contains a hyphen).</span>
+<span class="sd">        absolute_paths : bool, optional</span>
+<span class="sd">            Optionally override the instance-wide option</span>
+<span class="sd">            to report either absolute or relative (to the top of the</span>
+<span class="sd">            dataset) paths. If None, will fall back on the value specified</span>
+<span class="sd">            at BIDSLayout initialization.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># &#39;is_file&#39; is a crude check for Path objects</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span> <span class="ow">or</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="s1">&#39;is_file&#39;</span><span class="p">):</span>
@@ -1605,12 +1631,19 @@
                 <span class="s2">&quot;Unable to construct build path with source </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">source</span><span class="p">))</span>
         <span class="n">to_check</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">sep</span><span class="p">,</span> <span class="n">built</span><span class="p">)</span>
 
-        <span class="k">if</span> <span class="ow">not</span> <span class="n">validate</span> <span class="ow">or</span> <span class="n">BIDSValidator</span><span class="p">()</span><span class="o">.</span><span class="n">is_bids</span><span class="p">(</span><span class="n">to_check</span><span class="p">):</span>
-            <span class="k">return</span> <span class="n">built</span>
+        <span class="k">if</span> <span class="n">validate</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">BIDSValidator</span><span class="p">()</span><span class="o">.</span><span class="n">is_bids</span><span class="p">(</span><span class="n">to_check</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Built path </span><span class="si">{}</span><span class="s2"> is not a valid BIDS filename. &quot;</span>
+                             <span class="s2">&quot;Please make sure all provided entity values are &quot;</span>
+                             <span class="s2">&quot;spec-compliant.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">built</span><span class="p">))</span>
 
-        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Built path </span><span class="si">{}</span><span class="s2"> is not a valid BIDS filename. Please &quot;</span>
-                         <span class="s2">&quot;make sure all provided entity values are &quot;</span>
-                         <span class="s2">&quot;spec-compliant.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">built</span><span class="p">))</span></div>
+        <span class="c1"># Convert to absolute paths if needed</span>
+        <span class="k">if</span> <span class="n">absolute_paths</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">absolute_paths</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">absolute_paths</span>
+
+        <span class="k">if</span> <span class="n">absolute_paths</span><span class="p">:</span>
+            <span class="n">built</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="p">,</span> <span class="n">built</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">built</span></div>
 
 <div class="viewcode-block" id="BIDSLayout.copy_files"><a class="viewcode-back" href="../../../generated/bids.layout.BIDSLayout.html#bids.layout.BIDSLayout.copy_files">[docs]</a>    <span class="k">def</span> <span class="nf">copy_files</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">files</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">path_patterns</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">symbolic_links</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                    <span class="n">root</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">conflicts</span><span class="o">=</span><span class="s1">&#39;fail&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
@@ -1638,7 +1671,7 @@
 <span class="sd">                &#39;fail&#39;: raises an exception</span>
 <span class="sd">                &#39;skip&#39; does nothing</span>
 <span class="sd">                &#39;overwrite&#39;: overwrites the existing file</span>
-<span class="sd">                &#39;append&#39;: adds  a suffix to each file copy, starting with 1</span>
+<span class="sd">                &#39;append&#39;: adds a suffix to each file copy, starting with 1</span>
 <span class="sd">        kwargs : dict</span>
 <span class="sd">            Optional key word arguments to pass into a get() query.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -1680,10 +1713,11 @@
 <span class="sd">                &#39;fail&#39;: raises an exception</span>
 <span class="sd">                &#39;skip&#39; does nothing</span>
 <span class="sd">                &#39;overwrite&#39;: overwrites the existing file</span>
-<span class="sd">                &#39;append&#39;: adds  a suffix to each file copy, starting with 1</span>
+<span class="sd">                &#39;append&#39;: adds a suffix to each file copy, starting with 1</span>
 <span class="sd">        strict : bool</span>
 <span class="sd">            If True, all entities must be matched inside a</span>
 <span class="sd">            pattern in order to be a valid match. If False, extra entities</span>
+<span class="sd">            will be ignored so long as all mandatory entities are found.</span>
 <span class="sd">        validate : bool</span>
 <span class="sd">            If True, built path must pass BIDS validator. If</span>
 <span class="sd">            False, no validation is attempted, and an invalid path may be</span>
