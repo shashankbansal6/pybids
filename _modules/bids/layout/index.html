@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>bids.layout.index &mdash; PyBIDS 0.10.2+64.g1bf62ab documentation</title>
+  <title>bids.layout.index &mdash; PyBIDS 0.11.1 documentation</title>
   
 
   
@@ -21,10 +21,10 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
-        <script src="../../../_static/jquery.js"></script>
-        <script src="../../../_static/underscore.js"></script>
-        <script src="../../../_static/doctools.js"></script>
-        <script src="../../../_static/language_data.js"></script>
+        <script type="text/javascript" src="../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../../_static/language_data.js"></script>
     
     <script type="text/javascript" src="../../../_static/js/theme.js"></script>
 
@@ -56,6 +56,10 @@
 
           
             
+            
+              <div class="version">
+                0.11.1
+              </div>
             
           
 
@@ -149,10 +153,13 @@
 
 <span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">json</span>
-<span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">defaultdict</span>
-<span class="kn">from</span> <span class="nn">bids_validator</span> <span class="kn">import</span> <span class="n">BIDSValidator</span>
-<span class="kn">from</span> <span class="nn">.models</span> <span class="kn">import</span> <span class="n">Config</span><span class="p">,</span> <span class="n">Entity</span><span class="p">,</span> <span class="n">Tag</span><span class="p">,</span> <span class="n">FileAssociation</span>
-<span class="kn">from</span> <span class="nn">..utils</span> <span class="kn">import</span> <span class="n">listify</span><span class="p">,</span> <span class="n">make_bidsfile</span>
+<span class="kn">from</span> <span class="nn">collections</span> <span class="k">import</span> <span class="n">defaultdict</span>
+<span class="kn">from</span> <span class="nn">pathlib</span> <span class="k">import</span> <span class="n">Path</span>
+<span class="kn">from</span> <span class="nn">bids_validator</span> <span class="k">import</span> <span class="n">BIDSValidator</span>
+<span class="kn">import</span> <span class="nn">bids.config</span>
+<span class="kn">from</span> <span class="nn">.models</span> <span class="k">import</span> <span class="n">Config</span><span class="p">,</span> <span class="n">Entity</span><span class="p">,</span> <span class="n">Tag</span><span class="p">,</span> <span class="n">FileAssociation</span>
+<span class="kn">from</span> <span class="nn">..utils</span> <span class="k">import</span> <span class="n">listify</span><span class="p">,</span> <span class="n">make_bidsfile</span>
+<span class="kn">from</span> <span class="nn">..exceptions</span> <span class="k">import</span> <span class="n">BIDSConflictingValuesError</span>
 
 
 <span class="k">def</span> <span class="nf">_extract_entities</span><span class="p">(</span><span class="n">bidsfile</span><span class="p">,</span> <span class="n">entities</span><span class="p">):</span>
@@ -187,7 +194,7 @@
 <span class="sd">        layout (BIDSLayout): The BIDSLayout to index.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-<div class="viewcode-block" id="BIDSLayoutIndexer.__init__"><a class="viewcode-back" href="../../../generated/bids.layout.index.BIDSLayoutIndexer.html#bids.layout.index.BIDSLayoutIndexer.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">layout</span><span class="p">):</span>
+<div class="viewcode-block" id="BIDSLayoutIndexer.__init__"><a class="viewcode-back" href="../../../generated/bids.layout.index.BIDSLayoutIndexer.html#bids.layout.index.BIDSLayoutIndexer.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">layout</span><span class="p">):</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">layout</span> <span class="o">=</span> <span class="n">layout</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">session</span> <span class="o">=</span> <span class="n">layout</span><span class="o">.</span><span class="n">session</span>
@@ -227,7 +234,8 @@
         <span class="c1"># BIDS validator expects absolute paths, but really these are relative</span>
         <span class="c1"># to the BIDS project root.</span>
         <span class="n">to_check</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">relpath</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="p">)</span>
-        <span class="n">to_check</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">,</span> <span class="n">to_check</span><span class="p">)</span>
+        <span class="n">to_check</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">sep</span><span class="p">,</span> <span class="n">to_check</span><span class="p">)</span>
+        <span class="n">to_check</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">to_check</span><span class="p">)</span><span class="o">.</span><span class="n">as_posix</span><span class="p">()</span>  <span class="c1"># bids-validator works with posix paths only</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">validator</span><span class="o">.</span><span class="n">is_bids</span><span class="p">(</span><span class="n">to_check</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_index_dir</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">config</span><span class="p">,</span> <span class="n">default_action</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
@@ -323,6 +331,8 @@
 <span class="sd">            These keyword arguments define what files get selected</span>
 <span class="sd">            for metadata indexing.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">dot</span> <span class="o">=</span> <span class="s1">&#39;.&#39;</span> <span class="k">if</span> <span class="n">bids</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">get_option</span><span class="p">(</span><span class="s1">&#39;extension_initial_dot&#39;</span><span class="p">)</span> <span class="k">else</span> <span class="s1">&#39;&#39;</span>
         
         <span class="k">if</span> <span class="n">filters</span><span class="p">:</span>
             <span class="c1"># ensure we are returning objects</span>
@@ -332,8 +342,10 @@
             <span class="k">if</span> <span class="n">filters</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">ext_key</span><span class="p">):</span>
                 <span class="n">filters</span><span class="p">[</span><span class="n">ext_key</span><span class="p">]</span> <span class="o">=</span> <span class="n">listify</span><span class="p">(</span><span class="n">filters</span><span class="p">[</span><span class="n">ext_key</span><span class="p">])</span>
                 <span class="c1"># ensure json files are being indexed</span>
-                <span class="k">if</span> <span class="s1">&#39;json&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">filters</span><span class="p">[</span><span class="n">ext_key</span><span class="p">]:</span>
-                    <span class="n">filters</span><span class="p">[</span><span class="n">ext_key</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;json&#39;</span><span class="p">)</span>
+                <span class="c1"># XXX 0.14: dot always == &#39;.&#39;</span>
+                <span class="n">json_ext</span> <span class="o">=</span> <span class="n">dot</span> <span class="o">+</span> <span class="s1">&#39;json&#39;</span>
+                <span class="k">if</span> <span class="n">json_ext</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">filters</span><span class="p">[</span><span class="n">ext_key</span><span class="p">]:</span>
+                    <span class="n">filters</span><span class="p">[</span><span class="n">ext_key</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">json_ext</span><span class="p">)</span>
 
         <span class="c1"># Process JSON files first if we&#39;re indexing metadata</span>
         <span class="n">all_files</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">layout</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">absolute_paths</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="o">**</span><span class="n">filters</span><span class="p">)</span>
@@ -367,7 +379,7 @@
                 <span class="k">if</span> <span class="n">key</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">file_data</span><span class="p">:</span>
                     <span class="n">file_data</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">defaultdict</span><span class="p">(</span><span class="nb">list</span><span class="p">)</span>
 
-                <span class="k">if</span> <span class="n">ext</span> <span class="o">==</span> <span class="s1">&#39;json&#39;</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">ext</span> <span class="o">==</span> <span class="n">dot</span> <span class="o">+</span> <span class="s1">&#39;json&#39;</span><span class="p">:</span>
                     <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">bf</span><span class="o">.</span><span class="n">path</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">handle</span><span class="p">:</span>
                         <span class="k">try</span><span class="p">:</span>
                             <span class="n">payload</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">handle</span><span class="p">)</span>
@@ -416,7 +428,7 @@
             <span class="c1"># add the payload to the stack. Finally, we invert the</span>
             <span class="c1"># stack and merge the payloads in order.</span>
             <span class="n">ext_key</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">{}</span><span class="s2">/</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">ext</span><span class="p">,</span> <span class="n">suffix</span><span class="p">)</span>
-            <span class="n">json_key</span> <span class="o">=</span> <span class="s2">&quot;json/</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">suffix</span><span class="p">)</span>
+            <span class="n">json_key</span> <span class="o">=</span> <span class="n">dot</span> <span class="o">+</span> <span class="s2">&quot;json/</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">suffix</span><span class="p">)</span>
             <span class="n">dirname</span> <span class="o">=</span> <span class="n">bf</span><span class="o">.</span><span class="n">dirname</span>
 
             <span class="n">payloads</span> <span class="o">=</span> <span class="p">[]</span>
@@ -487,7 +499,7 @@
             <span class="c1"># Link files to BOLD runs</span>
             <span class="k">if</span> <span class="n">suffix</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;physio&#39;</span><span class="p">,</span> <span class="s1">&#39;stim&#39;</span><span class="p">,</span> <span class="s1">&#39;events&#39;</span><span class="p">,</span> <span class="s1">&#39;sbref&#39;</span><span class="p">]:</span>
                 <span class="n">images</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">layout</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
-                    <span class="n">extension</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;nii&#39;</span><span class="p">,</span> <span class="s1">&#39;nii.gz&#39;</span><span class="p">],</span> <span class="n">suffix</span><span class="o">=</span><span class="s1">&#39;bold&#39;</span><span class="p">,</span>
+                    <span class="n">extension</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;.nii&#39;</span><span class="p">,</span> <span class="s1">&#39;.nii.gz&#39;</span><span class="p">],</span> <span class="n">suffix</span><span class="o">=</span><span class="s1">&#39;bold&#39;</span><span class="p">,</span>
                     <span class="n">return_type</span><span class="o">=</span><span class="s1">&#39;filename&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">file_ents</span><span class="p">)</span>
                 <span class="k">for</span> <span class="n">img</span> <span class="ow">in</span> <span class="n">images</span><span class="p">:</span>
                     <span class="n">create_association_pair</span><span class="p">(</span><span class="n">bf</span><span class="o">.</span><span class="n">path</span><span class="p">,</span> <span class="n">img</span><span class="p">,</span> <span class="s1">&#39;IntendedFor&#39;</span><span class="p">,</span>
@@ -496,7 +508,7 @@
             <span class="c1"># Link files to DWI runs</span>
             <span class="k">if</span> <span class="n">suffix</span> <span class="o">==</span> <span class="s1">&#39;sbref&#39;</span> <span class="ow">or</span> <span class="n">ext</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;bvec&#39;</span><span class="p">,</span> <span class="s1">&#39;bval&#39;</span><span class="p">]:</span>
                 <span class="n">images</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">layout</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
-                    <span class="n">extension</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;nii&#39;</span><span class="p">,</span> <span class="s1">&#39;nii.gz&#39;</span><span class="p">],</span> <span class="n">suffix</span><span class="o">=</span><span class="s1">&#39;dwi&#39;</span><span class="p">,</span>
+                    <span class="n">extension</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;.nii&#39;</span><span class="p">,</span> <span class="s1">&#39;.nii.gz&#39;</span><span class="p">],</span> <span class="n">suffix</span><span class="o">=</span><span class="s1">&#39;dwi&#39;</span><span class="p">,</span>
                     <span class="n">return_type</span><span class="o">=</span><span class="s1">&#39;filename&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">file_ents</span><span class="p">)</span>
                 <span class="k">for</span> <span class="n">img</span> <span class="ow">in</span> <span class="n">images</span><span class="p">:</span>
                     <span class="n">create_association_pair</span><span class="p">(</span><span class="n">bf</span><span class="o">.</span><span class="n">path</span><span class="p">,</span> <span class="n">img</span><span class="p">,</span> <span class="s1">&#39;IntendedFor&#39;</span><span class="p">,</span>
@@ -514,8 +526,9 @@
                             <span class="s2">&quot;filename </span><span class="si">{}</span><span class="s2"> (value=&#39;</span><span class="si">{}</span><span class="s2">&#39;) versus its JSON sidecar &quot;</span>
                             <span class="s2">&quot;(value=&#39;</span><span class="si">{}</span><span class="s2">&#39;). Please reconcile this discrepancy.&quot;</span>
                         <span class="p">)</span>
-                        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">msg</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">md_key</span><span class="p">,</span> <span class="n">bf</span><span class="o">.</span><span class="n">path</span><span class="p">,</span> <span class="n">file_val</span><span class="p">,</span>
-                                                    <span class="n">md_val</span><span class="p">))</span>
+                        <span class="k">raise</span> <span class="n">BIDSConflictingValuesError</span><span class="p">(</span>
+                            <span class="n">msg</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">md_key</span><span class="p">,</span> <span class="n">bf</span><span class="o">.</span><span class="n">path</span><span class="p">,</span> <span class="n">file_val</span><span class="p">,</span>
+                            <span class="n">md_val</span><span class="p">))</span>
                     <span class="k">continue</span>
                 <span class="k">if</span> <span class="n">md_key</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">all_entities</span><span class="p">:</span>
                     <span class="n">all_entities</span><span class="p">[</span><span class="n">md_key</span><span class="p">]</span> <span class="o">=</span> <span class="n">Entity</span><span class="p">(</span><span class="n">md_key</span><span class="p">,</span> <span class="n">is_metadata</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
@@ -539,7 +552,7 @@
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2019, Developers of PyBIDS
+        &copy; Copyright 2015-2020, Developers of PyBIDS
 
     </p>
   </div>

@@ -10,7 +10,7 @@ bids.layout.writing
    .. autosummary::
    
       build_path
-      write_contents_to_file
+      write_to_file
    
    
 

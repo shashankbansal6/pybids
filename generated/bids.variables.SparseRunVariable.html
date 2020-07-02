@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>bids.variables.SparseRunVariable &mdash; PyBIDS 0.10.2+64.g1bf62ab documentation</title>
+  <title>bids.variables.SparseRunVariable &mdash; PyBIDS 0.11.1 documentation</title>
   
 
   
@@ -21,10 +21,10 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-        <script src="../_static/jquery.js"></script>
-        <script src="../_static/underscore.js"></script>
-        <script src="../_static/doctools.js"></script>
-        <script src="../_static/language_data.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -58,6 +58,10 @@
 
           
             
+            
+              <div class="version">
+                0.11.1
+              </div>
             
           
 
@@ -182,7 +186,7 @@
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a>) – Name of the column.</p></li>
-<li><p><strong>data</strong> (<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.0.3)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code></a>) – A pandas DataFrame minimally containing the columns
+<li><p><strong>data</strong> (<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.0.5)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code></a>) – A pandas DataFrame minimally containing the columns
 ‘onset’, ‘duration’, and ‘amplitude’.</p></li>
 <li><p><strong>run_info</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#list" title="(in Python v3.5)"><em>list</em></a>) – A list of RunInfo objects carrying information about
 all runs represented in the Variable.</p></li>
@@ -305,7 +309,7 @@ data and/or any other attributes.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>data</strong> (<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.0.3)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code></a> or array_like) – Optional new data to substitute into
+<li><p><strong>data</strong> (<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.0.5)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code></a> or array_like) – Optional new data to substitute into
 the cloned column. Must have same dimensionality as the
 original.</p></li>
 <li><p><strong>kwargs</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#dict" title="(in Python v3.5)"><em>dict</em></a>) – Optional keyword arguments containing new attribute
@@ -417,7 +421,7 @@ of rows to keep.</p>
 <dd><p>Split the current SparseRunVariable into multiple columns.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>grouper</strong> (<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.0.3)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code></a>) – Binary DF specifying the design matrix to use for splitting. Number
+<dd class="field-odd"><p><strong>grouper</strong> (<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.0.5)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code></a>) – Binary DF specifying the design matrix to use for splitting. Number
 of rows must match current <code class="docutils literal notranslate"><span class="pre">SparseRunVariable</span></code>;
 a new <code class="docutils literal notranslate"><span class="pre">SparseRunVariable</span></code> will be generated for each column in
 the grouper.</p>
@@ -492,7 +496,7 @@ the current column name.</p></li>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2019, Developers of PyBIDS
+        &copy; Copyright 2015-2020, Developers of PyBIDS
 
     </p>
   </div>

@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>bids.layout.writing &mdash; PyBIDS 0.10.2+64.g1bf62ab documentation</title>
+  <title>bids.layout.writing &mdash; PyBIDS 0.11.1 documentation</title>
   
 
   
@@ -21,10 +21,10 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
-        <script src="../../../_static/jquery.js"></script>
-        <script src="../../../_static/underscore.js"></script>
-        <script src="../../../_static/doctools.js"></script>
-        <script src="../../../_static/language_data.js"></script>
+        <script type="text/javascript" src="../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../../_static/language_data.js"></script>
     
     <script type="text/javascript" src="../../../_static/js/theme.js"></script>
 
@@ -56,6 +56,10 @@
 
           
             
+            
+              <div class="version">
+                0.11.1
+              </div>
             
           
 
@@ -153,12 +157,13 @@
 <span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">re</span>
 <span class="kn">import</span> <span class="nn">sys</span>
-<span class="kn">from</span> <span class="nn">string</span> <span class="kn">import</span> <span class="n">Formatter</span>
-<span class="kn">from</span> <span class="nn">itertools</span> <span class="kn">import</span> <span class="n">product</span>
-<span class="kn">from</span> <span class="nn">..utils</span> <span class="kn">import</span> <span class="n">splitext</span><span class="p">,</span> <span class="n">listify</span>
-<span class="kn">from</span> <span class="nn">os.path</span> <span class="kn">import</span> <span class="n">join</span><span class="p">,</span> <span class="n">dirname</span><span class="p">,</span> <span class="n">exists</span><span class="p">,</span> <span class="n">islink</span><span class="p">,</span> <span class="n">isabs</span><span class="p">,</span> <span class="n">isdir</span>
+<span class="kn">import</span> <span class="nn">shutil</span>
+<span class="kn">from</span> <span class="nn">string</span> <span class="k">import</span> <span class="n">Formatter</span>
+<span class="kn">from</span> <span class="nn">itertools</span> <span class="k">import</span> <span class="n">product</span>
+<span class="kn">from</span> <span class="nn">..utils</span> <span class="k">import</span> <span class="n">splitext</span><span class="p">,</span> <span class="n">listify</span>
+<span class="kn">from</span> <span class="nn">os.path</span> <span class="k">import</span> <span class="n">join</span><span class="p">,</span> <span class="n">dirname</span><span class="p">,</span> <span class="n">exists</span><span class="p">,</span> <span class="n">islink</span><span class="p">,</span> <span class="n">isabs</span><span class="p">,</span> <span class="n">isdir</span>
 
-<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;build_path&#39;</span><span class="p">,</span> <span class="s1">&#39;write_contents_to_file&#39;</span><span class="p">]</span>
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;build_path&#39;</span><span class="p">,</span> <span class="s1">&#39;write_to_file&#39;</span><span class="p">]</span>
 
 <span class="n">_PATTERN_FIND</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;({([\w\d]*?)(?:&lt;([^&gt;]+)&gt;)?(?:\|((?:\.?[\w])+))?\})&#39;</span><span class="p">)</span>
 
@@ -199,7 +204,7 @@
 <span class="sd">    Examples</span>
 <span class="sd">    --------</span>
 <span class="sd">    &gt;&gt;&gt; entities = {</span>
-<span class="sd">    ...     &#39;extension&#39;: &#39;nii&#39;,</span>
+<span class="sd">    ...     &#39;extension&#39;: &#39;.nii&#39;,</span>
 <span class="sd">    ...     &#39;space&#39;: &#39;MNI&#39;,</span>
 <span class="sd">    ...     &#39;subject&#39;: &#39;001&#39;,</span>
 <span class="sd">    ...     &#39;suffix&#39;: &#39;inplaneT2&#39;,</span>
@@ -207,12 +212,12 @@
 <span class="sd">    &gt;&gt;&gt; patterns = [&#39;sub-{subject}[/ses-{session}]/anat/sub-{subject}[_ses-{session}]&#39;</span>
 <span class="sd">    ...             &#39;[_acq-{acquisition}][_ce-{ceagent}][_rec-{reconstruction}]_&#39;</span>
 <span class="sd">    ...             &#39;{suffix&lt;T[12]w|T1rho|T[12]map|T2star|FLAIR|FLASH|PDmap|PD|PDT2|&#39;</span>
-<span class="sd">    ...             &#39;inplaneT[12]|angio&gt;}.{extension&lt;nii|nii.gz|json&gt;|nii.gz}&#39;,</span>
+<span class="sd">    ...             &#39;inplaneT[12]|angio&gt;}{extension&lt;.nii|.nii.gz|.json&gt;|.nii.gz}&#39;,</span>
 <span class="sd">    ...             &#39;sub-{subject}[/ses-{session}]/anat/sub-{subject}[_ses-{session}]&#39;</span>
 <span class="sd">    ...             &#39;[_acq-{acquisition}][_ce-{ceagent}][_rec-{reconstruction}]&#39;</span>
 <span class="sd">    ...             &#39;[_space-{space}][_desc-{desc}]_{suffix&lt;T1w|T2w|T1rho|T1map|T2map|&#39;</span>
-<span class="sd">    ...             &#39;T2star|FLAIR|FLASH|PDmap|PD|PDT2|inplaneT[12]|angio&gt;}.&#39;</span>
-<span class="sd">    ...             &#39;{extension&lt;nii|nii.gz|json&gt;|nii.gz}&#39;]</span>
+<span class="sd">    ...             &#39;T2star|FLAIR|FLASH|PDmap|PD|PDT2|inplaneT[12]|angio&gt;}&#39;</span>
+<span class="sd">    ...             &#39;{extension&lt;.nii|.nii.gz|.json&gt;|.nii.gz}&#39;]</span>
 <span class="sd">    &gt;&gt;&gt; build_path(entities, patterns)</span>
 <span class="sd">    &#39;sub-001/anat/sub-001_inplaneT2.nii&#39;</span>
 
@@ -249,19 +254,19 @@
 <span class="sd">    True</span>
 
 <span class="sd">    &gt;&gt;&gt; entities = {</span>
-<span class="sd">    ...     &#39;extension&#39;: &#39;bvec&#39;,</span>
+<span class="sd">    ...     &#39;extension&#39;: &#39;.bvec&#39;,</span>
 <span class="sd">    ...     &#39;subject&#39;: &#39;001&#39;,</span>
 <span class="sd">    ... }</span>
 <span class="sd">    &gt;&gt;&gt; patterns = (</span>
 <span class="sd">    ...     &quot;sub-{subject}[/ses-{session}]/{datatype|dwi}/sub-{subject}[_ses-{session}]&quot;</span>
-<span class="sd">    ...     &quot;[_acq-{acquisition}]_{suffix|dwi}.{extension&lt;bval|bvec|json|nii.gz|nii&gt;|nii.gz}&quot;</span>
+<span class="sd">    ...     &quot;[_acq-{acquisition}]_{suffix|dwi}{extension&lt;.bval|.bvec|.json|.nii.gz|.nii&gt;|.nii.gz}&quot;</span>
 <span class="sd">    ... )</span>
 <span class="sd">    &gt;&gt;&gt; build_path(entities, patterns, strict=True)</span>
 <span class="sd">    &#39;sub-001/dwi/sub-001_dwi.bvec&#39;</span>
 
 <span class="sd">    &gt;&gt;&gt; # Lists of entities are expanded</span>
 <span class="sd">    &gt;&gt;&gt; entities = {</span>
-<span class="sd">    ...     &#39;extension&#39;: &#39;bvec&#39;,</span>
+<span class="sd">    ...     &#39;extension&#39;: &#39;.bvec&#39;,</span>
 <span class="sd">    ...     &#39;subject&#39;: [&#39;%02d&#39; % i for i in range(1, 4)],</span>
 <span class="sd">    ... }</span>
 <span class="sd">    &gt;&gt;&gt; build_path(entities, patterns, strict=True)</span>
@@ -272,10 +277,6 @@
 
     <span class="c1"># Drop None and empty-strings, keep zeros, and listify</span>
     <span class="n">entities</span> <span class="o">=</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="n">listify</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">entities</span><span class="o">.</span><span class="n">items</span><span class="p">()</span> <span class="k">if</span> <span class="n">v</span> <span class="ow">or</span> <span class="n">v</span> <span class="o">==</span> <span class="mi">0</span><span class="p">}</span>
-
-    <span class="c1"># One less source of confusion</span>
-    <span class="k">if</span> <span class="s1">&#39;extension&#39;</span> <span class="ow">in</span> <span class="n">entities</span><span class="p">:</span>
-        <span class="n">entities</span><span class="p">[</span><span class="s1">&#39;extension&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">e</span><span class="o">.</span><span class="n">lstrip</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">)</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">entities</span><span class="p">[</span><span class="s1">&#39;extension&#39;</span><span class="p">]]</span>
 
     <span class="c1"># Loop over available patherns, return first one that matches all</span>
     <span class="k">for</span> <span class="n">pattern</span> <span class="ow">in</span> <span class="n">path_patterns</span><span class="p">:</span>
@@ -293,6 +294,16 @@
         <span class="c1"># Expand options within valid values and</span>
         <span class="c1"># check whether entities provided have acceptable value</span>
         <span class="n">tmp_entities</span> <span class="o">=</span> <span class="n">entities</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>  <span class="c1"># Do not modify the original query</span>
+
+        <span class="c1"># Accept extensions with and without leading dot</span>
+        <span class="k">if</span> <span class="s1">&#39;extension&#39;</span> <span class="ow">in</span> <span class="n">tmp_entities</span><span class="p">:</span>
+            <span class="n">exts</span> <span class="o">=</span> <span class="p">[</span><span class="n">e</span><span class="o">.</span><span class="n">lstrip</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">)</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">tmp_entities</span><span class="p">[</span><span class="s1">&#39;extension&#39;</span><span class="p">]]</span>
+            <span class="c1"># Does this pattern place a dot before the extension, or expect it inside?</span>
+            <span class="k">if</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;\.\{extension&#39;</span><span class="p">,</span> <span class="n">pattern</span><span class="p">):</span>
+                <span class="n">tmp_entities</span><span class="p">[</span><span class="s1">&#39;extension&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">exts</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">tmp_entities</span><span class="p">[</span><span class="s1">&#39;extension&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;.&#39;</span> <span class="o">+</span> <span class="n">e</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">exts</span><span class="p">]</span>
+
         <span class="k">for</span> <span class="n">fmt</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">valid</span><span class="p">,</span> <span class="n">defval</span> <span class="ow">in</span> <span class="n">entities_matched</span><span class="p">:</span>
             <span class="n">valid_expanded</span> <span class="o">=</span> <span class="p">[</span><span class="n">v</span> <span class="k">for</span> <span class="n">val</span> <span class="ow">in</span> <span class="n">valid</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;|&#39;</span><span class="p">)</span> <span class="k">if</span> <span class="n">val</span>
                               <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">_expand_options</span><span class="p">(</span><span class="n">val</span><span class="p">)]</span>
@@ -300,10 +311,11 @@
                 <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
                     <span class="s1">&#39;Pattern &quot;</span><span class="si">%s</span><span class="s1">&quot; is inconsistent as it defines an invalid default value.&#39;</span> <span class="o">%</span> <span class="n">fmt</span>
                 <span class="p">)</span>
+
             <span class="k">if</span> <span class="p">(</span>
                 <span class="n">valid_expanded</span>
-                <span class="ow">and</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">entities</span>
-                <span class="ow">and</span> <span class="nb">set</span><span class="p">(</span><span class="n">entities</span><span class="p">[</span><span class="n">name</span><span class="p">])</span> <span class="o">-</span> <span class="nb">set</span><span class="p">(</span><span class="n">valid_expanded</span><span class="p">)</span>
+                <span class="ow">and</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">tmp_entities</span>
+                <span class="ow">and</span> <span class="nb">set</span><span class="p">(</span><span class="n">tmp_entities</span><span class="p">[</span><span class="n">name</span><span class="p">])</span> <span class="o">-</span> <span class="nb">set</span><span class="p">(</span><span class="n">valid_expanded</span><span class="p">)</span>
             <span class="p">):</span>
                 <span class="k">continue</span>
 
@@ -346,11 +358,10 @@
     <span class="k">return</span> <span class="kc">None</span></div>
 
 
-<div class="viewcode-block" id="write_contents_to_file"><a class="viewcode-back" href="../../../generated/bids.layout.writing.html#bids.layout.writing.write_contents_to_file">[docs]</a><span class="k">def</span> <span class="nf">write_contents_to_file</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">contents</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">link_to</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-                           <span class="n">content_mode</span><span class="o">=</span><span class="s1">&#39;text&#39;</span><span class="p">,</span> <span class="n">root</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">conflicts</span><span class="o">=</span><span class="s1">&#39;fail&#39;</span><span class="p">):</span>
+<div class="viewcode-block" id="write_to_file"><a class="viewcode-back" href="../../../generated/bids.layout.writing.html#bids.layout.writing.write_to_file">[docs]</a><span class="k">def</span> <span class="nf">write_to_file</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">contents</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">link_to</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">copy_from</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                  <span class="n">content_mode</span><span class="o">=</span><span class="s1">&#39;text&#39;</span><span class="p">,</span> <span class="n">root</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">conflicts</span><span class="o">=</span><span class="s1">&#39;fail&#39;</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Uses provided filename patterns to write contents to a new path, given</span>
-<span class="sd">    a corresponding entity map.</span>
+<span class="sd">    Writes provided contents to a new path, or copies from an old path.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -361,8 +372,11 @@
 <span class="sd">        to the new path.</span>
 <span class="sd">    link_to : str</span>
 <span class="sd">        Optional path with which to create a symbolic link to.</span>
-<span class="sd">        Used as an alternative to and takes priority over the contents</span>
+<span class="sd">        Used as an alternative to, and takes priority over, the contents</span>
 <span class="sd">        argument.</span>
+<span class="sd">    copy_from : str</span>
+<span class="sd">        Optional filename to copy to new location. Used an alternative to, and</span>
+<span class="sd">        takes priority over, the contents argument.</span>
 <span class="sd">    content_mode : {&#39;text&#39;, &#39;binary&#39;}</span>
 <span class="sd">        Either &#39;text&#39; or &#39;binary&#39; to indicate the writing</span>
 <span class="sd">        mode for the new file. Only relevant if contents is provided.</span>
@@ -414,14 +428,19 @@
     <span class="k">if</span> <span class="ow">not</span> <span class="n">exists</span><span class="p">(</span><span class="n">dirname</span><span class="p">(</span><span class="n">path</span><span class="p">)):</span>
         <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">dirname</span><span class="p">(</span><span class="n">path</span><span class="p">))</span>
 
-    <span class="k">if</span> <span class="n">link_to</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">link_to</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">os</span><span class="o">.</span><span class="n">symlink</span><span class="p">(</span><span class="n">link_to</span><span class="p">,</span> <span class="n">path</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">copy_from</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">exists</span><span class="p">(</span><span class="n">copy_from</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Source file &#39;</span><span class="si">{}</span><span class="s2">&#39; does not exist.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">copy_from</span><span class="p">))</span>
+        <span class="n">shutil</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">copy_from</span><span class="p">,</span> <span class="n">path</span><span class="p">)</span>
+
     <span class="k">elif</span> <span class="n">contents</span><span class="p">:</span>
         <span class="n">mode</span> <span class="o">=</span> <span class="s1">&#39;wb&#39;</span> <span class="k">if</span> <span class="n">content_mode</span> <span class="o">==</span> <span class="s1">&#39;binary&#39;</span> <span class="k">else</span> <span class="s1">&#39;w&#39;</span>
         <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">mode</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
             <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">contents</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;One of contents or link_to must be provided.&#39;</span><span class="p">)</span></div>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;One of contents, copy_from or link_to must be provided.&#39;</span><span class="p">)</span></div>
 
 
 <span class="k">def</span> <span class="nf">_expand_options</span><span class="p">(</span><span class="n">value</span><span class="p">):</span>
@@ -496,7 +515,7 @@
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2019, Developers of PyBIDS
+        &copy; Copyright 2015-2020, Developers of PyBIDS
 
     </p>
   </div>

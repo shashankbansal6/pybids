@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>bids.config &mdash; PyBIDS 0.10.2+64.g1bf62ab documentation</title>
+  <title>bids.config &mdash; PyBIDS 0.11.1 documentation</title>
   
 
   
@@ -21,10 +21,10 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
-        <script src="../../_static/jquery.js"></script>
-        <script src="../../_static/underscore.js"></script>
-        <script src="../../_static/doctools.js"></script>
-        <script src="../../_static/language_data.js"></script>
+        <script type="text/javascript" src="../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../_static/language_data.js"></script>
     
     <script type="text/javascript" src="../../_static/js/theme.js"></script>
 
@@ -56,6 +56,10 @@
 
           
             
+            
+              <div class="version">
+                0.11.1
+              </div>
             
           
 
@@ -148,9 +152,10 @@
 <span></span><span class="sd">&#39;&#39;&#39; Utilities for manipulating package-level settings. &#39;&#39;&#39;</span>
 
 <span class="kn">import</span> <span class="nn">json</span>
-<span class="kn">from</span> <span class="nn">os.path</span> <span class="kn">import</span> <span class="n">join</span><span class="p">,</span> <span class="n">expanduser</span><span class="p">,</span> <span class="n">exists</span>
+<span class="kn">from</span> <span class="nn">os.path</span> <span class="k">import</span> <span class="n">join</span><span class="p">,</span> <span class="n">expanduser</span><span class="p">,</span> <span class="n">exists</span>
 <span class="kn">import</span> <span class="nn">os</span>
-<span class="kn">from</span> <span class="nn">io</span> <span class="kn">import</span> <span class="nb">open</span>
+<span class="kn">from</span> <span class="nn">io</span> <span class="k">import</span> <span class="nb">open</span>
+<span class="kn">import</span> <span class="nn">warnings</span>
 
 <span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;set_option&#39;</span><span class="p">,</span> <span class="s1">&#39;set_options&#39;</span><span class="p">,</span> <span class="s1">&#39;get_option&#39;</span><span class="p">]</span>
 
@@ -159,8 +164,11 @@
 <span class="n">conf_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="vm">__file__</span><span class="p">)),</span>
                          <span class="s1">&#39;layout&#39;</span><span class="p">,</span> <span class="s1">&#39;config&#39;</span><span class="p">,</span> <span class="s1">&#39;</span><span class="si">{}</span><span class="s1">.json&#39;</span><span class="p">)</span>
 <span class="n">_default_settings</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="c1"># XXX 0.14: Remove bids-nodot option (and file)</span>
     <span class="s1">&#39;config_paths&#39;</span><span class="p">:</span> <span class="p">{</span>
-        <span class="n">name</span><span class="p">:</span> <span class="n">conf_path</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">name</span><span class="p">)</span> <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;bids&#39;</span><span class="p">,</span> <span class="s1">&#39;derivatives&#39;</span><span class="p">]}</span>
+        <span class="n">name</span><span class="p">:</span> <span class="n">conf_path</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">name</span><span class="p">)</span> <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;bids&#39;</span><span class="p">,</span> <span class="s1">&#39;derivatives&#39;</span><span class="p">,</span> <span class="s1">&#39;bids-nodot&#39;</span><span class="p">]},</span>
+    <span class="c1"># XXX 0.14: Set to True</span>
+    <span class="s1">&#39;extension_initial_dot&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
 <span class="p">}</span>
 
 
@@ -173,6 +181,10 @@
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="n">key</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">_settings</span><span class="p">:</span>
         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Invalid pybids setting: &#39;</span><span class="si">%s</span><span class="s2">&#39;&quot;</span> <span class="o">%</span> <span class="n">key</span><span class="p">)</span>
+    <span class="c1"># XXX 0.14: Raise error</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span> <span class="o">==</span> <span class="p">(</span><span class="s2">&quot;extension_initial_dot&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">):</span>
+        <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s2">&quot;Setting &#39;extension_initial_dot&#39; to False will be disabled in &quot;</span>
+                      <span class="s2">&quot;pybids 0.14&quot;</span><span class="p">,</span> <span class="ne">FutureWarning</span><span class="p">)</span>
     <span class="n">_settings</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span></div>
 
 
@@ -259,7 +271,7 @@
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2019, Developers of PyBIDS
+        &copy; Copyright 2015-2020, Developers of PyBIDS
 
     </p>
   </div>

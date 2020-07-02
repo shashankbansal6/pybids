@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>bids.variables.collections &mdash; PyBIDS 0.10.2+64.g1bf62ab documentation</title>
+  <title>bids.variables.collections &mdash; PyBIDS 0.11.1 documentation</title>
   
 
   
@@ -21,10 +21,10 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
-        <script src="../../../_static/jquery.js"></script>
-        <script src="../../../_static/underscore.js"></script>
-        <script src="../../../_static/doctools.js"></script>
-        <script src="../../../_static/language_data.js"></script>
+        <script type="text/javascript" src="../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../../_static/language_data.js"></script>
     
     <script type="text/javascript" src="../../../_static/js/theme.js"></script>
 
@@ -56,6 +56,10 @@
 
           
             
+            
+              <div class="version">
+                0.11.1
+              </div>
             
           
 
@@ -146,20 +150,20 @@
             
   <h1>Source code for bids.variables.collections</h1><div class="highlight"><pre>
 <span></span><span class="sd">&quot;&quot;&quot;Classes and functions related to the management of sets of BIDSVariables.&quot;&quot;&quot;</span>
-<span class="kn">from</span> <span class="nn">copy</span> <span class="kn">import</span> <span class="n">copy</span>
+<span class="kn">from</span> <span class="nn">copy</span> <span class="k">import</span> <span class="n">copy</span>
 <span class="kn">import</span> <span class="nn">warnings</span>
 <span class="kn">import</span> <span class="nn">re</span>
-<span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">OrderedDict</span>
-<span class="kn">from</span> <span class="nn">itertools</span> <span class="kn">import</span> <span class="n">chain</span>
+<span class="kn">from</span> <span class="nn">collections</span> <span class="k">import</span> <span class="n">OrderedDict</span>
+<span class="kn">from</span> <span class="nn">itertools</span> <span class="k">import</span> <span class="n">chain</span>
 <span class="kn">import</span> <span class="nn">fnmatch</span>
 
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">from</span> <span class="nn">pandas.api.types</span> <span class="kn">import</span> <span class="n">is_numeric_dtype</span>
+<span class="kn">from</span> <span class="nn">pandas.api.types</span> <span class="k">import</span> <span class="n">is_numeric_dtype</span>
 
-<span class="kn">from</span> <span class="nn">.variables</span> <span class="kn">import</span> <span class="p">(</span><span class="n">SparseRunVariable</span><span class="p">,</span> <span class="n">SimpleVariable</span><span class="p">,</span> <span class="n">DenseRunVariable</span><span class="p">,</span>
+<span class="kn">from</span> <span class="nn">.variables</span> <span class="k">import</span> <span class="p">(</span><span class="n">SparseRunVariable</span><span class="p">,</span> <span class="n">SimpleVariable</span><span class="p">,</span> <span class="n">DenseRunVariable</span><span class="p">,</span>
                         <span class="n">merge_variables</span><span class="p">,</span> <span class="n">BIDSVariable</span><span class="p">)</span>
-<span class="kn">from</span> <span class="nn">bids.utils</span> <span class="kn">import</span> <span class="n">listify</span><span class="p">,</span> <span class="n">matches_entities</span>
+<span class="kn">from</span> <span class="nn">bids.utils</span> <span class="k">import</span> <span class="n">listify</span><span class="p">,</span> <span class="n">matches_entities</span>
 
 
 <div class="viewcode-block" id="BIDSVariableCollection"><a class="viewcode-back" href="../../../generated/bids.variables.collections.html#bids.variables.BIDSVariableCollection">[docs]</a><span class="k">class</span> <span class="nc">BIDSVariableCollection</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
@@ -178,7 +182,7 @@
 <span class="sd">    run-level Variables, use the BIDSRunVariableCollection.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-<div class="viewcode-block" id="BIDSVariableCollection.__init__"><a class="viewcode-back" href="../../../generated/bids.variables.BIDSVariableCollection.html#bids.variables.BIDSVariableCollection.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">variables</span><span class="p">):</span>
+<div class="viewcode-block" id="BIDSVariableCollection.__init__"><a class="viewcode-back" href="../../../generated/bids.variables.BIDSVariableCollection.html#bids.variables.BIDSVariableCollection.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">variables</span><span class="p">):</span>
 
         <span class="k">if</span> <span class="ow">not</span> <span class="n">variables</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;No variables were provided&quot;</span><span class="p">)</span>
@@ -365,14 +369,14 @@
             <span class="n">ents</span> <span class="o">=</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="n">all_ents</span><span class="p">[</span><span class="n">k</span><span class="p">]</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">keep</span><span class="p">}</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">entities</span> <span class="o">=</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="n">v</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">ents</span><span class="o">.</span><span class="n">items</span><span class="p">()</span> <span class="k">if</span> <span class="n">pd</span><span class="o">.</span><span class="n">notnull</span><span class="p">(</span><span class="n">v</span><span class="p">)}</span>
 
-    <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">var</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">var</span><span class="p">):</span>
         <span class="k">if</span> <span class="n">var</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">variables</span><span class="p">:</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">variables</span><span class="p">[</span><span class="n">var</span><span class="p">]</span>
         <span class="n">keys</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">variables</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;No variable named &#39;</span><span class="si">{}</span><span class="s2">&#39; found in this collection. &quot;</span>
                          <span class="s2">&quot;Available names are </span><span class="si">{}</span><span class="s2">.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">var</span><span class="p">,</span> <span class="n">keys</span><span class="p">))</span>
 
-    <span class="k">def</span> <span class="fm">__setitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">var</span><span class="p">,</span> <span class="n">obj</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__setitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">var</span><span class="p">,</span> <span class="n">obj</span><span class="p">):</span>
         <span class="c1"># Ensure name matches collection key, but raise warning if needed.</span>
         <span class="k">if</span> <span class="n">obj</span><span class="o">.</span><span class="n">name</span> <span class="o">!=</span> <span class="n">var</span><span class="p">:</span>
             <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s2">&quot;The provided key to use in the collection (&#39;</span><span class="si">%s</span><span class="s2">&#39;) &quot;</span>
@@ -436,7 +440,7 @@
 <span class="sd">    BIDSVariableCollection.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-<div class="viewcode-block" id="BIDSRunVariableCollection.__init__"><a class="viewcode-back" href="../../../generated/bids.variables.BIDSRunVariableCollection.html#bids.variables.BIDSRunVariableCollection.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">variables</span><span class="p">,</span> <span class="n">sampling_rate</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="BIDSRunVariableCollection.__init__"><a class="viewcode-back" href="../../../generated/bids.variables.BIDSRunVariableCollection.html#bids.variables.BIDSRunVariableCollection.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">variables</span><span class="p">,</span> <span class="n">sampling_rate</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="c1"># Don&#39;t put the default value in signature because None is passed from</span>
         <span class="c1"># several places and we don&#39;t want multiple conflicting defaults.</span>
         <span class="k">if</span> <span class="n">sampling_rate</span><span class="p">:</span>
@@ -748,7 +752,7 @@
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2019, Developers of PyBIDS
+        &copy; Copyright 2015-2020, Developers of PyBIDS
 
     </p>
   </div>

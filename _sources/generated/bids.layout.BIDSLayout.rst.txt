@@ -34,7 +34,7 @@ bids.layout.BIDSLayout
       ~BIDSLayout.parse_file_entities
       ~BIDSLayout.save
       ~BIDSLayout.to_df
-      ~BIDSLayout.write_contents_to_file
+      ~BIDSLayout.write_to_file
    
    
 

@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>bids.layout.BIDSDataFile &mdash; PyBIDS 0.10.2+64.g1bf62ab documentation</title>
+  <title>bids.layout.BIDSDataFile &mdash; PyBIDS 0.11.1 documentation</title>
   
 
   
@@ -21,10 +21,10 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-        <script src="../_static/jquery.js"></script>
-        <script src="../_static/underscore.js"></script>
-        <script src="../_static/doctools.js"></script>
-        <script src="../_static/language_data.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -58,6 +58,10 @@
 
           
             
+            
+              <div class="version">
+                0.11.1
+              </div>
             
           
 
@@ -335,7 +339,7 @@ include_parents=True.</p></li>
 
 <dl class="method">
 <dt id="bids.layout.BIDSDataFile.get_df">
-<code class="sig-name descname">get_df</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">include_timing=True</em>, <em class="sig-param">adjust_onset=False</em>, <em class="sig-param">enforce_dtypes=True</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bids/layout/models.html#BIDSDataFile.get_df"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bids.layout.BIDSDataFile.get_df" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">get_df</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">include_timing=True</em>, <em class="sig-param">adjust_onset=False</em>, <em class="sig-param">enforce_dtypes=True</em>, <em class="sig-param">**pd_args</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bids/layout/models.html#BIDSDataFile.get_df"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bids.layout.BIDSDataFile.get_df" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return the contents of a tsv file as a pandas DataFrame.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -349,13 +353,14 @@ Ignored if include_timing=False.</p></li>
 <li><p><strong>enforce_dtypes</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#bool" title="(in Python v3.5)"><em>bool</em></a>) – If True, enforces the data types defined in
 the BIDS spec on core columns (e.g., subject_id and session_id
 must be represented as strings).</p></li>
+<li><p><strong>pd_args</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#dict" title="(in Python v3.5)"><em>dict</em></a>) – Optional keyword arguments to pass onto pd.read_csv().</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>A pandas DataFrame.</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.0.3)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code></a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.0.5)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code></a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -424,7 +429,7 @@ instances.</p>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2019, Developers of PyBIDS
+        &copy; Copyright 2015-2020, Developers of PyBIDS
 
     </p>
   </div>

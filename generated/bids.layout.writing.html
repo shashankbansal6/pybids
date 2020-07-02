@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>bids.layout.writing &mdash; PyBIDS 0.10.2+64.g1bf62ab documentation</title>
+  <title>bids.layout.writing &mdash; PyBIDS 0.11.1 documentation</title>
   
 
   
@@ -21,10 +21,10 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-        <script src="../_static/jquery.js"></script>
-        <script src="../_static/underscore.js"></script>
-        <script src="../_static/doctools.js"></script>
-        <script src="../_static/language_data.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -58,6 +58,10 @@
 
           
             
+            
+              <div class="version">
+                0.11.1
+              </div>
             
           
 
@@ -185,8 +189,8 @@
 <tr class="row-odd"><td><p><a class="reference internal" href="#bids.layout.writing.build_path" title="bids.layout.writing.build_path"><code class="xref py py-obj docutils literal notranslate"><span class="pre">build_path</span></code></a>(entities, path_patterns[, strict])</p></td>
 <td><p>Constructs a path given a set of entities and a list of potential filename patterns to use.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#bids.layout.writing.write_contents_to_file" title="bids.layout.writing.write_contents_to_file"><code class="xref py py-obj docutils literal notranslate"><span class="pre">write_contents_to_file</span></code></a>(path[, contents, …])</p></td>
-<td><p>Uses provided filename patterns to write contents to a new path, given a corresponding entity map.</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#bids.layout.writing.write_to_file" title="bids.layout.writing.write_to_file"><code class="xref py py-obj docutils literal notranslate"><span class="pre">write_to_file</span></code></a>(path[, contents, link_to, …])</p></td>
+<td><p>Writes provided contents to a new path, or copies from an old path.</p></td>
 </tr>
 </tbody>
 </table>
@@ -226,8 +230,8 @@ be ignored so long as all mandatory entities are found.</p></li>
 </dd>
 </dl>
 <p class="rubric">Examples</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">entities</span> <span class="o">=</span> <span class="p">{</span>
-<span class="gp">... </span>    <span class="s1">&#39;extension&#39;</span><span class="p">:</span> <span class="s1">&#39;nii&#39;</span><span class="p">,</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">entities</span> <span class="o">=</span> <span class="p">{</span>
+<span class="gp">... </span>    <span class="s1">&#39;extension&#39;</span><span class="p">:</span> <span class="s1">&#39;.nii&#39;</span><span class="p">,</span>
 <span class="gp">... </span>    <span class="s1">&#39;space&#39;</span><span class="p">:</span> <span class="s1">&#39;MNI&#39;</span><span class="p">,</span>
 <span class="gp">... </span>    <span class="s1">&#39;subject&#39;</span><span class="p">:</span> <span class="s1">&#39;001&#39;</span><span class="p">,</span>
 <span class="gp">... </span>    <span class="s1">&#39;suffix&#39;</span><span class="p">:</span> <span class="s1">&#39;inplaneT2&#39;</span><span class="p">,</span>
@@ -235,70 +239,70 @@ be ignored so long as all mandatory entities are found.</p></li>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">patterns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;sub-</span><span class="si">{subject}</span><span class="s1">[/ses-</span><span class="si">{session}</span><span class="s1">]/anat/sub-</span><span class="si">{subject}</span><span class="s1">[_ses-</span><span class="si">{session}</span><span class="s1">]&#39;</span>
 <span class="gp">... </span>            <span class="s1">&#39;[_acq-</span><span class="si">{acquisition}</span><span class="s1">][_ce-</span><span class="si">{ceagent}</span><span class="s1">][_rec-</span><span class="si">{reconstruction}</span><span class="s1">]_&#39;</span>
 <span class="gp">... </span>            <span class="s1">&#39;{suffix&lt;T[12]w|T1rho|T[12]map|T2star|FLAIR|FLASH|PDmap|PD|PDT2|&#39;</span>
-<span class="gp">... </span>            <span class="s1">&#39;inplaneT[12]|angio&gt;}.{extension&lt;nii|nii.gz|json&gt;|nii.gz}&#39;</span><span class="p">,</span>
+<span class="gp">... </span>            <span class="s1">&#39;inplaneT[12]|angio&gt;}{extension&lt;.nii|.nii.gz|.json&gt;|.nii.gz}&#39;</span><span class="p">,</span>
 <span class="gp">... </span>            <span class="s1">&#39;sub-</span><span class="si">{subject}</span><span class="s1">[/ses-</span><span class="si">{session}</span><span class="s1">]/anat/sub-</span><span class="si">{subject}</span><span class="s1">[_ses-</span><span class="si">{session}</span><span class="s1">]&#39;</span>
 <span class="gp">... </span>            <span class="s1">&#39;[_acq-</span><span class="si">{acquisition}</span><span class="s1">][_ce-</span><span class="si">{ceagent}</span><span class="s1">][_rec-</span><span class="si">{reconstruction}</span><span class="s1">]&#39;</span>
 <span class="gp">... </span>            <span class="s1">&#39;[_space-</span><span class="si">{space}</span><span class="s1">][_desc-</span><span class="si">{desc}</span><span class="s1">]_{suffix&lt;T1w|T2w|T1rho|T1map|T2map|&#39;</span>
-<span class="gp">... </span>            <span class="s1">&#39;T2star|FLAIR|FLASH|PDmap|PD|PDT2|inplaneT[12]|angio&gt;}.&#39;</span>
-<span class="gp">... </span>            <span class="s1">&#39;{extension&lt;nii|nii.gz|json&gt;|nii.gz}&#39;</span><span class="p">]</span>
+<span class="gp">... </span>            <span class="s1">&#39;T2star|FLAIR|FLASH|PDmap|PD|PDT2|inplaneT[12]|angio&gt;}&#39;</span>
+<span class="gp">... </span>            <span class="s1">&#39;{extension&lt;.nii|.nii.gz|.json&gt;|.nii.gz}&#39;</span><span class="p">]</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">build_path</span><span class="p">(</span><span class="n">entities</span><span class="p">,</span> <span class="n">patterns</span><span class="p">)</span>
 <span class="go">&#39;sub-001/anat/sub-001_inplaneT2.nii&#39;</span>
 </pre></div>
 </div>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">build_path</span><span class="p">(</span><span class="n">entities</span><span class="p">,</span> <span class="n">patterns</span><span class="p">,</span> <span class="n">strict</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">build_path</span><span class="p">(</span><span class="n">entities</span><span class="p">,</span> <span class="n">patterns</span><span class="p">,</span> <span class="n">strict</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="go">&#39;sub-001/anat/sub-001_space-MNI_inplaneT2.nii&#39;</span>
 </pre></div>
 </div>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">entities</span><span class="p">[</span><span class="s1">&#39;space&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">entities</span><span class="p">[</span><span class="s1">&#39;space&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">build_path</span><span class="p">(</span><span class="n">entities</span><span class="p">,</span> <span class="n">patterns</span><span class="p">,</span> <span class="n">strict</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="go">&#39;sub-001/anat/sub-001_inplaneT2.nii&#39;</span>
 </pre></div>
 </div>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># If some entity is set to None, they are dropped</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># If some entity is set to None, they are dropped</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">entities</span><span class="p">[</span><span class="s1">&#39;extension&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">build_path</span><span class="p">(</span><span class="n">entities</span><span class="p">,</span> <span class="n">patterns</span><span class="p">,</span> <span class="n">strict</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="go">&#39;sub-001/anat/sub-001_inplaneT2.nii.gz&#39;</span>
 </pre></div>
 </div>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># If some entity is set to empty-string, they are dropped</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># If some entity is set to empty-string, they are dropped</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">entities</span><span class="p">[</span><span class="s1">&#39;extension&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">build_path</span><span class="p">(</span><span class="n">entities</span><span class="p">,</span> <span class="n">patterns</span><span class="p">,</span> <span class="n">strict</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="go">&#39;sub-001/anat/sub-001_inplaneT2.nii.gz&#39;</span>
 </pre></div>
 </div>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># If some selector is not in the pattern, skip it...</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># If some selector is not in the pattern, skip it...</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">entities</span><span class="p">[</span><span class="s1">&#39;datatype&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;anat&#39;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">build_path</span><span class="p">(</span><span class="n">entities</span><span class="p">,</span> <span class="n">patterns</span><span class="p">)</span>
 <span class="go">&#39;sub-001/anat/sub-001_inplaneT2.nii.gz&#39;</span>
 </pre></div>
 </div>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># ... unless the pattern should be strictly matched</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># ... unless the pattern should be strictly matched</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">entities</span><span class="p">[</span><span class="s1">&#39;datatype&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;anat&#39;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">build_path</span><span class="p">(</span><span class="n">entities</span><span class="p">,</span> <span class="n">patterns</span><span class="p">,</span> <span class="n">strict</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">None</span>
 <span class="go">True</span>
 </pre></div>
 </div>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># If the value of an entity is not valid, do not match the pattern</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># If the value of an entity is not valid, do not match the pattern</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">entities</span><span class="p">[</span><span class="s1">&#39;suffix&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;bold&#39;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">build_path</span><span class="p">(</span><span class="n">entities</span><span class="p">,</span> <span class="n">patterns</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">None</span>
 <span class="go">True</span>
 </pre></div>
 </div>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">entities</span> <span class="o">=</span> <span class="p">{</span>
-<span class="gp">... </span>    <span class="s1">&#39;extension&#39;</span><span class="p">:</span> <span class="s1">&#39;bvec&#39;</span><span class="p">,</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">entities</span> <span class="o">=</span> <span class="p">{</span>
+<span class="gp">... </span>    <span class="s1">&#39;extension&#39;</span><span class="p">:</span> <span class="s1">&#39;.bvec&#39;</span><span class="p">,</span>
 <span class="gp">... </span>    <span class="s1">&#39;subject&#39;</span><span class="p">:</span> <span class="s1">&#39;001&#39;</span><span class="p">,</span>
 <span class="gp">... </span><span class="p">}</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">patterns</span> <span class="o">=</span> <span class="p">(</span>
 <span class="gp">... </span>    <span class="s2">&quot;sub-</span><span class="si">{subject}</span><span class="s2">[/ses-</span><span class="si">{session}</span><span class="s2">]/{datatype|dwi}/sub-</span><span class="si">{subject}</span><span class="s2">[_ses-</span><span class="si">{session}</span><span class="s2">]&quot;</span>
-<span class="gp">... </span>    <span class="s2">&quot;[_acq-</span><span class="si">{acquisition}</span><span class="s2">]_{suffix|dwi}.{extension&lt;bval|bvec|json|nii.gz|nii&gt;|nii.gz}&quot;</span>
+<span class="gp">... </span>    <span class="s2">&quot;[_acq-</span><span class="si">{acquisition}</span><span class="s2">]_{suffix|dwi}{extension&lt;.bval|.bvec|.json|.nii.gz|.nii&gt;|.nii.gz}&quot;</span>
 <span class="gp">... </span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">build_path</span><span class="p">(</span><span class="n">entities</span><span class="p">,</span> <span class="n">patterns</span><span class="p">,</span> <span class="n">strict</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="go">&#39;sub-001/dwi/sub-001_dwi.bvec&#39;</span>
 </pre></div>
 </div>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Lists of entities are expanded</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Lists of entities are expanded</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">entities</span> <span class="o">=</span> <span class="p">{</span>
-<span class="gp">... </span>    <span class="s1">&#39;extension&#39;</span><span class="p">:</span> <span class="s1">&#39;bvec&#39;</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="s1">&#39;extension&#39;</span><span class="p">:</span> <span class="s1">&#39;.bvec&#39;</span><span class="p">,</span>
 <span class="gp">... </span>    <span class="s1">&#39;subject&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;</span><span class="si">%02d</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">)],</span>
 <span class="gp">... </span><span class="p">}</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">build_path</span><span class="p">(</span><span class="n">entities</span><span class="p">,</span> <span class="n">patterns</span><span class="p">,</span> <span class="n">strict</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
@@ -308,10 +312,9 @@ be ignored so long as all mandatory entities are found.</p></li>
 </dd></dl>
 
 <dl class="function">
-<dt id="bids.layout.writing.write_contents_to_file">
-<code class="sig-name descname">write_contents_to_file</code><span class="sig-paren">(</span><em class="sig-param">path</em>, <em class="sig-param">contents=None</em>, <em class="sig-param">link_to=None</em>, <em class="sig-param">content_mode='text'</em>, <em class="sig-param">root=None</em>, <em class="sig-param">conflicts='fail'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bids/layout/writing.html#write_contents_to_file"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bids.layout.writing.write_contents_to_file" title="Permalink to this definition">¶</a></dt>
-<dd><p>Uses provided filename patterns to write contents to a new path, given
-a corresponding entity map.</p>
+<dt id="bids.layout.writing.write_to_file">
+<code class="sig-name descname">write_to_file</code><span class="sig-paren">(</span><em class="sig-param">path</em>, <em class="sig-param">contents=None</em>, <em class="sig-param">link_to=None</em>, <em class="sig-param">copy_from=None</em>, <em class="sig-param">content_mode='text'</em>, <em class="sig-param">root=None</em>, <em class="sig-param">conflicts='fail'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bids/layout/writing.html#write_to_file"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bids.layout.writing.write_to_file" title="Permalink to this definition">¶</a></dt>
+<dd><p>Writes provided contents to a new path, or copies from an old path.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -319,8 +322,10 @@ a corresponding entity map.</p>
 <li><p><strong>contents</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a>) – Raw text or binary encoded string of contents to write
 to the new path.</p></li>
 <li><p><strong>link_to</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a>) – Optional path with which to create a symbolic link to.
-Used as an alternative to and takes priority over the contents
+Used as an alternative to, and takes priority over, the contents
 argument.</p></li>
+<li><p><strong>copy_from</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a>) – Optional filename to copy to new location. Used an alternative to, and
+takes priority over, the contents argument.</p></li>
 <li><p><strong>content_mode</strong> (<em>{'text'</em><em>, </em><em>'binary'}</em>) – Either ‘text’ or ‘binary’ to indicate the writing
 mode for the new file. Only relevant if contents is provided.</p></li>
 <li><p><strong>root</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a>) – Optional root directory that all patterns are relative
@@ -357,7 +362,7 @@ to each file copy, starting with 1. Default is ‘fail’.</p></li>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2019, Developers of PyBIDS
+        &copy; Copyright 2015-2020, Developers of PyBIDS
 
     </p>
   </div>

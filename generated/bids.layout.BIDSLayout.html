@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>bids.layout.BIDSLayout &mdash; PyBIDS 0.10.2+64.g1bf62ab documentation</title>
+  <title>bids.layout.BIDSLayout &mdash; PyBIDS 0.11.1 documentation</title>
   
 
   
@@ -21,10 +21,10 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-        <script src="../_static/jquery.js"></script>
-        <script src="../_static/underscore.js"></script>
-        <script src="../_static/doctools.js"></script>
-        <script src="../_static/language_data.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -58,6 +58,10 @@
 
           
             
+            
+              <div class="version">
+                0.11.1
+              </div>
             
           
 
@@ -316,8 +320,8 @@ indexing will be faster).</p></li>
 <tr class="row-even"><td><p><a class="reference internal" href="#bids.layout.BIDSLayout.to_df" title="bids.layout.BIDSLayout.to_df"><code class="xref py py-obj docutils literal notranslate"><span class="pre">to_df</span></code></a>(self[, metadata])</p></td>
 <td><p>Return information for BIDSFiles tracked in Layout as pd.DataFrame.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#bids.layout.BIDSLayout.write_contents_to_file" title="bids.layout.BIDSLayout.write_contents_to_file"><code class="xref py py-obj docutils literal notranslate"><span class="pre">write_contents_to_file</span></code></a>(self, entities[, …])</p></td>
-<td><p>Write arbitrary data to a file defined by the passed entities and path patterns.</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#bids.layout.BIDSLayout.write_to_file" title="bids.layout.BIDSLayout.write_to_file"><code class="xref py py-obj docutils literal notranslate"><span class="pre">write_to_file</span></code></a>(self, entities[, …])</p></td>
+<td><p>Write data to a file defined by the passed entities and patterns.</p></td>
 </tr>
 </tbody>
 </table>
@@ -397,8 +401,8 @@ indexing will be faster).</p></li>
 <tr class="row-odd"><td><p><a class="reference internal" href="#bids.layout.BIDSLayout.to_df" title="bids.layout.BIDSLayout.to_df"><code class="xref py py-obj docutils literal notranslate"><span class="pre">to_df</span></code></a>(self[, metadata])</p></td>
 <td><p>Return information for BIDSFiles tracked in Layout as pd.DataFrame.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#bids.layout.BIDSLayout.write_contents_to_file" title="bids.layout.BIDSLayout.write_contents_to_file"><code class="xref py py-obj docutils literal notranslate"><span class="pre">write_contents_to_file</span></code></a>(self, entities[, …])</p></td>
-<td><p>Write arbitrary data to a file defined by the passed entities and path patterns.</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#bids.layout.BIDSLayout.write_to_file" title="bids.layout.BIDSLayout.write_to_file"><code class="xref py py-obj docutils literal notranslate"><span class="pre">write_to_file</span></code></a>(self, entities[, …])</p></td>
+<td><p>Write data to a file defined by the passed entities and patterns.</p></td>
 </tr>
 </tbody>
 </table>
@@ -549,7 +553,7 @@ Must be one of:</p>
 
 <dl class="method">
 <dt id="bids.layout.BIDSLayout.get">
-<code class="sig-name descname">get</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">return_type='object'</em>, <em class="sig-param">target=None</em>, <em class="sig-param">scope='all'</em>, <em class="sig-param">regex_search=False</em>, <em class="sig-param">absolute_paths=None</em>, <em class="sig-param">drop_invalid_filters=True</em>, <em class="sig-param">**filters</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bids/layout/layout.html#BIDSLayout.get"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bids.layout.BIDSLayout.get" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">get</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">return_type='object'</em>, <em class="sig-param">target=None</em>, <em class="sig-param">scope='all'</em>, <em class="sig-param">regex_search=False</em>, <em class="sig-param">absolute_paths=None</em>, <em class="sig-param">invalid_filters='error'</em>, <em class="sig-param">**filters</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bids/layout/layout.html#BIDSLayout.get"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bids.layout.BIDSLayout.get" title="Permalink to this definition">¶</a></dt>
 <dd><p>Retrieve files and/or metadata from the current Layout.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -580,6 +584,20 @@ to each entity.</p></li>
 to report either absolute or relative (to the top of the
 dataset) paths. If None, will fall back on the value specified
 at BIDSLayout initialization.</p></li>
+<li><p><strong>(</strong><strong>str</strong><strong>)</strong> (<em>invalid_filters</em>) – <p>encountered that don’t exist in the database (e.g., in the case of
+a typo like subbject=’0.1’). Valid values:</p>
+<blockquote>
+<div><p>’error’ (default): Raise an explicit error.
+‘drop’: Silently drop invalid filters (equivalent to not having</p>
+<blockquote>
+<div><p>passed them as arguments in the first place).</p>
+</div></blockquote>
+<dl class="simple">
+<dt>’allow’: Include the invalid filters in the query, resulting</dt><dd><p>in no results being returned.</p>
+</dd>
+</dl>
+</div></blockquote>
+</p></li>
 <li><p><strong>filters</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#dict" title="(in Python v3.5)"><em>dict</em></a>) – <p>Any optional key/values to filter the entities on.
 Keys are entity names, values are regexes to filter on. For
 example, passing filters={‘subject’: ‘sub-[12]’} would return
@@ -606,11 +624,6 @@ Query class):</p>
 <dd class="field-odd"><p>list of <a class="reference internal" href="bids.layout.BIDSFile.html#bids.layout.BIDSFile" title="bids.layout.BIDSFile"><code class="xref py py-obj docutils literal notranslate"><span class="pre">bids.layout.BIDSFile</span></code></a> or str</p>
 </dd>
 </dl>
-<p class="rubric">Notes</p>
-<ul class="simple">
-<li><p>In pybids 0.9.0, the ‘extensions’ argument has been removed in
-favor of the ‘extension’ entity.</p></li>
-</ul>
 </dd></dl>
 
 <dl class="method">
@@ -937,16 +950,15 @@ a tracked entity. NaNs are injected whenever a file has no
 value for a given attribute.</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.0.3)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code></a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.0.5)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code></a></p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="method">
-<dt id="bids.layout.BIDSLayout.write_contents_to_file">
-<code class="sig-name descname">write_contents_to_file</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">entities</em>, <em class="sig-param">path_patterns=None</em>, <em class="sig-param">contents=None</em>, <em class="sig-param">link_to=None</em>, <em class="sig-param">content_mode='text'</em>, <em class="sig-param">conflicts='fail'</em>, <em class="sig-param">strict=False</em>, <em class="sig-param">validate=True</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bids/layout/layout.html#BIDSLayout.write_contents_to_file"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bids.layout.BIDSLayout.write_contents_to_file" title="Permalink to this definition">¶</a></dt>
-<dd><p>Write arbitrary data to a file defined by the passed entities and
-path patterns.</p>
+<dt id="bids.layout.BIDSLayout.write_to_file">
+<code class="sig-name descname">write_to_file</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">entities</em>, <em class="sig-param">path_patterns=None</em>, <em class="sig-param">contents=None</em>, <em class="sig-param">link_to=None</em>, <em class="sig-param">copy_from=None</em>, <em class="sig-param">content_mode='text'</em>, <em class="sig-param">conflicts='fail'</em>, <em class="sig-param">strict=False</em>, <em class="sig-param">validate=True</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bids/layout/layout.html#BIDSLayout.write_to_file"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bids.layout.BIDSLayout.write_to_file" title="Permalink to this definition">¶</a></dt>
+<dd><p>Write data to a file defined by the passed entities and patterns.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -1005,7 +1017,7 @@ returned (e.g., if an entity value contains a hyphen).</p></li>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2019, Developers of PyBIDS
+        &copy; Copyright 2015-2020, Developers of PyBIDS
 
     </p>
   </div>

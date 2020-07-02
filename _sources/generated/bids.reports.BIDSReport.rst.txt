@@ -15,6 +15,7 @@ bids.reports.BIDSReport
    
       ~BIDSReport.__init__
       ~BIDSReport.generate
+      ~BIDSReport.generate_from_files
    
    
 

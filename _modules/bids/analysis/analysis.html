@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>bids.analysis.analysis &mdash; PyBIDS 0.10.2+64.g1bf62ab documentation</title>
+  <title>bids.analysis.analysis &mdash; PyBIDS 0.11.1 documentation</title>
   
 
   
@@ -21,10 +21,10 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
-        <script src="../../../_static/jquery.js"></script>
-        <script src="../../../_static/underscore.js"></script>
-        <script src="../../../_static/doctools.js"></script>
-        <script src="../../../_static/language_data.js"></script>
+        <script type="text/javascript" src="../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../../_static/language_data.js"></script>
     
     <script type="text/javascript" src="../../../_static/js/theme.js"></script>
 
@@ -56,6 +56,10 @@
 
           
             
+            
+              <div class="version">
+                0.11.1
+              </div>
             
           
 
@@ -148,18 +152,18 @@
 <span></span><span class="sd">&quot;&quot;&quot;BIDS-StatsModels functionality.&quot;&quot;&quot;</span>
 
 <span class="kn">import</span> <span class="nn">json</span>
-<span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">namedtuple</span><span class="p">,</span> <span class="n">OrderedDict</span>
-<span class="kn">from</span> <span class="nn">itertools</span> <span class="kn">import</span> <span class="n">chain</span>
+<span class="kn">from</span> <span class="nn">collections</span> <span class="k">import</span> <span class="n">namedtuple</span><span class="p">,</span> <span class="n">OrderedDict</span>
+<span class="kn">from</span> <span class="nn">itertools</span> <span class="k">import</span> <span class="n">chain</span>
 
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 
-<span class="kn">from</span> <span class="nn">bids.layout</span> <span class="kn">import</span> <span class="n">BIDSLayout</span>
-<span class="kn">from</span> <span class="nn">bids.utils</span> <span class="kn">import</span> <span class="n">matches_entities</span><span class="p">,</span> <span class="n">convert_JSON</span>
-<span class="kn">from</span> <span class="nn">bids.variables</span> <span class="kn">import</span> <span class="p">(</span><span class="n">BIDSVariableCollection</span><span class="p">,</span> <span class="n">SparseRunVariable</span><span class="p">,</span>
+<span class="kn">from</span> <span class="nn">bids.layout</span> <span class="k">import</span> <span class="n">BIDSLayout</span>
+<span class="kn">from</span> <span class="nn">bids.utils</span> <span class="k">import</span> <span class="n">matches_entities</span><span class="p">,</span> <span class="n">convert_JSON</span>
+<span class="kn">from</span> <span class="nn">bids.variables</span> <span class="k">import</span> <span class="p">(</span><span class="n">BIDSVariableCollection</span><span class="p">,</span> <span class="n">SparseRunVariable</span><span class="p">,</span>
                             <span class="n">merge_collections</span><span class="p">)</span>
-<span class="kn">from</span> <span class="nn">bids.analysis</span> <span class="kn">import</span> <span class="n">transformations</span> <span class="k">as</span> <span class="n">tm</span>
-<span class="kn">from</span> <span class="nn">.model_spec</span> <span class="kn">import</span> <span class="n">create_model_spec</span>
+<span class="kn">from</span> <span class="nn">bids.analysis</span> <span class="k">import</span> <span class="n">transformations</span> <span class="k">as</span> <span class="n">tm</span>
+<span class="kn">from</span> <span class="nn">.model_spec</span> <span class="k">import</span> <span class="n">create_model_spec</span>
 
 
 <div class="viewcode-block" id="Analysis"><a class="viewcode-back" href="../../../generated/bids.analysis.Analysis.html#bids.analysis.Analysis">[docs]</a><span class="k">class</span> <span class="nc">Analysis</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
@@ -176,7 +180,7 @@
 <span class="sd">        dict containing the model info.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-<div class="viewcode-block" id="Analysis.__init__"><a class="viewcode-back" href="../../../generated/bids.analysis.Analysis.html#bids.analysis.Analysis.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">layout</span><span class="p">,</span> <span class="n">model</span><span class="p">):</span>
+<div class="viewcode-block" id="Analysis.__init__"><a class="viewcode-back" href="../../../generated/bids.analysis.Analysis.html#bids.analysis.Analysis.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">layout</span><span class="p">,</span> <span class="n">model</span><span class="p">):</span>
 
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">layout</span><span class="p">,</span> <span class="n">BIDSLayout</span><span class="p">):</span>
             <span class="n">layout</span> <span class="o">=</span> <span class="n">BIDSLayout</span><span class="p">(</span><span class="n">layout</span><span class="p">)</span>
@@ -184,11 +188,11 @@
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_load_model</span><span class="p">(</span><span class="n">model</span><span class="p">)</span></div>
 
-    <span class="k">def</span> <span class="fm">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">for</span> <span class="n">b</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">steps</span><span class="p">:</span>
             <span class="k">yield</span> <span class="n">b</span>
 
-    <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">):</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">steps</span><span class="p">[</span><span class="n">index</span><span class="p">]</span>
         <span class="n">level</span> <span class="o">=</span> <span class="n">index</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
@@ -280,7 +284,7 @@
 <span class="sd">        by the setting in setup() if the latter is passed.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-<div class="viewcode-block" id="Step.__init__"><a class="viewcode-back" href="../../../generated/bids.analysis.analysis.Step.html#bids.analysis.Step.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">layout</span><span class="p">,</span> <span class="n">level</span><span class="p">,</span> <span class="n">index</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">transformations</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+<div class="viewcode-block" id="Step.__init__"><a class="viewcode-back" href="../../../generated/bids.analysis.analysis.Step.html#bids.analysis.Step.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">layout</span><span class="p">,</span> <span class="n">level</span><span class="p">,</span> <span class="n">index</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">transformations</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                  <span class="n">model</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">contrasts</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">inputs</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">dummy_contrasts</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">layout</span> <span class="o">=</span> <span class="n">layout</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">level</span> <span class="o">=</span> <span class="n">level</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
@@ -573,7 +577,7 @@
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2019, Developers of PyBIDS
+        &copy; Copyright 2015-2020, Developers of PyBIDS
 
     </p>
   </div>

@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>bids.layout.BIDSValidator &mdash; PyBIDS 0.10.2+64.g1bf62ab documentation</title>
+  <title>bids.layout.BIDSValidator &mdash; PyBIDS 0.11.1 documentation</title>
   
 
   
@@ -21,10 +21,10 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-        <script src="../_static/jquery.js"></script>
-        <script src="../_static/underscore.js"></script>
-        <script src="../_static/doctools.js"></script>
-        <script src="../_static/language_data.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -58,6 +58,10 @@
 
           
             
+            
+              <div class="version">
+                0.11.1
+              </div>
             
           
 
@@ -177,9 +181,29 @@
 <dl class="class">
 <dt id="bids.layout.BIDSValidator">
 <em class="property">class </em><code class="sig-name descname">BIDSValidator</code><span class="sig-paren">(</span><em class="sig-param">index_associated=True</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bids_validator/bids_validator.html#BIDSValidator"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bids.layout.BIDSValidator" title="Permalink to this definition">¶</a></dt>
-<dd><p>Object for BIDS (Brain Imaging Data Structure) verification.</p>
+<dd><p>An object for BIDS (Brain Imaging Data Structure) verification in a data.</p>
 <p>The main method of this class is <cite>is_bids()</cite>. You should use it for
-checking whether a file path is compatible with BIDS.</p>
+checking whether a file path compatible with BIDS.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>index_associated</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#bool" title="(in Python v3.5)"><em>bool</em></a><em>, </em><em>default: True</em>) – Specifies if an associated data should be checked. If it is true then
+any file paths in directories <cite>code/</cite>, <cite>derivatives/</cite>, <cite>sourcedata/</cite>
+and <cite>stimuli/</cite> will pass the validation, else they won’t.</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">bids.grabbids</span> <span class="k">import</span> <span class="n">BIDSValidator</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">validator</span> <span class="o">=</span> <span class="n">BIDSValidator</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">filepaths</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;/sub-01/anat/sub-01_rec-CSD_T1w.nii.gz&quot;</span><span class="p">,</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="s2">&quot;/sub-01/anat/sub-01_acq-23_rec-CSD_T1w.exe&quot;</span><span class="p">,</span> <span class="c1">#wrong extension</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="s2">&quot;/participants.tsv&quot;</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">filepath</span> <span class="ow">in</span> <span class="n">filepaths</span><span class="p">:</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="nb">print</span><span class="p">(</span> <span class="n">validator</span><span class="o">.</span><span class="n">is_bids</span><span class="p">(</span><span class="n">filepath</span><span class="p">)</span> <span class="p">)</span>
+<span class="go">True</span>
+<span class="go">False</span>
+<span class="go">True</span>
+</pre></div>
+</div>
 <p class="rubric">Methods</p>
 <table class="longtable docutils align-default">
 <colgroup>
@@ -187,20 +211,14 @@ checking whether a file path is compatible with BIDS.</p>
 <col style="width: 90%" />
 </colgroup>
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#bids.layout.BIDSValidator.conditional_match" title="bids.layout.BIDSValidator.conditional_match"><code class="xref py py-obj docutils literal notranslate"><span class="pre">conditional_match</span></code></a>(self, expression, path)</p></td>
-<td><p>Find conditional match.</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#bids.layout.BIDSValidator.get_path_values" title="bids.layout.BIDSValidator.get_path_values"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_path_values</span></code></a>(self, path)</p></td>
-<td><p>Return values for path keys “sub” and “ses”.</p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#bids.layout.BIDSValidator.get_regular_expressions" title="bids.layout.BIDSValidator.get_regular_expressions"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_regular_expressions</span></code></a>(self, file_name)</p></td>
-<td><p>Read regular expressions from a file.</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#bids.layout.BIDSValidator.get_path_values" title="bids.layout.BIDSValidator.get_path_values"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_path_values</span></code></a>(self, path)</p></td>
+<td><p>Takes a file path and returns values found for the following path keys:     sub-     ses-</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#bids.layout.BIDSValidator.is_associated_data" title="bids.layout.BIDSValidator.is_associated_data"><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_associated_data</span></code></a>(self, path)</p></td>
 <td><p>Check if file is appropriate associated data.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#bids.layout.BIDSValidator.is_bids" title="bids.layout.BIDSValidator.is_bids"><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_bids</span></code></a>(self, path)</p></td>
-<td><p>Check if file path adheres to BIDS.</p></td>
+<td><p>Checks if a file path appropriate for BIDS.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#bids.layout.BIDSValidator.is_file" title="bids.layout.BIDSValidator.is_file"><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_file</span></code></a>(self, path)</p></td>
 <td><p>Check if file is phenotypic data.</p></td>
@@ -219,18 +237,24 @@ checking whether a file path is compatible with BIDS.</p>
 </tr>
 </tbody>
 </table>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 73%" />
+<col style="width: 27%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><strong>conditional_match</strong></p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><strong>get_regular_expressions</strong></p></td>
+<td></td>
+</tr>
+</tbody>
+</table>
 <dl class="method">
 <dt id="bids.layout.BIDSValidator.__init__">
 <code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">index_associated=True</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bids_validator/bids_validator.html#BIDSValidator.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bids.layout.BIDSValidator.__init__" title="Permalink to this definition">¶</a></dt>
-<dd><p>Initialize BIDSValidator object.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>index_associated</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#bool" title="(in Python v3.5)"><em>bool</em></a>) – Specifies if an associated data should be checked. If it is true
-then any file paths in directories <cite>code/</cite>, <cite>derivatives/</cite>,
-<cite>sourcedata/</cite> and <cite>stimuli/</cite> will pass the validation, else they
-won’t. Defaults to True.</p>
-</dd>
-</dl>
+<dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
 </dd></dl>
 
 <p class="rubric">Methods</p>
@@ -241,22 +265,22 @@ won’t. Defaults to True.</p>
 </colgroup>
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="#bids.layout.BIDSValidator.__init__" title="bids.layout.BIDSValidator.__init__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__init__</span></code></a>(self[, index_associated])</p></td>
-<td><p>Initialize BIDSValidator object.</p></td>
+<td><p>Initialize self.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#bids.layout.BIDSValidator.conditional_match" title="bids.layout.BIDSValidator.conditional_match"><code class="xref py py-obj docutils literal notranslate"><span class="pre">conditional_match</span></code></a>(self, expression, path)</p></td>
-<td><p>Find conditional match.</p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">conditional_match</span></code>(self, expression, path)</p></td>
+<td><p></p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#bids.layout.BIDSValidator.get_path_values" title="bids.layout.BIDSValidator.get_path_values"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_path_values</span></code></a>(self, path)</p></td>
-<td><p>Return values for path keys “sub” and “ses”.</p></td>
+<td><p>Takes a file path and returns values found for the following path keys:     sub-     ses-</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#bids.layout.BIDSValidator.get_regular_expressions" title="bids.layout.BIDSValidator.get_regular_expressions"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_regular_expressions</span></code></a>(self, file_name)</p></td>
-<td><p>Read regular expressions from a file.</p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_regular_expressions</span></code>(self, fileName)</p></td>
+<td><p></p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#bids.layout.BIDSValidator.is_associated_data" title="bids.layout.BIDSValidator.is_associated_data"><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_associated_data</span></code></a>(self, path)</p></td>
 <td><p>Check if file is appropriate associated data.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#bids.layout.BIDSValidator.is_bids" title="bids.layout.BIDSValidator.is_bids"><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_bids</span></code></a>(self, path)</p></td>
-<td><p>Check if file path adheres to BIDS.</p></td>
+<td><p>Checks if a file path appropriate for BIDS.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#bids.layout.BIDSValidator.is_file" title="bids.layout.BIDSValidator.is_file"><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_file</span></code></a>(self, path)</p></td>
 <td><p>Check if file is phenotypic data.</p></td>
@@ -276,21 +300,14 @@ won’t. Defaults to True.</p>
 </tbody>
 </table>
 <dl class="method">
-<dt id="bids.layout.BIDSValidator.conditional_match">
-<code class="sig-name descname">conditional_match</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">expression</em>, <em class="sig-param">path</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bids_validator/bids_validator.html#BIDSValidator.conditional_match"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bids.layout.BIDSValidator.conditional_match" title="Permalink to this definition">¶</a></dt>
-<dd><p>Find conditional match.</p>
-</dd></dl>
-
-<dl class="method">
 <dt id="bids.layout.BIDSValidator.get_path_values">
 <code class="sig-name descname">get_path_values</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">path</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bids_validator/bids_validator.html#BIDSValidator.get_path_values"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bids.layout.BIDSValidator.get_path_values" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return values for path keys “sub” and “ses”.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="bids.layout.BIDSValidator.get_regular_expressions">
-<code class="sig-name descname">get_regular_expressions</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">file_name</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bids_validator/bids_validator.html#BIDSValidator.get_regular_expressions"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bids.layout.BIDSValidator.get_regular_expressions" title="Permalink to this definition">¶</a></dt>
-<dd><p>Read regular expressions from a file.</p>
+<dd><p>Takes a file path and returns values found for the following path
+keys:</p>
+<blockquote>
+<div><p>sub-
+ses-</p>
+</div></blockquote>
 </dd></dl>
 
 <dl class="method">
@@ -302,34 +319,21 @@ won’t. Defaults to True.</p>
 <dl class="method">
 <dt id="bids.layout.BIDSValidator.is_bids">
 <code class="sig-name descname">is_bids</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">path</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bids_validator/bids_validator.html#BIDSValidator.is_bids"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bids.layout.BIDSValidator.is_bids" title="Permalink to this definition">¶</a></dt>
-<dd><p>Check if file path adheres to BIDS.</p>
+<dd><p>Checks if a file path appropriate for BIDS.</p>
 <p>Main method of the validator. uses other class methods for checking
 different aspects of the file path.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>path</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a>) – Path of a file to be checked. Must be relative to root of a BIDS
-dataset.</p>
+<dd class="field-odd"><p><strong>path</strong> (<em>string</em>) – A path of a file you want to check.</p>
 </dd>
 </dl>
-<p class="rubric">Notes</p>
-<p>When you test a file path, make sure that the path is relative to the
-root of the BIDS dataset the file is part of. That is, as soon as the
-file path contains parts outside of the BIDS dataset, the validation
-will fail. For example “home/username/my_dataset/participants.tsv” will
-fail, although “participants.tsv” is a valid BIDS file.</p>
 <p class="rubric">Examples</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">bids_validator</span> <span class="kn">import</span> <span class="n">BIDSValidator</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">bids.grabbids</span> <span class="k">import</span> <span class="n">BIDSValidator</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">validator</span> <span class="o">=</span> <span class="n">BIDSValidator</span><span class="p">()</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">filepaths</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;/sub-01/anat/sub-01_rec-CSD_T1w.nii.gz&quot;</span><span class="p">,</span>
-<span class="gp">... </span><span class="s2">&quot;/sub-01/anat/sub-01_acq-23_rec-CSD_T1w.exe&quot;</span><span class="p">,</span> <span class="c1"># wrong extension</span>
-<span class="gp">... </span><span class="s2">&quot;home/username/my_dataset/participants.tsv&quot;</span><span class="p">,</span> <span class="c1"># not relative to root</span>
-<span class="gp">... </span><span class="s2">&quot;/participants.tsv&quot;</span><span class="p">]</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">filepath</span> <span class="ow">in</span> <span class="n">filepaths</span><span class="p">:</span>
-<span class="gp">... </span>    <span class="nb">print</span><span class="p">(</span><span class="n">validator</span><span class="o">.</span><span class="n">is_bids</span><span class="p">(</span><span class="n">filepath</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">validator</span><span class="o">.</span><span class="n">is_bids</span><span class="p">(</span><span class="s2">&quot;/sub-01/ses-test/anat/sub-01_ses-test_rec-CSD_run-23_T1w.nii.gz&quot;</span><span class="p">)</span>
 <span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">validator</span><span class="o">.</span><span class="n">is_bids</span><span class="p">(</span><span class="s2">&quot;/sub-01/ses-test/sub-01_run-01_dwi.bvec&quot;</span><span class="p">)</span> <span class="c1"># missed session in the filename</span>
 <span class="go">False</span>
-<span class="go">False</span>
-<span class="go">True</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -388,7 +392,7 @@ fail, although “participants.tsv” is a valid BIDS file.</p>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2019, Developers of PyBIDS
+        &copy; Copyright 2015-2020, Developers of PyBIDS
 
     </p>
   </div>
