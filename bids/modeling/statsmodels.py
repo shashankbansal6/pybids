@@ -642,7 +642,7 @@ class BIDSStatsModelsNodeOutput:
                 coll = transformer.transform(coll.clone(), transformations['instructions'])
 
             # retain only variables listed in 'X', and skip level if none are left.
-            tm.Select(coll, var_names)
+            coll.variables = {v: coll.variables[v] for v in var_names if v in coll.variables}
             if not coll.variables:
                 continue
 
